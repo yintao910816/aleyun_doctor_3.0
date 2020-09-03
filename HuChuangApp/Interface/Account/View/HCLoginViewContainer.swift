@@ -26,9 +26,7 @@ class HCLoginViewContainer: UIView {
     private var agreeLabel: YYLabel!
     
     private var platformContainer: UIView!
-    private var leftLine: UIView!
     private var platformRemindLabel: UILabel!
-    private var rightLine: UIView!
     public var wchatLoginButton: UIButton!
 
     public let agreeSignal = Variable(false)
@@ -66,14 +64,10 @@ class HCLoginViewContainer: UIView {
         tempSize = agreeLabel.sizeThatFits(.init(width: agreeLabelW, height: CGFloat(MAXFLOAT)))
         agreeLabel.frame = .init(x: agreeButton.frame.maxX + 5, y: agreeButton.frame.minY - 5, width: tempSize.width, height: tempSize.height)
         
-        platformContainer.frame = .init(x: titlelabel.frame.minX, y: height - 85 - 50, width: width - 80, height: 85)
+        platformContainer.frame = .init(x: titlelabel.frame.minX, y: height - 85, width: width - 80, height: 40)
         
-        tempSize = platformRemindLabel.sizeThatFits(.init(width: CGFloat(MAXFLOAT), height: 20))
-        let lineW: CGFloat = (platformContainer.width - tempSize.width - 40) / 2.0
-        leftLine.frame = .init(x: 0, y: 9, width: lineW, height: 1)
-        platformRemindLabel.frame = .init(x: leftLine.frame.maxX + 20, y: 0, width: tempSize.width, height: 20)
-        rightLine.frame = .init(x: platformRemindLabel.frame.maxX + 20, y: leftLine.frame.minY, width: lineW, height: 1)
-        wchatLoginButton.frame = .init(x: (platformContainer.width - 50) / 2.0, y: platformRemindLabel.frame.maxY + 15, width: 50, height: 50)
+        platformRemindLabel.frame = .init(x: 0, y: 10, width: 70, height: 20)
+        wchatLoginButton.frame = .init(x: platformContainer.width - 40, y: 0, width: 40, height: 40)
     }
 }
 
@@ -83,7 +77,7 @@ extension HCLoginViewContainer {
         backgroundColor = .white
         
         titlelabel = UILabel()
-        titlelabel.text = "登录进入爱乐孕"
+        titlelabel.text = "登录"
         titlelabel.font = .font(fontSize: 16, fontName: .PingFSemibold)
         titlelabel.textColor = .black
         
@@ -151,18 +145,12 @@ extension HCLoginViewContainer {
         
         platformContainer = UIView()
         platformContainer.backgroundColor = .white
-        
-        leftLine = UIView()
-        leftLine.backgroundColor = RGB(229, 229, 229)
-        
+            
         platformRemindLabel = UILabel()
-        platformRemindLabel.text = "其它方式登录"
+        platformRemindLabel.text = "第三方登录"
         platformRemindLabel.font = .font(fontSize: 14)
-        platformRemindLabel.textColor = RGB(43, 43, 43)
+        platformRemindLabel.textColor = RGB(216, 216, 216)
         
-        rightLine = UIView()
-        rightLine.backgroundColor = RGB(229, 229, 229)
-
         wchatLoginButton = UIButton()
         wchatLoginButton.setImage(UIImage(named: "wchat_login"), for: .normal)
         
@@ -179,9 +167,7 @@ extension HCLoginViewContainer {
         addSubview(agreeLabel)
 
         addSubview(platformContainer)
-        platformContainer.addSubview(leftLine)
         platformContainer.addSubview(platformRemindLabel)
-        platformContainer.addSubview(rightLine)
         platformContainer.addSubview(wchatLoginButton)
         
         #if DEBUG

@@ -9,20 +9,29 @@
 import UIKit
 
 public let HCHomeHeaderReusableView_identifier = "HCHomeHeaderReusableView"
-public let HCHomeHeaderReusableView_height: CGFloat = 220
 
 class HCHomeHeaderReusableView: UICollectionReusableView {
    
-    private let menuBgTag: Int = 100
-    private let menuIconTag: Int = 200
-    private let menuTitleTag: Int = 300
-    private let menuSubTitleTag: Int = 400
-    private let menuButtonTag: Int = 500
-
     private var colorBgView: UIImageView!
+    private var qrCodeButton: UIButton!
+    private var noticeButton: UIButton!
+    private var settingButton: UIButton!
+    private var avatarBgView: UIImageView!
+    private var avatar: UIButton!
+    private var nameLabel: UILabel!
+    private var markTypeFirstImgV: UIImageView!
+    private var markTypeSecondImgV: UIImageView!
+    private var jobRoleLabel: UILabel!
+    /// 服务患者
+    private var serverPatientLabel: UILabel!
+    /// 好评率
+    private var praiseRateLabel: UILabel!
+    /// 回复率
+    private var replyRateLabel: UILabel!
     
-    private var cornerBgView: UIView!
-    private var shadowBgView: UIView!
+    private var funcCornerBgView: UIView!
+    private var funcShadowBgView: UIView!
+    private var funcCollectionView: UICollectionView!
     
     public var funcItemClicked: ((HCFunctionsMenuModel)->())?
     
@@ -38,45 +47,55 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
     
     public var funcMenuModels: [HCFunctionsMenuModel] = [] {
         didSet {
-            configContentMenu()
+            funcCollectionView.reloadData()
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        colorBgView.frame = .init(x: 0, y: 0, width: width, height: 170)
-        cornerBgView.frame = .init(x: 15, y: height - 140, width: width - 30, height: 140)
-        shadowBgView.frame = cornerBgView.frame
-        
-        if shadowBgView.layer.shadowPath == nil {
-            shadowBgView.setCornerAndShaow(shadowOpacity: 0.05)
+    
+        var safeTop: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            safeTop = safeAreaInsets.top
+            colorBgView.frame = .init(x: 0, y: 0, width: width, height: 384)
+            qrCodeButton.frame = .init(x: 15, y: safeAreaInsets.top + (44 - 20) / 2.0, width: 20, height: 20)
+        } else {
+            colorBgView.frame = .init(x: 0, y: 0, width: width, height: 360)
+            qrCodeButton.frame = .init(x: 15, y: (44 - 20) / 2.0 + 20.0, width: 20, height: 20)
         }
         
-        let menuItenW: CGFloat = cornerBgView.width / 3.0
-        for idx in 0..<funcMenuModels.count {
-            let menuBgView = cornerBgView.viewWithTag(menuBgTag + idx)
-            let menuIconView = menuBgView?.viewWithTag(menuIconTag + idx)
-            let menuTitleLabel = menuBgView?.viewWithTag(menuTitleTag + idx)
-            let menuSubTitleLabel = menuBgView?.viewWithTag(menuSubTitleTag + idx)
-            let menuButton = menuBgView?.viewWithTag(menuButtonTag + idx)
-
-            let iconSize = CGSize.init(width: 40, height: 40)
-            let titleSize = menuTitleLabel?.sizeThatFits(.init(width: menuItenW, height: CGFloat(MAXFLOAT))) ?? CGSize.zero
-            let subTitleSize = menuSubTitleLabel?.sizeThatFits(.init(width: menuItenW, height: CGFloat(MAXFLOAT))) ?? CGSize.zero
-
-            menuBgView?.frame = .init(x: CGFloat(idx) * menuItenW, y: 0, width: menuItenW, height: cornerBgView.height)
-            
-            let totleH: CGFloat = iconSize.height + 5 + titleSize.height + 5 + subTitleSize.height
-            let iconY = (cornerBgView.height - totleH) / 2.0
-            menuIconView?.frame = .init(origin: .init(x: (menuItenW - iconSize.width) / 2.0, y: iconY),
-                                        size: iconSize)
-            menuTitleLabel?.frame = .init(origin: .init(x: 0, y: (menuIconView?.frame.maxY ?? 0) + 5),
-                                          size: .init(width: menuItenW, height: titleSize.height))
-            menuSubTitleLabel?.frame = .init(origin: .init(x: 0, y: (menuTitleLabel?.frame.maxY ?? 0) + 5),
-                                          size: .init(width: menuItenW, height: subTitleSize.height))
-            
-            menuButton?.frame = bounds
+        settingButton.frame = .init(x: width - 35, y: qrCodeButton.y, width: 20, height: 20)
+        noticeButton.frame = .init(x: settingButton.x - 40, y: qrCodeButton.y, width: 20, height: 20)
+        
+        avatarBgView.frame = .init(x: 15, y: qrCodeButton.frame.maxY + 16, width: 72, height: 72)
+        avatar.frame = .init(x: 2, y: 2, width: 68, height: 68)
+        
+        var maxNameWidth: CGFloat = width - avatarBgView.frame.maxX
+        maxNameWidth -= (18 + 10 + 15 + 5 + 15 + 15)
+        var nameSize: CGSize = nameLabel.sizeThatFits(.init(width: CGFloat(MAXFLOAT), height: 31))
+        nameSize.width = nameSize.width > maxNameWidth ? maxNameWidth : nameSize.width
+        nameLabel.frame = .init(x: avatarBgView.frame.maxX + 18, y: avatarBgView.y + 8, width: nameSize.width, height: 31)
+        
+        markTypeFirstImgV.frame = .init(x: nameLabel.frame.maxX + 10, y: nameLabel.frame.maxY - 20, width: 15, height: 20)
+        markTypeSecondImgV.frame = .init(x: markTypeFirstImgV.frame.maxX + 5, y: markTypeFirstImgV.y, width: 15, height: 20)
+        
+        jobRoleLabel.frame = .init(x: nameLabel.x,
+                                   y: nameLabel.frame.maxY + 12,
+                                   width: width - nameLabel.x - 15,
+                                   height: 14)
+        
+        let labelW: CGFloat = width / 3.0
+        serverPatientLabel.frame = .init(x: 0, y: avatarBgView.frame.maxY + 34, width: labelW, height: 33)
+        praiseRateLabel.frame = .init(x: serverPatientLabel.frame.maxX, y: serverPatientLabel.y, width: labelW, height: 33)
+        replyRateLabel.frame = .init(x: praiseRateLabel.frame.maxX, y: serverPatientLabel.y, width: labelW, height: 33)
+        
+        let funcBgHeight: CGFloat = HCHomeHeaderReusableView.colViewHeight(with: width, funcCount: funcMenuModels.count, safeAreaTop: safeTop)
+        funcShadowBgView.frame = .init(x: 15, y: height - funcBgHeight, width: width - 30, height: funcBgHeight)
+        funcCornerBgView.frame = funcShadowBgView.frame
+        funcCollectionView.frame = .init(x: 0, y: 0, width: funcCornerBgView.width, height: funcBgHeight)
+        
+        if funcShadowBgView.layer.shadowPath == nil {
+            funcShadowBgView.setCornerAndShaow(shadowOpacity: 0.05)
         }
     }
 }
@@ -84,74 +103,163 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
 extension HCHomeHeaderReusableView {
     
     private func initUI() {
-        colorBgView = UIImageView.init(image: UIImage(named: "home_header_bg"))
-        colorBgView.contentMode = .scaleAspectFill
-        colorBgView.clipsToBounds = true
-        colorBgView.backgroundColor = RGB(245, 245, 245)
+        backgroundColor = .clear
         
-        shadowBgView = UIView()
-        shadowBgView.backgroundColor = .clear
+        colorBgView = UIImageView()
+        colorBgView.backgroundColor = .orange
+        
+        qrCodeButton = UIButton()
+        qrCodeButton.setImage(UIImage(named: "nav_qr_code"), for: .normal)
 
-        cornerBgView = UIView()
-        cornerBgView.backgroundColor = .white
-        cornerBgView.layer.cornerRadius = 3
-        cornerBgView.clipsToBounds = true
+        noticeButton = UIButton()
+        noticeButton.setImage(UIImage(named: "nav_notice"), for: .normal)
 
-        configContentMenu()
+        settingButton = UIButton()
+        settingButton.setImage(UIImage(named: "nav_setting"), for: .normal)
+
+        avatarBgView = UIImageView(image: UIImage(named: "home_avatar_bg"))
+        avatar = UIButton()
+        avatar.layer.cornerRadius = 34
+        avatar.clipsToBounds = true
+        
+        nameLabel = UILabel()
+        nameLabel.textColor = .white
+        nameLabel.font = .font(fontSize: 32, fontName: .PingFSemibold)
+        
+        markTypeFirstImgV = UIImageView(image: UIImage(named: "hzy"))
+        markTypeSecondImgV = UIImageView(image: UIImage(named: "hze"))
+        
+        jobRoleLabel = UILabel()
+        jobRoleLabel.textColor = RGB(220, 234, 253)
+        jobRoleLabel.font = .font(fontSize: 14)
+
+        serverPatientLabel = UILabel()
+        serverPatientLabel.textColor = RGB(221, 235, 254)
+        serverPatientLabel.font = .font(fontSize: 12)
+        serverPatientLabel.numberOfLines = 2
+        serverPatientLabel.contentMode = .center
+
+        praiseRateLabel = UILabel()
+        praiseRateLabel.textColor = RGB(221, 235, 254)
+        praiseRateLabel.font = .font(fontSize: 12)
+        praiseRateLabel.numberOfLines = 2
+        praiseRateLabel.contentMode = .center
+
+        replyRateLabel = UILabel()
+        replyRateLabel.textColor = RGB(221, 235, 254)
+        replyRateLabel.font = .font(fontSize: 12)
+        replyRateLabel.numberOfLines = 2
+        replyRateLabel.contentMode = .center
+
+        funcShadowBgView = UIView()
+        funcShadowBgView.backgroundColor = .clear
+        
+        funcCornerBgView = UIView()
+        funcCornerBgView.layer.cornerRadius = 7
+        funcCornerBgView.clipsToBounds = true
+        
+        let layout = UICollectionViewFlowLayout()
+        funcCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
+        funcCollectionView.backgroundColor = .white
+        funcCollectionView.showsVerticalScrollIndicator = false
+        funcCollectionView.showsHorizontalScrollIndicator = false
+        funcCollectionView.delegate = self
+        funcCollectionView.dataSource = self
         
         addSubview(colorBgView)
-        addSubview(shadowBgView)
-        insertSubview(cornerBgView, aboveSubview: shadowBgView)
-    }
-    
-    private func configContentMenu() {
-//        let icons = ["app_icon", "app_icon", "app_icon"]
-//        let titles = ["去挂号", "专家问诊", "快速问诊"]
-//        let subTitles = ["海量生殖专家", "一对一咨询", "快问快答"]
+        colorBgView.addSubview(qrCodeButton)
+        colorBgView.addSubview(noticeButton)
+        colorBgView.addSubview(settingButton)
+        colorBgView.addSubview(avatarBgView)
+        avatarBgView.addSubview(avatar)
+        colorBgView.addSubview(nameLabel)
+        colorBgView.addSubview(markTypeFirstImgV)
+        colorBgView.addSubview(markTypeSecondImgV)
+        colorBgView.addSubview(jobRoleLabel)
+        colorBgView.addSubview(serverPatientLabel)
+        colorBgView.addSubview(praiseRateLabel)
+        colorBgView.addSubview(replyRateLabel)
+
+        addSubview(funcShadowBgView)
+        addSubview(funcCornerBgView)
+        funcCornerBgView.addSubview(funcCollectionView)
         
-        for idx in 0..<funcMenuModels.count {
-            let view = UIView()
-            view.backgroundColor = cornerBgView.backgroundColor
-            view.tag = menuBgTag + idx
-            
-            let icon = UIImageView()
-            icon.setImage(funcMenuModels[idx].iconPath)
-            icon.tag = menuIconTag + idx
-            
-            let titleLabel = UILabel()
-            titleLabel.textAlignment = .center
-            titleLabel.font = .font(fontSize: 18, fontName: .PingFSemibold)
-            titleLabel.textColor = RGB(51, 51, 51)
-            titleLabel.tag = menuTitleTag + idx
-            titleLabel.text = funcMenuModels[idx].name
-            
-            let subTitleLabel = UILabel()
-            subTitleLabel.textAlignment = .center
-            subTitleLabel.font = .font(fontSize: 11)
-            subTitleLabel.textColor = RGB(153, 153, 153)
-            subTitleLabel.tag = menuSubTitleTag + idx
-            subTitleLabel.text = funcMenuModels[idx].bak
-            
-            let button = UIButton()
-            button.backgroundColor = .clear
-            button.tag = menuButtonTag + idx
-            button.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
-            
-            cornerBgView.addSubview(view)
-            view.addSubview(icon)
-            view.addSubview(titleLabel)
-            view.addSubview(subTitleLabel)
-            view.addSubview(button)
-        }
-        
-        setNeedsLayout()
-        layoutIfNeeded()
+        funcCollectionView.register(HCFuncMenuCel.self, forCellWithReuseIdentifier: HCFuncMenuCel_identifier)
     }
     
     @objc private func buttonAction(button: UIButton) {
-        let idx = button.tag - menuButtonTag
-        if idx < funcMenuModels.count{
-            funcItemClicked?(funcMenuModels[idx])
-        }
+
     }
+}
+
+extension HCHomeHeaderReusableView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return funcMenuModels.count
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return HCHomeHeaderReusableView.itemSize(forCell: width, funcCount: funcMenuModels.count)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCFuncMenuCel_identifier, for: indexPath) as! HCFuncMenuCel
+        cell.funcModel = funcMenuModels[indexPath.row]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 15
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 20, left: 10, bottom: 20, right: 10)
+    }
+}
+
+extension HCHomeHeaderReusableView {
+    
+    public static func viewHeight(with width: CGFloat, funcCount: Int, safeAreaTop: CGFloat) ->CGFloat {
+
+        var height: CGFloat = HCHomeHeaderReusableView.colViewHeight(with: width, funcCount: funcCount, safeAreaTop: safeAreaTop)
+        
+        /// --- 功能区之上部分
+        height += safeAreaTop
+        height += 230.0
+        
+        return height
+    }
+    
+    private static func colViewHeight(with width: CGFloat, funcCount: Int, safeAreaTop: CGFloat) ->CGFloat {
+        guard funcCount > 0 else { return 0 }
+        
+        let itemSize: CGSize = HCHomeHeaderReusableView.itemSize(forCell: width, funcCount: funcCount)
+        
+        /// --- 功能区
+        // 顶部和底部
+        var height: CGFloat = 20 * 2
+        var lines = funcCount / 4
+        lines = (funcCount % 4) == 0 ? lines : lines + 1;
+        // 行间距之和
+        height += CGFloat((lines - 1) * 15)
+        // cell
+        height += itemSize.height * CGFloat(lines)
+                
+        return height
+    }
+    
+    private static func itemSize(forCell width: CGFloat, funcCount: Int) ->CGSize {
+        let itemWidth: CGFloat = (width - 1 - 15 * 2 - 10 * 2 - 20 * 3) / 4.0
+        let itemHeight: CGFloat = itemWidth + 10 + 13
+        return .init(width: itemWidth, height: itemHeight)
+    }
+
 }

@@ -240,6 +240,7 @@
 		B816EB57221DABF400F024D5 /* ZXingWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B816EA6F221DABF300F024D5 /* ZXingWrapper.m */; };
 		B816EB58221DABF400F024D5 /* LBXZXCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = B816EA70221DABF300F024D5 /* LBXZXCapture.m */; };
 		B816EB5A221DACA600F024D5 /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B816EB59221DACA600F024D5 /* ScanViewModel.swift */; };
+		B818BB6C24FF9D59003842A3 /* HCFuncMenuCel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818BB6B24FF9D59003842A3 /* HCFuncMenuCel.swift */; };
 		B819AF6324C68C3400F88BA7 /* HCOrderRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF6224C68C3400F88BA7 /* HCOrderRecordController.swift */; };
 		B819AF6824C6E3F900F88BA7 /* HCNavBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF6724C6E3F900F88BA7 /* HCNavBarTitleView.swift */; };
 		B819AF6D24C6E5A500F88BA7 /* HCNavBarTitleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF6C24C6E5A500F88BA7 /* HCNavBarTitleData.swift */; };
@@ -1020,6 +1021,7 @@
 		B816EA71221DABF300F024D5 /* ZXingWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXingWrapper.h; sourceTree = "<group>"; };
 		B816EA72221DABF300F024D5 /* LBXScanTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanTypes.h; sourceTree = "<group>"; };
 		B816EB59221DACA600F024D5 /* ScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewModel.swift; sourceTree = "<group>"; };
+		B818BB6B24FF9D59003842A3 /* HCFuncMenuCel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFuncMenuCel.swift; sourceTree = "<group>"; };
 		B819AF6224C68C3400F88BA7 /* HCOrderRecordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCOrderRecordController.swift; sourceTree = "<group>"; };
 		B819AF6724C6E3F900F88BA7 /* HCNavBarTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCNavBarTitleView.swift; sourceTree = "<group>"; };
 		B819AF6C24C6E5A500F88BA7 /* HCNavBarTitleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCNavBarTitleData.swift; sourceTree = "<group>"; };
@@ -3103,6 +3105,7 @@
 			children = (
 				C494137224DE9EF000045749 /* HCHomeViewContainer.swift */,
 				C494137624DEA12B00045749 /* HCHomeHeaderReusableView.swift */,
+				B818BB6B24FF9D59003842A3 /* HCFuncMenuCel.swift */,
 				C4C11AD524E4151E001CBE74 /* HCMenuItemShadowCell.swift */,
 				C4C11AD724E41C6F001CBE74 /* HCMenuHorizontalCell.swift */,
 				C4AB271024E4E9AA0095F693 /* HCNewsReusableView.swift */,
@@ -3621,6 +3624,7 @@
 				B821E34D23070907009A11A3 /* HCLocationManager.swift in Sources */,
 				C4481E2422154D66007F4B0C /* BaseWKWebViewViewController.swift in Sources */,
 				B892FFA023ABB50800A137C0 /* TYFiliterView.swift in Sources */,
+				B818BB6C24FF9D59003842A3 /* HCFuncMenuCel.swift in Sources */,
 				C421332C22056F24006C10C4 /* TYHUD.swift in Sources */,
 				B816EAAA221DABF400F024D5 /* ZXQRCodeFinderPatternInfo.m in Sources */,
 				C42133582205883D006C10C4 /* BaseViewModel.swift in Sources */,
