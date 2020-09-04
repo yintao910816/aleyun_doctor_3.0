@@ -30,6 +30,7 @@ extension UIView {
         layer.mask = maskLayer
     }
     
+    @discardableResult
     func creat(cornerRadius radius: CGFloat,
              borderWidth width: CGFloat = 0,
              borderColor corlor: UIColor = .clear,

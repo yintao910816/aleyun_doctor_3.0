@@ -29,6 +29,7 @@ class CarouselView: UIView {
     private var timer: Timer?
     
     public var tapCallBack: ((CarouselSource) ->Void)?
+    public var pageIdxChangeCallBack: ((Int)->())?
     
     public var timeInterval: TimeInterval = 4.0 {
         didSet {
@@ -73,6 +74,12 @@ class CarouselView: UIView {
             setCarouselImage()
             
             timer?.fireDate = Date.init(timeIntervalSinceNow: timeInterval)
+        }
+    }
+    
+    public var pageContrlIsHidden: Bool = false {
+        didSet {
+            pageContrl.isHidden = pageContrlIsHidden
         }
     }
     
@@ -184,7 +191,10 @@ extension CarouselView: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        dataControl.scrollEnd(scroll: scrollView) { [unowned self] page in self.pageContrl.currentPage = page }
+        dataControl.scrollEnd(scroll: scrollView) { [weak self] page in
+            self?.pageContrl.currentPage = page
+            self?.pageIdxChangeCallBack?(page)
+        }
         
         setCarouselImage()
     }

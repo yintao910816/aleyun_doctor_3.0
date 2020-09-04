@@ -15,22 +15,22 @@ class HCHomeViewModel: BaseViewModel {
     private var allArticleDatas: [String: [HCCmsArticleModel]] = [:]
     private var pageIdxs: [String: Int] = [:]
     
-    public let functionsMenuSignal = Variable(([HCFunctionsMenuModel](), [HCCmsCmsChanelListModel](), 0))
+    public let functionsMenuSignal = PublishSubject<([HCFunctionsMenuModel], [HCCmsCmsChanelListModel], [HCBannerModel], Int)>()
     public let articleDataSignal = PublishSubject<([HCCmsArticleModel], Int)>()
     public let articleTypeChangeSignal = PublishSubject<HCMenuItemModel>()
     
     override init() {
         super.init()
         
-        articleTypeChangeSignal
-            .subscribe(onNext: { [unowned self] in
-                if self.allArticleDatas.keys.contains($0.itemId) || $0.itemId == "0" {
-                    self.articleDataSignal.onNext((self.allArticleDatas[$0.itemId] ?? [], 0))
-                }else {
-                    self.requestCmsArticleList(channelId: $0.itemId, page: self.pageIdxs[$0.itemId] ?? 0)
-                }
-            })
-            .disposed(by: disposeBag)
+//        articleTypeChangeSignal
+//            .subscribe(onNext: { [unowned self] in
+//                if self.allArticleDatas.keys.contains($0.itemId) || $0.itemId == "0" {
+//                    self.articleDataSignal.onNext((self.allArticleDatas[$0.itemId] ?? [], 0))
+//                }else {
+//                    self.requestCmsArticleList(channelId: $0.itemId, page: self.pageIdxs[$0.itemId] ?? 0)
+//                }
+//            })
+//            .disposed(by: disposeBag)
         
         HCHelper.share.userInfoHasReload
             .subscribe(onNext: { [weak self] _ in self?.requestHeaderDatas() })
@@ -45,8 +45,7 @@ class HCHomeViewModel: BaseViewModel {
 extension HCHomeViewModel {
     
     private func requestHeaderDatas() {
-        hud.noticeLoading()
-        Observable.combineLatest(requestMenuItems(), requestCmsChanelList()) { ($0, $1) }
+        Observable.combineLatest(requestMenuItems(), requestCmsChanelList(), requestBanner()) { ($0, $1, $2) }
             .concatMap({ [unowned self] data -> Observable<[HCCmsArticleModel]> in
                 var tempArr: [HCCmsCmsChanelListModel] = []
                 let recommendItem = HCCmsCmsChanelListModel()
@@ -59,17 +58,25 @@ extension HCHomeViewModel {
                     self.pageIdxs[tempArr[idx].id] = idx
                 }
                 
-                self.functionsMenuSignal.value = (data.0, tempArr, 0)
+                self.functionsMenuSignal.onNext((data.0, tempArr, data.2, 0))
                 return self.requestRecomCms()
             })
             .subscribe(onNext: { [unowned self] data in
                 self.allArticleDatas["0"] = data
                 self.articleDataSignal.onNext((data, 0))
-                self.hud.noticeHidden()
             })
             .disposed(by: disposeBag)
     }
+
     
+    // banner
+    private func requestBanner() ->Observable<[HCBannerModel]> {
+        return HCProvider.request(.selectBanner(code: .bannerdoctor))
+            .map(models: HCBannerModel.self)
+            .asObservable()
+            .catchErrorJustReturn([HCBannerModel]())
+    }
+
     // 功能区
     private func requestMenuItems() ->Observable<[HCFunctionsMenuModel]> {
         return HCProvider.request(.functionsMenu)
@@ -77,7 +84,11 @@ extension HCHomeViewModel {
             .asObservable()
             .catchErrorJustReturn([HCFunctionsMenuModel]())
     }
- 
+}
+
+extension HCHomeViewModel {
+    
+     
     // 推荐栏目文章
     private func requestRecomCms() ->Observable<[HCCmsArticleModel]> {
         return HCProvider.request(.cmsRecommend(cmsCode: .SGBK))

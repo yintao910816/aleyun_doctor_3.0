@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HandyJSON
 
 /// 功能按钮
 class HCFunctionsMenuModel: HJModel {
@@ -58,4 +59,31 @@ class HCCmsArticleModel: HJModel {
     var id: String = ""
     var picPath: String = ""
     var title: String = ""
+}
+
+class HCBannerModel: HJModel, CarouselSource {
+    var bak: String = ""
+    var beginDate: String = ""
+    var code: String = ""
+    var content: String = ""
+    var createDate: String = ""
+    var creates: String = ""
+    var del: Bool = false
+    var endDate: String = ""
+    var id: String = ""
+    var modifyDate: String = ""
+    var modifys: String = ""
+    var path: String = ""
+    var positionId: String = ""
+    var sort: String = ""
+    var title: String = ""
+    var type: String = ""
+    var unitId: String = ""
+    var link: String = ""
+    
+    override func mapping(mapper: HelpingMapper) {
+        mapper.specify(property: &link, name: "url")
+    }
+    
+    var url: String? { return path }
 }

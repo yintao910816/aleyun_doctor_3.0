@@ -120,9 +120,19 @@ enum HCsearchModule: String {
     case all = ""
 }
 
+enum HCBannerCode: String {
+    case bannerdoctor = "bannerdoctor"
+}
+
+
 //MARK:
 //MARK: 接口定义
 enum API{
+    // --------------- 医生3.0接口
+    /// banner
+    case selectBanner(code: HCBannerCode)
+
+    
     // --------------- 3.0接口
     /// 获取验证码
     case validateCode(mobile: String)
@@ -157,8 +167,6 @@ enum API{
     case selectInfo
     /// 修改用户信息
     case updateInfo(param: [String: String])
-    /// 首页banner
-    case selectBanner
     /// 首页功能列表
     case functionList
     /// 好消息
@@ -223,6 +231,9 @@ extension API: TargetType{
     
     var path: String{
         switch self {
+        case .selectBanner(let code):
+            return "api/advert/banner/\(code.rawValue)"
+
             
         case .validateCode(_):
             return "api/login/validateCode"
@@ -255,8 +266,6 @@ extension API: TargetType{
             return "api/member/selectInfo"
         case .updateInfo(_):
             return "api/member/updateInfo"
-        case .selectBanner:
-            return "api/index/selectBanner"
         case .functionList:
             return "api/index/select"
         case .noticeList(_):
@@ -412,8 +421,6 @@ extension API {
             params["smsCode"] = smsCode
         case .updateInfo(let param):
             params = param
-        case .selectBanner:
-            params["code"] = "activity"
 
         case .noticeList(let type, let pageNum, let pageSize):
             params["type"] = type

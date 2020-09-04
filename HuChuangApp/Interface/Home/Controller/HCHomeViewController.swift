@@ -42,8 +42,8 @@ class HCHomeViewController: BaseViewController {
     override func rxBind() {
         viewModel = HCHomeViewModel()
         
-        viewModel.functionsMenuSignal.asDriver()
-            .drive(onNext: { [weak self] in self?.containerView.reloadData(menuItems: $0.0, page: $0.2) })
+        viewModel.functionsMenuSignal
+            .subscribe(onNext: { [weak self] in self?.containerView.reloadData(menuItems: $0.0, bannerItems: $0.2, page: $0.3) })
             .disposed(by: disposeBag)
         
 //        viewModel.articleDataSignal
