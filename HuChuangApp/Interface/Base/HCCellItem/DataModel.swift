@@ -46,6 +46,9 @@ class HCListCellItem {
     
     var cellIdentifier: String = ""
     
+    /// 开关是否打开
+    var isOn: Bool = false
+
     /// 是否是退出登录
     var isLoginOut: Bool = false
     /// sb中界面跳转标识

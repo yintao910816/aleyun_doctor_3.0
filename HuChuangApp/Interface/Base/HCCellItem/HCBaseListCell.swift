@@ -17,6 +17,10 @@ class HCBaseListCell: UITableViewCell {
     public var arrowImgV: UIImageView!
     public var bottomLine: UIView!
     
+    public var didEndEditCallBack: ((String)->())?
+    public var didEndEditWithModel: ((HCListCellItem)->())?
+    public var switchCallBack: ((Bool)->())?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

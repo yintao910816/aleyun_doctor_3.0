@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HCMyPatientController: BaseViewController {
+class HCMyPatientController: BaseViewController, VMNavigation {
 
     private var container: HCMyPatientContainer!
     
@@ -17,9 +17,19 @@ class HCMyPatientController: BaseViewController {
     override func setupUI() {
         container = HCMyPatientContainer.init(frame: view.bounds)
         view.addSubview(container)
+        
+        container.didSelectedCallBack = { [weak self] in
+            HCMyPatientController.push(HCPatientManageController.self, ["model": $0])
+        }
     }
     
     override func rxBind() {
+        addBarItem(title: "随访计划", titleColor: RGB(12, 12, 12))
+            .drive(onNext: { [unowned self] in
+                PrintLog("随访计划")
+            })
+            .disposed(by: disposeBag)
+        
         viewModel = HCMyPatientViewModel.init()
         
         viewModel.listSignal

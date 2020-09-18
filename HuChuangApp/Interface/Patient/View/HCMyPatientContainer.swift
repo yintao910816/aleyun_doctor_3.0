@@ -18,6 +18,7 @@ class HCMyPatientContainer: UIView {
     private var tableView: UITableView!
 
     public var tapInputCallBack: (()->())?
+    public var didSelectedCallBack: ((HCPatientItemModel)->())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -135,5 +136,9 @@ extension HCMyPatientContainer: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 1 {
+            didSelectedCallBack?(patientDatas[indexPath.row])
+        }
     }
 }
