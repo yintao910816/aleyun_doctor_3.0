@@ -8,11 +8,49 @@
 
 import Foundation
 
+/// 患者列表
+class HCPatientListModel: HJModel {
+    var records: [HCPatientItemModel] = []
+}
+
 class HCPatientItemModel: HJModel {
-    var headPath: String = "https://ileyun.ivfcn.com/file/20200103/4DE6C087E7CB4C97A343CA2E84FD69FC"
-    var memberId: String = "15234"
-    var memberName: String = "写死的数据"
+    var age: String = ""
+    var bak: String = ""
+    var black: Bool = false
+    var headPath: String = ""
+    var id: String = ""
+    var mobile: String = ""
+    var name: String = ""
+    var sex: Int = 1
+    var userId: String = ""
+    var userName: String = ""
+    
+    public lazy var sexText: String = {
+        if let type = HCGender(rawValue: self.sex) {
+            return type.genderText
+        }
+        return "女"
+    }()
+}
+
+/// 患者管理-分组数据
+class HCPatientGroupListModel: HJModel {
+    var id: String = ""
+    var type: Int = 0
+    var createDate: String = ""
+    var tagName: String = ""
+    var memberList: [HCPatientGroupListItemModel] = []
+    var memberCount: Int = 0
+    
+    /// 是否收起状态
+    var isExpand: Bool = false
+}
+
+class HCPatientGroupListItemModel: HJModel {
     var tagId: String = ""
     var tagName: String = ""
-    var userId: String = "2378"
+    var memberId: String = ""
+    var memberName: String = ""
+    var headPath: String = ""
+    var userId: String = ""
 }

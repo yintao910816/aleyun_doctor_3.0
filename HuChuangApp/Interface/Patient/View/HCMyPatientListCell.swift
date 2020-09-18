@@ -43,7 +43,14 @@ class HCMyPatientListCell: UITableViewCell {
     public var model: HCPatientItemModel! {
         didSet {
             avatarImgV.setImage(model.headPath, .userIconWomen)
-            namelabel.text = model.memberName
+            namelabel.text = "\(model.userName)(\(model.sexText) \(model.age)岁)"
+        }
+    }
+    
+    public var groupPatientModel: HCPatientGroupListItemModel! {
+        didSet {
+            avatarImgV.setImage(groupPatientModel.headPath, .userIconWomen)
+            namelabel.text = groupPatientModel.memberName
         }
     }
     

@@ -252,6 +252,10 @@
 		B818BB832514A234003842A3 /* HCPatientManageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818BB822514A234003842A3 /* HCPatientManageHeaderView.swift */; };
 		B818BB852514A624003842A3 /* HCListTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818BB842514A624003842A3 /* HCListTextViewCell.swift */; };
 		B818BB872514AD6A003842A3 /* HCListTextViewAndTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818BB862514AD6A003842A3 /* HCListTextViewAndTitleCell.swift */; };
+		B818BB892514C88B003842A3 /* HCPatientGroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818BB882514C88B003842A3 /* HCPatientGroupController.swift */; };
+		B818BB8B2514C8B5003842A3 /* HCPatientGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818BB8A2514C8B5003842A3 /* HCPatientGroupViewModel.swift */; };
+		B818BB8D2514C9F6003842A3 /* HCPatientGroupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818BB8C2514C9F6003842A3 /* HCPatientGroupContainer.swift */; };
+		B818BB8F2514CD5D003842A3 /* HCPatientGroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818BB8E2514CD5D003842A3 /* HCPatientGroupHeaderView.swift */; };
 		B819AF6324C68C3400F88BA7 /* HCOrderRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF6224C68C3400F88BA7 /* HCOrderRecordController.swift */; };
 		B819AF6824C6E3F900F88BA7 /* HCNavBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF6724C6E3F900F88BA7 /* HCNavBarTitleView.swift */; };
 		B819AF6D24C6E5A500F88BA7 /* HCNavBarTitleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B819AF6C24C6E5A500F88BA7 /* HCNavBarTitleData.swift */; };
@@ -1048,6 +1052,10 @@
 		B818BB822514A234003842A3 /* HCPatientManageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPatientManageHeaderView.swift; sourceTree = "<group>"; };
 		B818BB842514A624003842A3 /* HCListTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCListTextViewCell.swift; sourceTree = "<group>"; };
 		B818BB862514AD6A003842A3 /* HCListTextViewAndTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCListTextViewAndTitleCell.swift; sourceTree = "<group>"; };
+		B818BB882514C88B003842A3 /* HCPatientGroupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPatientGroupController.swift; sourceTree = "<group>"; };
+		B818BB8A2514C8B5003842A3 /* HCPatientGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPatientGroupViewModel.swift; sourceTree = "<group>"; };
+		B818BB8C2514C9F6003842A3 /* HCPatientGroupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPatientGroupContainer.swift; sourceTree = "<group>"; };
+		B818BB8E2514CD5D003842A3 /* HCPatientGroupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPatientGroupHeaderView.swift; sourceTree = "<group>"; };
 		B819AF6224C68C3400F88BA7 /* HCOrderRecordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCOrderRecordController.swift; sourceTree = "<group>"; };
 		B819AF6724C6E3F900F88BA7 /* HCNavBarTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCNavBarTitleView.swift; sourceTree = "<group>"; };
 		B819AF6C24C6E5A500F88BA7 /* HCNavBarTitleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCNavBarTitleData.swift; sourceTree = "<group>"; };
@@ -2197,6 +2205,7 @@
 			children = (
 				B818BB7825148A9B003842A3 /* HCMyPatientViewModel.swift */,
 				B818BB7E25149C2E003842A3 /* HCPatientManageViewModel.swift */,
+				B818BB8A2514C8B5003842A3 /* HCPatientGroupViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2206,6 +2215,7 @@
 			children = (
 				B818BB7225148A79003842A3 /* HCMyPatientController.swift */,
 				B818BB7C25149C17003842A3 /* HCPatientManageController.swift */,
+				B818BB882514C88B003842A3 /* HCPatientGroupController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2222,9 +2232,11 @@
 			isa = PBXGroup;
 			children = (
 				B818BB7425148A8B003842A3 /* HCMyPatientContainer.swift */,
+				B818BB8C2514C9F6003842A3 /* HCPatientGroupContainer.swift */,
 				B818BB7A251492F2003842A3 /* HCMyPatientListCell.swift */,
 				B818BB8025149C5A003842A3 /* HCPatientManageContainer.swift */,
 				B818BB822514A234003842A3 /* HCPatientManageHeaderView.swift */,
+				B818BB8E2514CD5D003842A3 /* HCPatientGroupHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3573,6 +3585,7 @@
 				C42AF1A924EA210E0034DBEF /* HCListSexCell.swift in Sources */,
 				B816EB50221DABF400F024D5 /* ZXSMSParsedResult.m in Sources */,
 				B816EA85221DABF400F024D5 /* ZXInvertedLuminanceSource.m in Sources */,
+				B818BB8F2514CD5D003842A3 /* HCPatientGroupHeaderView.swift in Sources */,
 				C47B259725025A4C000B931F /* HCMenuReusableView.swift in Sources */,
 				B816EB2D221DABF400F024D5 /* ZXCode39Writer.m in Sources */,
 				C472524F24DD54B0006DEEC9 /* HCLoginViewModel.swift in Sources */,
@@ -3686,6 +3699,7 @@
 				C421332F22056F4C006C10C4 /* NoticesCenter.swift in Sources */,
 				B816EA7E221DABF400F024D5 /* ZXErrors.m in Sources */,
 				B816EB4C221DABF400F024D5 /* ZXWifiParsedResult.m in Sources */,
+				B818BB8D2514C9F6003842A3 /* HCPatientGroupContainer.swift in Sources */,
 				B816EB46221DABF400F024D5 /* ZXAddressBookAUResultParser.m in Sources */,
 				B8BE350F2214797200EF16F1 /* FileManager+Extension.swift in Sources */,
 				C4B185342345B03400F37197 /* HCSearch.swift in Sources */,
@@ -3701,6 +3715,7 @@
 				B816EB1F221DABF400F024D5 /* ZXAbstractRSSReader.m in Sources */,
 				B816EAD2221DABF400F024D5 /* ZXModulusGF.m in Sources */,
 				B86993E12337547700086A77 /* BaseLayout.swift in Sources */,
+				B818BB892514C88B003842A3 /* HCPatientGroupController.swift in Sources */,
 				B818BB7525148A8B003842A3 /* HCMyPatientContainer.swift in Sources */,
 				B816EAC6221DABF400F024D5 /* ZXIntArray.m in Sources */,
 				B816EAE3221DABF400F024D5 /* ZXDataMatrixEdifactEncoder.m in Sources */,
@@ -4047,6 +4062,7 @@
 				B816EAD7221DABF400F024D5 /* ZXPDF417ScanningDecoder.m in Sources */,
 				C421331C22056E83006C10C4 /* ViewControllerServer.swift in Sources */,
 				C40448A124EA721200AD1610 /* HCDatePickerViewController.swift in Sources */,
+				B818BB8B2514C8B5003842A3 /* HCPatientGroupViewModel.swift in Sources */,
 				B816EADB221DABF400F024D5 /* ZXPDF417DetectionResult.m in Sources */,
 				B816EB19221DABF400F024D5 /* ZXBitArrayBuilder.m in Sources */,
 				B816EAE1221DABF400F024D5 /* ZXDataMatrixReader.m in Sources */,

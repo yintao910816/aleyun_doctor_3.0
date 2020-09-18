@@ -18,8 +18,21 @@ class HCMyPatientController: BaseViewController, VMNavigation {
         container = HCMyPatientContainer.init(frame: view.bounds)
         view.addSubview(container)
         
-        container.didSelectedCallBack = { [weak self] in
-            HCMyPatientController.push(HCPatientManageController.self, ["model": $0])
+        container.patientSelectedCallBack = {  HCMyPatientController.push(HCPatientManageController.self, ["model": $0]) }
+        
+        container.selectedCallBack = {
+            switch $0.title {
+            case "报到患者":
+                break
+            case "分组":
+                HCMyPatientController.push(HCPatientGroupController.self, [:])
+            case "随访":
+                break
+            case "屏蔽患者":
+                break
+            default:
+                break
+            }
         }
     }
     
@@ -32,11 +45,15 @@ class HCMyPatientController: BaseViewController, VMNavigation {
         
         viewModel = HCMyPatientViewModel.init()
         
+        container.tableView.prepare(viewModel, showFooter: true, showHeader: true)
+        
         viewModel.listSignal
             .subscribe(onNext: { [weak self] in self?.container.reload(with: $0.1, patientDatas: $0.0) })
             .disposed(by: disposeBag)
         
         viewModel.reloadSubject.onNext(Void())
+        
+        container.tableView.headerRefreshing()
     }
     
     override func viewDidLayoutSubviews() {

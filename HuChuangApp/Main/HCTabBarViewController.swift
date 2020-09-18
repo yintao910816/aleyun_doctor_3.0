@@ -66,14 +66,14 @@ class HCTabBarViewController: UITabBarController {
 //        classRoomNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
 //        classRoomNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 //
-//        let mineCtrl = HCMineViewController()
-//        let mineNav = MainNavigationController.init(rootViewController: mineCtrl)
-//        mineCtrl.title = "个人中心"
-//        mineNav.tabBarItem.title = "我的"
-//        mineNav.tabBarItem.image = UIImage(named: "tabBar_mine_unselected")
-//        mineNav.tabBarItem.selectedImage = UIImage(named: "tabBar_mine_selected")
-//        mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
-//        mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
+        let mineCtrl = HCMineViewController()
+        let mineNav = MainNavigationController.init(rootViewController: mineCtrl)
+        mineCtrl.title = "个人中心"
+        mineNav.tabBarItem.title = "我的"
+        mineNav.tabBarItem.image = UIImage(named: "tabBar_mine_unselected")
+        mineNav.tabBarItem.selectedImage = UIImage(named: "tabBar_mine_selected")
+        mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
+        mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 
         let patientCtrl = HCMyPatientController()
         let patientNav = MainNavigationController.init(rootViewController: patientCtrl)
@@ -84,7 +84,7 @@ class HCTabBarViewController: UITabBarController {
         patientNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
         patientNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 
-        viewControllers = [homeNav, patientNav]
+        viewControllers = [homeNav, patientNav, mineNav]
     }
 }
 

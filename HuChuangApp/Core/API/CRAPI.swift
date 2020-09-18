@@ -135,6 +135,12 @@ enum API{
     case validateCode(mobile: String)
     /// 登录
     case loginTel(mobile: String, smsCode: String)
+    /// 获取用户信息
+    case selectInfo
+    /// 获取患者列表
+    case getConsultsPatientList(pageNum: Int, pageSize: Int, searchName: String)
+    /// 患者分组数据
+    case groupTagMemberList
 
     // --------------- 3.0接口
     /// 实名认证
@@ -162,8 +168,6 @@ enum API{
 
     /// 绑定微信
     case bindAuthMember(userInfo: UMSocialUserInfoResponse, mobile: String, smsCode: String)
-    /// 获取用户信息
-    case selectInfo
     /// 修改用户信息
     case updateInfo(param: [String: String])
     /// 首页功能列表
@@ -238,6 +242,10 @@ extension API: TargetType{
             return "api/login/login"
         case .selectInfo:
             return "api/user/selectInfo"
+        case .getConsultsPatientList(_, _, _):
+            return "api/patientConsult/getConsultMemberList"
+        case .groupTagMemberList:
+            return "api/patientInfo/groupTagMemberList"
 
         case .realNameAuth(_, _, _, _, _):
             return "api/consumer/realNameAuth"
@@ -390,6 +398,12 @@ extension API {
         case .loginTel(let mobile, let smsCode):
             params["mobile"] = mobile
             params["smsCode"] = smsCode
+        case .getConsultsPatientList(let pageNum, let pageSize, let searchName):
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
+            params["searchName"] = searchName
+
+            
         case .realNameAuth(let realName, let sex, let birthDay, let certificateType, let certificateNo):
             params["realName"] = realName
             params["sex"] = sex
@@ -403,8 +417,6 @@ extension API {
             params["moduleType"] = moduleType.rawValue
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize
-            
-
             
         case .UMAdd(let deviceToken):
             params["deviceToken"] = deviceToken
