@@ -15,7 +15,7 @@ class HCHomeViewModel: BaseViewModel {
     private var allArticleDatas: [String: [HCCmsArticleModel]] = [:]
     private var pageIdxs: [String: Int] = [:]
     
-    public let functionsMenuSignal = PublishSubject<([HCFunctionsMenuModel], [HCCmsCmsChanelListModel], [HCBannerModel], Int)>()
+    public let functionsMenuSignal = PublishSubject<([HCFunctionsMenuModel], [HCCmsCmsChanelListModel], [HCBannerModel], Int, HCUserModel)>()
     public let articleDataSignal = PublishSubject<([HCCmsArticleModel], Int)>()
     public let articleTypeChangeSignal = PublishSubject<HCMenuItemModel>()
     
@@ -58,7 +58,7 @@ extension HCHomeViewModel {
                     self.pageIdxs[tempArr[idx].id] = idx
                 }
                 
-                self.functionsMenuSignal.onNext((data.0, tempArr, data.2, 0))
+                self.functionsMenuSignal.onNext((data.0, tempArr, data.2, 0, HCHelper.share.userInfoModel ?? HCUserModel()))
                 return self.requestRecomCms()
             })
             .subscribe(onNext: { [unowned self] data in

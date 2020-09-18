@@ -51,10 +51,10 @@ class HCVerifyViewModel: BaseViewModel, VMNavigation {
 extension HCVerifyViewModel {
     
     private func requestLogin(code: String) {
-        #if DEBUG
-        hud.noticeHidden()
-        popSubject.onNext(Void())
-        #else
+//        #if DEBUG
+//        hud.noticeHidden()
+//        popSubject.onNext(Void())
+//        #else
         HCProvider.request(.loginTel(mobile: mobile, smsCode: code))
             .map(result: HCUserModel.self)
             .subscribe(onSuccess: { [weak self] in
@@ -80,6 +80,6 @@ extension HCVerifyViewModel {
                 self?.hud.failureHidden(self?.errorMessage($0))
         }
         .disposed(by: disposeBag)
-        #endif
+//        #endif
     }
 }

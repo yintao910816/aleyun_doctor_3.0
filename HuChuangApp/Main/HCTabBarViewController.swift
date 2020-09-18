@@ -50,32 +50,41 @@ class HCTabBarViewController: UITabBarController {
         homeNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
         homeNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 
-        let toolCtrl = HCToolViewController()
-        let toolNav = MainNavigationController.init(rootViewController: toolCtrl)
-        toolNav.tabBarItem.title = "工具"
-        toolNav.tabBarItem.image = UIImage(named: "tabBar_tool_unselected")
-        toolNav.tabBarItem.selectedImage = UIImage(named: "tabBar_tool_selected")
-        toolNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
-        toolNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
+//        let toolCtrl = HCToolViewController()
+//        let toolNav = MainNavigationController.init(rootViewController: toolCtrl)
+//        toolNav.tabBarItem.title = "工具"
+//        toolNav.tabBarItem.image = UIImage(named: "tabBar_tool_unselected")
+//        toolNav.tabBarItem.selectedImage = UIImage(named: "tabBar_tool_selected")
+//        toolNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
+//        toolNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
+//
+//        let classRoomCtrl = HCClassRoomViewController()
+//        let classRoomNav = MainNavigationController.init(rootViewController: classRoomCtrl)
+//        classRoomNav.tabBarItem.title = "课堂"
+//        classRoomNav.tabBarItem.image = UIImage(named: "tabBar_classRoom_unselected")
+//        classRoomNav.tabBarItem.selectedImage = UIImage(named: "tabBar_classRoom_selected")
+//        classRoomNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
+//        classRoomNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
+//
+//        let mineCtrl = HCMineViewController()
+//        let mineNav = MainNavigationController.init(rootViewController: mineCtrl)
+//        mineCtrl.title = "个人中心"
+//        mineNav.tabBarItem.title = "我的"
+//        mineNav.tabBarItem.image = UIImage(named: "tabBar_mine_unselected")
+//        mineNav.tabBarItem.selectedImage = UIImage(named: "tabBar_mine_selected")
+//        mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
+//        mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 
-        let classRoomCtrl = HCClassRoomViewController()
-        let classRoomNav = MainNavigationController.init(rootViewController: classRoomCtrl)
-        classRoomNav.tabBarItem.title = "课堂"
-        classRoomNav.tabBarItem.image = UIImage(named: "tabBar_classRoom_unselected")
-        classRoomNav.tabBarItem.selectedImage = UIImage(named: "tabBar_classRoom_selected")
-        classRoomNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
-        classRoomNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
+        let patientCtrl = HCMyPatientController()
+        let patientNav = MainNavigationController.init(rootViewController: patientCtrl)
+        patientCtrl.title = "我的患者"
+        patientNav.tabBarItem.title = "患者"
+        patientNav.tabBarItem.image = UIImage(named: "patient_unselected")
+        patientNav.tabBarItem.selectedImage = UIImage(named: "patient_selected")
+        patientNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
+        patientNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 
-        let mineCtrl = HCMineViewController()
-        let mineNav = MainNavigationController.init(rootViewController: mineCtrl)
-        mineCtrl.title = "个人中心"
-        mineNav.tabBarItem.title = "我的"
-        mineNav.tabBarItem.image = UIImage(named: "tabBar_mine_unselected")
-        mineNav.tabBarItem.selectedImage = UIImage(named: "tabBar_mine_selected")
-        mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
-        mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
-
-        viewControllers = [homeNav, toolNav, classRoomNav, mineNav]
+        viewControllers = [homeNav, patientNav]
     }
 }
 

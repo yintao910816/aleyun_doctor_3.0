@@ -56,13 +56,15 @@ class HCEditUserCityViewModel: BaseViewModel {
             }
             return
         }
-        let params: [String: String] = ["patientId": user.uid,
-                                        "name": user.name,
-                                        "sex": "\(user.sex)",
-                                        "headPath": user.headPath,
-                                        "synopsis": user.synopsis,
-                                        "birthday": user.birthday,
-                                        "areaCode": model.id]
+//        let params: [String: String] = ["patientId": user.uid,
+//                                        "name": user.name,
+//                                        "sex": "\(user.sex)",
+//                                        "headPath": user.headPath,
+//                                        "synopsis": user.synopsis,
+//                                        "birthday": user.birthday,
+//                                        "areaCode": model.id]
+
+        let params: [String: String] = [:]
 
         HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)

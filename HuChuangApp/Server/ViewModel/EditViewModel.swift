@@ -58,14 +58,16 @@ class EditUserIconViewModel: BaseViewModel {
             return Observable.empty()
         }
         
-        let params: [String: String] = ["patientId": user.uid,
-                                        "name": user.name,
-                                        "sex": "\(user.sex)",
-                                        "headPath": iconPath,
-                                        "synopsis": user.synopsis,
-                                        "birthday": user.birthday,
-                                        "areaCode": user.areaCode]
-        
+//        let params: [String: String] = ["patientId": user.uid,
+//                                        "name": user.name,
+//                                        "sex": "\(user.sex)",
+//                                        "headPath": iconPath,
+//                                        "synopsis": user.synopsis,
+//                                        "birthday": user.birthday,
+//                                        "areaCode": user.areaCode]
+  
+        let params: [String: String] = [:]
+
         return HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
             .asObservable()
@@ -100,13 +102,15 @@ class EditNickNameViewModel: BaseViewModel {
             }
             return
         }
-        let params: [String: String] = ["patientId": user.uid,
-                                        "name": nickName,
-                                        "sex": "\(user.sex)",
-                                        "headPath": user.headPath,
-                                        "synopsis": user.synopsis,
-                                        "birthday": user.birthday,
-                                        "areaCode": user.areaCode]
+//        let params: [String: String] = ["patientId": user.uid,
+//                                        "name": nickName,
+//                                        "sex": "\(user.sex)",
+//                                        "headPath": user.headPath,
+//                                        "synopsis": user.synopsis,
+//                                        "birthday": user.birthday,
+//                                        "areaCode": user.areaCode]
+
+        let params: [String: String] = [:]
 
         HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
@@ -153,13 +157,16 @@ class EditSexViewModel: BaseViewModel {
             }
             return
         }
-        let params: [String: String] = ["patientId": user.uid,
-                                        "name": user.name,
-                                        "sex": sex == "男" ? "1" : "2",
-                                        "headPath": user.headPath,
-                                        "synopsis": user.synopsis,
-                                        "birthday": user.birthday,
-                                        "areaCode": user.areaCode]
+//        let params: [String: String] = ["patientId": user.uid,
+//                                        "name": user.name,
+//                                        "sex": sex == "男" ? "1" : "2",
+//                                        "headPath": user.headPath,
+//                                        "synopsis": user.synopsis,
+//                                        "birthday": user.birthday,
+//                                        "areaCode": user.areaCode]
+        
+        let params: [String: String] = [:]
+
         HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
             .subscribe(onSuccess: { [weak self] user in
@@ -201,13 +208,15 @@ class EditBirthdayViewModel: BaseViewModel {
             }
             return
         }
-        let params: [String: String] = ["patientId": user.uid,
-                                        "name": user.name,
-                                        "sex": "\(user.sex)",
-                                        "headPath": user.headPath,
-                                        "synopsis": user.synopsis,
-                                        "birthday": birthday,
-                                        "areaCode": user.areaCode]
+//        let params: [String: String] = ["patientId": user.uid,
+//                                        "name": user.name,
+//                                        "sex": "\(user.sex)",
+//                                        "headPath": user.headPath,
+//                                        "synopsis": user.synopsis,
+//                                        "birthday": birthday,
+//                                        "areaCode": user.areaCode]
+        let params: [String: String] = [:]
+
         HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
             .subscribe(onSuccess: { [weak self] user in
@@ -237,7 +246,7 @@ class EditSynopsisViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         reloadSubject.subscribe(onNext: { [weak self] _ in
-            self?.synopsis.onNext(HCHelper.share.userInfoModel?.synopsis)
+//            self?.synopsis.onNext(HCHelper.share.userInfoModel?.synopsis)
         })
             .disposed(by: disposeBag)
     }
@@ -249,13 +258,15 @@ class EditSynopsisViewModel: BaseViewModel {
             }
             return
         }
-        let params: [String: String] = ["patientId": user.uid,
-                                        "name": user.name,
-                                        "sex": "\(user.sex)",
-                                        "headPath": user.headPath,
-                                        "synopsis": synopsis,
-                                        "birthday": user.birthday,
-                                        "areaCode": user.areaCode]
+//        let params: [String: String] = ["patientId": user.uid,
+//                                        "name": user.name,
+//                                        "sex": "\(user.sex)",
+//                                        "headPath": user.headPath,
+//                                        "synopsis": synopsis,
+//                                        "birthday": user.birthday,
+//                                        "areaCode": user.areaCode]
+        let params: [String: String] = [:]
+
         HCProvider.request(.updateInfo(param: params))
             .map(model: HCUserModel.self)
             .subscribe(onSuccess: { [weak self] user in

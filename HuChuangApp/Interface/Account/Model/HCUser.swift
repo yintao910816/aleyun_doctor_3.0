@@ -11,64 +11,61 @@ import HandyJSON
 
 class HCUserModel: HJModel {
     
-    var uid: String = ""
     var account: String = ""
-    var name: String = ""
-    var realName: String = ""
-    var email: String = ""
-    var lastLogin: String = ""
-    var ip: String = ""
-    var status: Bool = true
-    var bak: String = ""
-    var skin: String = ""
-    var numbers: String = ""
-    var createDate: String = ""
-    var modifyDate: String = ""
-    var creates: String = ""
-    var modifys: String = ""
-    var unitId: String = ""
-    var sex: Int = 0
     var age: String = ""
-    var birthday: String = ""
-    var token: String = ""
-    var headPath: String = ""
-    var environment: String = ""
-    var synopsis: String = ""
-    var bindDate: String = ""
-    var mobileInfo: String = ""
-    var unitName: String = ""
-    var visitCard: String = ""
-    var identityCard: String = ""
-    var hisNo: String = ""
-    var medicalRecordNo: String = ""
-    var medicalRecordType: String = ""
-    var medicalRecordName: String = ""
-    var certificateType: String = ""
-    var mobileView: String = ""
-    var black: String = ""
-    var senior: String = ""
-    var pregnantTypeId: Int = 0
-    /// 备孕状态
-    var pregnantTypeName: String = ""
-    var enable: Bool = false
-    var bind: Bool = false
-    var soldier: Bool = false
-    var cityName: String = ""
     var areaCode: String = ""
-    
+    var bak: String = ""
+    var birthday: String = ""
+    var brief: String = ""
+    var cityName: String = ""
+    var consult: String = ""
+    var consultNum: Int = 0
+    var consultPrice: String = ""
+    var createDate: String = ""
+    var creates: String = ""
+    var departmentId: String = ""
+    var departmentName: String = ""
+    var email: String = ""
+    var enable: Bool = true
+    var environment: String = ""
+    var headPath: String = ""
+    var hisCode: String = ""
+    var hisNo: String = ""
+    var uid: String = ""
+    var ip: String = ""
+    var lastLogin: String = ""
+    var linueupNo: String = ""
+    var mobile: String = ""
+    var modifyDate: String = ""
+    var modifys: String = ""
+    var name: String = ""
+    var numbers: String = ""
+    var practitionerYear: String = ""
+    var prasiRat: String = ""
+    var provinceName: String = ""
+    var recom: String = ""
+    var respRate: String = ""
+    var sex: Int = 1;
+    var skilledIn: String = ""
+    var skilledInIds: String = ""
+    var skin: String = ""
+    var smsNotice: String = ""
+    var sort: String = ""
+    var spellBrevityCode: String = ""
+    var spellCode: String = ""
+    var status: Int = 1
+    var technicalPost: String = ""
+    var technicalPostId: String = ""
+    var token: String = ""
+    var unitId: String = ""
+    var unitName: String = ""
+    var viewProfile: String = ""
+    var wubiCode: String = ""
+
     var sexText: String {
         get { return sex == 1 ? "男" : "女" }
     }
-    
-    var userIconType: ImageStrategy {
-        get { return sex == 1 ? .userIconMen : .userIconWomen }
-    }
-    
-    /// 是否绑定成功
-    var isSuccessBind: Bool {
-        get { return visitCard.count > 0 }
-    }
-        
+
     override func mapping(mapper: HelpingMapper) {
         mapper.specify(property: &uid, name: "id")
     }

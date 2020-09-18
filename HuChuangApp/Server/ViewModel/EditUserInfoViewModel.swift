@@ -66,8 +66,8 @@ class EditUserInfoViewModel: BaseViewModel, VMNavigation {
         let birthdayModel = EditUserInfoModel.createModel(title: "生日", controllerID: "editBirthdayVC", desTitle: user.birthday)
         data.append(birthdayModel)
         
-        let synopsisModel = EditUserInfoModel.createModel(title: "个性签名", controllerID: "editSynopsisVC", desTitle: user.synopsis)
-        data.append(synopsisModel)
+//        let synopsisModel = EditUserInfoModel.createModel(title: "个性签名", controllerID: "editSynopsisVC", desTitle: user.synopsis)
+//        data.append(synopsisModel)
         
         datasource.onNext(data)
     }

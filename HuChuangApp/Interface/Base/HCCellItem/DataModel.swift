@@ -19,6 +19,7 @@ class HCListCellItem {
     var title: String = ""
     var titleIcon: String = ""
     var titleIconSize: CGSize = .init(width: 25, height: 25)
+    var titleFont: UIFont = .font(fontSize: 15)
     
     var attrbuiteTitle: NSAttributedString = NSAttributedString.init()
     

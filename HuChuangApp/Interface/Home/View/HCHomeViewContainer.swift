@@ -15,6 +15,7 @@ class HCHomeViewContainer: UIView {
     private var menuItems: [HCFunctionsMenuModel] = []
     private var bannerItems: [HCBannerModel] = []
     private var animotionMenuItems: [HCAninotionMenuModel] = HCAninotionMenuModel.creatHomeMenuItems()
+    private var userInfo: HCUserModel = HCUserModel()
 
     private var pageIdx: Int = 0
     
@@ -40,10 +41,11 @@ class HCHomeViewContainer: UIView {
         collectionView.frame = bounds
     }
    
-    public func reloadData(menuItems: [HCFunctionsMenuModel], bannerItems: [HCBannerModel], page: Int) {
+    public func reloadData(menuItems: [HCFunctionsMenuModel], bannerItems: [HCBannerModel], page: Int, userInfo: HCUserModel) {
         pageIdx = page
         self.menuItems = menuItems
         self.bannerItems = bannerItems
+        self.userInfo = userInfo
         
         collectionView.reloadData()
     }
@@ -124,6 +126,7 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
             if indexPath.section == 0 {
                 header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HCHomeHeaderReusableView_identifier, for: indexPath)
                 (header as? HCHomeHeaderReusableView)?.funcMenuModels = menuItems
+                (header as? HCHomeHeaderReusableView)?.userModel = userInfo
                 (header as? HCHomeHeaderReusableView)?.funcItemClicked = { [weak self] in self?.funcItemClicked?($0) }
             }else if indexPath.section == 1 {
                 header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HCMenuReusableView_identifier, for: indexPath)

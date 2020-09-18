@@ -51,6 +51,17 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
         }
     }
     
+    public var userModel: HCUserModel = HCUserModel() {
+        didSet {
+            avatar.setImage(userModel.headPath)
+            nameLabel.text = userModel.name
+            jobRoleLabel.text = userModel.technicalPost
+            
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
     
@@ -124,7 +135,7 @@ extension HCHomeHeaderReusableView {
         
         nameLabel = UILabel()
         nameLabel.textColor = .white
-        nameLabel.font = .font(fontSize: 32, fontName: .PingFSemibold)
+        nameLabel.font = .font(fontSize: 30, fontName: .PingFSemibold)
         
         markTypeFirstImgV = UIImageView(image: UIImage(named: "hzy"))
         markTypeSecondImgV = UIImageView(image: UIImage(named: "hze"))

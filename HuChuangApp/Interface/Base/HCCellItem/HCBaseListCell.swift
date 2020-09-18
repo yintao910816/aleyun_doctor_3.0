@@ -79,6 +79,8 @@ class HCBaseListCell: UITableViewCell {
     /// 设置数据
     public var model: HCListCellItem! {
         didSet {
+            titleLabel.font = model.titleFont
+            
             if model.titleIcon.count > 0 {
                 titleIcon.image = UIImage.init(named: model.titleIcon)
                 titleIcon.snp.updateConstraints{

@@ -79,7 +79,7 @@ extension HCAccountSettingViewModel {
 
         let realItem = HCListCellItem()
         realItem.title = "实名信息"
-        realItem.detailTitle = user.realName
+//        realItem.detailTitle = user.realName
         realItem.cellIdentifier = HCListDetailCell_identifier
         items.append(realItem)
 

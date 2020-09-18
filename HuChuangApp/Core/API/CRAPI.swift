@@ -131,13 +131,12 @@ enum API{
     // --------------- 医生3.0接口
     /// banner
     case selectBanner(code: HCBannerCode)
-
-    
-    // --------------- 3.0接口
     /// 获取验证码
     case validateCode(mobile: String)
     /// 登录
     case loginTel(mobile: String, smsCode: String)
+
+    // --------------- 3.0接口
     /// 实名认证
     case realNameAuth(realName: String, sex: String, birthDay: String, certificateType: String, certificateNo: String)
     /// 账号设置 - 头像/昵称
@@ -233,12 +232,13 @@ extension API: TargetType{
         switch self {
         case .selectBanner(let code):
             return "api/advert/banner/\(code.rawValue)"
-
-            
         case .validateCode(_):
             return "api/login/validateCode"
         case .loginTel(_, _):
-            return "api/login/loginTel"
+            return "api/login/login"
+        case .selectInfo:
+            return "api/user/selectInfo"
+
         case .realNameAuth(_, _, _, _, _):
             return "api/consumer/realNameAuth"
         case .accountSetting(_, _):
@@ -262,8 +262,6 @@ extension API: TargetType{
             return "api/umeng/add"
         case .bindAuthMember(_):
             return "api/login/bindAuthMember"
-        case .selectInfo:
-            return "api/member/selectInfo"
         case .updateInfo(_):
             return "api/member/updateInfo"
         case .functionList:

@@ -43,7 +43,7 @@ class HCHomeViewController: BaseViewController {
         viewModel = HCHomeViewModel()
         
         viewModel.functionsMenuSignal
-            .subscribe(onNext: { [weak self] in self?.containerView.reloadData(menuItems: $0.0, bannerItems: $0.2, page: $0.3) })
+            .subscribe(onNext: { [weak self] in self?.containerView.reloadData(menuItems: $0.0, bannerItems: $0.2, page: $0.3, userInfo: $0.4) })
             .disposed(by: disposeBag)
         
 //        viewModel.articleDataSignal
