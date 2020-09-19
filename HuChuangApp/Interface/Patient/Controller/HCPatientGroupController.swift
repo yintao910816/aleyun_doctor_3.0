@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HCPatientGroupController: BaseViewController {
+class HCPatientGroupController: BaseViewController, VMNavigation {
 
     private var viewModel: HCPatientGroupViewModel!
     private var container: HCPatientGroupContainer!
@@ -27,7 +27,7 @@ class HCPatientGroupController: BaseViewController {
     override func rxBind() {
         addBarItem(title: "分组管理", titleColor: RGB(12, 12, 12))
             .drive(onNext: { [unowned self] in
-                PrintLog("分组管理")
+                HCPatientGroupController.push(HCGroupManageController.self, ["data": self.container.groupDatas])
             })
             .disposed(by: disposeBag)
 

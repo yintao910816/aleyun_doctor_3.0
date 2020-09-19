@@ -141,6 +141,8 @@ enum API{
     case getConsultsPatientList(pageNum: Int, pageSize: Int, searchName: String)
     /// 患者分组数据
     case groupTagMemberList
+    /// 修改标签内容
+    case editUserMemberTags(id: String, tagName: String)
 
     // --------------- 3.0接口
     /// 实名认证
@@ -246,6 +248,8 @@ extension API: TargetType{
             return "api/patientConsult/getConsultMemberList"
         case .groupTagMemberList:
             return "api/patientInfo/groupTagMemberList"
+        case .editUserMemberTags(_, _):
+            return "api/patientConsult/editUserMemberTags"
 
         case .realNameAuth(_, _, _, _, _):
             return "api/consumer/realNameAuth"
@@ -402,6 +406,11 @@ extension API {
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize
             params["searchName"] = searchName
+        case .editUserMemberTags(let id, let tagName):
+            params["id"] = id
+            params["tagName"] = tagName
+
+            
 
             
         case .realNameAuth(let realName, let sex, let birthDay, let certificateType, let certificateNo):
