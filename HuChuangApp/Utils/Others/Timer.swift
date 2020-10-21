@@ -18,6 +18,7 @@ class CountdownTimer {
     
     public let showText = Variable(60)
     public let countTime = Variable(0)
+    public var isStart: Bool = false
 
     init(timeInterval interval: Int = 1, totleCount count: Int = 60) {
         self.totleCount = count
@@ -56,6 +57,7 @@ class CountdownTimer {
             showText.value = cutdown
             countTime.value = countTime.value + 1
         }else {
+            isStart = false
             timer.fireDate = Date.distantFuture
             cutdown = totleCount
         }
@@ -68,10 +70,12 @@ class CountdownTimer {
         showText.value = 0
         countTime.value = 0
         cutdown = totleCount
+        isStart = false
     }
 
     public final func timerStar() {
         countTime.value = 0
+        isStart = true
 
         if timer != nil { timer.fireDate = Date() }
     }

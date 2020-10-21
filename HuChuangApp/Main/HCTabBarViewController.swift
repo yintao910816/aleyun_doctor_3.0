@@ -75,6 +75,13 @@ class HCTabBarViewController: UITabBarController {
         mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
         mineNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 
+        let consultCtrl = HCConsultListController()
+        let consultNav = MainNavigationController.init(rootViewController: consultCtrl)
+        consultNav.tabBarItem.image = UIImage(named: "tabBar_mine_unselected")
+        consultNav.tabBarItem.selectedImage = UIImage(named: "tabBar_mine_selected")
+        consultNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
+        consultNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
+        
         let patientCtrl = HCMyPatientController()
         let patientNav = MainNavigationController.init(rootViewController: patientCtrl)
         patientCtrl.title = "我的患者"
@@ -84,7 +91,7 @@ class HCTabBarViewController: UITabBarController {
         patientNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
         patientNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 
-        viewControllers = [homeNav, patientNav, mineNav]
+        viewControllers = [homeNav, consultNav, patientNav, mineNav]
     }
 }
 

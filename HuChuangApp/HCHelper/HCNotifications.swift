@@ -43,5 +43,10 @@ extension Notification.Name {
         /// 微信支付完成
         static let wChatPayFinish = Notification.Name(rawValue: "org.Pay.notification.name.wChatPayFinish")
     }
+    
+    public struct Patient {
+        /// 患者管理 - 修改分组
+        static let changedTagName = Notification.Name(rawValue: "org.UILogic.notification.name.changedTagName")
+    }
 
 }

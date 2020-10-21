@@ -15,7 +15,7 @@ protocol VMNavigation {
 
 extension VMNavigation {
 
-    static func push(_ ctrl: UIViewController.Type, _ parameters: [String: Any]?) {
+    static func push(_ ctrl: UIViewController.Type, _ parameters: [String: Any]? = nil) {
         NSObject().visibleViewController?.navigationController?.pushViewController(creatCtrl(ctrl, parameters), animated: true)
     }
     

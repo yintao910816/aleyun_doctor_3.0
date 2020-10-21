@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HCPatientManageController: BaseViewController {
+class HCPatientManageController: HCSlideItemController {
 
     private var container: HCPatientManageContainer!
     

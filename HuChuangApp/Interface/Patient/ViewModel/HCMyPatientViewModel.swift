@@ -32,7 +32,7 @@ class HCMyPatientViewModel: RefreshVM<HCPatientItemModel> {
         super.requestData(refresh)
         
         HCProvider.request(.getConsultsPatientList(pageNum: pageModel.currentPage, pageSize: pageModel.pageSize, searchName: ""))
-            .map(result: HCPatientListModel.self)
+            .map(result: HCMyPatientListModel.self)
             .subscribe(onSuccess: { [weak self] data in
                 guard let strongSelf = self else { return }
                 strongSelf.updateRefresh(refresh, data.data?.records, data.data?.pages ?? 0)

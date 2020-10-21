@@ -15,9 +15,12 @@ struct TYSlideItemModel {
     var lineColor: UIColor = .red
     var textFont: UIFont = .font(fontSize: 14, fontName: .PingFMedium)
     var lineWidth: CGFloat = 20
-    
+    var isFullLayout: Bool = true
+
     var isSelected: Bool = false
     
+    var itemCount: Int = 1
+
     var dataModel: HomeColumnItemModel!
     
     public lazy var contentWidth: CGFloat = {
@@ -34,6 +37,21 @@ struct TYSlideItemModel {
             columItem.name = title
             itemModel.dataModel = columItem
             
+            dataModels.append(itemModel)
+        }
+        return dataModels
+    }
+    
+    public static func creatModel(for titles: [String]) ->[TYSlideItemModel] {
+        var dataModels: [TYSlideItemModel] = []
+        for title in titles {
+            var itemModel = TYSlideItemModel()
+            itemModel.isSelected = dataModels.count == 0
+            itemModel.title = title
+            itemModel.itemCount = titles.count
+            itemModel.selectedTextColor = RGB(75, 138, 279)
+            itemModel.textColor = RGB(12, 12, 12)
+            itemModel.lineColor = RGB(75, 138, 279)
             dataModels.append(itemModel)
         }
         return dataModels

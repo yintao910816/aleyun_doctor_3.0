@@ -9,6 +9,29 @@
 import Foundation
 import Moya
 
+/// 文件类型
+enum HCFileUploadType: String {
+    case image = "image/jpeg"
+    case audio = "audio/mp3"
+    
+    public var getSuffix: String {
+        switch self {
+        case .image:
+            return ".jpg"
+        case .audio:
+            return ".mp3"
+        }
+    }
+}
+
+/// 列表排序
+enum HCRequestListSort: Int {
+    /// 顺序
+    case increase = 0
+    /// 倒序
+    case decrease = 1
+}
+
 /// 文章栏目编码
 enum HCCmsType: String {
     /// 首页-推荐课程列表
@@ -143,6 +166,24 @@ enum API{
     case groupTagMemberList
     /// 修改标签内容
     case editUserMemberTags(id: String, tagName: String)
+    /// 获取资讯消息列表 replyStatus: 0未回复1已回复2已退回3已评论（完结）
+    case getPatientConsultList(pageNum: Int, pageSize: Int, sort: HCRequestListSort, replyStatus: String)
+    /// 第一次获取咨询列表
+    case chatDetail(consultId: String, memberId: String)
+    /// 加载咨询历史 下拉加载一条新的记录。。loadSize 是1,2,3,4,5，。。。分别代表之前的第一条，第二条记录。。。
+    case chatHistoryDetail(memberId: String, userId: String, loadSize: Int)
+    /// 文件上传
+    case uploadFile(data: Data, fileType: HCFileUploadType)
+    /// 咨询回复 - filePath：图片或录音文件地址  bak：录音时长
+    case replyConsult(content: String, filePath: String, bak: String, consultId: String)
+    /// 编辑患者备注
+    case updateConsultBlack(memberId: String, userId: String, bak: String, black: Bool)
+    /// 患者健康档案
+    case getHealthArchives(memberId: String)
+    /// 周期档案
+    case getPatientCoupleInfo(memberId: String)
+    /// 咨询退回
+    case withdrawConsult(orderSn: String)
 
     // --------------- 3.0接口
     /// 实名认证
@@ -204,8 +245,6 @@ enum API{
 //    case column(cmsType: HCWebCmsType)
     /// 栏目文章列表
     case articlePage(id: Int, pageNum: Int, pageSize: Int)
-    /// 健康档案
-    case getHealthArchives
     /// 专家问诊医生列表
     case consultSelectListPage(pageNum: Int, pageSize: Int, searchName: String, areaCode: String, opType: [String: Any], sceen: [String: Any])
     /// 咨询医生信息
@@ -250,6 +289,24 @@ extension API: TargetType{
             return "api/patientInfo/groupTagMemberList"
         case .editUserMemberTags(_, _):
             return "api/patientConsult/editUserMemberTags"
+        case .getPatientConsultList(_, _, _, _):
+            return "api/patientConsult/getConsultListWx"
+        case .chatDetail(_, _):
+            return "api/patientConsult/getConsultDetailWx"
+        case .chatHistoryDetail(_, _, _):
+            return "api/patientConsult/chatHistoryDetail"
+        case .uploadFile(_):
+            return "api/upload/fileSingle"
+        case .replyConsult(_, _, _, _):
+            return "api/patientConsult/replyConsult"
+        case .updateConsultBlack(_, _, _, _):
+            return "api/patientConsult/updateConsultBlackWx"
+        case .getHealthArchives:
+            return "api/patientConsult/getHealthArchives"
+        case .getPatientCoupleInfo(_):
+            return "api/patientConsult/getPatientCoupleInfo"
+        case .withdrawConsult(let orderSn):
+            return "api/patientConsult/withdrawConsult/\(orderSn)"
 
         case .realNameAuth(_, _, _, _, _):
             return "api/consumer/realNameAuth"
@@ -303,8 +360,6 @@ extension API: TargetType{
             return "api/doctor/recommendDoctor"
         case .articlePage(_):
             return "api/index/articlePage"
-        case .getHealthArchives:
-            return "api/member/getHealthArchives"
         case .consultSelectListPage(_):
             return "api/consult/selectListPage"
         case .getUserInfo(_):
@@ -336,6 +391,12 @@ extension API: TargetType{
     
     var task: Task {
         switch self {
+        case .uploadFile(let data, let fileType):
+            //根据当前时间设置图片上传时候的名字
+            let timeInterval: TimeInterval = Date().timeIntervalSince1970
+            let dateStr = "\(Int(timeInterval))\(fileType.getSuffix)"
+            let formData = MultipartFormData(provider: .data(data), name: "file", fileName: dateStr, mimeType: fileType.rawValue)
+            return .uploadMultipart([formData])
         case .uploadIcon(let image):
             let data = image.jpegData(compressionQuality: 0.6)!
             //根据当前时间设置图片上传时候的名字
@@ -370,6 +431,8 @@ extension API: TargetType{
     var headers: [String : String]? {
         var contentType: String = "application/json; charset=utf-8"
         switch self {
+        case .uploadFile(_, let fileType):
+            contentType = fileType.rawValue
         case .uploadIcon(_):
             contentType = "image/jpeg"
         default:
@@ -409,8 +472,33 @@ extension API {
         case .editUserMemberTags(let id, let tagName):
             params["id"] = id
             params["tagName"] = tagName
+        case .getPatientConsultList(let pageNum, let pageSize, let sort, let replyStatus):
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
+            params["sort"] = sort.rawValue
+            params["replyStatus"] = replyStatus
+        case .chatDetail(let consultId, let memberId):
+            params["consultId"] = consultId
+            params["memberId"] = memberId
+        case .chatHistoryDetail(let memberId, let userId, let loadSize):
+            params["memberId"] = memberId
+            params["userId"] = userId
+            params["loadSize"] = loadSize
 
-            
+        case .replyConsult(let content, let filePath, let bak, let consultId):
+            params["content"] = content
+            params["filePath"] = filePath
+            params["bak"] = bak
+            params["consultId"] = consultId
+        case .updateConsultBlack(let memberId, let userId, let bak, let black):
+            params["memberId"] = memberId
+            params["userId"] = userId
+            params["bak"] = bak
+            params["black"] = black
+        case .getHealthArchives(let memberId):
+            params["memberId"] = memberId
+        case .getPatientCoupleInfo(let memberId):
+            params["memberId"] = memberId
 
             
         case .realNameAuth(let realName, let sex, let birthDay, let certificateType, let certificateNo):

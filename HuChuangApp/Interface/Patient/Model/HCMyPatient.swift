@@ -9,7 +9,7 @@
 import Foundation
 
 /// 患者列表
-class HCPatientListModel: HJModel {
+class HCMyPatientListModel: HJModel {
     var records: [HCPatientItemModel] = []
 }
 

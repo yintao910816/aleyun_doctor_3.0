@@ -120,6 +120,39 @@ class TYDateCalculate {
         
         return dateFormat.date(from: dateString)!
     }
+    
+    /// 将秒数转为 时:分:秒
+    static func getHHMMSSFormSS(seconds:Int) -> String {
+        let str_hour = NSString(format: "%02ld", seconds/3600)
+        let str_minute = NSString(format: "%02ld", (seconds%3600)/60)
+        let str_second = NSString(format: "%02ld", seconds%60)
+        var format_time: NSString!
+        if str_hour != "00" {
+            format_time = NSString(format: "%@:%@:%@",str_hour,str_minute,str_second)
+        }else {
+            format_time = NSString(format: "%@:%@",str_minute,str_second)
+        }
+        return format_time as String
+    }
+
+    /// 计算时间差（秒）
+    static func seconds(of start: String, end: String? = nil) ->Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        if let endDateStr = end {
+            if let endTimeInterval = formatter.date(from: endDateStr)?.timeIntervalSince1970, let startTimeInterval = formatter.date(from: start)?.timeIntervalSince1970 {
+                return Int(endTimeInterval - startTimeInterval)
+            }
+            return 0
+        }else {
+            let endTimeInterval = Date().timeIntervalSince1970
+            if let startTimeInterval = formatter.date(from: start)?.timeIntervalSince1970 {
+                return Int(endTimeInterval - startTimeInterval)
+            }
+            return 0
+        }
+    }
 }
 
 extension TYDateCalculate {

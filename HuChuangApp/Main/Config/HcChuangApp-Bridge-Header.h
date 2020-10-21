@@ -25,4 +25,8 @@
 #import <UShareUI/UShareUI.h>
 #import "YYText.h"
 
+#import "DPAudioRecorder.h"
+#import "DPAudioPlayer.h"
+#import "ChatToolBarAudioButton.h"
+
 #endif /* HcChuangApp_Bridge_Header_h */

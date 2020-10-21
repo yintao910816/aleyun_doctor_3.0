@@ -45,26 +45,26 @@ class HCHealthyArchivesViewModel: BaseViewModel {
         
         hud.noticeLoading()
         
-        HCProvider.request(.getHealthArchives)
-            .map(model: HCHealthArchivesModel.self)
-            .subscribe(onSuccess: { [weak self] data in
-                self?.hud.noticeHidden()
-                self?.dealData(data: data)
-            }) { [weak self] error in
-                self?.hud.failureHidden(self?.errorMessage(error), nil)
-        }
-        .disposed(by: disposeBag)
+//        HCProvider.request(.getHealthArchives)
+//            .map(model: HCHealthArchivesModel.self)
+//            .subscribe(onSuccess: { [weak self] data in
+//                self?.hud.noticeHidden()
+//                self?.dealData(data: data)
+//            }) { [weak self] error in
+//                self?.hud.failureHidden(self?.errorMessage(error), nil)
+//        }
+//        .disposed(by: disposeBag)
     }
     
     private func dealData(data: HCHealthArchivesModel) {
-        dataModel = data
-        let datas = datasourceObser.value
-        let realData = [data.memberInfo.realName, data.memberInfo.sexText, data.memberInfo.birthday, data.memberInfo.mobileInfo, data.memberInfo.cityName]
-        for idx in 0..<datas.count {
-            var model = datas[idx]
-            model.detailTitle = realData[idx]
-        }
-        
-        datasourceObser.value = datas
+//        dataModel = data
+//        let datas = datasourceObser.value
+//        let realData = [data.memberInfo.realName, data.memberInfo.sexText, data.memberInfo.birthday, data.memberInfo.mobileInfo, data.memberInfo.cityName]
+//        for idx in 0..<datas.count {
+//            var model = datas[idx]
+//            model.detailTitle = realData[idx]
+//        }
+//        
+//        datasourceObser.value = datas
     }
 }
