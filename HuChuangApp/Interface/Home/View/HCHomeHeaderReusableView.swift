@@ -251,6 +251,10 @@ extension HCHomeHeaderReusableView: UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 20, left: 10, bottom: 20, right: 10)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        funcItemClicked?(funcMenuModels[indexPath.row])
+    }
 }
 
 extension HCHomeHeaderReusableView {
