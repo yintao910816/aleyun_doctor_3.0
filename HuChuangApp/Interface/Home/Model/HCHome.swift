@@ -62,28 +62,21 @@ class HCCmsArticleModel: HJModel {
 }
 
 class HCBannerModel: HJModel, CarouselSource {
-    var bak: String = ""
-    var beginDate: String = ""
-    var code: String = ""
-    var content: String = ""
-    var createDate: String = ""
-    var creates: String = ""
-    var del: Bool = false
-    var endDate: String = ""
-    var id: String = ""
-    var modifyDate: String = ""
-    var modifys: String = ""
-    var path: String = ""
-    var positionId: String = ""
-    var sort: String = ""
-    var title: String = ""
-    var type: String = ""
-    var unitId: String = ""
-    var link: String = ""
+    public var clickCount: Int = 0
+    public var createTime: Int = 0
+    public var discibe: String = ""
+    public var hospitalId: String = ""
+    public var id: String = ""
+    public var order: Int = 0
+    public var path: String = ""
+    public var title: String = ""
+    public var type: Int = 0
+    public var updateTime: Int = 0
+    public var link: String = ""
     
     override func mapping(mapper: HelpingMapper) {
         mapper.specify(property: &link, name: "url")
     }
-    
+
     var url: String? { return path }
 }

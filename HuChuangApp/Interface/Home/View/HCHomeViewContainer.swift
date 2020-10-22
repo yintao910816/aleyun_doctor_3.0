@@ -21,6 +21,7 @@ class HCHomeViewContainer: UIView {
     
     public var menuChanged: ((HCMenuItemModel)->())?
     public var funcItemClicked: ((HCFunctionsMenuModel)->())?
+    public var buttonClicked: ((HCHomeHeaderClickedMode)->())?
     public var menuChangeCallBack: (((HCAninotionMenuModel, Int))->())?
 
     override init(frame: CGRect) {
@@ -128,6 +129,7 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
                 (header as? HCHomeHeaderReusableView)?.funcMenuModels = menuItems
                 (header as? HCHomeHeaderReusableView)?.userModel = userInfo
                 (header as? HCHomeHeaderReusableView)?.funcItemClicked = { [weak self] in self?.funcItemClicked?($0) }
+                (header as? HCHomeHeaderReusableView)?.buttonClicked = { [weak self] in self?.buttonClicked?($0) }
             }else if indexPath.section == 1 {
                 header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HCMenuReusableView_identifier, for: indexPath)
                 (header as? HCMenuReusableView)?.menuItems = animotionMenuItems

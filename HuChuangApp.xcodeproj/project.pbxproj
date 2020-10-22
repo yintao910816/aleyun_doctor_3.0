@@ -331,6 +331,7 @@
 		B8508E332340FC9F008C24BA /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508E322340FC9F008C24BA /* Doctor.swift */; };
 		B85CD93323BE602E00B1A1C3 /* HCEditUserCityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */; };
 		B85CD93523BE609A00B1A1C3 /* HCEditUserCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */; };
+		B8610BF925417B57007D5D46 /* HCCustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610BF825417B57007D5D46 /* HCCustomTabBar.swift */; };
 		B86993D32337395800086A77 /* TYButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993D22337395800086A77 /* TYButton.swift */; };
 		B86993D623373A6500086A77 /* TYSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993D523373A6500086A77 /* TYSearchBar.swift */; };
 		B86993E12337547700086A77 /* BaseLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993E02337547700086A77 /* BaseLayout.swift */; };
@@ -1200,6 +1201,7 @@
 		B8508EB1234251D5008C24BA /* HCFindDoctorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFindDoctorViewModel.swift; sourceTree = "<group>"; };
 		B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserCityController.swift; sourceTree = "<group>"; };
 		B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserCityViewModel.swift; sourceTree = "<group>"; };
+		B8610BF825417B57007D5D46 /* HCCustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCCustomTabBar.swift; sourceTree = "<group>"; };
 		B8688793235B842F00B9B10F /* HCRecordRemindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordRemindView.swift; sourceTree = "<group>"; };
 		B86993D22337395800086A77 /* TYButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYButton.swift; sourceTree = "<group>"; };
 		B86993D523373A6500086A77 /* TYSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchBar.swift; sourceTree = "<group>"; };
@@ -2911,6 +2913,7 @@
 				C421330822056B59006C10C4 /* Config */,
 				C421330922056B59006C10C4 /* AppDelegate */,
 				C4213339220572F2006C10C4 /* HCTabBarViewController.swift */,
+				B8610BF825417B57007D5D46 /* HCCustomTabBar.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -3973,6 +3976,7 @@
 				C42B219524ECD44D00B2A665 /* HCCollectionContainer.swift in Sources */,
 				C421336E2205961D006C10C4 /* UIView+_Rx.swift in Sources */,
 				C42B218D24ECCB0800B2A665 /* HCSettingViewController.swift in Sources */,
+				B8610BF925417B57007D5D46 /* HCCustomTabBar.swift in Sources */,
 				B816EB5A221DACA600F024D5 /* ScanViewModel.swift in Sources */,
 				B816EB4F221DABF400F024D5 /* ZXExpandedProductParsedResult.m in Sources */,
 				B892FF9423AB52CD00A137C0 /* HCArticleDetailViewController.swift in Sources */,

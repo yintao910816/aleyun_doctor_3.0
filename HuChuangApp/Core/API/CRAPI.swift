@@ -153,7 +153,11 @@ enum HCBannerCode: String {
 enum API{
     // --------------- 医生3.0接口
     /// banner
-    case selectBanner(code: HCBannerCode)
+//    case selectBanner(code: HCBannerCode)
+    /// 首页banner
+    case selectBanner
+    /// 首页菜单
+    case functionsMenu
     /// 获取验证码
     case validateCode(mobile: String)
     /// 登录
@@ -194,8 +198,6 @@ enum API{
     case uploadIcon(image: UIImage)
     /// 个人中心
     case personalCenterInfo
-    /// 首页菜单
-    case functionsMenu
     /// 首页推荐文章
     case cmsRecommend(cmsCode: HCCmsType)
     /// 热门资讯 类目
@@ -275,8 +277,12 @@ extension API: TargetType{
     
     var path: String{
         switch self {
-        case .selectBanner(let code):
-            return "api/advert/banner/\(code.rawValue)"
+//        case .selectBanner(let code):
+//            return "api/advert/banner/\(code.rawValue)"
+        case .selectBanner:
+            return "index/bannerList"
+        case .functionsMenu:
+            return "api/index/select"
         case .validateCode(_):
             return "api/login/validateCode"
         case .loginTel(_, _):
@@ -316,8 +322,6 @@ extension API: TargetType{
             return "api/upload/imgSingle"
         case .personalCenterInfo:
             return "api/personalCenter/info"
-        case .functionsMenu:
-            return "api/functions/menu"
         case .cmsRecommend(let cmsCode):
             return "api/cms/recommend/\(cmsCode.rawValue)"
         case .cmsCmsChanelList(let cmsCode):

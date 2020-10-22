@@ -37,6 +37,18 @@ class HCHomeViewController: BaseViewController {
             webVC.title = $0.name
             self?.navigationController?.pushViewController(webVC, animated: true)
         }
+        
+        containerView.buttonClicked = { [weak self] in
+            switch $0 {
+            case .qrCode:
+                break
+            case .message:
+                break
+            case .setting:
+                self?.navigationController?.pushViewController(HCSettingViewController(), animated: true)
+            }
+        }
+
     }
     
     override func rxBind() {

@@ -71,7 +71,7 @@ extension HCHomeViewModel {
     
     // banner
     private func requestBanner() ->Observable<[HCBannerModel]> {
-        return HCProvider.request(.selectBanner(code: .bannerdoctor))
+        return HCProvider.request(.selectBanner)
             .map(models: HCBannerModel.self)
             .asObservable()
             .catchErrorJustReturn([HCBannerModel]())

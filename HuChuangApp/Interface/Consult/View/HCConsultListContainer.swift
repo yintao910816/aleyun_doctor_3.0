@@ -58,5 +58,12 @@ extension HCConsultListContainer {
                 cell.model = model
             }
             .disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] in
+                self?.tableView.deselectRow(at: $0, animated: true)
+            })
+            .disposed(by: disposeBag)
+            
     }
 }

@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum HCHomeHeaderClickedMode {
+    case qrCode
+    case message
+    case setting
+}
+
 public let HCHomeHeaderReusableView_identifier = "HCHomeHeaderReusableView"
 
 class HCHomeHeaderReusableView: UICollectionReusableView {
@@ -34,7 +40,8 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
     private var funcCollectionView: UICollectionView!
     
     public var funcItemClicked: ((HCFunctionsMenuModel)->())?
-    
+    public var buttonClicked: ((HCHomeHeaderClickedMode)->())?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -118,15 +125,19 @@ extension HCHomeHeaderReusableView {
         
         colorBgView = UIImageView()
         colorBgView.backgroundColor = .orange
+        colorBgView.isUserInteractionEnabled = true
         
         qrCodeButton = UIButton()
         qrCodeButton.setImage(UIImage(named: "nav_qr_code"), for: .normal)
+        qrCodeButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
 
         noticeButton = UIButton()
         noticeButton.setImage(UIImage(named: "nav_notice"), for: .normal)
+        noticeButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
 
         settingButton = UIButton()
         settingButton.setImage(UIImage(named: "nav_setting"), for: .normal)
+        settingButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
 
         avatarBgView = UIImageView(image: UIImage(named: "home_avatar_bg"))
         avatar = UIButton()
@@ -199,7 +210,13 @@ extension HCHomeHeaderReusableView {
     }
     
     @objc private func buttonAction(button: UIButton) {
-
+        if button == qrCodeButton {
+            buttonClicked?(.qrCode)
+        }else if button == noticeButton {
+            buttonClicked?(.message)
+        }else if button == settingButton {
+            buttonClicked?(.setting)
+        }
     }
 }
 

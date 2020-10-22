@@ -31,9 +31,9 @@ class HCConsultDetailController: BaseViewController {
             
         }
 
-//        healthArchivesCtrl.expandChangeCallBack = { [weak self] in
-//            self?.viewModel.healthArchivesExpand.onNext($0)
-//        }
+        healthArchivesCtrl.expandChangeCallBack = { [weak self] in
+            self?.viewModel.healthArchivesExpand.onNext($0)
+        }
         
 //        manageCtrl.cellDidSelected = { [unowned self] in
 //            guard $0.segue.count > 0 else { return }
@@ -44,6 +44,7 @@ class HCConsultDetailController: BaseViewController {
 
         slideCtrl.menuItems = TYSlideItemModel.creatModel(for: ["咨询记录", "健康档案", "患者管理"])
         consultChatCtrl.prepare(parameters: ["memberId":consultItemModel.memberId, "consultId":consultItemModel.id])
+        manageCtrl.prepare(parameters: ["model": consultItemModel.transformToPatientItem()])
         slideCtrl.menuCtrls = [consultChatCtrl,
                                healthArchivesCtrl,
                                manageCtrl]

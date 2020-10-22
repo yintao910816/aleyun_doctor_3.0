@@ -174,7 +174,7 @@ class HCPatientDetailViewModel: BaseViewModel {
                 self?.circleOrignalData = data.1
                 self?.prepareHealthArchivesOriginalData()
                 
-                }, onError: { _ in })
+            }, onError: { [weak self] _ in self?.prepareHealthArchivesOriginalData() })
             .disposed(by: disposeBag)
     }
     
