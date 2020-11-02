@@ -202,7 +202,7 @@ extension String {
     
     /// 同一lable种现实两种不同颜色字体
     ///
-    public func attributed(_ range: NSRange, _ color: UIColor, _ font: UIFont?) ->NSAttributedString {
+    public func attributed(_ range: NSRange, _ color: UIColor, _ font: UIFont?, lineSpace: CGFloat? = nil, alignment: NSTextAlignment = .center) ->NSAttributedString {
         
         let muString = NSMutableAttributedString.init(string: self)
         var dic: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor : color]
@@ -210,6 +210,15 @@ extension String {
             dic[NSAttributedString.Key.font] = font
         }
         muString.addAttributes(dic, range: range)
+        
+        if let line = lineSpace {
+            let paraph = NSMutableParagraphStyle()
+            paraph.lineSpacing = line
+            paraph.alignment = alignment
+            muString.addAttributes([NSAttributedString.Key.paragraphStyle : paraph],
+                                   range: .init(location: 0, length: count))
+        }
+        
         return muString
     }
     

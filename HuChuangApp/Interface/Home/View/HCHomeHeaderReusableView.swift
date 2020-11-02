@@ -19,6 +19,8 @@ public let HCHomeHeaderReusableView_identifier = "HCHomeHeaderReusableView"
 class HCHomeHeaderReusableView: UICollectionReusableView {
    
     private var colorBgView: UIImageView!
+    private var gradientLayer: CAGradientLayer!
+    
     private var qrCodeButton: UIButton!
     private var noticeButton: UIButton!
     private var settingButton: UIButton!
@@ -63,7 +65,10 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
             avatar.setImage(userModel.headPath)
             nameLabel.text = userModel.name
             jobRoleLabel.text = userModel.technicalPost
-            
+            serverPatientLabel.attributedText = userModel.serverNumberText
+            praiseRateLabel.attributedText = userModel.prasiRatText
+            replyRateLabel.attributedText = userModel.respRateText
+                        
             setNeedsLayout()
             layoutIfNeeded()
         }
@@ -81,6 +86,8 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
             colorBgView.frame = .init(x: 0, y: 0, width: width, height: 360)
             qrCodeButton.frame = .init(x: 15, y: (44 - 20) / 2.0 + 20.0, width: 20, height: 20)
         }
+        
+        gradientLayer.frame = .init(x: 0, y: 0, width: colorBgView.width, height: colorBgView.height)
         
         settingButton.frame = .init(x: width - 35, y: qrCodeButton.y, width: 20, height: 20)
         noticeButton.frame = .init(x: settingButton.x - 40, y: qrCodeButton.y, width: 20, height: 20)
@@ -103,9 +110,9 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
                                    height: 14)
         
         let labelW: CGFloat = width / 3.0
-        serverPatientLabel.frame = .init(x: 0, y: avatarBgView.frame.maxY + 34, width: labelW, height: 33)
-        praiseRateLabel.frame = .init(x: serverPatientLabel.frame.maxX, y: serverPatientLabel.y, width: labelW, height: 33)
-        replyRateLabel.frame = .init(x: praiseRateLabel.frame.maxX, y: serverPatientLabel.y, width: labelW, height: 33)
+        serverPatientLabel.frame = .init(x: 0, y: avatarBgView.frame.maxY + 20, width: labelW, height: 55)
+        praiseRateLabel.frame = .init(x: serverPatientLabel.frame.maxX, y: serverPatientLabel.y, width: labelW, height: 55)
+        replyRateLabel.frame = .init(x: praiseRateLabel.frame.maxX, y: serverPatientLabel.y, width: labelW, height: 55)
         
         let funcBgHeight: CGFloat = HCHomeHeaderReusableView.colViewHeight(with: width, funcCount: funcMenuModels.count, safeAreaTop: safeTop)
         funcShadowBgView.frame = .init(x: 15, y: height - funcBgHeight, width: width - 30, height: funcBgHeight)
@@ -124,8 +131,15 @@ extension HCHomeHeaderReusableView {
         backgroundColor = .clear
         
         colorBgView = UIImageView()
-        colorBgView.backgroundColor = .orange
+        colorBgView.backgroundColor = .clear
         colorBgView.isUserInteractionEnabled = true
+        
+        gradientLayer = CAGradientLayer.drawBg(with: [RGB(100, 162, 248, 0.93).cgColor,
+                                                      RGB(101, 163, 249, 0.62).cgColor,
+                                                      RGB(92, 153, 249, 0).cgColor],
+                                               gradientLocations: [.init(value: 0),
+                                                                   .init(value: 0.7),
+                                                                   .init(value: 1)])
         
         qrCodeButton = UIButton()
         qrCodeButton.setImage(UIImage(named: "nav_qr_code"), for: .normal)
@@ -156,22 +170,22 @@ extension HCHomeHeaderReusableView {
         jobRoleLabel.font = .font(fontSize: 14)
 
         serverPatientLabel = UILabel()
-        serverPatientLabel.textColor = RGB(221, 235, 254)
-        serverPatientLabel.font = .font(fontSize: 12)
+        serverPatientLabel.textColor = .white
+        serverPatientLabel.font = .font(fontSize: 22)
         serverPatientLabel.numberOfLines = 2
-        serverPatientLabel.contentMode = .center
+        serverPatientLabel.textAlignment = .center
 
         praiseRateLabel = UILabel()
-        praiseRateLabel.textColor = RGB(221, 235, 254)
-        praiseRateLabel.font = .font(fontSize: 12)
+        praiseRateLabel.textColor = .white
+        praiseRateLabel.font = .font(fontSize: 22)
         praiseRateLabel.numberOfLines = 2
-        praiseRateLabel.contentMode = .center
+        praiseRateLabel.textAlignment = .center
 
         replyRateLabel = UILabel()
-        replyRateLabel.textColor = RGB(221, 235, 254)
-        replyRateLabel.font = .font(fontSize: 12)
+        replyRateLabel.textColor = .white
+        replyRateLabel.font = .font(fontSize: 22)
         replyRateLabel.numberOfLines = 2
-        replyRateLabel.contentMode = .center
+        replyRateLabel.textAlignment = .center
 
         funcShadowBgView = UIView()
         funcShadowBgView.backgroundColor = .clear
@@ -205,6 +219,8 @@ extension HCHomeHeaderReusableView {
         addSubview(funcShadowBgView)
         addSubview(funcCornerBgView)
         funcCornerBgView.addSubview(funcCollectionView)
+        
+        colorBgView.layer.insertSublayer(gradientLayer, at: 0)
         
         funcCollectionView.register(HCFuncMenuCel.self, forCellWithReuseIdentifier: HCFuncMenuCel_identifier)
     }
@@ -265,7 +281,7 @@ extension HCHomeHeaderReusableView {
         
         /// --- 功能区之上部分
         height += safeAreaTop
-        height += 230.0
+        height += 210.0
         
         return height
     }

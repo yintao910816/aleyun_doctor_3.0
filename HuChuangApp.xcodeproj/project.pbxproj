@@ -332,6 +332,7 @@
 		B85CD93323BE602E00B1A1C3 /* HCEditUserCityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */; };
 		B85CD93523BE609A00B1A1C3 /* HCEditUserCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */; };
 		B8610BF925417B57007D5D46 /* HCCustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610BF825417B57007D5D46 /* HCCustomTabBar.swift */; };
+		B8610C0025502E72007D5D46 /* CAGradientLayer+GradientBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610BFF25502E72007D5D46 /* CAGradientLayer+GradientBG.swift */; };
 		B86993D32337395800086A77 /* TYButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993D22337395800086A77 /* TYButton.swift */; };
 		B86993D623373A6500086A77 /* TYSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993D523373A6500086A77 /* TYSearchBar.swift */; };
 		B86993E12337547700086A77 /* BaseLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993E02337547700086A77 /* BaseLayout.swift */; };
@@ -1202,6 +1203,7 @@
 		B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserCityController.swift; sourceTree = "<group>"; };
 		B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserCityViewModel.swift; sourceTree = "<group>"; };
 		B8610BF825417B57007D5D46 /* HCCustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCCustomTabBar.swift; sourceTree = "<group>"; };
+		B8610BFF25502E72007D5D46 /* CAGradientLayer+GradientBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+GradientBG.swift"; sourceTree = "<group>"; };
 		B8688793235B842F00B9B10F /* HCRecordRemindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordRemindView.swift; sourceTree = "<group>"; };
 		B86993D22337395800086A77 /* TYButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYButton.swift; sourceTree = "<group>"; };
 		B86993D523373A6500086A77 /* TYSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchBar.swift; sourceTree = "<group>"; };
@@ -3026,6 +3028,7 @@
 				C421333122056F96006C10C4 /* UIKit+Extension.swift */,
 				C4213335220570B6006C10C4 /* UIView+Frame.swift */,
 				B8BE603223BB4C4D00EC0027 /* Dictionary+Extension.swift */,
+				B8610BFF25502E72007D5D46 /* CAGradientLayer+GradientBG.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -4008,6 +4011,7 @@
 				B816EAEA221DABF400F024D5 /* ZXDataMatrixSymbolInfo.m in Sources */,
 				B816EB02221DABF400F024D5 /* ZXOneDimensionalCodeWriter.m in Sources */,
 				B816EB21221DABF400F024D5 /* ZXCode128Writer.m in Sources */,
+				B8610C0025502E72007D5D46 /* CAGradientLayer+GradientBG.swift in Sources */,
 				B8FC3F872396D74D006EB478 /* HCDoctorInfoViewModel.swift in Sources */,
 				B816EAB1221DABF400F024D5 /* ZXStringUtils.m in Sources */,
 				C497E9712344728200328B47 /* HCHomeBabyTuinaClassroomReusableView.swift in Sources */,
@@ -4523,7 +4527,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4578,7 +4582,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -4598,6 +4602,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4628,6 +4633,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
