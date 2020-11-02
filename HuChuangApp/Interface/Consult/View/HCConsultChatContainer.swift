@@ -16,6 +16,9 @@ class HCConsultChatContainer: UIView {
 
     private let disposeBag = DisposeBag()
     
+    private var chatKeyboardView: TYChatKeyBoardView!
+    private var keyboardManager = KeyboardManager()
+
     public var tableView: UITableView!
     
     public let dataSignal = Variable([SectionModel<HCConsultDetailItemModel, HCConsultDetailConsultListModel>]())
@@ -23,6 +26,8 @@ class HCConsultChatContainer: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        keyboardManager.registerNotification()
+
         initUI()
         bindData()
     }
@@ -31,10 +36,28 @@ class HCConsultChatContainer: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        keyboardManager.removeNotification()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+
+        if #available(iOS 11.0, *) {
+            chatKeyboardView.frame = .init(x: 0,
+                                         y: height - 50 - safeAreaInsets.bottom,
+                                         width: width,
+                                         height: 50)
+        } else {
+            chatKeyboardView.frame = .init(x: 0,
+                                         y: height - 50,
+                                         width: width,
+                                         height: 50)
+        }
         
-        tableView.frame = .init(x: 0, y: 0, width: width, height: height)
+        tableView.frame = .init(x: 0, y: 0, width: width, height: chatKeyboardView.y)
+        
+        keyboardManager.move(coverView: chatKeyboardView, moveView: chatKeyboardView)
     }
 }
 
@@ -44,7 +67,19 @@ extension HCConsultChatContainer {
         tableView = UITableView.init(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
         addSubview(tableView)
-        
+                
+        chatKeyboardView = TYChatKeyBoardView()
+        addSubview(chatKeyboardView)
+        chatKeyboardView.mediaClickedCallBack = { [unowned self] _ in
+
+        }
+        chatKeyboardView.sendAudioCallBack = { [unowned self] _ in
+
+        }
+        chatKeyboardView.sendTextCallBack = { [unowned self] _ in
+
+        }
+
         tableView.register(HCConsultDetailSectionHeader.self, forHeaderFooterViewReuseIdentifier: HCConsultDetailSectionHeader_identifier)
         tableView.register(HCConsultDetalCell.self, forCellReuseIdentifier: HCConsultDetalCell_identifier)
         tableView.register(HCConsultDetailPhotoCell.self, forCellReuseIdentifier: HCConsultDetailPhotoCell_identifier)
