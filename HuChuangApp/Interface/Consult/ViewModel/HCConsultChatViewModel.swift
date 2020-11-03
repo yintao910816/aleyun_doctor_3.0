@@ -102,7 +102,8 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
                     if self?.timer.isStart == false {
                         self?.timer.timerStar()
                     }
-                    self?.requestData(true)
+//                    self?.requestData(true)
+                    self?.requestCurrentConsult()
                 }else {
                     self?.hud.failureHidden(res.message)
                 }
@@ -242,7 +243,7 @@ extension HCConsultChatViewModel {
     }
 
     private func submitReply(content: String, filePath: String, bak: String) ->Observable<ResponseModel> {
-        return HCProvider.request(.replyConsult(content: content, filePath: filePath, bak: bak, consultId: ""))
+        return HCProvider.request(.replyConsult(content: content, filePath: filePath, bak: bak, consultId: consultId))
             .mapResponse()
             .asObservable()
     }

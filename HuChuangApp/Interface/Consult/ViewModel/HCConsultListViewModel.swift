@@ -24,6 +24,7 @@ class HCConsultListViewModel: RefreshVM<HCConsultListItemModel> {
                 self?.updateRefresh(refresh, $0.records, $0.pages)
             } onError: { [weak self] in
                 self?.hud.failureHidden(self?.errorMessage($0))
+                self?.revertCurrentPageAndRefreshStatus()
             }
             .disposed(by: disposeBag)
     }

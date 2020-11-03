@@ -34,18 +34,6 @@ class HCConsultListItemModel: HJModel {
     var userId: String = ""
     var userName: String = ""
     
-//    class HCPatientItemModel: HJModel {
-//        var age: String = ""
-//        var bak: String = ""
-//        var black: Bool = false
-//        var headPath: String = ""
-//        var id: String = ""
-//        var mobile: String = ""
-//        var name: String = ""
-//        var sex: Int = 1
-//        var userId: String = ""
-//        var userName: String = ""
-
     public func transformToPatientItem() ->HCPatientItemModel {
         let model = HCPatientItemModel()
         model.age = "\(age)"
@@ -59,5 +47,12 @@ class HCConsultListItemModel: HJModel {
         model.userId = userId
         model.userName = userName
         return model
+    }
+    
+    public var statusText: String {
+        if let t = HCOrderDetailStatus.init(rawValue: status) {
+            return t.statusText
+        }
+        return "未知状态"
     }
 }

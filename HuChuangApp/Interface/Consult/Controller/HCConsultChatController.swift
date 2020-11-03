@@ -21,6 +21,7 @@ class HCConsultChatController: HCSlideItemController {
         container = HCConsultChatContainer.init(frame: view.bounds)
         view.addSubview(container)
 
+        container.mediaClickedCallBack = { [weak self] _ in self?.systemPic() }
     }
     
     override func rxBind() {
@@ -30,6 +31,14 @@ class HCConsultChatController: HCSlideItemController {
             .drive(container.dataSignal)
             .disposed(by: disposeBag)
         
+        container.sendTextSubject
+            .bind(to: viewModel.sendTextSubject)
+            .disposed(by: disposeBag)
+        
+        container.sendAudioSubject
+            .bind(to: viewModel.sendAudioSubject)
+            .disposed(by: disposeBag)
+
         viewModel.reloadSubject.onNext(Void())
 //        container.tableView.prepare(viewModel, showFooter: false, showHeader: true)
     }
@@ -42,5 +51,28 @@ class HCConsultChatController: HCSlideItemController {
     override func prepare(parameters: [String : Any]?) {
         memberId = parameters!["memberId"] as! String
         consultId = parameters!["consultId"] as! String
+    }
+}
+
+//MARK: - 选择图片
+extension HCConsultChatController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func systemPic(){
+        let systemPicVC = UIImagePickerController()
+        systemPicVC.sourceType = UIImagePickerController.SourceType.photoLibrary
+        systemPicVC.delegate = self
+        systemPicVC.allowsEditing = true
+        UIApplication.shared.keyWindow?.rootViewController?.present(systemPicVC, animated: true, completion: nil)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            viewModel.sendImageSubject.onNext(img)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

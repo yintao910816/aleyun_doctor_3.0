@@ -44,7 +44,7 @@ class HCConsultListCell: UITableViewCell {
             timeLabel.text = model.createDate
             contentLabel.text = model.content
             markContentLabel.text = "需要确认字断"
-            statusLabel.text = "需要确认字断"
+            statusLabel.text = model.statusText
         }
     }
     

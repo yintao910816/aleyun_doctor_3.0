@@ -26,61 +26,32 @@ enum HCConsultType: Int {
             return "视屏咨询"
         }
     }
-    
-    public var typeContentColor: UIColor {
-        switch self {
-        case .picAndText:
-            return RGB(255, 153, 0)
-        case .chatConsult:
-            return HC_MAIN_COLOR
-        case .videoConsult:
-            return HC_MAIN_COLOR
-        }
-    }
-    
-    public var typeBGColor: UIColor {
-        switch self {
-        case .picAndText:
-            return RGB(255, 248, 238)
-        case .chatConsult:
-            return RGB(238, 251, 249)
-        case .videoConsult:
-            return RGB(238, 251, 249)
-        }
-    }
 }
 
-enum HCReplyStatus: Int {
-    /// 未回复
-    case unReplay = 0
-    /// 已回复
-    case replay
-    /// 已退回
-    case back
-    /// 已评论（完结）
-    case finish
+enum HCOrderDetailStatus: Int {
+    /// 待支付
+    case unPay = 0
+    /// 已取消
+    case cancel = 7  // 订单状态
+    /// 已完成
+    case finish = 8  // 已支付，已回复，已完结
+    /// 咨询中
+    case replay = 9  // 组合状态，已支付，已回复，未完结
+    /// 待接诊
+    case unReplay = 10 // 已支付，未回复
     
     public var statusText: String {
         switch self {
-        case .unReplay:
-            return "待回复"
-        case .replay:
-            return "已回复"
-        case .back:
-            return "已退回"
+        case .unPay:
+            return "待支付"
+        case .cancel:
+            return "已取消"
         case .finish:
-            return "已评论（完结）"
-        }
-    }
-    
-    public var statusColor: UIColor {
-        switch self {
-        case .unReplay:
-            return RGB(253, 164, 60)
+            return "已完成"
         case .replay:
-            return HC_MAIN_COLOR
-        case .back ,.finish:
-            return RGB(136, 136, 136)
+            return "咨询中"
+        case .unReplay:
+            return "待接诊"
         }
     }
 }
@@ -124,6 +95,9 @@ class HCConsultDetailItemModel: HJModel {
     var unitName: String = ""
     var read: String = ""
     
+    private var consultStatusContentFrame: CGRect?
+    private var consultStatusFrame: CGRect?
+    private var consultStatusDetailFrame: CGRect?
     private var timeFrame: CGRect?
     private var contentBgFrame: CGRect?
     private var desInfoTitleFrame: CGRect?
@@ -138,10 +112,44 @@ class HCConsultDetailItemModel: HJModel {
     private var subTitleFrame: CGRect = .zero
     private var statusFrame: CGRect = .zero
     
+    public var getConsultStatusContentFrame: CGRect {
+        get {
+            if consultStatusContentFrame == nil {
+                consultStatusContentFrame = .init(x: 0, y: 0, width: PPScreenW, height: 45)
+            }
+            return consultStatusContentFrame!
+        }
+    }
+    
+    public var getConsultStatusFrame: CGRect {
+        get {
+            if consultStatusFrame == nil {
+                let labelSize = statusText.ty_textSize(font: .font(fontSize: 16), width: CGFloat.greatestFiniteMagnitude, height: 18)
+                consultStatusFrame = .init(x: 15,
+                                           y: (getConsultStatusContentFrame.height - 18) / 2,
+                                           width: labelSize.width,
+                                           height: 18)
+            }
+            return consultStatusFrame!
+        }
+    }
+
+    public var getConsultStatusDetailFrame: CGRect {
+        get {
+            if consultStatusDetailFrame == nil {
+                consultStatusDetailFrame = .init(x: getConsultStatusFrame.maxX + 20,
+                                                 y: (getConsultStatusContentFrame.height - 18) / 2,
+                                                 width: getConsultStatusContentFrame.width - getConsultStatusFrame.maxX - 20 - 15,
+                                                 height: 18)
+            }
+            return consultStatusDetailFrame!
+        }
+    }
+
     public var getTimeFrame: CGRect {
         get {
             if timeFrame == nil {
-                timeFrame = .init(x: 15, y: 10, width: PPScreenW - 30, height: 20)
+                timeFrame = .init(x: 15, y: getConsultStatusContentFrame.maxY + 10, width: PPScreenW - 30, height: 20)
             }
             return timeFrame!
         }
@@ -175,7 +183,7 @@ class HCConsultDetailItemModel: HJModel {
         get {
             if desPhotoTitleFrame == nil {
                 if fileList.count > 0 {
-                    desPhotoTitleFrame = .init(x: getDesInfoTitleFrame.maxX,
+                    desPhotoTitleFrame = .init(x: getDesInfoTitleFrame.minX,
                                                y: getContentTextFrame.maxY + 15,
                                                width: 70,
                                                height: 20)
@@ -208,7 +216,7 @@ class HCConsultDetailItemModel: HJModel {
                 if fileList.count > 0 {
                     height += (15 + getBoxPhotoFrame.height)
                 }
-                height += 14
+                height += (14 + 15)
 
                 contentBgFrame = .init(x: 15,
                                        y: getTimeFrame.maxY + 10,
@@ -248,25 +256,49 @@ class HCConsultDetailItemModel: HJModel {
         }
         return "单次图文"
     }
-    public var subTitleColor: UIColor {
-        if let t = HCConsultType.init(rawValue: type) {
-            return t.typeContentColor
-        }
-        return RGB(255, 153, 0)
-    }
+//    public var subTitleColor: UIColor {
+//        if let t = HCConsultType.init(rawValue: type) {
+//            return t.typeContentColor
+//        }
+//        return RGB(255, 153, 0)
+//    }
     
+    /// 咨询状态
     public var statusText: String {
-        if let t = HCReplyStatus.init(rawValue: replyStatus) {
+        if let t = HCOrderDetailStatus.init(rawValue: replyStatus) {
             return t.statusText
         }
-        return "未回复"
+        return "未知状态"
     }
-    public var statusColor: UIColor {
-        if let t = HCReplyStatus.init(rawValue: replyStatus) {
-            return t.statusColor
+    
+    /// 咨询状态描述
+    public var statusDetailText: NSAttributedString {
+        var str = NSAttributedString(string: "")
+        if let t = HCOrderDetailStatus.init(rawValue: replyStatus) {
+            switch t {
+            case .unReplay:
+                let infoText = "4小时01分钟"
+                let text = "已等待 \(infoText)"
+                str = text.attributed(.init(location: 4, length: infoText.count), RGB(255, 179, 0), .font(fontSize: 16, fontName: .PingFSemibold))
+            case .replay:
+                let infoText = "8回合/24小时"
+                let text = "将在 \(infoText) 后结束"
+                str = text.attributed(.init(location: 3, length: infoText.count), RGB(255, 179, 0), .font(fontSize: 16, fontName: .PingFSemibold))
+            case .finish:
+                str = NSAttributedString(string: "")
+            default:
+                str = NSAttributedString(string: "")
+            }
         }
-        return RGB(253, 164, 60)
+        return str
     }
+    
+//    public var statusColor: UIColor {
+//        if let t = HCReplyStatus.init(rawValue: replyStatus) {
+//            return t.statusColor
+//        }
+//        return RGB(253, 164, 60)
+//    }
 
     public var headerHeight: CGFloat {
         return 33
@@ -327,80 +359,80 @@ class HCConsultDetailItemModel: HJModel {
      replystatus 是2. 查看
      replystatus 是3 type = 0 补充回复 type = 1 查看
      */
-    public func calculateFooterUI() {
-        if !hasCalculateFooterFrame {
-            guard let rt = HCReplyStatus(rawValue: replyStatus), let ct = HCConsultType(rawValue: type) else {
-                return
-            }
-            if rt == .unReplay {
-                if ct == .picAndText {
-                    backButtonFrame = .init(x: 15, y: 10, width: 70, height: 25)
-                    replyButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
-                    supplementAskButtonFrame = .init(x: replyButtonFrame.minX - 20 - 70, y: 10, width: 70, height: 25)
-                    supplementReplyButtonFrame = .zero
-                    viewButtonFrame = .zero
-                    
-                    showFooter = true
-                }else if ct == .chatConsult {
-                    backButtonFrame = .init(x: 15, y: 10, width: 70, height: 25)
-                    replyButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
-                    supplementReplyButtonFrame = .zero
-                    viewButtonFrame = .zero
-                    supplementAskButtonFrame = .zero
-                    
-                    showFooter = true
-                }
-            }else if rt == .replay {
-                if ct == .picAndText {
-                    supplementReplyButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
-                    supplementAskButtonFrame = .init(x: 15, y: 10, width: 70, height: 25)
-                    backButtonFrame = .zero
-                    replyButtonFrame = .zero
-                    viewButtonFrame = .zero
-                    
-                    showFooter = true
-                }else if ct == .chatConsult {
-                    viewButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
-                    supplementReplyButtonFrame = .zero
-                    supplementAskButtonFrame = .zero
-                    backButtonFrame = .zero
-                    replyButtonFrame = .zero
-                    
-                    showFooter = true
-                }
-            }else if rt == .back {
-                viewButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
-                supplementReplyButtonFrame = .zero
-                supplementAskButtonFrame = .zero
-                backButtonFrame = .zero
-                replyButtonFrame = .zero
-                
-                showFooter = true
-            }else if rt == .finish {
-                if ct == .picAndText {
-                    supplementReplyButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
-                    viewButtonFrame = .zero
-                    supplementAskButtonFrame = .zero
-                    backButtonFrame = .zero
-                    replyButtonFrame = .zero
-                    
-                    showFooter = true
-                }else if ct == .videoConsult {
-                    viewButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
-                    supplementReplyButtonFrame = .zero
-                    supplementAskButtonFrame = .zero
-                    backButtonFrame = .zero
-                    replyButtonFrame = .zero
-                    
-                    showFooter = true
-                }
-            }
-            
-            footerHeight = showFooter ? 65 : 10
-            
-            hasCalculateFooterFrame = true
-        }
-    }
+//    public func calculateFooterUI() {
+//        if !hasCalculateFooterFrame {
+//            guard let rt = HCReplyStatus(rawValue: replyStatus), let ct = HCConsultType(rawValue: type) else {
+//                return
+//            }
+//            if rt == .unReplay {
+//                if ct == .picAndText {
+//                    backButtonFrame = .init(x: 15, y: 10, width: 70, height: 25)
+//                    replyButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
+//                    supplementAskButtonFrame = .init(x: replyButtonFrame.minX - 20 - 70, y: 10, width: 70, height: 25)
+//                    supplementReplyButtonFrame = .zero
+//                    viewButtonFrame = .zero
+//                    
+//                    showFooter = true
+//                }else if ct == .chatConsult {
+//                    backButtonFrame = .init(x: 15, y: 10, width: 70, height: 25)
+//                    replyButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
+//                    supplementReplyButtonFrame = .zero
+//                    viewButtonFrame = .zero
+//                    supplementAskButtonFrame = .zero
+//                    
+//                    showFooter = true
+//                }
+//            }else if rt == .replay {
+//                if ct == .picAndText {
+//                    supplementReplyButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
+//                    supplementAskButtonFrame = .init(x: 15, y: 10, width: 70, height: 25)
+//                    backButtonFrame = .zero
+//                    replyButtonFrame = .zero
+//                    viewButtonFrame = .zero
+//                    
+//                    showFooter = true
+//                }else if ct == .chatConsult {
+//                    viewButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
+//                    supplementReplyButtonFrame = .zero
+//                    supplementAskButtonFrame = .zero
+//                    backButtonFrame = .zero
+//                    replyButtonFrame = .zero
+//                    
+//                    showFooter = true
+//                }
+//            }else if rt == .back {
+//                viewButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
+//                supplementReplyButtonFrame = .zero
+//                supplementAskButtonFrame = .zero
+//                backButtonFrame = .zero
+//                replyButtonFrame = .zero
+//                
+//                showFooter = true
+//            }else if rt == .finish {
+//                if ct == .picAndText {
+//                    supplementReplyButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
+//                    viewButtonFrame = .zero
+//                    supplementAskButtonFrame = .zero
+//                    backButtonFrame = .zero
+//                    replyButtonFrame = .zero
+//                    
+//                    showFooter = true
+//                }else if ct == .videoConsult {
+//                    viewButtonFrame = .init(x: PPScreenW - 15 - 70, y: 10, width: 70, height: 25)
+//                    supplementReplyButtonFrame = .zero
+//                    supplementAskButtonFrame = .zero
+//                    backButtonFrame = .zero
+//                    replyButtonFrame = .zero
+//                    
+//                    showFooter = true
+//                }
+//            }
+//            
+//            footerHeight = showFooter ? 65 : 10
+//            
+//            hasCalculateFooterFrame = true
+//        }
+//    }
 }
 
 class HCConsultDetailFileModel: HJModel {

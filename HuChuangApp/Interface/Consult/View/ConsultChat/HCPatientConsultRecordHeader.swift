@@ -55,10 +55,10 @@ class HCPatientConsultRecordHeader: UITableViewHeaderFooterView {
         didSet {
             titleLabel.text = model.titleText
             subTitleLabel.text = model.subTitleText
-            subTitleLabel.textColor = model.subTitleColor
-            subTitleLabel.layer.borderColor = model.subTitleColor.cgColor
+//            subTitleLabel.textColor = model.subTitleColor
+//            subTitleLabel.layer.borderColor = model.subTitleColor.cgColor
             statusLabel.text = model.statusText
-            statusLabel.textColor = model.statusColor
+//            statusLabel.textColor = model.statusColor
         }
     }
     

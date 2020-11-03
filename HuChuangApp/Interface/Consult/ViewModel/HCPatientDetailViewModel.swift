@@ -202,7 +202,7 @@ extension HCPatientDetailViewModel {
                 }
             }
 
-            item.calculateFooterUI()
+//            item.calculateFooterUI()
             item.consultList = consultList
             tempData.append(item)
         }

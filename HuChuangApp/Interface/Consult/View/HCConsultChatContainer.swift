@@ -22,7 +22,13 @@ class HCConsultChatContainer: UIView {
     public var tableView: UITableView!
     
     public let dataSignal = Variable([SectionModel<HCConsultDetailItemModel, HCConsultDetailConsultListModel>]())
-    
+    /// 文字回复
+    public let sendTextSubject = PublishSubject<String>()
+    /// 图片回复
+    public var mediaClickedCallBack:((Int)->())?
+    /// 语音回复
+    public let sendAudioSubject = PublishSubject<(Data, UInt)>()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -64,21 +70,18 @@ class HCConsultChatContainer: UIView {
 extension HCConsultChatContainer {
     
     private func initUI() {
+        backgroundColor = RGB(247, 247, 247)
+        
         tableView = UITableView.init(frame: .zero, style: .grouped)
+        tableView.backgroundColor = RGB(247, 247, 247)
         tableView.separatorStyle = .none
         addSubview(tableView)
                 
         chatKeyboardView = TYChatKeyBoardView()
         addSubview(chatKeyboardView)
-        chatKeyboardView.mediaClickedCallBack = { [unowned self] _ in
-
-        }
-        chatKeyboardView.sendAudioCallBack = { [unowned self] _ in
-
-        }
-        chatKeyboardView.sendTextCallBack = { [unowned self] _ in
-
-        }
+        chatKeyboardView.mediaClickedCallBack = { [unowned self] in self.mediaClickedCallBack?($0) }
+        chatKeyboardView.sendAudioCallBack = { [unowned self] in self.sendAudioSubject.onNext($0) }
+        chatKeyboardView.sendTextCallBack = { [unowned self] in self.sendTextSubject.onNext($0) }
 
         tableView.register(HCConsultDetailSectionHeader.self, forHeaderFooterViewReuseIdentifier: HCConsultDetailSectionHeader_identifier)
         tableView.register(HCConsultDetalCell.self, forCellReuseIdentifier: HCConsultDetalCell_identifier)
