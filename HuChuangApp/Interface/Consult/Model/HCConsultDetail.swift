@@ -9,17 +9,13 @@
 import Foundation
 
 enum HCConsultType: Int {
-    /// 单次图文
-    case picAndText = 0
     /// 聊天咨询
-    case chatConsult
+    case chatConsult = 1
     /// 视屏咨询
-    case videoConsult
-    
+    case videoConsult = 2
+
     public var typeText: String {
         switch self {
-        case .picAndText:
-            return "单次图文"
         case .chatConsult:
             return "聊天咨询"
         case .videoConsult:
@@ -40,6 +36,8 @@ enum HCOrderDetailStatus: Int {
     /// 待接诊
     case unReplay = 10 // 已支付，未回复
     
+    case unknow = -1
+    
     public var statusText: String {
         switch self {
         case .unPay:
@@ -52,6 +50,8 @@ enum HCOrderDetailStatus: Int {
             return "咨询中"
         case .unReplay:
             return "待接诊"
+        case .unknow:
+            return "未知状态"
         }
     }
 }
@@ -95,9 +95,6 @@ class HCConsultDetailItemModel: HJModel {
     var unitName: String = ""
     var read: String = ""
     
-    private var consultStatusContentFrame: CGRect?
-    private var consultStatusFrame: CGRect?
-    private var consultStatusDetailFrame: CGRect?
     private var timeFrame: CGRect?
     private var contentBgFrame: CGRect?
     private var desInfoTitleFrame: CGRect?
@@ -112,44 +109,10 @@ class HCConsultDetailItemModel: HJModel {
     private var subTitleFrame: CGRect = .zero
     private var statusFrame: CGRect = .zero
     
-    public var getConsultStatusContentFrame: CGRect {
-        get {
-            if consultStatusContentFrame == nil {
-                consultStatusContentFrame = .init(x: 0, y: 0, width: PPScreenW, height: 45)
-            }
-            return consultStatusContentFrame!
-        }
-    }
-    
-    public var getConsultStatusFrame: CGRect {
-        get {
-            if consultStatusFrame == nil {
-                let labelSize = statusText.ty_textSize(font: .font(fontSize: 16), width: CGFloat.greatestFiniteMagnitude, height: 18)
-                consultStatusFrame = .init(x: 15,
-                                           y: (getConsultStatusContentFrame.height - 18) / 2,
-                                           width: labelSize.width,
-                                           height: 18)
-            }
-            return consultStatusFrame!
-        }
-    }
-
-    public var getConsultStatusDetailFrame: CGRect {
-        get {
-            if consultStatusDetailFrame == nil {
-                consultStatusDetailFrame = .init(x: getConsultStatusFrame.maxX + 20,
-                                                 y: (getConsultStatusContentFrame.height - 18) / 2,
-                                                 width: getConsultStatusContentFrame.width - getConsultStatusFrame.maxX - 20 - 15,
-                                                 height: 18)
-            }
-            return consultStatusDetailFrame!
-        }
-    }
-
     public var getTimeFrame: CGRect {
         get {
             if timeFrame == nil {
-                timeFrame = .init(x: 15, y: getConsultStatusContentFrame.maxY + 10, width: PPScreenW - 30, height: 20)
+                timeFrame = .init(x: 15, y: 10, width: PPScreenW - 30, height: 20)
             }
             return timeFrame!
         }
@@ -254,14 +217,16 @@ class HCConsultDetailItemModel: HJModel {
         if let t = HCConsultType.init(rawValue: type) {
             return t.typeText
         }
-        return "单次图文"
+        return "聊天咨询"
     }
-//    public var subTitleColor: UIColor {
-//        if let t = HCConsultType.init(rawValue: type) {
-//            return t.typeContentColor
-//        }
-//        return RGB(255, 153, 0)
-//    }
+    
+    public lazy var chatType: HCConsultType = {
+        if let t = HCConsultType.init(rawValue: type) {
+            return t
+        }
+        return .chatConsult
+    }()
+
     
     /// 咨询状态
     public var statusText: String {
@@ -270,6 +235,14 @@ class HCConsultDetailItemModel: HJModel {
         }
         return "未知状态"
     }
+    
+    public var status: HCOrderDetailStatus {
+        if let t = HCOrderDetailStatus.init(rawValue: replyStatus) {
+            return t
+        }
+        return .unknow
+    }
+
     
     /// 咨询状态描述
     public var statusDetailText: NSAttributedString {

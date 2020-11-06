@@ -63,10 +63,13 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
                 if self?.timer.isStart == false {
                     self?.timer.timerStar()
                 }
+                self?.hud.noticeHidden()
                 self?.requestData(true)
             }else {
                 self?.hud.failureHidden(res.message)
             }
+        }, onError: { [weak self] in
+            self?.hud.failureHidden(self?.errorMessage($0))
         })
             .disposed(by: disposeBag)
         
@@ -80,17 +83,20 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
             guard let strongSelf = self else { return Observable.just(ResponseModel()) }
             return strongSelf.submitReply(content: "", filePath: data.0.filePath, bak: "\(data.1)")
         }
-        .subscribe(onNext: { [weak self] res in
-            PrintLog("语音回复结果：\(res.message)")
-            if RequestCode(rawValue: res.code) == RequestCode.success {
-                if self?.timer.isStart == false {
-                    self?.timer.timerStar()
+            .subscribe(onNext: { [weak self] res in
+                PrintLog("语音回复结果：\(res.message)")
+                if RequestCode(rawValue: res.code) == RequestCode.success {
+                    if self?.timer.isStart == false {
+                        self?.timer.timerStar()
+                    }
+                    self?.hud.noticeHidden()
+                    self?.requestData(true)
+                }else {
+                    self?.hud.failureHidden(res.message)
                 }
-                self?.requestData(true)
-            }else {
-                self?.hud.failureHidden(res.message)
-            }
-        })
+            }, onError: { [weak self] in
+                self?.hud.failureHidden(self?.errorMessage($0))
+            })
             .disposed(by: disposeBag)
     
         sendTextSubject

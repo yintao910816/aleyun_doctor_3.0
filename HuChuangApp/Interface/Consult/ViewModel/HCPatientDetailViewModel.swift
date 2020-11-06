@@ -193,13 +193,8 @@ extension HCPatientDetailViewModel {
             m.cellIdentifier = HCConsultDetailTimeCell_identifier
             m.timeString = item.createDate.timeSeprate3()
             consultList.append(m)
-            // 单次图文：内容加回复全显示，其它只显示咨询内容
-            if let type = HCConsultType(rawValue: item.type), type == .picAndText {
-                consultList.append(contentsOf: item.consultList)
-            }else {
-                if let firstConsult = item.consultList.first {
-                    consultList.append(firstConsult)
-                }
+            if let firstConsult = item.consultList.first {
+                consultList.append(firstConsult)
             }
 
 //            item.calculateFooterUI()

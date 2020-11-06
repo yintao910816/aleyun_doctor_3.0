@@ -333,6 +333,15 @@
 		B85CD93523BE609A00B1A1C3 /* HCEditUserCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */; };
 		B8610BF925417B57007D5D46 /* HCCustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610BF825417B57007D5D46 /* HCCustomTabBar.swift */; };
 		B8610C0025502E72007D5D46 /* CAGradientLayer+GradientBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610BFF25502E72007D5D46 /* CAGradientLayer+GradientBG.swift */; };
+		B8610C092553EE30007D5D46 /* HCPresentBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610C082553EE30007D5D46 /* HCPresentBottom.swift */; };
+		B8610C0D2553EF11007D5D46 /* UIViewController+Presation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610C0C2553EF11007D5D46 /* UIViewController+Presation.swift */; };
+		B8610C112553F3AA007D5D46 /* HCMediaPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610C102553F3AA007D5D46 /* HCMediaPickerController.swift */; };
+		B8610C1E2553F41B007D5D46 /* HCMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610C1D2553F41B007D5D46 /* HCMenuModel.swift */; };
+		B8610C222553F711007D5D46 /* HCPickerMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610C202553F711007D5D46 /* HCPickerMenuView.swift */; };
+		B8610C232553F711007D5D46 /* HCPickerMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610C212553F711007D5D46 /* HCPickerMediaView.swift */; };
+		B8610C2625540C76007D5D46 /* HCAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610C2525540C75007D5D46 /* HCAsset.swift */; };
+		B8610C2925541ADE007D5D46 /* HCAssetImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610C2825541ADE007D5D46 /* HCAssetImageView.swift */; };
+		B8610C2C2554FD2A007D5D46 /* HCConsultChatStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610C2B2554FD2A007D5D46 /* HCConsultChatStatusView.swift */; };
 		B86993D32337395800086A77 /* TYButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993D22337395800086A77 /* TYButton.swift */; };
 		B86993D623373A6500086A77 /* TYSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993D523373A6500086A77 /* TYSearchBar.swift */; };
 		B86993E12337547700086A77 /* BaseLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86993E02337547700086A77 /* BaseLayout.swift */; };
@@ -1204,6 +1213,15 @@
 		B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserCityViewModel.swift; sourceTree = "<group>"; };
 		B8610BF825417B57007D5D46 /* HCCustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCCustomTabBar.swift; sourceTree = "<group>"; };
 		B8610BFF25502E72007D5D46 /* CAGradientLayer+GradientBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+GradientBG.swift"; sourceTree = "<group>"; };
+		B8610C082553EE30007D5D46 /* HCPresentBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPresentBottom.swift; sourceTree = "<group>"; };
+		B8610C0C2553EF11007D5D46 /* UIViewController+Presation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Presation.swift"; sourceTree = "<group>"; };
+		B8610C102553F3AA007D5D46 /* HCMediaPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMediaPickerController.swift; sourceTree = "<group>"; };
+		B8610C1D2553F41B007D5D46 /* HCMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMenuModel.swift; sourceTree = "<group>"; };
+		B8610C202553F711007D5D46 /* HCPickerMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCPickerMenuView.swift; sourceTree = "<group>"; };
+		B8610C212553F711007D5D46 /* HCPickerMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCPickerMediaView.swift; sourceTree = "<group>"; };
+		B8610C2525540C75007D5D46 /* HCAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAsset.swift; sourceTree = "<group>"; };
+		B8610C2825541ADE007D5D46 /* HCAssetImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAssetImageView.swift; sourceTree = "<group>"; };
+		B8610C2B2554FD2A007D5D46 /* HCConsultChatStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCConsultChatStatusView.swift; sourceTree = "<group>"; };
 		B8688793235B842F00B9B10F /* HCRecordRemindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecordRemindView.swift; sourceTree = "<group>"; };
 		B86993D22337395800086A77 /* TYButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYButton.swift; sourceTree = "<group>"; };
 		B86993D523373A6500086A77 /* TYSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSearchBar.swift; sourceTree = "<group>"; };
@@ -1625,6 +1643,7 @@
 				B80A3860253D609400A74F14 /* HCBoxPhotoView.swift */,
 				B80A385F253D609400A74F14 /* HCConsultDetailAudioCell.swift */,
 				B80A385A253D609300A74F14 /* HCConsultDetailPhotoCell.swift */,
+				B8610C2B2554FD2A007D5D46 /* HCConsultChatStatusView.swift */,
 				B80A3861253D609400A74F14 /* HCConsultDetailSectionHeader.swift */,
 				B80A385C253D609300A74F14 /* HCConsultDetailTextPhotoCell.swift */,
 				B80A3859253D609300A74F14 /* HCConsultDetailTimeCell.swift */,
@@ -2583,6 +2602,53 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B8610C042553EBCD007D5D46 /* HCMediaPicker */ = {
+			isa = PBXGroup;
+			children = (
+				B8610C0F2553F380007D5D46 /* Controller */,
+				B8610C052553EBCD007D5D46 /* HCPresation */,
+				B8610C062553EBCD007D5D46 /* View */,
+				B8610C072553EBCD007D5D46 /* HCMediaSource */,
+			);
+			path = HCMediaPicker;
+			sourceTree = "<group>";
+		};
+		B8610C052553EBCD007D5D46 /* HCPresation */ = {
+			isa = PBXGroup;
+			children = (
+				B8610C082553EE30007D5D46 /* HCPresentBottom.swift */,
+				B8610C0C2553EF11007D5D46 /* UIViewController+Presation.swift */,
+			);
+			path = HCPresation;
+			sourceTree = "<group>";
+		};
+		B8610C062553EBCD007D5D46 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B8610C212553F711007D5D46 /* HCPickerMediaView.swift */,
+				B8610C202553F711007D5D46 /* HCPickerMenuView.swift */,
+				B8610C2825541ADE007D5D46 /* HCAssetImageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B8610C072553EBCD007D5D46 /* HCMediaSource */ = {
+			isa = PBXGroup;
+			children = (
+				B8610C1D2553F41B007D5D46 /* HCMenuModel.swift */,
+				B8610C2525540C75007D5D46 /* HCAsset.swift */,
+			);
+			path = HCMediaSource;
+			sourceTree = "<group>";
+		};
+		B8610C0F2553F380007D5D46 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B8610C102553F3AA007D5D46 /* HCMediaPickerController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		B86993D423373A5300086A77 /* TYSearchBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -2889,6 +2955,7 @@
 		C421330622056B19006C10C4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B8610C042553EBCD007D5D46 /* HCMediaPicker */,
 				B80A3819253D5B2A00A74F14 /* TYChatKeyBoardView */,
 				B80A380B253D574C00A74F14 /* AudioPlay */,
 				B8454ED223A3EF5200E88BAD /* TYDateCalculate.swift */,
@@ -3941,6 +4008,7 @@
 				C494137724DEA12B00045749 /* HCHomeHeaderReusableView.swift in Sources */,
 				C421332622056F24006C10C4 /* FrameView.swift in Sources */,
 				C4F139BB235419EF00D777F6 /* TYFont.swift in Sources */,
+				B8610C232553F711007D5D46 /* HCPickerMediaView.swift in Sources */,
 				B816EB25221DABF400F024D5 /* ZXUPCEANExtension5Support.m in Sources */,
 				B816EB07221DABF400F024D5 /* ZXRSSExpandedBlockParsedResult.m in Sources */,
 				C4783B2F24DD39E800737479 /* HCBindPhoneViewController.swift in Sources */,
@@ -4013,12 +4081,14 @@
 				B816EB21221DABF400F024D5 /* ZXCode128Writer.m in Sources */,
 				B8610C0025502E72007D5D46 /* CAGradientLayer+GradientBG.swift in Sources */,
 				B8FC3F872396D74D006EB478 /* HCDoctorInfoViewModel.swift in Sources */,
+				B8610C2C2554FD2A007D5D46 /* HCConsultChatStatusView.swift in Sources */,
 				B816EAB1221DABF400F024D5 /* ZXStringUtils.m in Sources */,
 				C497E9712344728200328B47 /* HCHomeBabyTuinaClassroomReusableView.swift in Sources */,
 				C4C11AD824E41C6F001CBE74 /* HCMenuHorizontalCell.swift in Sources */,
 				B816EA8E221DABF400F024D5 /* ZXAztecBinaryShiftToken.m in Sources */,
 				B816EB42221DABF400F024D5 /* ZXURIParsedResult.m in Sources */,
 				C40448A324EA722A00AD1610 /* HCPickerData.swift in Sources */,
+				B8610C112553F3AA007D5D46 /* HCMediaPickerController.swift in Sources */,
 				C40448A524EAA31A00AD1610 /* HCFileModel.swift in Sources */,
 				C421332822056F24006C10C4 /* TYHUDAnimating.swift in Sources */,
 				C4213336220570B6006C10C4 /* UIView+Frame.swift in Sources */,
@@ -4045,6 +4115,7 @@
 				B8BE350F2214797200EF16F1 /* FileManager+Extension.swift in Sources */,
 				C4B185342345B03400F37197 /* HCSearch.swift in Sources */,
 				C421332922056F24006C10C4 /* TYIndicatorBaseView.swift in Sources */,
+				B8610C1E2553F41B007D5D46 /* HCMenuModel.swift in Sources */,
 				C421331222056BD1006C10C4 /* BaseNavigationController.swift in Sources */,
 				C40448A724EAAFB500AD1610 /* HCPersonalCenter.swift in Sources */,
 				C4382C0124E56A59000C00CE /* HCEditInfoViewController.swift in Sources */,
@@ -4052,6 +4123,7 @@
 				B816EB29221DABF400F024D5 /* ZXCode128Reader.m in Sources */,
 				B86993D623373A6500086A77 /* TYSearchBar.swift in Sources */,
 				B816EA8A221DABF400F024D5 /* ZXByQuadrantReader.m in Sources */,
+				B8610C2925541ADE007D5D46 /* HCAssetImageView.swift in Sources */,
 				B8D4D47F2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift in Sources */,
 				B816EB1F221DABF400F024D5 /* ZXAbstractRSSReader.m in Sources */,
 				B816EAD2221DABF400F024D5 /* ZXModulusGF.m in Sources */,
@@ -4077,6 +4149,7 @@
 				B892FFA023ABB50800A137C0 /* TYFiliterView.swift in Sources */,
 				B80A3839253D5B2B00A74F14 /* DPAudioRecorder.m in Sources */,
 				B818BB6C24FF9D59003842A3 /* HCFuncMenuCel.swift in Sources */,
+				B8610C092553EE30007D5D46 /* HCPresentBottom.swift in Sources */,
 				C421332C22056F24006C10C4 /* TYHUD.swift in Sources */,
 				B847C0452536D564000CA140 /* HCConsultListViewModel.swift in Sources */,
 				B816EAAA221DABF400F024D5 /* ZXQRCodeFinderPatternInfo.m in Sources */,
@@ -4245,7 +4318,9 @@
 				C4382BFA24E560C2000C00CE /* HCMineEmptyConsultCell.swift in Sources */,
 				B816EAE4221DABF400F024D5 /* ZXDataMatrixErrorCorrection.m in Sources */,
 				B89C2F882515D8E0004B5C71 /* HCFollowUpAddViewModel.swift in Sources */,
+				B8610C0D2553EF11007D5D46 /* UIViewController+Presation.swift in Sources */,
 				C421338622059B8C006C10C4 /* DB.swift in Sources */,
+				B8610C222553F711007D5D46 /* HCPickerMenuView.swift in Sources */,
 				B816EAD8221DABF400F024D5 /* ZXPDF417BarcodeValue.m in Sources */,
 				C421338422059B8C006C10C4 /* DBQueue.swift in Sources */,
 				C497E94E23444E4600328B47 /* HCHomeConsultingVolumeCell.swift in Sources */,
@@ -4295,6 +4370,7 @@
 				B879A060221AF0B200E573C9 /* MineFooterView.swift in Sources */,
 				C4F139B9235419EF00D777F6 /* TYIcon.swift in Sources */,
 				C42133A12205B41C006C10C4 /* BaseFilesOwner.swift in Sources */,
+				B8610C2625540C76007D5D46 /* HCAsset.swift in Sources */,
 				B816EAC1221DABF400F024D5 /* ZXBitSource.m in Sources */,
 				B816EB26221DABF400F024D5 /* ZXMultiFormatOneDReader.m in Sources */,
 				B816EA78221DABF400F024D5 /* LBXScanView.m in Sources */,

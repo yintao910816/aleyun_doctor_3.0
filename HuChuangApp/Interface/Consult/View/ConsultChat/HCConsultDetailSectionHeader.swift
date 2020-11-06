@@ -11,10 +11,6 @@ import UIKit
 public let HCConsultDetailSectionHeader_identifier = "HCConsultDetailSectionHeader_identifier"
 
 class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
-
-    private var consultStatusContent: UIView!
-    private var consultStatusLabel: UILabel!
-    private var consultStatusDetailLabel: UILabel!
     
     private var timeLabel: UILabel!
     private var contentBgView: UIImageView!
@@ -29,18 +25,6 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
         backgroundColor = RGB(247, 247, 247)
         contentView.backgroundColor = RGB(247, 247, 247)
         
-        consultStatusContent = UIView()
-        consultStatusContent.backgroundColor = RGB(238, 247, 255)
-        
-        consultStatusLabel = UILabel()
-        consultStatusLabel.textColor = RGB(91, 113, 145)
-        consultStatusLabel.font = .font(fontSize: 16)
-
-        consultStatusDetailLabel = UILabel()
-        consultStatusDetailLabel.textAlignment = .right
-        consultStatusDetailLabel.textColor = RGB(91, 113, 145)
-        consultStatusDetailLabel.font = .font(fontSize: 16)
-
         timeLabel = UILabel()
         timeLabel.textAlignment = .center
         timeLabel.font = .font(fontSize: 14, fontName: .PingFRegular)
@@ -70,9 +54,6 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
 
         boxPhotoView = HCBoxPhotoView()
         
-        contentView.addSubview(consultStatusContent)
-        consultStatusContent.addSubview(consultStatusLabel)
-        consultStatusContent.addSubview(consultStatusDetailLabel)
         contentView.addSubview(timeLabel)
         contentView.addSubview(contentBgView)
         contentBgView.addSubview(desInfoTitleLabel)
@@ -87,8 +68,6 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
     
     public var sectionModel: HCConsultDetailItemModel! {
         didSet {
-            consultStatusLabel.text = sectionModel.statusText
-            consultStatusDetailLabel.attributedText = sectionModel.statusDetailText
             timeLabel.text = sectionModel.createDate
             contentLabel.text = sectionModel.content
             boxPhotoView.filles = sectionModel.fileList
@@ -98,9 +77,6 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        consultStatusContent.frame = sectionModel.getConsultStatusContentFrame
-        consultStatusLabel.frame = sectionModel.getConsultStatusFrame
-        consultStatusDetailLabel.frame = sectionModel.getConsultStatusDetailFrame
         timeLabel.frame = sectionModel.getTimeFrame
         contentBgView.frame = sectionModel.getContentBgFrame
         desInfoTitleLabel.frame = sectionModel.getDesInfoTitleFrame

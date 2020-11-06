@@ -51,7 +51,7 @@ struct APIAssistance {
 
     static public func baseURL(API: API) ->URL{
         switch API {
-        case .uploadIcon(_):
+        case .uploadIcon(_), .uploadFile(data: _, fileType: _):
             return URL(string: fileBase)!
         default:
             return URL(string: base)!

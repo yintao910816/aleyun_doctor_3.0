@@ -16,9 +16,10 @@ class HCConsultChatContainer: UIView {
 
     private let disposeBag = DisposeBag()
     
-    private var chatKeyboardView: TYChatKeyBoardView!
     private var keyboardManager = KeyboardManager()
 
+    private var chatStatusView: HCConsultChatStatusView!
+    
     public var tableView: UITableView!
     
     public let dataSignal = Variable([SectionModel<HCConsultDetailItemModel, HCConsultDetailConsultListModel>]())
@@ -28,6 +29,38 @@ class HCConsultChatContainer: UIView {
     public var mediaClickedCallBack:((Int)->())?
     /// 语音回复
     public let sendAudioSubject = PublishSubject<(Data, UInt)>()
+    /// 点击输入框右边多功能按钮
+    public var clickedFuncCallBack:(()->())?
+
+    private lazy var chatKeyboardView: TYChatKeyBoardView = {
+        let view = TYChatKeyBoardView()
+        
+        view.mediaClickedCallBack = { [unowned self] in self.mediaClickedCallBack?($0) }
+        view.sendAudioCallBack = { [unowned self] in self.sendAudioSubject.onNext($0) }
+        view.sendTextCallBack = { [unowned self] in self.sendTextSubject.onNext($0) }
+        view.clickedFuncCallBack = { [unowned self] in self.clickedFuncCallBack?() }
+        return view
+    }()
+    
+    private lazy var publicViewContent: UIView = {
+        let view = UIView()
+        view.backgroundColor = RGB(75, 138, 239)
+        
+        let button = UIButton()
+        button.backgroundColor = RGB(75, 138, 239)
+        button.tag = 100
+        button.setTitle("公开展示", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .font(fontSize: 16, fontName: .PingFSemibold)
+        button.addTarget(self, action: #selector(publicViewAction), for: .touchUpInside)
+        view.addSubview(button)
+        
+        return view
+    }()
+
+    deinit {
+        keyboardManager.removeNotification()
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,28 +75,80 @@ class HCConsultChatContainer: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        keyboardManager.removeNotification()
+    private var consultStatus: HCOrderDetailStatus = .unknow {
+        didSet {
+            switch consultStatus {
+            case .replay, .unReplay:
+                publicViewContent.removeFromSuperview()
+                addSubview(chatKeyboardView)
+                setNeedsLayout()
+                layoutIfNeeded()
+            case .finish:
+                chatKeyboardView.removeFromSuperview()
+                addSubview(publicViewContent)
+                setNeedsLayout()
+                layoutIfNeeded()
+            default:
+                break
+            }
+        }
+    }
+    
+    @objc private func publicViewAction() {
+        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if #available(iOS 11.0, *) {
-            chatKeyboardView.frame = .init(x: 0,
-                                         y: height - 50 - safeAreaInsets.bottom,
-                                         width: width,
-                                         height: 50)
-        } else {
-            chatKeyboardView.frame = .init(x: 0,
-                                         y: height - 50,
-                                         width: width,
-                                         height: 50)
+        chatStatusView.frame = .init(x: 0, y: 0, width: width, height: 45)
+        
+        switch consultStatus {
+        case .replay, .unReplay:
+            if #available(iOS 11.0, *) {
+                chatKeyboardView.frame = .init(x: 0,
+                                             y: height - 50 - safeAreaInsets.bottom,
+                                             width: width,
+                                             height: 50)
+            } else {
+                chatKeyboardView.frame = .init(x: 0,
+                                             y: height - 50,
+                                             width: width,
+                                             height: 50)
+            }
+            
+            tableView.frame = .init(x: 0,
+                                    y: chatStatusView.frame.maxY,
+                                    width: width,
+                                    height: chatKeyboardView.y - chatStatusView.frame.maxY)
+        case .finish:
+            if #available(iOS 11.0, *) {
+                publicViewContent.frame = .init(x: 0,
+                                             y: height - 50 - safeAreaInsets.bottom,
+                                             width: width,
+                                             height: 50 + safeAreaInsets.bottom)
+            } else {
+                publicViewContent.frame = .init(x: 0,
+                                             y: height - 50,
+                                             width: width,
+                                             height: 50)
+            }
+            publicViewContent.viewWithTag(100)?.frame = .init(x: 0, y: 0, width: publicViewContent.width, height: 50)
+            
+            tableView.frame = .init(x: 0,
+                                    y: chatStatusView.frame.maxY,
+                                    width: width,
+                                    height: publicViewContent.y - chatStatusView.frame.maxY)
+        default:
+            tableView.frame = .init(x: 0,
+                                    y: chatStatusView.frame.maxY,
+                                    width: width,
+                                    height: height - chatStatusView.frame.maxY)
         }
         
-        tableView.frame = .init(x: 0, y: 0, width: width, height: chatKeyboardView.y)
-        
-        keyboardManager.move(coverView: chatKeyboardView, moveView: chatKeyboardView)
+        if chatKeyboardView.superview != nil {
+            keyboardManager.move(coverView: chatKeyboardView, moveView: chatKeyboardView)
+        }
     }
 }
 
@@ -72,17 +157,15 @@ extension HCConsultChatContainer {
     private func initUI() {
         backgroundColor = RGB(247, 247, 247)
         
+        chatStatusView = HCConsultChatStatusView()
+        
         tableView = UITableView.init(frame: .zero, style: .grouped)
         tableView.backgroundColor = RGB(247, 247, 247)
         tableView.separatorStyle = .none
+        
         addSubview(tableView)
+        addSubview(chatStatusView)
                 
-        chatKeyboardView = TYChatKeyBoardView()
-        addSubview(chatKeyboardView)
-        chatKeyboardView.mediaClickedCallBack = { [unowned self] in self.mediaClickedCallBack?($0) }
-        chatKeyboardView.sendAudioCallBack = { [unowned self] in self.sendAudioSubject.onNext($0) }
-        chatKeyboardView.sendTextCallBack = { [unowned self] in self.sendTextSubject.onNext($0) }
-
         tableView.register(HCConsultDetailSectionHeader.self, forHeaderFooterViewReuseIdentifier: HCConsultDetailSectionHeader_identifier)
         tableView.register(HCConsultDetalCell.self, forCellReuseIdentifier: HCConsultDetalCell_identifier)
         tableView.register(HCConsultDetailPhotoCell.self, forCellReuseIdentifier: HCConsultDetailPhotoCell_identifier)
@@ -102,6 +185,10 @@ extension HCConsultChatContainer {
         })
 
         dataSignal.asDriver()
+            .do(onNext: { [weak self] in
+                self?.consultStatus = $0.last?.model.status ?? .unknow
+                self?.chatStatusView.sectionModel = $0.last?.model
+            })
             .drive(tableView.rx.items(dataSource: datasource))
             .disposed(by: disposeBag)
         

@@ -25,6 +25,8 @@ class TYChatKeyBoardView: UIView {
     public var mediaClickedCallBack:((Int)->())?
     public var sendAudioCallBack:(((Data, UInt))->())?
     public var sendTextCallBack:((String)->())?
+    /// 点击右边多功能按钮
+    public var clickedFuncCallBack:(()->())?
 
     deinit {
         PrintLog("释放了：\(self)")
@@ -100,7 +102,9 @@ class TYChatKeyBoardView: UIView {
     }
     
     @objc private func showMediaKeyboardAction() {
-        inputTf.mediaShow()
+//        inputTf.mediaShow()
+        inputTf.resignFirstResponder()
+        clickedFuncCallBack?()
     }
     
     override func layoutSubviews() {

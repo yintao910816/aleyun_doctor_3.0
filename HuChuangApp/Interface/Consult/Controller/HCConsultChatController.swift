@@ -22,6 +22,7 @@ class HCConsultChatController: HCSlideItemController {
         view.addSubview(container)
 
         container.mediaClickedCallBack = { [weak self] _ in self?.systemPic() }
+        container.clickedFuncCallBack = { [unowned self] in self.presentMediaCtrol() }
     }
     
     override func rxBind() {
@@ -41,6 +42,29 @@ class HCConsultChatController: HCSlideItemController {
 
         viewModel.reloadSubject.onNext(Void())
 //        container.tableView.prepare(viewModel, showFooter: false, showHeader: true)
+    }
+    
+    @objc private func presentMediaCtrol() {
+        let pickerContrl = HCMediaPickerController()
+        pickerContrl.pickerMenuData = HCPickerMenuSectionModel.createChatPicker()
+        self.model(for: pickerContrl, controllerHeight: self.view.height)
+        
+        pickerContrl.selectedMenu = { [unowned self] in
+            switch $0.title {
+            case "快捷回复":
+                break
+            case "相册":
+                break
+            case "拍摄":
+                break
+            case "视频通话":
+                break
+            default:
+                break
+            }
+        }
+        
+        pickerContrl.selectedImage = { [unowned self] in self.viewModel.sendImageSubject.onNext($0) }
     }
     
     override func viewDidLayoutSubviews() {
