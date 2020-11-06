@@ -25,6 +25,7 @@ pod 'UMCShare/UI'
 
 pod 'YYText'
 
-pod 'TXLiteAVSDK_TRTC'
+pod 'TXLiteAVSDK_Professional'
+pod 'TXIMSDK_iOS'
 
 end

@@ -31,5 +31,6 @@
 
 #import "TRTCCloud.h"
 #import "GenerateTestUserSig.h"
+#import <ImSDK/ImSDK.h>
 
 #endif /* HcChuangApp_Bridge_Header_h */
