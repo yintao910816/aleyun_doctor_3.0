@@ -370,6 +370,10 @@
 		B8760D062344FB85002906F6 /* HCSearchAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8760D052344FB85002906F6 /* HCSearchAllViewController.swift */; };
 		B879A060221AF0B200E573C9 /* MineFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B879A05F221AF0B200E573C9 /* MineFooterView.swift */; };
 		B879A062221AF0BB00E573C9 /* MineFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B879A061221AF0BB00E573C9 /* MineFooterView.xib */; };
+		B87CCAA925554E1D00792F76 /* TRTCCalling.m in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAA725554E1D00792F76 /* TRTCCalling.m */; };
+		B87CCAAD25554E5300792F76 /* TRTCCallingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAAC25554E5300792F76 /* TRTCCallingModel.m */; };
+		B87CCAB325554EE500792F76 /* TRTCCalling+Signal.m in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAB225554EE500792F76 /* TRTCCalling+Signal.m */; };
+		B87CCAB825554F3500792F76 /* TRTCCallingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAB725554F3500792F76 /* TRTCCallingUtils.m */; };
 		B88497DC24E7F6FB00B91262 /* HCVerifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */; };
 		B88497E124E7F8E500B91262 /* APIAdapt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DE24E7F8E500B91262 /* APIAdapt.swift */; };
 		B88497E224E7F8E500B91262 /* CRAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DF24E7F8E500B91262 /* CRAPI.swift */; };
@@ -1258,6 +1262,16 @@
 		B8760D052344FB85002906F6 /* HCSearchAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCSearchAllViewController.swift; sourceTree = "<group>"; };
 		B879A05F221AF0B200E573C9 /* MineFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFooterView.swift; sourceTree = "<group>"; };
 		B879A061221AF0BB00E573C9 /* MineFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineFooterView.xib; sourceTree = "<group>"; };
+		B87CCAA725554E1D00792F76 /* TRTCCalling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRTCCalling.m; sourceTree = "<group>"; };
+		B87CCAA825554E1D00792F76 /* TRTCCalling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTCCalling.h; sourceTree = "<group>"; };
+		B87CCAAB25554E5300792F76 /* TRTCCallingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTCCallingModel.h; sourceTree = "<group>"; };
+		B87CCAAC25554E5300792F76 /* TRTCCallingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRTCCallingModel.m; sourceTree = "<group>"; };
+		B87CCAAF25554E7000792F76 /* TRTCCallingDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTCCallingDelegate.h; sourceTree = "<group>"; };
+		B87CCAB125554EE500792F76 /* TRTCCalling+Signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TRTCCalling+Signal.h"; sourceTree = "<group>"; };
+		B87CCAB225554EE500792F76 /* TRTCCalling+Signal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TRTCCalling+Signal.m"; sourceTree = "<group>"; };
+		B87CCAB625554F3500792F76 /* TRTCCallingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTCCallingUtils.h; sourceTree = "<group>"; };
+		B87CCAB725554F3500792F76 /* TRTCCallingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRTCCallingUtils.m; sourceTree = "<group>"; };
+		B87CCABA25554F7B00792F76 /* TRTCCallingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRTCCallingHeader.h; sourceTree = "<group>"; };
 		B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerifyViewModel.swift; sourceTree = "<group>"; };
 		B88497DE24E7F8E500B91262 /* APIAdapt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAdapt.swift; sourceTree = "<group>"; };
 		B88497DF24E7F8E500B91262 /* CRAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRAPI.swift; sourceTree = "<group>"; };
@@ -2614,6 +2628,7 @@
 		B85BD075255545EA0026A508 /* TRTC */ = {
 			isa = PBXGroup;
 			children = (
+				B87CCAA625554E1D00792F76 /* Impl */,
 				B85BD076255545EA0026A508 /* TrtcUserSig */,
 				B85BD079255545EA0026A508 /* HCTRTCCloudManager.swift */,
 			);
@@ -2752,6 +2767,23 @@
 				C44159F1234616A50011B987 /* HCSearchPopularScienceViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		B87CCAA625554E1D00792F76 /* Impl */ = {
+			isa = PBXGroup;
+			children = (
+				B87CCABA25554F7B00792F76 /* TRTCCallingHeader.h */,
+				B87CCAB625554F3500792F76 /* TRTCCallingUtils.h */,
+				B87CCAB725554F3500792F76 /* TRTCCallingUtils.m */,
+				B87CCAAF25554E7000792F76 /* TRTCCallingDelegate.h */,
+				B87CCAB125554EE500792F76 /* TRTCCalling+Signal.h */,
+				B87CCAB225554EE500792F76 /* TRTCCalling+Signal.m */,
+				B87CCAAB25554E5300792F76 /* TRTCCallingModel.h */,
+				B87CCAAC25554E5300792F76 /* TRTCCallingModel.m */,
+				B87CCAA725554E1D00792F76 /* TRTCCalling.m */,
+				B87CCAA825554E1D00792F76 /* TRTCCalling.h */,
+			);
+			path = Impl;
 			sourceTree = "<group>";
 		};
 		B88497DD24E7F8E500B91262 /* API */ = {
@@ -4106,6 +4138,7 @@
 				B816EAAD221DABF400F024D5 /* ZXQRCodeAlignmentPatternFinder.m in Sources */,
 				B80A388D253D80FE00A74F14 /* HCPatientHealthArchivesHeaderView.swift in Sources */,
 				B816EAEA221DABF400F024D5 /* ZXDataMatrixSymbolInfo.m in Sources */,
+				B87CCAAD25554E5300792F76 /* TRTCCallingModel.m in Sources */,
 				B816EB02221DABF400F024D5 /* ZXOneDimensionalCodeWriter.m in Sources */,
 				B85BD06F255545730026A508 /* amr_wav_converter.c in Sources */,
 				B816EB21221DABF400F024D5 /* ZXCode128Writer.m in Sources */,
@@ -4189,6 +4222,7 @@
 				B816EAFD221DABF400F024D5 /* ZXOneDReader.m in Sources */,
 				B85CD93523BE609A00B1A1C3 /* HCEditUserCityViewModel.swift in Sources */,
 				B818BB7F25149C2E003842A3 /* HCPatientManageViewModel.swift in Sources */,
+				B87CCAB825554F3500792F76 /* TRTCCallingUtils.m in Sources */,
 				B816EB11221DABF400F024D5 /* ZXRSSExpandedCurrentParsingState.m in Sources */,
 				B8D4D47D239426B400AA3D52 /* HCPicAndTextAskViewModel.swift in Sources */,
 				B816EACF221DABF400F024D5 /* ZXPDF417.m in Sources */,
@@ -4453,6 +4487,7 @@
 				C4382C0324E56A89000C00CE /* HCEditInfoContainer.swift in Sources */,
 				B80A387F253D70DF00A74F14 /* HCConsultDetailController.swift in Sources */,
 				B816EAF2221DABF400F024D5 /* ZXDataMatrixVersion.m in Sources */,
+				B87CCAA925554E1D00792F76 /* TRTCCalling.m in Sources */,
 				B816EA84221DABF400F024D5 /* ZXLuminanceSource.m in Sources */,
 				B8CD926923A2967D00C9C061 /* HCRecordSuggestReusableView.swift in Sources */,
 				B816EA83221DABF400F024D5 /* ZXRGBLuminanceSource.m in Sources */,
@@ -4565,6 +4600,7 @@
 				B80A3866253D609400A74F14 /* HCConsultDetailTextPhotoCell.swift in Sources */,
 				B816EAE7221DABF400F024D5 /* ZXDataMatrixSymbolInfo144.m in Sources */,
 				B816EAFE221DABF400F024D5 /* ZXUPCAReader.m in Sources */,
+				B87CCAB325554EE500792F76 /* TRTCCalling+Signal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
