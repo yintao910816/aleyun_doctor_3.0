@@ -25,6 +25,8 @@ pod 'UMCShare/UI'
 
 pod 'YYText'
 
+pod 'Toast-Swift'
+
 pod 'TXLiteAVSDK_Professional'
 pod 'TXIMSDK_iOS'
 

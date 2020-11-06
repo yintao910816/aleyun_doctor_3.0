@@ -188,7 +188,16 @@ enum API{
     case getPatientCoupleInfo(memberId: String)
     /// 咨询退回
     case withdrawConsult(orderSn: String)
-
+    /// 获取视频签名 memberId - 当前登陆用户id
+    case videoChatSignature(memberId: String)
+    /**
+     * 接听电话获取头像姓名信息
+     * memberId - 当前登陆用户id
+     * userId - 查询的用户id
+     */
+    case consultVideoUserInfo(memberId: String, userId: String)
+    
+    
     // --------------- 3.0接口
     /// 实名认证
     case realNameAuth(realName: String, sex: String, birthDay: String, certificateType: String, certificateNo: String)
@@ -313,7 +322,12 @@ extension API: TargetType{
             return "api/patientConsult/getPatientCoupleInfo"
         case .withdrawConsult(let orderSn):
             return "api/patientConsult/withdrawConsult/\(orderSn)"
-
+        case .videoChatSignature(_):
+            return "api/consult/signature"
+        case .consultVideoUserInfo(_, _):
+            return "api/consult/videoUserInfo"
+            
+            
         case .realNameAuth(_, _, _, _, _):
             return "api/consumer/realNameAuth"
         case .accountSetting(_, _):
@@ -503,6 +517,11 @@ extension API {
             params["memberId"] = memberId
         case .getPatientCoupleInfo(let memberId):
             params["memberId"] = memberId
+        case .videoChatSignature(let memberId):
+            params["memberId"] = memberId
+        case .consultVideoUserInfo(let memberId, let userId):
+            params["memberId"] = memberId
+            params["userId"] = userId
 
             
         case .realNameAuth(let realName, let sex, let birthDay, let certificateType, let certificateNo):

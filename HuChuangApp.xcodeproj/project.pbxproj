@@ -377,6 +377,9 @@
 		B87CCAE6255553FB00792F76 /* VideoCallingRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCADD255553FB00792F76 /* VideoCallingRenderView.swift */; };
 		B87CCAE7255553FB00792F76 /* HCTRTCCloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCADE255553FB00792F76 /* HCTRTCCloudManager.swift */; };
 		B87CCAEA2555542A00792F76 /* HCConsultVideoCallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAE92555542A00792F76 /* HCConsultVideoCallController.swift */; };
+		B87CCAED2555555300792F76 /* VideoCallUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAEC2555555300792F76 /* VideoCallUserCell.swift */; };
+		B87CCAF0255555B600792F76 /* TrtcUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAEF255555B600792F76 /* TrtcUtils.swift */; };
+		B87CCB0C25556FFB00792F76 /* HCAppDelegate+TRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */; };
 		B88497DC24E7F6FB00B91262 /* HCVerifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */; };
 		B88497E124E7F8E500B91262 /* APIAdapt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DE24E7F8E500B91262 /* APIAdapt.swift */; };
 		B88497E224E7F8E500B91262 /* CRAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DF24E7F8E500B91262 /* CRAPI.swift */; };
@@ -1278,6 +1281,9 @@
 		B87CCADD255553FB00792F76 /* VideoCallingRenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCallingRenderView.swift; sourceTree = "<group>"; };
 		B87CCADE255553FB00792F76 /* HCTRTCCloudManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTRTCCloudManager.swift; sourceTree = "<group>"; };
 		B87CCAE92555542A00792F76 /* HCConsultVideoCallController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCConsultVideoCallController.swift; sourceTree = "<group>"; };
+		B87CCAEC2555555300792F76 /* VideoCallUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallUserCell.swift; sourceTree = "<group>"; };
+		B87CCAEF255555B600792F76 /* TrtcUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrtcUtils.swift; sourceTree = "<group>"; };
+		B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCAppDelegate+TRTC.swift"; sourceTree = "<group>"; };
 		B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerifyViewModel.swift; sourceTree = "<group>"; };
 		B88497DE24E7F8E500B91262 /* APIAdapt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAdapt.swift; sourceTree = "<group>"; };
 		B88497DF24E7F8E500B91262 /* CRAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRAPI.swift; sourceTree = "<group>"; };
@@ -2779,15 +2785,15 @@
 		B87CCACE255553FB00792F76 /* Impl */ = {
 			isa = PBXGroup;
 			children = (
+				B87CCAD5255553FB00792F76 /* TRTCCalling.h */,
 				B87CCACF255553FB00792F76 /* TRTCCalling.m */,
-				B87CCAD0255553FB00792F76 /* TRTCCallingUtils.m */,
-				B87CCAD1255553FB00792F76 /* TRTCCallingModel.h */,
 				B87CCAD2255553FB00792F76 /* TRTCCalling+Signal.h */,
+				B87CCAD7255553FB00792F76 /* TRTCCalling+Signal.m */,
 				B87CCAD3255553FB00792F76 /* TRTCCallingDelegate.h */,
 				B87CCAD4255553FB00792F76 /* TRTCCallingUtils.h */,
-				B87CCAD5255553FB00792F76 /* TRTCCalling.h */,
+				B87CCAD0255553FB00792F76 /* TRTCCallingUtils.m */,
+				B87CCAD1255553FB00792F76 /* TRTCCallingModel.h */,
 				B87CCAD6255553FB00792F76 /* TRTCCallingModel.m */,
-				B87CCAD7255553FB00792F76 /* TRTCCalling+Signal.m */,
 				B87CCAD8255553FB00792F76 /* TRTCCallingHeader.h */,
 				B87CCAD9255553FB00792F76 /* CallingViewControllerResponder.swift */,
 			);
@@ -2798,6 +2804,7 @@
 			isa = PBXGroup;
 			children = (
 				B87CCADB255553FB00792F76 /* CallUserModel.swift */,
+				B87CCAEF255555B600792F76 /* TrtcUtils.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2807,6 +2814,7 @@
 			children = (
 				B87CCAE92555542A00792F76 /* HCConsultVideoCallController.swift */,
 				B87CCADD255553FB00792F76 /* VideoCallingRenderView.swift */,
+				B87CCAEC2555555300792F76 /* VideoCallUserCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3085,6 +3093,7 @@
 			children = (
 				C421330A22056B59006C10C4 /* HCAppDelegate.swift */,
 				B842D1FD22258CC000A4F8DF /* HCAppDelegate+UM.swift */,
+				B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -4205,6 +4214,7 @@
 				B8610C1E2553F41B007D5D46 /* HCMenuModel.swift in Sources */,
 				C421331222056BD1006C10C4 /* BaseNavigationController.swift in Sources */,
 				C40448A724EAAFB500AD1610 /* HCPersonalCenter.swift in Sources */,
+				B87CCAF0255555B600792F76 /* TrtcUtils.swift in Sources */,
 				C4382C0124E56A59000C00CE /* HCEditInfoViewController.swift in Sources */,
 				B8760D062344FB85002906F6 /* HCSearchAllViewController.swift in Sources */,
 				B816EB29221DABF400F024D5 /* ZXCode128Reader.m in Sources */,
@@ -4272,6 +4282,7 @@
 				B816EAD4221DABF400F024D5 /* ZXPDF417DecodedBitStreamParser.m in Sources */,
 				B816EAF9221DABF400F024D5 /* ZXCode93Reader.m in Sources */,
 				B8454EDB23A5361200E88BAD /* TYColorLineView.swift in Sources */,
+				B87CCAED2555555300792F76 /* VideoCallUserCell.swift in Sources */,
 				B816EAE8221DABF400F024D5 /* ZXDataMatrixASCIIEncoder.m in Sources */,
 				B816EADF221DABF400F024D5 /* ZXPDF417Reader.m in Sources */,
 				B816EA9D221DABF400F024D5 /* ZXMultiFinderPatternFinder.m in Sources */,
@@ -4614,6 +4625,7 @@
 				B847C0482536D582000CA140 /* HCConsultListContainer.swift in Sources */,
 				C4AB273724E53D6F0095F693 /* HCListDetailButtonCell.swift in Sources */,
 				C421331A22056E55006C10C4 /* BaseViewController.swift in Sources */,
+				B87CCB0C25556FFB00792F76 /* HCAppDelegate+TRTC.swift in Sources */,
 				B87CCAE7255553FB00792F76 /* HCTRTCCloudManager.swift in Sources */,
 				C4E254EA233E0793006922DB /* TYSlideMenuController.swift in Sources */,
 				B870E539238C25120085AFA3 /* HCHealthyArchivesViewController.swift in Sources */,

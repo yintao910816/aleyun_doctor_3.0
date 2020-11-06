@@ -23,3 +23,9 @@ struct CallingUserModel: Equatable {
         return false
     }
 }
+
+@objc public enum VideoCallingState : Int32, Codable {
+    case dailing = 0
+    case onInvitee = 1
+    case calling = 2
+}

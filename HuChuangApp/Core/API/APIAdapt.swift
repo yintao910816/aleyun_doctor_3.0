@@ -49,10 +49,16 @@ struct APIAssistance {
     public static let fileBase = "https://ileyun.ivfcn.com/hc-files/"
     public static let baseH5Host = "https://ileyun.ivfcn.com/consult/"
 
+    /// 测试使用：视频聊天相关
+    public static let testHost = "https://ileyun.ivfcn.com/hc-patient-webs/"
+    
     static public func baseURL(API: API) ->URL{
         switch API {
         case .uploadIcon(_), .uploadFile(data: _, fileType: _):
             return URL(string: fileBase)!
+//        case .videoChatSignature(_),
+//             .consultVideoUserInfo(_, _):
+//            return URL(string: testHost)!
         default:
             return URL(string: base)!
         }

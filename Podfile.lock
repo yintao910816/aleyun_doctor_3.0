@@ -24,6 +24,7 @@ PODS:
   - SQLite.swift (0.11.6):
     - SQLite.swift/standard (= 0.11.6)
   - SQLite.swift/standard (0.11.6)
+  - Toast-Swift (5.0.1)
   - TXIMSDK_iOS (5.1.1)
   - TXLiteAVSDK_Professional (7.9.9565)
   - UMCAnalytics (6.0.5):
@@ -57,6 +58,7 @@ DEPENDENCIES:
   - RxSwift (~> 4.4.0)
   - SnapKit (~> 4.0.0)
   - SQLite.swift (~> 0.11.5)
+  - Toast-Swift
   - TXIMSDK_iOS
   - TXLiteAVSDK_Professional
   - UMCAnalytics
@@ -89,6 +91,7 @@ SPEC REPOS:
     - UMCSecurityPlugins
     - WebViewJavascriptBridge
   trunk:
+    - Toast-Swift
     - TXIMSDK_iOS
     - TXLiteAVSDK_Professional
     - UMCShare
@@ -108,6 +111,7 @@ SPEC CHECKSUMS:
   RxSwift: 74c29b693c8e42b0f64400e8b06564575742d649
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SQLite.swift: 46d890be8601964454bd3392527f863d1b802d45
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TXIMSDK_iOS: fc97e918f6357573a5d61a9dcd8e9a8dc6ea0906
   TXLiteAVSDK_Professional: 28b98c9f292667e146224fc160b1322ada012757
   UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
@@ -118,6 +122,6 @@ SPEC CHECKSUMS:
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: cfa5745084ddc9d4956648eb17b030497859ba35
+PODFILE CHECKSUM: ac2bac76f22839beb0a3c9d9c81d8aaa1cf70c81
 
 COCOAPODS: 1.8.3

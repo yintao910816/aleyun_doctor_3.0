@@ -56,6 +56,7 @@ NS_SWIFT_NAME(logout(success:failed:));
 /// @param userID 被邀请方ID
 /// @param type 通话类型：视频/语音
 - (void)call:(NSString *)userID
+      roomId:(UInt32)roomId
         type:(CallType)type
 NS_SWIFT_NAME(call(userID:type:));
 
@@ -64,6 +65,7 @@ NS_SWIFT_NAME(call(userID:type:));
 /// @param type 通话类型:视频/语音
 /// @param groupID 群组ID，可选参数
 - (void)groupCall:(NSArray *)userIDs
+           roomId:(UInt32)roomId
              type:(CallType)type
           groupID:(NSString * _Nullable)groupID
 NS_SWIFT_NAME(groupCall(userIDs:type:groupID:));

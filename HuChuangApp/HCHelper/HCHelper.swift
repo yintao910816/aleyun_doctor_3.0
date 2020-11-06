@@ -26,6 +26,10 @@ class HCHelper {
     
     typealias blankBlock = ()->()
 
+    /// 缓存的用户信息
+    private var cachedLocalUsers: [CallingUserModel] = []
+    
+    /// 当前登陆用户
     public let userInfoHasReload = PublishSubject<HCUserModel>()
     public var userInfoModel: HCUserModel?
     public var isPresentLogin: Bool = false
@@ -45,6 +49,34 @@ class HCHelper {
     
     public static func setupHelper() {
         _ = HCHelper.share
+    }
+}
+
+extension HCHelper {
+    
+    public static func requestVideoCallUserInfo(userId: String, complement: (())->()) {
+        if let user = HCHelper.share.userInfoModel {
+            HCProvider.request(.consultVideoUserInfo(memberId: user.uid, userId: userId))
+                .mapJSON()
+                .subscribe { res in
+                    print(res)
+                } onError: { error in
+                    print(error)
+                }
+
+        }
+    }
+    
+    public static func requestVideoChatSignature() {
+        if let user = HCHelper.share.userInfoModel {
+            HCProvider.request(.videoChatSignature(memberId: user.uid))
+                .mapJSON()
+                .subscribe { res in
+                    print(res)
+                } onError: { error in
+                    print(error)
+                }
+        }
     }
 }
 
@@ -73,6 +105,15 @@ extension HCHelper {
     }
     
     class func saveLogin(user: HCUserModel) {
+        TRTCCalling.shareInstance().login(sdkAppID: trtc_appid,
+                                          user: user.uid,
+                                          userSig: GenerateTestUserSig.genTestUserSig(user.uid)) {
+            PrintLog("trtc登录成功")
+        } failed: { (code, des) in
+          PrintLog("trtc登录失败: code - \(code)\ninfo\(des)")
+        }
+
+        
         userDefault.uid = user.uid
         userDefault.token = user.token
         userDefault.unitId = user.unitId
@@ -81,6 +122,11 @@ extension HCHelper {
         HCHelper.share.userInfoModel = user
         
         HCHelper.share.userInfoHasReload.onNext(user)
+        
+        HCHelper.requestVideoChatSignature()
+        HCHelper.requestVideoCallUserInfo(userId: "2378") { _ in
+            
+        }
     }
 
 }

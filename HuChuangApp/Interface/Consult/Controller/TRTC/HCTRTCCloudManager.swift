@@ -8,7 +8,7 @@
 
 import Foundation
 
-private let trtc_appid: UInt32 = 1400380841
+public let trtc_appid: UInt32 = 1400380841
 private let trtc_secretkey: String = "b6809c324ae80e2f6f2ecf54717e862979ad93bcd4c84a250f7caf00dbd8ee04"
 
 class HCTRTCCloudManager: NSObject {

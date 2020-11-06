@@ -117,20 +117,20 @@
     }];
 }
 
-- (void)call:(NSString *)userID type:(CallType)type {
-    [self call:@[userID] groupID:nil type:type];
+- (void)call:(NSString *)userID roomId:(UInt32)roomId type:(CallType)type {
+    [self call:@[userID] groupID:nil roomId:roomId type:type];
 }
 
-- (void)groupCall:(NSArray *)userIDs type:(CallType)type groupID:(NSString *)groupID {
-    [self call:userIDs groupID:groupID type:type];
+- (void)groupCall:(NSArray *)userIDs roomId:(UInt32)roomId type:(CallType)type groupID:(NSString *)groupID {
+    [self call:userIDs groupID:groupID roomId:roomId type:type];
 }
 
-- (void)call:(NSArray *)userIDs groupID:(NSString *)groupID type:(CallType)type {
+- (void)call:(NSArray *)userIDs groupID:(NSString *)groupID roomId:(UInt32)roomId type:(CallType)type {
     if (!self.isOnCalling) {
         self.curLastModel.inviter = [TRTCCallingUtils loginUser];
         self.curLastModel.action = CallAction_Call;
         self.curLastModel.calltype = type;
-        self.curRoomID = [TRTCCallingUtils generateRoomID];
+        self.curRoomID = roomId;
         self.curGroupID = groupID;
         self.curType = type;
         self.isOnCalling = YES;

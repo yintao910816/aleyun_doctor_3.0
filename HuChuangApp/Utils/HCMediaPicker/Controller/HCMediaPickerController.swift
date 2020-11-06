@@ -49,13 +49,15 @@ class HCMediaPickerController: UIViewController {
         
         HCAssetManager.getAllAsset { [weak self] in self?.mediaView.mediaDatas = $0 }
         
-        menuView.selectedMenu = { [unowned self] in
-            self.selectedMenu?($0)
-            self.dismissAction()
+        menuView.selectedMenu = { [weak self] item in
+            self?.dismiss(animated: true) {
+                self?.selectedMenu?(item)
+            }
         }
-        mediaView.selectedImage = { [unowned self] in
-            self.selectedImage?($0)
-            self.dismissAction()
+        mediaView.selectedImage = { [weak self] image in
+            self?.dismiss(animated: true) {
+                self?.selectedImage?(image)
+            }
         }
     }
     
