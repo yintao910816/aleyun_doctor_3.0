@@ -25,4 +25,6 @@ pod 'UMCShare/UI'
 
 pod 'YYText'
 
+pod 'TXLiteAVSDK_TRTC'
+
 end

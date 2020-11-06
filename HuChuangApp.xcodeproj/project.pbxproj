@@ -18,14 +18,6 @@
 		B80A382F253D5B2B00A74F14 /* TYTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80A381B253D5B2A00A74F14 /* TYTextInputView.swift */; };
 		B80A3830253D5B2B00A74F14 /* TYTextInputMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80A381C253D5B2A00A74F14 /* TYTextInputMediaView.swift */; };
 		B80A3831253D5B2B00A74F14 /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80A381E253D5B2A00A74F14 /* PlaceholderTextView.swift */; };
-		B80A3832253D5B2B00A74F14 /* chatBar_recordSelectedBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B80A3821253D5B2A00A74F14 /* chatBar_recordSelectedBg@2x.png */; };
-		B80A3833253D5B2B00A74F14 /* chatBar_recordBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B80A3822253D5B2A00A74F14 /* chatBar_recordBg@2x.png */; };
-		B80A3834253D5B2B00A74F14 /* ChatToolBarAudioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A3823253D5B2A00A74F14 /* ChatToolBarAudioButton.m */; };
-		B80A3835253D5B2B00A74F14 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B80A3824253D5B2A00A74F14 /* libopencore-amrnb.a */; };
-		B80A3836253D5B2B00A74F14 /* DPAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A3827253D5B2A00A74F14 /* DPAudioPlayer.m */; };
-		B80A3837253D5B2B00A74F14 /* JX_GCDTimerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A382B253D5B2A00A74F14 /* JX_GCDTimerManager.m */; };
-		B80A3838253D5B2B00A74F14 /* amr_wav_converter.c in Sources */ = {isa = PBXBuildFile; fileRef = B80A382C253D5B2A00A74F14 /* amr_wav_converter.c */; };
-		B80A3839253D5B2B00A74F14 /* DPAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = B80A382D253D5B2A00A74F14 /* DPAudioRecorder.m */; };
 		B80A383A253D5B2B00A74F14 /* TYChatKeyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80A382E253D5B2A00A74F14 /* TYChatKeyBoardView.swift */; };
 		B80A3854253D5FAE00A74F14 /* HCConsultDetailStatusHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80A3849253D5FAD00A74F14 /* HCConsultDetailStatusHeaderView.swift */; };
 		B80A3855253D5FAE00A74F14 /* HCConsultDetailStatusHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80A384A253D5FAD00A74F14 /* HCConsultDetailStatusHeaderView.xib */; };
@@ -329,6 +321,17 @@
 		B847C04E2536D5B0000CA140 /* HCConsult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B847C04D2536D5B0000CA140 /* HCConsult.swift */; };
 		B847C0512536E256000CA140 /* HCConsultListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B847C0502536E256000CA140 /* HCConsultListCell.swift */; };
 		B8508E332340FC9F008C24BA /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508E322340FC9F008C24BA /* Doctor.swift */; };
+		B85BD069255545730026A508 /* chatBar_recordSelectedBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B85BD05C255545730026A508 /* chatBar_recordSelectedBg@2x.png */; };
+		B85BD06A255545730026A508 /* chatBar_recordBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B85BD05D255545730026A508 /* chatBar_recordBg@2x.png */; };
+		B85BD06B255545730026A508 /* ChatToolBarAudioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B85BD05E255545730026A508 /* ChatToolBarAudioButton.m */; };
+		B85BD06C255545730026A508 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B85BD05F255545730026A508 /* libopencore-amrnb.a */; };
+		B85BD06D255545730026A508 /* DPAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B85BD062255545730026A508 /* DPAudioPlayer.m */; };
+		B85BD06E255545730026A508 /* JX_GCDTimerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B85BD066255545730026A508 /* JX_GCDTimerManager.m */; };
+		B85BD06F255545730026A508 /* amr_wav_converter.c in Sources */ = {isa = PBXBuildFile; fileRef = B85BD067255545730026A508 /* amr_wav_converter.c */; };
+		B85BD070255545730026A508 /* DPAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = B85BD068255545730026A508 /* DPAudioRecorder.m */; };
+		B85BD073255545E30026A508 /* HCConsultVideoCallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85BD072255545E30026A508 /* HCConsultVideoCallController.swift */; };
+		B85BD07A255545EA0026A508 /* GenerateTestUserSig.m in Sources */ = {isa = PBXBuildFile; fileRef = B85BD077255545EA0026A508 /* GenerateTestUserSig.m */; };
+		B85BD07B255545EA0026A508 /* HCTRTCCloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85BD079255545EA0026A508 /* HCTRTCCloudManager.swift */; };
 		B85CD93323BE602E00B1A1C3 /* HCEditUserCityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */; };
 		B85CD93523BE609A00B1A1C3 /* HCEditUserCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */; };
 		B8610BF925417B57007D5D46 /* HCCustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8610BF825417B57007D5D46 /* HCCustomTabBar.swift */; };
@@ -643,19 +646,6 @@
 		B80A381B253D5B2A00A74F14 /* TYTextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYTextInputView.swift; sourceTree = "<group>"; };
 		B80A381C253D5B2A00A74F14 /* TYTextInputMediaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYTextInputMediaView.swift; sourceTree = "<group>"; };
 		B80A381E253D5B2A00A74F14 /* PlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
-		B80A3821253D5B2A00A74F14 /* chatBar_recordSelectedBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_recordSelectedBg@2x.png"; sourceTree = "<group>"; };
-		B80A3822253D5B2A00A74F14 /* chatBar_recordBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_recordBg@2x.png"; sourceTree = "<group>"; };
-		B80A3823253D5B2A00A74F14 /* ChatToolBarAudioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBarAudioButton.m; sourceTree = "<group>"; };
-		B80A3824253D5B2A00A74F14 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
-		B80A3825253D5B2A00A74F14 /* ChatToolBarAudioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolBarAudioButton.h; sourceTree = "<group>"; };
-		B80A3826253D5B2A00A74F14 /* JX_GCDTimerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JX_GCDTimerManager.h; sourceTree = "<group>"; };
-		B80A3827253D5B2A00A74F14 /* DPAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAudioPlayer.m; sourceTree = "<group>"; };
-		B80A3828253D5B2A00A74F14 /* DPAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAudioRecorder.h; sourceTree = "<group>"; };
-		B80A3829253D5B2A00A74F14 /* amr_wav_converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amr_wav_converter.h; sourceTree = "<group>"; };
-		B80A382A253D5B2A00A74F14 /* DPAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAudioPlayer.h; sourceTree = "<group>"; };
-		B80A382B253D5B2A00A74F14 /* JX_GCDTimerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JX_GCDTimerManager.m; sourceTree = "<group>"; };
-		B80A382C253D5B2A00A74F14 /* amr_wav_converter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = amr_wav_converter.c; sourceTree = "<group>"; };
-		B80A382D253D5B2A00A74F14 /* DPAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAudioRecorder.m; sourceTree = "<group>"; };
 		B80A382E253D5B2A00A74F14 /* TYChatKeyBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYChatKeyBoardView.swift; sourceTree = "<group>"; };
 		B80A3849253D5FAD00A74F14 /* HCConsultDetailStatusHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCConsultDetailStatusHeaderView.swift; sourceTree = "<group>"; };
 		B80A384A253D5FAD00A74F14 /* HCConsultDetailStatusHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCConsultDetailStatusHeaderView.xib; sourceTree = "<group>"; };
@@ -1209,6 +1199,23 @@
 		B8508E322340FC9F008C24BA /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		B8508E992341BFB3008C24BA /* HCMineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCMineCell.swift; sourceTree = "<group>"; };
 		B8508EB1234251D5008C24BA /* HCFindDoctorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFindDoctorViewModel.swift; sourceTree = "<group>"; };
+		B85BD05C255545730026A508 /* chatBar_recordSelectedBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_recordSelectedBg@2x.png"; sourceTree = "<group>"; };
+		B85BD05D255545730026A508 /* chatBar_recordBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_recordBg@2x.png"; sourceTree = "<group>"; };
+		B85BD05E255545730026A508 /* ChatToolBarAudioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBarAudioButton.m; sourceTree = "<group>"; };
+		B85BD05F255545730026A508 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		B85BD060255545730026A508 /* ChatToolBarAudioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolBarAudioButton.h; sourceTree = "<group>"; };
+		B85BD061255545730026A508 /* JX_GCDTimerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JX_GCDTimerManager.h; sourceTree = "<group>"; };
+		B85BD062255545730026A508 /* DPAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAudioPlayer.m; sourceTree = "<group>"; };
+		B85BD063255545730026A508 /* DPAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAudioRecorder.h; sourceTree = "<group>"; };
+		B85BD064255545730026A508 /* amr_wav_converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amr_wav_converter.h; sourceTree = "<group>"; };
+		B85BD065255545730026A508 /* DPAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAudioPlayer.h; sourceTree = "<group>"; };
+		B85BD066255545730026A508 /* JX_GCDTimerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JX_GCDTimerManager.m; sourceTree = "<group>"; };
+		B85BD067255545730026A508 /* amr_wav_converter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = amr_wav_converter.c; sourceTree = "<group>"; };
+		B85BD068255545730026A508 /* DPAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAudioRecorder.m; sourceTree = "<group>"; };
+		B85BD072255545E30026A508 /* HCConsultVideoCallController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCConsultVideoCallController.swift; sourceTree = "<group>"; };
+		B85BD077255545EA0026A508 /* GenerateTestUserSig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenerateTestUserSig.m; sourceTree = "<group>"; };
+		B85BD078255545EA0026A508 /* GenerateTestUserSig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenerateTestUserSig.h; sourceTree = "<group>"; };
+		B85BD079255545EA0026A508 /* HCTRTCCloudManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTRTCCloudManager.swift; sourceTree = "<group>"; };
 		B85CD93223BE602E00B1A1C3 /* HCEditUserCityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserCityController.swift; sourceTree = "<group>"; };
 		B85CD93423BE609A00B1A1C3 /* HCEditUserCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditUserCityViewModel.swift; sourceTree = "<group>"; };
 		B8610BF825417B57007D5D46 /* HCCustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCCustomTabBar.swift; sourceTree = "<group>"; };
@@ -1546,7 +1553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A08398CF7D2F1A7EC078368A /* Pods_HuChuangApp.framework in Frameworks */,
-				B80A3835253D5B2B00A74F14 /* libopencore-amrnb.a in Frameworks */,
+				B85BD06C255545730026A508 /* libopencore-amrnb.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1583,9 +1590,9 @@
 		B80A3819253D5B2A00A74F14 /* TYChatKeyBoardView */ = {
 			isa = PBXGroup;
 			children = (
+				B85BD05A255545730026A508 /* Record&Player */,
 				B80A381A253D5B2A00A74F14 /* TYTextInputView */,
 				B80A381D253D5B2A00A74F14 /* PlaceholderTextView */,
-				B80A381F253D5B2A00A74F14 /* Record&Player */,
 				B80A382E253D5B2A00A74F14 /* TYChatKeyBoardView.swift */,
 			);
 			path = TYChatKeyBoardView;
@@ -1606,34 +1613,6 @@
 				B80A381E253D5B2A00A74F14 /* PlaceholderTextView.swift */,
 			);
 			path = PlaceholderTextView;
-			sourceTree = "<group>";
-		};
-		B80A381F253D5B2A00A74F14 /* Record&Player */ = {
-			isa = PBXGroup;
-			children = (
-				B80A3820253D5B2A00A74F14 /* AudioButton */,
-				B80A3826253D5B2A00A74F14 /* JX_GCDTimerManager.h */,
-				B80A3827253D5B2A00A74F14 /* DPAudioPlayer.m */,
-				B80A3828253D5B2A00A74F14 /* DPAudioRecorder.h */,
-				B80A3829253D5B2A00A74F14 /* amr_wav_converter.h */,
-				B80A382A253D5B2A00A74F14 /* DPAudioPlayer.h */,
-				B80A382B253D5B2A00A74F14 /* JX_GCDTimerManager.m */,
-				B80A382C253D5B2A00A74F14 /* amr_wav_converter.c */,
-				B80A382D253D5B2A00A74F14 /* DPAudioRecorder.m */,
-			);
-			path = "Record&Player";
-			sourceTree = "<group>";
-		};
-		B80A3820253D5B2A00A74F14 /* AudioButton */ = {
-			isa = PBXGroup;
-			children = (
-				B80A3821253D5B2A00A74F14 /* chatBar_recordSelectedBg@2x.png */,
-				B80A3822253D5B2A00A74F14 /* chatBar_recordBg@2x.png */,
-				B80A3823253D5B2A00A74F14 /* ChatToolBarAudioButton.m */,
-				B80A3824253D5B2A00A74F14 /* libopencore-amrnb.a */,
-				B80A3825253D5B2A00A74F14 /* ChatToolBarAudioButton.h */,
-			);
-			path = AudioButton;
 			sourceTree = "<group>";
 		};
 		B80A3848253D5FAD00A74F14 /* ConsultChat */ = {
@@ -2571,6 +2550,7 @@
 		B847C03D2536D52C000CA140 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B85BD072255545E30026A508 /* HCConsultVideoCallController.swift */,
 				B847C0402536D545000CA140 /* HCConsultListController.swift */,
 				B80A387E253D70DF00A74F14 /* HCConsultDetailController.swift */,
 				B80A387B253D70BE00A74F14 /* HCConsultChatController.swift */,
@@ -2582,6 +2562,7 @@
 		B847C03E2536D52C000CA140 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B85BD075255545EA0026A508 /* TRTC */,
 				B80A3873253D61FD00A74F14 /* HCPatient.swift */,
 				B80A3816253D592600A74F14 /* HCFileUpload.swift */,
 				B80A37F0253D54F600A74F14 /* HCConsultDetail.swift */,
@@ -2600,6 +2581,52 @@
 				B80A3808253D55E800A74F14 /* HCConsultChatContainer.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B85BD05A255545730026A508 /* Record&Player */ = {
+			isa = PBXGroup;
+			children = (
+				B85BD05B255545730026A508 /* AudioButton */,
+				B85BD061255545730026A508 /* JX_GCDTimerManager.h */,
+				B85BD062255545730026A508 /* DPAudioPlayer.m */,
+				B85BD063255545730026A508 /* DPAudioRecorder.h */,
+				B85BD064255545730026A508 /* amr_wav_converter.h */,
+				B85BD065255545730026A508 /* DPAudioPlayer.h */,
+				B85BD066255545730026A508 /* JX_GCDTimerManager.m */,
+				B85BD067255545730026A508 /* amr_wav_converter.c */,
+				B85BD068255545730026A508 /* DPAudioRecorder.m */,
+			);
+			path = "Record&Player";
+			sourceTree = "<group>";
+		};
+		B85BD05B255545730026A508 /* AudioButton */ = {
+			isa = PBXGroup;
+			children = (
+				B85BD05C255545730026A508 /* chatBar_recordSelectedBg@2x.png */,
+				B85BD05D255545730026A508 /* chatBar_recordBg@2x.png */,
+				B85BD05E255545730026A508 /* ChatToolBarAudioButton.m */,
+				B85BD05F255545730026A508 /* libopencore-amrnb.a */,
+				B85BD060255545730026A508 /* ChatToolBarAudioButton.h */,
+			);
+			path = AudioButton;
+			sourceTree = "<group>";
+		};
+		B85BD075255545EA0026A508 /* TRTC */ = {
+			isa = PBXGroup;
+			children = (
+				B85BD076255545EA0026A508 /* TrtcUserSig */,
+				B85BD079255545EA0026A508 /* HCTRTCCloudManager.swift */,
+			);
+			path = TRTC;
+			sourceTree = "<group>";
+		};
+		B85BD076255545EA0026A508 /* TrtcUserSig */ = {
+			isa = PBXGroup;
+			children = (
+				B85BD077255545EA0026A508 /* GenerateTestUserSig.m */,
+				B85BD078255545EA0026A508 /* GenerateTestUserSig.h */,
+			);
+			path = TrtcUserSig;
 			sourceTree = "<group>";
 		};
 		B8610C042553EBCD007D5D46 /* HCMediaPicker */ = {
@@ -3845,6 +3872,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B85BD06A255545730026A508 /* chatBar_recordBg@2x.png in Resources */,
 				C497E94923444E4600328B47 /* HCHomePreparePregnantCell.xib in Resources */,
 				B8BE35052214723C00EF16F1 /* EditUserInfoCell.xib in Resources */,
 				B80A388E253D80FE00A74F14 /* HCPatientHealthArchivesHeaderView.xib in Resources */,
@@ -3864,11 +3892,10 @@
 				B816EA73221DABF400F024D5 /* CodeScan.bundle in Resources */,
 				B826AF86221C7205000428C1 /* ArticleCell.xib in Resources */,
 				B8BE34EF2214599B00EF16F1 /* MineHeaderView.xib in Resources */,
-				B80A3833253D5B2B00A74F14 /* chatBar_recordBg@2x.png in Resources */,
+				B85BD069255545730026A508 /* chatBar_recordSelectedBg@2x.png in Resources */,
 				C497E95023444E4600328B47 /* HCHomeCollectionHeaderReusableView.xib in Resources */,
 				B8CD926A23A2967D00C9C061 /* HCRecordSuggestReusableView.xib in Resources */,
 				C497E9622344610500328B47 /* HCHomePregnancyClassroomReusableView.xib in Resources */,
-				B80A3832253D5B2B00A74F14 /* chatBar_recordSelectedBg@2x.png in Resources */,
 				C497E95123444E4600328B47 /* HCHomeConsultingVolumeReusableView.xib in Resources */,
 				B8CD926623A2964800C9C061 /* HCRecordUserInfoReusableView.xib in Resources */,
 				C497E96E234466E100328B47 /* HCHomePregnancyClassroomCellItemCell.xib in Resources */,
@@ -3970,6 +3997,7 @@
 				B818BB912514D467003842A3 /* HCGroupManageController.swift in Sources */,
 				B81D422224E7FB99003EA388 /* BaseModel.swift in Sources */,
 				B818BB7725148A92003842A3 /* HCMyPatient.swift in Sources */,
+				B85BD06D255545730026A508 /* DPAudioPlayer.m in Sources */,
 				B80A3862253D609400A74F14 /* HCPatientConsultRecordFooter.swift in Sources */,
 				C421338322059B8C006C10C4 /* CacheKey.swift in Sources */,
 				B816EAFB221DABF400F024D5 /* ZXCodaBarReader.m in Sources */,
@@ -3989,6 +4017,7 @@
 				B816EB1C221DABF400F024D5 /* ZXRSSDataCharacter.m in Sources */,
 				B816EA97221DABF400F024D5 /* ZXQRCodeWriter.m in Sources */,
 				B816EAF0221DABF400F024D5 /* ZXDataMatrixDataBlock.m in Sources */,
+				B85BD06B255545730026A508 /* ChatToolBarAudioButton.m in Sources */,
 				C454C01D234E007B005CBC0B /* TYSearchRecordLayout.swift in Sources */,
 				C4AB272524E536D20095F693 /* HCCalendarView.swift in Sources */,
 				C497E93523443DB100328B47 /* FindDoctorHeaderView.swift in Sources */,
@@ -4078,6 +4107,7 @@
 				B80A388D253D80FE00A74F14 /* HCPatientHealthArchivesHeaderView.swift in Sources */,
 				B816EAEA221DABF400F024D5 /* ZXDataMatrixSymbolInfo.m in Sources */,
 				B816EB02221DABF400F024D5 /* ZXOneDimensionalCodeWriter.m in Sources */,
+				B85BD06F255545730026A508 /* amr_wav_converter.c in Sources */,
 				B816EB21221DABF400F024D5 /* ZXCode128Writer.m in Sources */,
 				B8610C0025502E72007D5D46 /* CAGradientLayer+GradientBG.swift in Sources */,
 				B8FC3F872396D74D006EB478 /* HCDoctorInfoViewModel.swift in Sources */,
@@ -4098,7 +4128,6 @@
 				C421336F2205961D006C10C4 /* ObservableType+Extension.swift in Sources */,
 				B816EAD6221DABF400F024D5 /* ZXPDF417BarcodeMetadata.m in Sources */,
 				B816EB1D221DABF400F024D5 /* ZXRSSPair.m in Sources */,
-				B80A3836253D5B2B00A74F14 /* DPAudioPlayer.m in Sources */,
 				C42AF1A524EA1D830034DBEF /* HCRealNameAuthorContainer.swift in Sources */,
 				B816EA75221DABF400F024D5 /* LBXScanViewStyle.m in Sources */,
 				B816EB20221DABF400F024D5 /* ZXRSSFinderPattern.m in Sources */,
@@ -4121,6 +4150,7 @@
 				C4382C0124E56A59000C00CE /* HCEditInfoViewController.swift in Sources */,
 				B8760D062344FB85002906F6 /* HCSearchAllViewController.swift in Sources */,
 				B816EB29221DABF400F024D5 /* ZXCode128Reader.m in Sources */,
+				B85BD07B255545EA0026A508 /* HCTRTCCloudManager.swift in Sources */,
 				B86993D623373A6500086A77 /* TYSearchBar.swift in Sources */,
 				B816EA8A221DABF400F024D5 /* ZXByQuadrantReader.m in Sources */,
 				B8610C2925541ADE007D5D46 /* HCAssetImageView.swift in Sources */,
@@ -4132,6 +4162,7 @@
 				B818BB892514C88B003842A3 /* HCPatientGroupController.swift in Sources */,
 				B89C2F762515CBF4004B5C71 /* HCDataObserCenter.swift in Sources */,
 				B818BB7525148A8B003842A3 /* HCMyPatientContainer.swift in Sources */,
+				B85BD07A255545EA0026A508 /* GenerateTestUserSig.m in Sources */,
 				B816EAC6221DABF400F024D5 /* ZXIntArray.m in Sources */,
 				B816EAE3221DABF400F024D5 /* ZXDataMatrixEdifactEncoder.m in Sources */,
 				C497E97823447E6F00328B47 /* HCHomeBabyTuinaClassroomCell.swift in Sources */,
@@ -4147,7 +4178,6 @@
 				B821E34D23070907009A11A3 /* HCLocationManager.swift in Sources */,
 				C4481E2422154D66007F4B0C /* BaseWKWebViewViewController.swift in Sources */,
 				B892FFA023ABB50800A137C0 /* TYFiliterView.swift in Sources */,
-				B80A3839253D5B2B00A74F14 /* DPAudioRecorder.m in Sources */,
 				B818BB6C24FF9D59003842A3 /* HCFuncMenuCel.swift in Sources */,
 				B8610C092553EE30007D5D46 /* HCPresentBottom.swift in Sources */,
 				C421332C22056F24006C10C4 /* TYHUD.swift in Sources */,
@@ -4167,6 +4197,7 @@
 				B816EAA8221DABF400F024D5 /* ZXQRCodeDecodedBitStreamParser.m in Sources */,
 				C494137524DE9EFC00045749 /* HCHomeViewModel.swift in Sources */,
 				B81C2F772215B60E00A887AF /* MineHeaderView.swift in Sources */,
+				B85BD06E255545730026A508 /* JX_GCDTimerManager.m in Sources */,
 				C421332A22056F24006C10C4 /* BackgroundView.swift in Sources */,
 				B816EB3B221DABF400F024D5 /* ZXWifiResultParser.m in Sources */,
 				B816EAB5221DABF400F024D5 /* ZXBitArray.m in Sources */,
@@ -4239,6 +4270,7 @@
 				B892FF9623AB530D00A137C0 /* HCArticleDetailViewModel.swift in Sources */,
 				B816EAA3221DABF400F024D5 /* ZXQRCodeVersion.m in Sources */,
 				B80A380F253D574C00A74F14 /* AudioPlayHelper.swift in Sources */,
+				B85BD070255545730026A508 /* DPAudioRecorder.m in Sources */,
 				B816EAF7221DABF400F024D5 /* ZXMaxiCodeBitMatrixParser.m in Sources */,
 				B816EAF3221DABF400F024D5 /* ZXDataMatrixDetector.m in Sources */,
 				B816EB03221DABF400F024D5 /* ZXEAN13Reader.m in Sources */,
@@ -4279,7 +4311,6 @@
 				B816EB3A221DABF400F024D5 /* ZXGeoResultParser.m in Sources */,
 				B816EB35221DABF400F024D5 /* ZXTelResultParser.m in Sources */,
 				B892FFA223ABB5AE00A137C0 /* TYFiliterLayout.swift in Sources */,
-				B80A3837253D5B2B00A74F14 /* JX_GCDTimerManager.m in Sources */,
 				B870E54E23902D0D0085AFA3 /* TYListMenuView.swift in Sources */,
 				B89C2F8A2515D8EE004B5C71 /* HCFollowUpAddContainer.swift in Sources */,
 				B8EDA7E423AFD0920095891D /* HCRecordFullScreenController.swift in Sources */,
@@ -4340,7 +4371,6 @@
 				B892FFA423ABB70700A137C0 /* TYFiliterViewData.swift in Sources */,
 				C4AB271324E4EAD70095F693 /* HCMenuView.swift in Sources */,
 				C4382C0A24E628DA000C00CE /* HCMenstruationSettingContainer.swift in Sources */,
-				B80A3834253D5B2B00A74F14 /* ChatToolBarAudioButton.m in Sources */,
 				C421338522059B8C006C10C4 /* DBProtocol.swift in Sources */,
 				C4F139B6235419EF00D777F6 /* AppLaunchView.swift in Sources */,
 				B816EB4B221DABF400F024D5 /* ZXBookmarkDoCoMoResultParser.m in Sources */,
@@ -4398,6 +4428,7 @@
 				B8CD926F23A29C6800C9C061 /* HCRecordActionItemCell.swift in Sources */,
 				C4382BED24E5604D000C00CE /* HCAccountSettingViewController.swift in Sources */,
 				B816EB34221DABF400F024D5 /* ZXVCardResultParser.m in Sources */,
+				B85BD073255545E30026A508 /* HCConsultVideoCallController.swift in Sources */,
 				B816EADC221DABF400F024D5 /* ZXPDF417DetectionResultRowIndicatorColumn.m in Sources */,
 				B816EB31221DABF400F024D5 /* ZXParsedResult.m in Sources */,
 				B816EACA221DABF400F024D5 /* ZXPDF417ErrorCorrection.m in Sources */,
@@ -4449,7 +4480,6 @@
 				B816EA9E221DABF400F024D5 /* ZXMultiDetector.m in Sources */,
 				C4382BF824E560C2000C00CE /* HCMenuItemCell.swift in Sources */,
 				B8F1587C24EF643B0046B107 /* HCMyClassViewController.swift in Sources */,
-				B80A3838253D5B2B00A74F14 /* amr_wav_converter.c in Sources */,
 				C43F09BB2214315900910437 /* HomeFunctionCell.swift in Sources */,
 				C494135924DE4C5800045749 /* HCMineViewModel.swift in Sources */,
 				B819AF7624C6E89700F88BA7 /* HCNavBarOrderRecordCell.swift in Sources */,

@@ -29,4 +29,7 @@
 #import "DPAudioPlayer.h"
 #import "ChatToolBarAudioButton.h"
 
+#import "TRTCCloud.h"
+#import "GenerateTestUserSig.h"
+
 #endif /* HcChuangApp_Bridge_Header_h */

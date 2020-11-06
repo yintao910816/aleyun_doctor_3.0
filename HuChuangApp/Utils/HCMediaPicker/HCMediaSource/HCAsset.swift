@@ -154,6 +154,39 @@ extension HCAssetManager {
     }
 }
 
+extension HCAssetManager {
+    
+    public static func checkPhotoLibrary(result:@escaping ((Bool)->())) {
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .restricted, .denied:
+            result(false)
+            return
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { res in
+                DispatchQueue.main.async {
+                    if #available(iOS 14, *) {
+                        if res == .authorized || res == .limited {
+                            result(true)
+                        }else {
+                            result(false)
+                        }
+                    } else {
+                        if res == .authorized {
+                            result(true)
+                        }else {
+                            result(false)
+                        }
+                    }
+                }
+            }
+            return
+        default:
+            result(true)
+        }
+    }
+}
+
 //MARK: 媒体模型转换
 class HCAsset {
     public var asset: PHAsset = PHAsset()

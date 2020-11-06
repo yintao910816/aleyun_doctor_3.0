@@ -22,7 +22,15 @@ class HCConsultChatController: HCSlideItemController {
         view.addSubview(container)
 
         container.mediaClickedCallBack = { [weak self] _ in self?.systemPic() }
-        container.clickedFuncCallBack = { [unowned self] in self.presentMediaCtrol() }
+        container.clickedFuncCallBack = {
+            HCAssetManager.checkPhotoLibrary { [weak self] in
+                if $0 {
+                    self?.presentMediaCtrol()
+                }else {
+                    NoticesCenter.alert(message: "未开启相册权限,请到设置中开启")
+                }
+            }
+        }
     }
     
     override func rxBind() {
