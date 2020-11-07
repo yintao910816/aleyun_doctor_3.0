@@ -14,8 +14,11 @@ class HCFastReplyContainer: UIView {
     private var contentView: UIView!
     private var titleContentView: UIView!
     private var titleLabel: UILabel!
-    
-    public var rightButton: UIButton!
+    private var rightButton: UIButton!
+
+    private var emptyContent: UIView!
+    private var emptyImgV: UIImageView!
+    private var emptyLabel: UILabel!
     
     public var tableView: UITableView!
         
@@ -36,6 +39,9 @@ class HCFastReplyContainer: UIView {
     public var datas: [HCFastReplyModel] = [] {
         didSet {
             tableView.reloadData()
+            
+            emptyContent.isHidden = datas.count > 0
+            tableView.isHidden = datas.count == 0
         }
     }
     
@@ -52,6 +58,16 @@ class HCFastReplyContainer: UIView {
                                   y: (titleContentView.height - 30) / 2,
                                   width: 35, height: 30)
         tableView.frame = .init(x: 0, y: 0, width: contentView.width, height: contentView.height)
+        
+        emptyContent.frame = .init(x: contentView.width / 4,
+                                   y: (contentView.height - 170) / 2,
+                                   width: contentView.width / 2,
+                                   height: 170)
+        emptyImgV.frame = .init(x: (emptyContent.width - 90) / 2,
+                                y: 0, width: 90, height: 95)
+        emptyLabel.frame = .init(x: 0, y: emptyImgV.frame.maxY + 25,
+                                 width: emptyContent.width,
+                                 height: 45)
         
         if titleContentView.layer.cornerRadius > 0 {
             
@@ -92,10 +108,29 @@ extension HCFastReplyContainer {
         tableView.delegate = self
         tableView.dataSource = self
         
+        emptyContent = UIView()
+        emptyContent.backgroundColor = .white
+        emptyContent.isHidden = true
+        
+        emptyImgV = UIImageView.init(image: UIImage.init(named: "fast_reply_empty"))
+        emptyImgV.contentMode = .scaleAspectFill
+        
+        emptyLabel = UILabel()
+        emptyLabel.textAlignment = .center
+        emptyLabel.text = "没有任何快捷回复\n点击新增添加回复话语"
+        emptyLabel.numberOfLines = 2
+        emptyLabel.font = .font(fontSize: 16, fontName: .PingFMedium)
+        emptyLabel.textColor = RGB(153, 153, 153)
+        
         addSubview(contentView)
         addSubview(titleContentView)
         titleContentView.addSubview(titleLabel)
         titleContentView.addSubview(rightButton)
+        
+        contentView.addSubview(emptyContent)
+        emptyContent.addSubview(emptyImgV)
+        emptyContent.addSubview(emptyLabel)
+        
         contentView.addSubview(tableView)
         
         tableView.register(HCFastReplyCell.self, forCellReuseIdentifier: HCFastReplyCell_identifier)
