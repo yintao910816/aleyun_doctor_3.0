@@ -15,7 +15,7 @@ class TYChatKeyBoardView: UIView {
     // 切换语音发送
     private var exchangeVoiceButton : UIButton!
     // 还原系统键盘
-    private var showSystemKeyboardButton: UIButton!
+//    private var showSystemKeyboardButton: UIButton!
     // 切换媒体发送键盘
     private var showMediaKeyboardButton: UIButton!
     // 录音按钮
@@ -55,9 +55,9 @@ class TYChatKeyBoardView: UIView {
         progressView.progressTintColor = UIColor.red
         
         // 显示语音播放
-        exchangeVoiceButton = UIButton.init(type: .system)
-        exchangeVoiceButton.tintColor = UIColor.clear
-        exchangeVoiceButton.setBackgroundImage(UIImage.init(named: "reply_button_voice"), for: .normal)
+        exchangeVoiceButton = UIButton.init(type: .custom)
+        exchangeVoiceButton.setImage(UIImage(named: "chat_input_voice"), for: .normal)
+        exchangeVoiceButton.setImage(UIImage(named: "chat_input_keyboard"), for: .selected)
         exchangeVoiceButton.addTarget(self, action: #selector(exchangeRecordAudio), for: .touchUpInside)
         
         audioButton = ChatToolBarAudioButton.init()
@@ -71,13 +71,13 @@ class TYChatKeyBoardView: UIView {
         inputTf.font = .font(fontSize: 14)
         inputTf.mediaClickedCallBack = { [unowned self] in self.mediaClickedCallBack?($0) }
                 
-        showSystemKeyboardButton = UIButton.init(type: .system)
-        showSystemKeyboardButton.tintColor = UIColor.clear
-        showSystemKeyboardButton.setBackgroundImage(UIImage.init(named: "reply_button_shortcut"), for: .normal)
-        showSystemKeyboardButton.addTarget(self, action: #selector(showSystemKeyboardAction), for: .touchUpInside)
+//        showSystemKeyboardButton = UIButton.init(type: .system)
+//        showSystemKeyboardButton.tintColor = UIColor.clear
+//        showSystemKeyboardButton.setBackgroundImage(UIImage.init(named: "reply_button_shortcut"), for: .normal)
+//        showSystemKeyboardButton.addTarget(self, action: #selector(showSystemKeyboardAction), for: .touchUpInside)
         
         showMediaKeyboardButton = UIButton.init(type: .custom)
-        showMediaKeyboardButton.setImage(UIImage.init(named: "reply_button_plus"), for: .normal)
+        showMediaKeyboardButton.setImage(UIImage.init(named: "chat_input_add"), for: .normal)
         showMediaKeyboardButton.clipsToBounds = true
         showMediaKeyboardButton.addTarget(self, action: #selector(showMediaKeyboardAction), for: .touchUpInside)
         
@@ -86,7 +86,7 @@ class TYChatKeyBoardView: UIView {
         addSubview(exchangeVoiceButton)
         addSubview(inputTf)
         insertSubview(audioButton, aboveSubview: inputTf)
-        addSubview(showSystemKeyboardButton)
+//        addSubview(showSystemKeyboardButton)
         addSubview(showMediaKeyboardButton)
     }
     
@@ -114,11 +114,15 @@ class TYChatKeyBoardView: UIView {
         progressView.frame = .init(x: 0, y: 0, width: width, height: 2)
         exchangeVoiceButton.frame = .init(x: 10, y: (height - 25.0)/2.0, width: 25, height: 25)
         showMediaKeyboardButton.frame = .init(x: width - 10 - 25, y: (height - 25.0)/2.0, width: 25, height: 25)
-        showSystemKeyboardButton.frame = .init(x: showMediaKeyboardButton.frame.minX - 7 - 25,
-                                               y: showMediaKeyboardButton.frame.minY,
-                                               width: 25, height: 25)
+//        showSystemKeyboardButton.frame = .init(x: showMediaKeyboardButton.frame.minX - 7 - 25,
+//                                               y: showMediaKeyboardButton.frame.minY,
+//                                               width: 25, height: 25)
+//        inputTf.frame = .init(x: exchangeVoiceButton.frame.maxX + 7, y: (height - 30.0)/2.0,
+//                              width: showSystemKeyboardButton.frame.minX - exchangeVoiceButton.frame.maxX - 7 - 7,
+//                              height: 30)
+        
         inputTf.frame = .init(x: exchangeVoiceButton.frame.maxX + 7, y: (height - 30.0)/2.0,
-                              width: showSystemKeyboardButton.frame.minX - exchangeVoiceButton.frame.maxX - 7 - 7,
+                              width: showMediaKeyboardButton.frame.minX - exchangeVoiceButton.frame.maxX - 7 - 7,
                               height: 30)
         audioButton.frame = inputTf.frame
     }
