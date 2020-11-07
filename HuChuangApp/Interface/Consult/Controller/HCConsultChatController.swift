@@ -68,13 +68,13 @@ class HCConsultChatController: HCSlideItemController {
         pickerContrl.selectedMenu = { [unowned self] in
             switch $0.title {
             case "快捷回复":
-                break
+                presentFastReplyCtrl()
             case "相册":
                 pickerManager.presentPhotoLibrary(presentVC: self)
             case "拍摄":
                 pickerManager.presentCamera(presentVC: self)
             case "视频通话":
-                self.presentVideoCallCtrl()
+                presentVideoCallCtrl()
             default:
                 break
             }
@@ -83,12 +83,18 @@ class HCConsultChatController: HCSlideItemController {
         pickerContrl.selectedImage = { [unowned self] in self.viewModel.sendImageSubject.onNext($0) }
     }
     
+    private func presentFastReplyCtrl() {
+        let presentCtrl = MainNavigationController.init(rootViewController: HCFastReplyController())
+        presentCtrl.view.backgroundColor = .clear
+        model(for: presentCtrl, controllerHeight: view.size.height)
+    }
+    
     private func presentVideoCallCtrl() {
         if let user = HCHelper.share.userInfoModel {
             var curUser = CallingUserModel()
             curUser.name = "对方用户名"
             curUser.avatarUrl = user.headPath
-            curUser.userId = "2378"//memberId - 18627844751
+            curUser.userId = memberId
             curUser.isVideoAvaliable = true
             curUser.isEnter = true
             
@@ -100,8 +106,7 @@ class HCConsultChatController: HCSlideItemController {
             callVC.resetWithUserList(users: [curUser], isInit: true)
             present(callVC, animated: true, completion: nil)
             
-//            TRTCCalling.shareInstance().call(memberId, roomId: UInt32(consultId) ?? 0, type: .video)
-            TRTCCalling.shareInstance().call("2378", roomId: UInt32(consultId) ?? 0, type: .video)
+            TRTCCalling.shareInstance().call(memberId, roomId: UInt32(consultId) ?? 0, type: .video)
 
 //            if var topController = UIApplication.shared.keyWindow?.rootViewController {
 //                while let presentedViewController = topController.presentedViewController {

@@ -382,6 +382,11 @@
 		B87CCB0C25556FFB00792F76 /* HCAppDelegate+TRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */; };
 		B87CCB0F2556672000792F76 /* Date+Extends.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB0E2556672000792F76 /* Date+Extends.swift */; };
 		B87CCB1725566E4B00792F76 /* HCImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB1625566E4B00792F76 /* HCImagePickerManager.swift */; };
+		B87CCB612556A5D600792F76 /* HCFastReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB602556A5D600792F76 /* HCFastReply.swift */; };
+		B87CCB652556A83400792F76 /* HCFastReplyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB642556A83400792F76 /* HCFastReplyController.swift */; };
+		B87CCB6C2556A86A00792F76 /* HCFastReplyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB6B2556A86A00792F76 /* HCFastReplyViewModel.swift */; };
+		B87CCB6F2556A8DA00792F76 /* HCFastReplyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB6E2556A8DA00792F76 /* HCFastReplyContainer.swift */; };
+		B87CCB722556AB9B00792F76 /* HCFastReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB712556AB9B00792F76 /* HCFastReplyCell.swift */; };
 		B88497DC24E7F6FB00B91262 /* HCVerifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */; };
 		B88497E124E7F8E500B91262 /* APIAdapt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DE24E7F8E500B91262 /* APIAdapt.swift */; };
 		B88497E224E7F8E500B91262 /* CRAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DF24E7F8E500B91262 /* CRAPI.swift */; };
@@ -1288,6 +1293,11 @@
 		B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCAppDelegate+TRTC.swift"; sourceTree = "<group>"; };
 		B87CCB0E2556672000792F76 /* Date+Extends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extends.swift"; sourceTree = "<group>"; };
 		B87CCB1625566E4B00792F76 /* HCImagePickerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCImagePickerManager.swift; sourceTree = "<group>"; };
+		B87CCB602556A5D600792F76 /* HCFastReply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFastReply.swift; sourceTree = "<group>"; };
+		B87CCB642556A83400792F76 /* HCFastReplyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFastReplyController.swift; sourceTree = "<group>"; };
+		B87CCB6B2556A86A00792F76 /* HCFastReplyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFastReplyViewModel.swift; sourceTree = "<group>"; };
+		B87CCB6E2556A8DA00792F76 /* HCFastReplyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFastReplyContainer.swift; sourceTree = "<group>"; };
+		B87CCB712556AB9B00792F76 /* HCFastReplyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFastReplyCell.swift; sourceTree = "<group>"; };
 		B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerifyViewModel.swift; sourceTree = "<group>"; };
 		B88497DE24E7F8E500B91262 /* APIAdapt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAdapt.swift; sourceTree = "<group>"; };
 		B88497DF24E7F8E500B91262 /* CRAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRAPI.swift; sourceTree = "<group>"; };
@@ -2832,6 +2842,50 @@
 			path = SysPhoto;
 			sourceTree = "<group>";
 		};
+		B87CCB5B2556A57E00792F76 /* FastReply */ = {
+			isa = PBXGroup;
+			children = (
+				B87CCB5F2556A5C900792F76 /* Controller */,
+				B87CCB5D2556A5C900792F76 /* Model */,
+				B87CCB5C2556A5C900792F76 /* View */,
+				B87CCB5E2556A5C900792F76 /* ViewModel */,
+			);
+			path = FastReply;
+			sourceTree = "<group>";
+		};
+		B87CCB5C2556A5C900792F76 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B87CCB6E2556A8DA00792F76 /* HCFastReplyContainer.swift */,
+				B87CCB712556AB9B00792F76 /* HCFastReplyCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B87CCB5D2556A5C900792F76 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B87CCB602556A5D600792F76 /* HCFastReply.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B87CCB5E2556A5C900792F76 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B87CCB6B2556A86A00792F76 /* HCFastReplyViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B87CCB5F2556A5C900792F76 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B87CCB642556A83400792F76 /* HCFastReplyController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		B88497DD24E7F8E500B91262 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -3480,6 +3534,7 @@
 		C4783B2624DD39E800737479 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				B87CCB5B2556A57E00792F76 /* FastReply */,
 				B847C03B2536D52C000CA140 /* Consult */,
 				B818BB6D25148A67003842A3 /* Patient */,
 				C4382BE324E55A81000C00CE /* ClassRoom */,
@@ -3619,7 +3674,6 @@
 			isa = PBXGroup;
 			children = (
 				C4AB272724E53D6F0095F693 /* HCCellItem */,
-				C494136224DE547400045749 /* BaseCtrl */,
 				C494136124DE547400045749 /* CustomView */,
 			);
 			path = Base;
@@ -3633,13 +3687,6 @@
 				C494136324DE549200045749 /* HCCustomButton */,
 			);
 			path = CustomView;
-			sourceTree = "<group>";
-		};
-		C494136224DE547400045749 /* BaseCtrl */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BaseCtrl;
 			sourceTree = "<group>";
 		};
 		C494136324DE549200045749 /* HCCustomButton */ = {
@@ -4062,7 +4109,9 @@
 				B8BE351B22147DE500EF16F1 /* EditViewModel.swift in Sources */,
 				B816EB27221DABF400F024D5 /* ZXCodaBarWriter.m in Sources */,
 				B816EB04221DABF400F024D5 /* ZXRSSExpandedRow.m in Sources */,
+				B87CCB6C2556A86A00792F76 /* HCFastReplyViewModel.swift in Sources */,
 				B816EB0C221DABF400F024D5 /* ZXRSSExpandedFieldParser.m in Sources */,
+				B87CCB6F2556A8DA00792F76 /* HCFastReplyContainer.swift in Sources */,
 				C4B1852B2345880E00F37197 /* HCSearchViewModel.swift in Sources */,
 				B819AF7324C6E85B00F88BA7 /* HCNavBarOrderRecordModeView.swift in Sources */,
 				C497E95D23444FA300328B47 /* HCHomeGoodNewsCellItemCell.swift in Sources */,
@@ -4299,6 +4348,7 @@
 				B8454EDB23A5361200E88BAD /* TYColorLineView.swift in Sources */,
 				B87CCAED2555555300792F76 /* VideoCallUserCell.swift in Sources */,
 				B816EAE8221DABF400F024D5 /* ZXDataMatrixASCIIEncoder.m in Sources */,
+				B87CCB722556AB9B00792F76 /* HCFastReplyCell.swift in Sources */,
 				B816EADF221DABF400F024D5 /* ZXPDF417Reader.m in Sources */,
 				B816EA9D221DABF400F024D5 /* ZXMultiFinderPatternFinder.m in Sources */,
 				C497E94823444E4600328B47 /* HCHomePreparePregnantReusableView.swift in Sources */,
@@ -4479,6 +4529,7 @@
 				B816EAFF221DABF400F024D5 /* ZXITFWriter.m in Sources */,
 				B8F1587E24EF64DE0046B107 /* HCMyInformationViewController.swift in Sources */,
 				B80A3867253D609400A74F14 /* HCConsultDetalCell.swift in Sources */,
+				B87CCB612556A5D600792F76 /* HCFastReply.swift in Sources */,
 				C4AB273924E53D6F0095F693 /* HCListDetailInputCell.swift in Sources */,
 				B8454ED323A3EF5200E88BAD /* TYDateCalculate.swift in Sources */,
 				B816EAAF221DABF400F024D5 /* ZXQRCodeDetector.m in Sources */,
@@ -4503,6 +4554,7 @@
 				B816EAA2221DABF400F024D5 /* ZXQRCodeDecoder.m in Sources */,
 				B816EAEF221DABF400F024D5 /* ZXDataMatrixBitMatrixParser.m in Sources */,
 				C421330B22056B59006C10C4 /* HCAppDelegate.swift in Sources */,
+				B87CCB652556A83400792F76 /* HCFastReplyController.swift in Sources */,
 				B816EB4E221DABF400F024D5 /* ZXSMSTOMMSTOResultParser.m in Sources */,
 				B847C04E2536D5B0000CA140 /* HCConsult.swift in Sources */,
 				C44159F5234616F00011B987 /* HCSearchRecommendDoctorViewController.swift in Sources */,
