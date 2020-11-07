@@ -15,6 +15,8 @@ class HCConsultChatController: HCSlideItemController {
     private var memberId: String = ""
     private var consultId: String = ""
 
+    private let pickerManager = HCImagePickerManager()
+    
     private var viewModel: HCConsultChatViewModel!
 
     override func setupUI() {        
@@ -49,6 +51,12 @@ class HCConsultChatController: HCSlideItemController {
             .disposed(by: disposeBag)
 
         viewModel.reloadSubject.onNext(Void())
+        
+        pickerManager.selectedImageCallBack = { [weak self] in
+            if $0 != nil {
+                self?.viewModel.sendImageSubject.onNext($0!)
+            }
+        }
 //        container.tableView.prepare(viewModel, showFooter: false, showHeader: true)
     }
     
@@ -62,9 +70,9 @@ class HCConsultChatController: HCSlideItemController {
             case "快捷回复":
                 break
             case "相册":
-                break
+                pickerManager.presentPhotoLibrary(presentVC: self)
             case "拍摄":
-                break
+                pickerManager.presentCamera(presentVC: self)
             case "视频通话":
                 self.presentVideoCallCtrl()
             default:

@@ -185,6 +185,21 @@ extension HCAssetManager {
             result(true)
         }
     }
+    
+    public static func checkCamera(result:@escaping ((Bool)->())) {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { flag in
+                result(flag)
+            }
+        case .denied, .restricted:
+            result(false)
+        default:
+            result(true)
+        }
+    }
+
 }
 
 //MARK: 媒体模型转换

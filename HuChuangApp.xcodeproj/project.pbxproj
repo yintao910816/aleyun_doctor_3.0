@@ -381,6 +381,7 @@
 		B87CCAF0255555B600792F76 /* TrtcUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAEF255555B600792F76 /* TrtcUtils.swift */; };
 		B87CCB0C25556FFB00792F76 /* HCAppDelegate+TRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */; };
 		B87CCB0F2556672000792F76 /* Date+Extends.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB0E2556672000792F76 /* Date+Extends.swift */; };
+		B87CCB1725566E4B00792F76 /* HCImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB1625566E4B00792F76 /* HCImagePickerManager.swift */; };
 		B88497DC24E7F6FB00B91262 /* HCVerifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */; };
 		B88497E124E7F8E500B91262 /* APIAdapt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DE24E7F8E500B91262 /* APIAdapt.swift */; };
 		B88497E224E7F8E500B91262 /* CRAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DF24E7F8E500B91262 /* CRAPI.swift */; };
@@ -1286,6 +1287,7 @@
 		B87CCAEF255555B600792F76 /* TrtcUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrtcUtils.swift; sourceTree = "<group>"; };
 		B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCAppDelegate+TRTC.swift"; sourceTree = "<group>"; };
 		B87CCB0E2556672000792F76 /* Date+Extends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extends.swift"; sourceTree = "<group>"; };
+		B87CCB1625566E4B00792F76 /* HCImagePickerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCImagePickerManager.swift; sourceTree = "<group>"; };
 		B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerifyViewModel.swift; sourceTree = "<group>"; };
 		B88497DE24E7F8E500B91262 /* APIAdapt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAdapt.swift; sourceTree = "<group>"; };
 		B88497DF24E7F8E500B91262 /* CRAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRAPI.swift; sourceTree = "<group>"; };
@@ -2641,6 +2643,7 @@
 		B8610C042553EBCD007D5D46 /* HCMediaPicker */ = {
 			isa = PBXGroup;
 			children = (
+				B87CCB11255669A100792F76 /* SysPhoto */,
 				B8610C0F2553F380007D5D46 /* Controller */,
 				B8610C052553EBCD007D5D46 /* HCPresation */,
 				B8610C062553EBCD007D5D46 /* View */,
@@ -2819,6 +2822,14 @@
 				B87CCAEC2555555300792F76 /* VideoCallUserCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B87CCB11255669A100792F76 /* SysPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				B87CCB1625566E4B00792F76 /* HCImagePickerManager.swift */,
+			);
+			path = SysPhoto;
 			sourceTree = "<group>";
 		};
 		B88497DD24E7F8E500B91262 /* API */ = {
@@ -4624,6 +4635,7 @@
 				B816EB19221DABF400F024D5 /* ZXBitArrayBuilder.m in Sources */,
 				B80A3817253D592600A74F14 /* HCFileUpload.swift in Sources */,
 				B89C2F782515D612004B5C71 /* HCRegisterPatientController.swift in Sources */,
+				B87CCB1725566E4B00792F76 /* HCImagePickerManager.swift in Sources */,
 				B816EAE1221DABF400F024D5 /* ZXDataMatrixReader.m in Sources */,
 				B80A3811253D574C00A74F14 /* FileDown.swift in Sources */,
 				B847C0482536D582000CA140 /* HCConsultListContainer.swift in Sources */,
