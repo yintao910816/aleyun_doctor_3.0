@@ -380,6 +380,7 @@
 		B87CCAED2555555300792F76 /* VideoCallUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAEC2555555300792F76 /* VideoCallUserCell.swift */; };
 		B87CCAF0255555B600792F76 /* TrtcUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCAEF255555B600792F76 /* TrtcUtils.swift */; };
 		B87CCB0C25556FFB00792F76 /* HCAppDelegate+TRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */; };
+		B87CCB0F2556672000792F76 /* Date+Extends.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87CCB0E2556672000792F76 /* Date+Extends.swift */; };
 		B88497DC24E7F6FB00B91262 /* HCVerifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */; };
 		B88497E124E7F8E500B91262 /* APIAdapt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DE24E7F8E500B91262 /* APIAdapt.swift */; };
 		B88497E224E7F8E500B91262 /* CRAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88497DF24E7F8E500B91262 /* CRAPI.swift */; };
@@ -1284,6 +1285,7 @@
 		B87CCAEC2555555300792F76 /* VideoCallUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallUserCell.swift; sourceTree = "<group>"; };
 		B87CCAEF255555B600792F76 /* TrtcUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrtcUtils.swift; sourceTree = "<group>"; };
 		B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCAppDelegate+TRTC.swift"; sourceTree = "<group>"; };
+		B87CCB0E2556672000792F76 /* Date+Extends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extends.swift"; sourceTree = "<group>"; };
 		B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerifyViewModel.swift; sourceTree = "<group>"; };
 		B88497DE24E7F8E500B91262 /* APIAdapt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAdapt.swift; sourceTree = "<group>"; };
 		B88497DF24E7F8E500B91262 /* CRAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRAPI.swift; sourceTree = "<group>"; };
@@ -3189,6 +3191,7 @@
 				C4213335220570B6006C10C4 /* UIView+Frame.swift */,
 				B8BE603223BB4C4D00EC0027 /* Dictionary+Extension.swift */,
 				B8610BFF25502E72007D5D46 /* CAGradientLayer+GradientBG.swift */,
+				B87CCB0E2556672000792F76 /* Date+Extends.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -4147,6 +4150,7 @@
 				B816EB4F221DABF400F024D5 /* ZXExpandedProductParsedResult.m in Sources */,
 				B892FF9423AB52CD00A137C0 /* HCArticleDetailViewController.swift in Sources */,
 				B818BB932514D4D7003842A3 /* HCGroupManageViewModel.swift in Sources */,
+				B87CCB0F2556672000792F76 /* Date+Extends.swift in Sources */,
 				C42AF1A324EA1D6A0034DBEF /* HCRealNameAuthorViewController.swift in Sources */,
 				C42133702205961D006C10C4 /* SharedSequenceConvertibleType+Extension.swift in Sources */,
 				B870E55023902E110085AFA3 /* TYListMenuCell.swift in Sources */,

@@ -52,8 +52,10 @@ class HCHelper {
     }
 }
 
+//MARK: --- 视频通话相关接口
 extension HCHelper {
     
+    /// 获取视频通话用户信息
     public static func requestVideoCallUserInfo(userId: String, complement: (())->()) {
         if let user = HCHelper.share.userInfoModel {
             HCProvider.request(.consultVideoUserInfo(memberId: user.uid, userId: userId))
@@ -67,6 +69,7 @@ extension HCHelper {
         }
     }
     
+    /// 视频通话签名
     public static func requestVideoChatSignature() {
         if let user = HCHelper.share.userInfoModel {
             HCProvider.request(.videoChatSignature(memberId: user.uid))
@@ -78,6 +81,46 @@ extension HCHelper {
                 }
         }
     }
+    
+    /// 接听电话
+    public static func requestReceivePhone(userId: String, consultId: String) {
+        if let user = HCHelper.share.userInfoModel {
+            HCProvider.request(.consultReceivePhone(memberId: user.uid, userId: userId, consultId: consultId))
+                .mapJSON()
+                .subscribe { res in
+                    print(res)
+                } onError: { error in
+                    print(error)
+                }
+        }
+    }
+
+    /// 拨打电话
+    public static func requestStartPhone(userId: String) {
+        if let user = HCHelper.share.userInfoModel {
+            HCProvider.request(.consultStartPhone(memberId: user.uid, userId: userId))
+                .mapJSON()
+                .subscribe { res in
+                    print(res)
+                } onError: { error in
+                    print(error)
+                }
+        }
+    }
+
+    /// 结束通话
+    public static func requestEndPhone(userId: String) {
+        if let user = HCHelper.share.userInfoModel {
+            HCProvider.request(.consultEndPhone(memberId: user.uid, userId: userId, watchTime: Date.formatCurrentDate()))
+                .mapJSON()
+                .subscribe { res in
+                    print(res)
+                } onError: { error in
+                    print(error)
+                }
+        }
+    }
+
 }
 
 extension HCHelper {

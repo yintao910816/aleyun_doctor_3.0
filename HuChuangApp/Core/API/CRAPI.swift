@@ -188,6 +188,7 @@ enum API{
     case getPatientCoupleInfo(memberId: String)
     /// 咨询退回
     case withdrawConsult(orderSn: String)
+    
     /// 获取视频签名 memberId - 当前登陆用户id
     case videoChatSignature(memberId: String)
     /**
@@ -196,6 +197,12 @@ enum API{
      * userId - 查询的用户id
      */
     case consultVideoUserInfo(memberId: String, userId: String)
+    /// 接听电话
+    case consultReceivePhone(memberId: String, userId: String, consultId: String)
+    /// 拨打电话
+    case consultStartPhone(memberId: String, userId: String)
+    /// 结束通话
+    case consultEndPhone(memberId: String, userId: String, watchTime: String)
     
     
     // --------------- 3.0接口
@@ -322,10 +329,17 @@ extension API: TargetType{
             return "api/patientConsult/getPatientCoupleInfo"
         case .withdrawConsult(let orderSn):
             return "api/patientConsult/withdrawConsult/\(orderSn)"
+        
         case .videoChatSignature(_):
             return "api/consult/signature"
         case .consultVideoUserInfo(_, _):
             return "api/consult/videoUserInfo"
+        case .consultReceivePhone(_, _, _):
+            return "api/consult/receivePhone"
+        case .consultStartPhone(_, _):
+            return "api/consult/startPhone"
+        case .consultEndPhone(_, _, _):
+            return "api/consult/endPhone"
             
             
         case .realNameAuth(_, _, _, _, _):
@@ -517,13 +531,24 @@ extension API {
             params["memberId"] = memberId
         case .getPatientCoupleInfo(let memberId):
             params["memberId"] = memberId
+        
         case .videoChatSignature(let memberId):
             params["memberId"] = memberId
         case .consultVideoUserInfo(let memberId, let userId):
             params["memberId"] = memberId
             params["userId"] = userId
+        case .consultReceivePhone(let memberId, let userId, let consultId):
+            params["memberId"] = memberId
+            params["userId"] = userId
+            params["consultId"] = consultId
+        case .consultStartPhone(let memberId, let userId):
+            params["memberId"] = memberId
+            params["userId"] = userId
+        case .consultEndPhone(let memberId, let userId, let watchTime):
+            params["memberId"] = memberId
+            params["userId"] = userId
+            params["watchTime"] = watchTime
 
-            
         case .realNameAuth(let realName, let sex, let birthDay, let certificateType, let certificateNo):
             params["realName"] = realName
             params["sex"] = sex
