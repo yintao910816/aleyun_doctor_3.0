@@ -60,9 +60,9 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
         .subscribe(onNext: { [weak self] res in
             PrintLog("图片回复结果：\(res.message)")
             if RequestCode(rawValue: res.code) == RequestCode.success {
-                if self?.timer.isStart == false {
-                    self?.timer.timerStar()
-                }
+//                if self?.timer.isStart == false {
+//                    self?.timer.timerStar()
+//                }
                 self?.hud.noticeHidden()
                 self?.requestData(true)
             }else {
@@ -86,9 +86,9 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
             .subscribe(onNext: { [weak self] res in
                 PrintLog("语音回复结果：\(res.message)")
                 if RequestCode(rawValue: res.code) == RequestCode.success {
-                    if self?.timer.isStart == false {
-                        self?.timer.timerStar()
-                    }
+//                    if self?.timer.isStart == false {
+//                        self?.timer.timerStar()
+//                    }
                     self?.hud.noticeHidden()
                     self?.requestData(true)
                 }else {
@@ -105,14 +105,16 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
             .subscribe(onNext: { [weak self] res in
                 PrintLog("文字回复结果：\(res.message)")
                 if RequestCode(rawValue: res.code) == RequestCode.success {
-                    if self?.timer.isStart == false {
-                        self?.timer.timerStar()
-                    }
+//                    if self?.timer.isStart == false {
+//                        self?.timer.timerStar()
+//                    }
 //                    self?.requestData(true)
                     self?.requestCurrentConsult()
                 }else {
                     self?.hud.failureHidden(res.message)
                 }
+            }, onError: { [weak self] in
+                self?.hud.failureHidden(self?.errorMessage($0))
             })
             .disposed(by: disposeBag)
         
@@ -170,9 +172,9 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
         
         questionObser.value = data.records.last?.question ?? "1/1"
 
-        if !hasStartTimer {
-            dealReplyTime(startTime: startDate, isEndReply: isEndReply)
-        }
+//        if !hasStartTimer {
+//            dealReplyTime(startTime: startDate, isEndReply: isEndReply)
+//        }
         
         updateRefresh(refresh, sectionDatas, data.pages)
         hud.noticeHidden()
