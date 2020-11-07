@@ -29,7 +29,7 @@ class HCLoginViewContainer: UIView {
     private var platformRemindLabel: UILabel!
     public var wchatLoginButton: UIButton!
 
-    public let agreeSignal = Variable(false)
+    public let agreeSignal = Variable(true)
     public var agreementTap: (()->())?
     
     override init(frame: CGRect) {
@@ -126,6 +126,7 @@ extension HCLoginViewContainer {
         agreeButton.setImage(UIImage(named: "login_unselected_agree"), for: .normal)
         agreeButton.setImage(UIImage(named: "login_selected_agree"), for: .selected)
         agreeButton.addTarget(self, action: #selector(agreeClicked), for: .touchUpInside)
+        agreeButton.isSelected = true
         
         agreeLabel = YYLabel()
         agreeLabel.textColor = RGB(154, 154, 154)
