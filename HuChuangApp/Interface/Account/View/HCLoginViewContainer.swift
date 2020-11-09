@@ -173,8 +173,8 @@ extension HCLoginViewContainer {
         
         #if DEBUG
 //        phoneTf.text = "13995631675"
-        //        accountInputOutlet.text = "15717102067"
-        //        accountInputOutlet.text = "13244762499"
+//        phoneTf.text = "15172321017"
+//        phoneTf.text = "13244762499"
         phoneTf.text = "15717102067"
         #else
         phoneTf.text = userDefault.loginPhone

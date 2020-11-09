@@ -67,13 +67,13 @@ extension HCHelper {
         }
     }
     
-    public func getCallingUser(memberId: String) ->CallingUserModel? {
-        return cachedLocalUsers.first(where: { $0.userId == memberId })
+    public func getCallingUser(uid: String) ->CallingUserModel? {
+        return cachedLocalUsers.first(where: { $0.userId == uid })
     }
     
     /// 获取视频通话用户信息
     public static func requestVideoCallUserInfo(memberId: String, consultId: String) ->Observable<CallingUserModel?> {
-        if let user = HCHelper.share.getCallingUser(memberId: memberId) {
+        if let user = HCHelper.share.getCallingUser(uid: memberId) {
             return Observable.just(user)
         }else {
             if let user = HCHelper.share.userInfoModel {
@@ -131,7 +131,24 @@ extension HCHelper {
         if let user = HCHelper.share.userInfoModel {
             return HCProvider.request(.consultStartPhone(memberId: memberId, userId: user.uid))
                 .mapJSON()
-                .map { _ in true }
+                .map({ res -> Bool in
+                    if let dic = res as? [String: Any],
+                       let code = dic["code"] as? Int,
+                       let status = RequestCode(rawValue: code) {
+                        if status == .success {
+                            return true
+                        }else {
+                            if let message = dic["message"] as? String {
+                                NoticesCenter.alert(message: "拨打电话失败：\(message)")
+                            }else {
+                                NoticesCenter.alert(message: "拨打电话失败：未知错误")
+                            }
+                            return false
+                        }
+                    }
+                    NoticesCenter.alert(message: "拨打电话失败：未知返回结果")
+                    return false
+                })
                 .do(onError: { NoticesCenter.alert(message: "拨打电话失败：\(BaseViewModel().errorMessage($0))") })
                 .catchErrorJustReturn(false)
                 .asObservable()
@@ -142,11 +159,28 @@ extension HCHelper {
     }
 
     /// 结束通话
-    public static func requestEndPhone(userId: String) ->Observable<Bool> {
+    public static func requestEndPhone(userId: String, watchTime: String) ->Observable<Bool> {
         if let user = HCHelper.share.userInfoModel {
-            return HCProvider.request(.consultEndPhone(memberId: user.uid, userId: userId, watchTime: Date.formatCurrentDate()))
+            return HCProvider.request(.consultEndPhone(memberId: user.uid, userId: userId, watchTime: watchTime))
                 .mapJSON()
-                .map { _ in true }
+                .map({ res -> Bool in
+                    if let dic = res as? [String: Any],
+                       let code = dic["code"] as? Int,
+                       let status = RequestCode(rawValue: code) {
+                        if status == .success {
+                            return true
+                        }else {
+                            if let message = dic["message"] as? String {
+                                NoticesCenter.alert(message: "结束通话失败：\(message)")
+                            }else {
+                                NoticesCenter.alert(message: "结束通话失败：未知错误")
+                            }
+                            return false
+                        }
+                    }
+                    NoticesCenter.alert(message: "结束通话失败：未知返回结果")
+                    return false
+                })
                 .do(onError: { NoticesCenter.alert(message: "结束通话失败：\(BaseViewModel().errorMessage($0))") })
                 .catchErrorJustReturn(false)
                 .asObservable()
@@ -204,9 +238,6 @@ extension HCHelper {
                     }
                 }
             })
-        
-        _ = HCHelper.requestEndPhone(userId: "2378")
-            .subscribe(onNext:{ _ in })
     }
 
 }

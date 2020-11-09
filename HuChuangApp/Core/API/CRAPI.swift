@@ -495,6 +495,10 @@ extension API {
         case .loginTel(let mobile, let smsCode):
             params["mobile"] = mobile
             params["smsCode"] = smsCode
+        
+        case .functionsMenu:
+            params["facilityType"] = "APP"
+
         case .getConsultsPatientList(let pageNum, let pageSize, let searchName):
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize
