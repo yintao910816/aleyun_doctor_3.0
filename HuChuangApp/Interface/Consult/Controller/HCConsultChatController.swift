@@ -42,6 +42,10 @@ class HCConsultChatController: HCSlideItemController {
             .drive(container.dataSignal)
             .disposed(by: disposeBag)
         
+        viewModel.getUerInfoSubject
+            .subscribe(onNext: { [weak self] in self?.presentVideoCallCtrl(callUser: $0) })
+            .disposed(by: disposeBag)
+        
         container.sendTextSubject
             .bind(to: viewModel.sendTextSubject)
             .disposed(by: disposeBag)
@@ -49,7 +53,7 @@ class HCConsultChatController: HCSlideItemController {
         container.sendAudioSubject
             .bind(to: viewModel.sendAudioSubject)
             .disposed(by: disposeBag)
-
+        
         viewModel.reloadSubject.onNext(Void())
         
         pickerManager.selectedImageCallBack = { [weak self] in
@@ -74,7 +78,7 @@ class HCConsultChatController: HCSlideItemController {
             case "拍摄":
                 pickerManager.presentCamera(presentVC: self)
             case "视频通话":
-                presentVideoCallCtrl()
+                viewModel.requestUserInfoSubject.onNext(Void())
             default:
                 break
             }
@@ -89,42 +93,16 @@ class HCConsultChatController: HCSlideItemController {
         model(for: presentCtrl, controllerHeight: view.size.height)
     }
     
-    private func presentVideoCallCtrl() {
-        if let user = HCHelper.share.userInfoModel {
-            var curUser = CallingUserModel()
-            curUser.name = "对方用户名"
-            curUser.avatarUrl = user.headPath
-            curUser.userId = memberId
-            curUser.isVideoAvaliable = true
-            curUser.isEnter = true
-            
-            let callVC = HCConsultVideoCallController(sponsor: nil)
-            
-            callVC.dismissBlock = { }
-            
-            callVC.modalPresentationStyle = .fullScreen
-            callVC.resetWithUserList(users: [curUser], isInit: true)
-            present(callVC, animated: true, completion: nil)
-            
-            TRTCCalling.shareInstance().call(memberId, roomId: UInt32(consultId) ?? 0, type: .video)
-
-//            if var topController = UIApplication.shared.keyWindow?.rootViewController {
-//                while let presentedViewController = topController.presentedViewController {
-//                    topController = presentedViewController
-//                }
-//                if let navigationVC = topController as? UINavigationController {
-//                    if navigationVC.viewControllers.contains(self) {
-//                        present(callVC, animated: false, completion: nil)
-//                    } else {
-//                        navigationVC.popToRootViewController(animated: false)
-//                        navigationVC.pushViewController(self, animated: false)
-//                        navigationVC.present(callVC, animated: false, completion: nil)
-//                    }
-//                } else {
-//                    topController.present(callVC, animated: false, completion: nil)
-//                }
-//            }
-        }
+    private func presentVideoCallCtrl(callUser: CallingUserModel) {
+        let callVC = HCConsultVideoCallController(sponsor: nil)
+        
+        callVC.dismissBlock = { }
+        
+        callVC.modalPresentationStyle = .fullScreen
+        callVC.resetWithUserList(users: [callUser], isInit: true)
+        present(callVC, animated: true, completion: nil)
+        
+        TRTCCalling.shareInstance().call(memberId, roomId: UInt32(consultId) ?? 0, type: .video)
     }
     
     override func viewDidLayoutSubviews() {

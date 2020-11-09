@@ -15,7 +15,7 @@ func PrintLogDetail<N>(_ message:N,fileName:String = #file,methodName:String = #
 }
 
 func PrintLog<N>(_ message:N){
-    #if DEBUG
+//    #if DEBUG
         print("打印信息：\(message)");
-    #endif
+//    #endif
 }

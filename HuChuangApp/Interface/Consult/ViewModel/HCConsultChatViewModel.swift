@@ -31,7 +31,11 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
     public let sendAudioSubject = PublishSubject<(Data, UInt)>()
     /// 文字回复
     public let sendTextSubject = PublishSubject<String>()
-    
+    /// 发起视频获取用户信息
+    public let requestUserInfoSubject = PublishSubject<Void>()
+    /// 用户信息获取完成
+    public let getUerInfoSubject = PublishSubject<CallingUserModel>()
+
     public func customDeinit() {
         if timer != nil {
             timer.timerRemove()
@@ -118,6 +122,10 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
             })
             .disposed(by: disposeBag)
         
+        requestUserInfoSubject
+            .subscribe(onNext: { [unowned self] in self.requestShortUserInfo() })
+            .disposed(by: disposeBag)
+        
         reloadSubject
             .subscribe(onNext: { [weak self] in self?.requestCurrentConsult() })
             .disposed(by: disposeBag)
@@ -134,7 +142,62 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
 //        }
 //            .disposed(by: disposeBag)
     }
+    
+    private func requestShortUserInfo() {
+        hud.noticeLoading()
+        
+        HCHelper.requestStartPhone(memberId: memberId)
+            .flatMap { [weak self] res -> Observable<CallingUserModel?> in
+                guard let strongSelf = self else { return Observable.just(nil) }
+                if res {
+                    return HCHelper.requestVideoCallUserInfo(memberId: strongSelf.memberId, consultId: strongSelf.consultId)
+                }
+                return Observable.just(nil)
+            }
+            .subscribe(onNext: { [weak self] user in
+                if let callingUser = user {
+                    self?.getUerInfoSubject.onNext(callingUser)
+                }
+                self?.hud.noticeHidden()
+            })
+            .disposed(by: disposeBag)
+    }
+}
 
+//MARK: - 回复相关
+extension HCConsultChatViewModel {
+    
+    /// 加载当前咨询的消息
+    private func requestCurrentConsult() {
+        HCProvider.request(.chatDetail(consultId: consultId, memberId: memberId))
+            .map(model: HCConsultDetailModel.self)
+            .subscribe(onSuccess: { [weak self] in
+                self?.dealRequestData(refresh:true, data: $0)
+            }) { [weak self] in
+                self?.revertCurrentPageAndRefreshStatus()
+                self?.hud.failureHidden(self?.errorMessage($0))
+        }
+            .disposed(by: disposeBag)
+
+    }
+    
+    private func uploadFile(data: Data, type: HCFileUploadType) ->Observable<HCFileUploadModel> {
+        return HCProvider.request(.uploadFile(data: data, fileType: type))
+            .map(model: HCFileUploadModel.self)
+            .asObservable()
+    }
+
+    private func submitReply(content: String, filePath: String, bak: String) ->Observable<ResponseModel> {
+        return HCProvider.request(.replyConsult(content: content, filePath: filePath, bak: bak, consultId: consultId))
+            .mapResponse()
+            .asObservable()
+    }
+}
+
+
+/// 消息展示逻辑处理
+extension HCConsultChatViewModel {
+    
     private func dealRequestData(refresh: Bool, data: HCConsultDetailModel) {
         var sectionDatas: [SectionModel<HCConsultDetailItemModel, HCConsultDetailConsultListModel>] = []
         
@@ -225,34 +288,5 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
         
         hasStartTimer = true
     }
-}
 
-//MARK: - 回复相关
-extension HCConsultChatViewModel {
-    
-    /// 加载当前咨询的消息
-    private func requestCurrentConsult() {
-        HCProvider.request(.chatDetail(consultId: consultId, memberId: memberId))
-            .map(model: HCConsultDetailModel.self)
-            .subscribe(onSuccess: { [weak self] in
-                self?.dealRequestData(refresh:true, data: $0)
-            }) { [weak self] in
-                self?.revertCurrentPageAndRefreshStatus()
-                self?.hud.failureHidden(self?.errorMessage($0))
-        }
-            .disposed(by: disposeBag)
-
-    }
-    
-    private func uploadFile(data: Data, type: HCFileUploadType) ->Observable<HCFileUploadModel> {
-        return HCProvider.request(.uploadFile(data: data, fileType: type))
-            .map(model: HCFileUploadModel.self)
-            .asObservable()
-    }
-
-    private func submitReply(content: String, filePath: String, bak: String) ->Observable<ResponseModel> {
-        return HCProvider.request(.replyConsult(content: content, filePath: filePath, bak: bak, consultId: consultId))
-            .mapResponse()
-            .asObservable()
-    }
 }

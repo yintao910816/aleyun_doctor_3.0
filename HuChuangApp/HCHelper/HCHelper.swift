@@ -55,69 +55,104 @@ class HCHelper {
 //MARK: --- 视频通话相关接口
 extension HCHelper {
     
+    public func saveCallingUser(user: CallingUserModel?) {
+        guard let callingUser = user else {
+            return
+        }
+        
+        if let _ = cachedLocalUsers.first(where: { $0.userId == callingUser.userId }) {
+            PrintLog("已存在改用户信息")
+        }else {
+            cachedLocalUsers.append(callingUser)
+        }
+    }
+    
+    public func getCallingUser(memberId: String) ->CallingUserModel? {
+        return cachedLocalUsers.first(where: { $0.userId == memberId })
+    }
+    
     /// 获取视频通话用户信息
-    public static func requestVideoCallUserInfo(userId: String, complement: (())->()) {
-        if let user = HCHelper.share.userInfoModel {
-            HCProvider.request(.consultVideoUserInfo(memberId: user.uid, userId: userId))
-                .mapJSON()
-                .subscribe { res in
-                    print(res)
-                } onError: { error in
-                    print(error)
-                }
-
+    public static func requestVideoCallUserInfo(memberId: String, consultId: String) ->Observable<CallingUserModel?> {
+        if let user = HCHelper.share.getCallingUser(memberId: memberId) {
+            return Observable.just(user)
+        }else {
+            if let user = HCHelper.share.userInfoModel {
+                return HCProvider.request(.consultVideoUserInfo(memberId: memberId, userId: user.uid, consultId: consultId))
+                    .map(model: HCShortUserInfoModel.self)
+                    .map{ $0.tranformUser(memberId: memberId) }
+                    .do(onSuccess: { res in
+                        HCHelper.share.saveCallingUser(user: res)
+                    }, onError: { NoticesCenter.alert(message: BaseViewModel().errorMessage($0)) })
+                    .asObservable()
+            }else {
+                NoticesCenter.alert(message: "未登陆")
+                return Observable.just(nil)
+            }
         }
     }
     
     /// 视频通话签名
-    public static func requestVideoChatSignature() {
+    public static func requestVideoChatSignature() ->Observable<String?> {
         if let user = HCHelper.share.userInfoModel {
-            HCProvider.request(.videoChatSignature(memberId: user.uid))
+            return HCProvider.request(.videoChatSignature(userId: user.uid))
                 .mapJSON()
-                .subscribe { res in
-                    print(res)
-                } onError: { error in
-                    print(error)
+                .map { res -> String? in
+                    if let dataDic = res as? [String : Any], let userSig = dataDic["data"] as? String {
+                        return userSig
+                    }else {
+                        NoticesCenter.alert(message: "视频通话签名为空")
+                        return nil
+                    }
                 }
+                .do(onError: { NoticesCenter.alert(message: "视频通话签名失败：\(BaseViewModel().errorMessage($0))") })
+                .catchErrorJustReturn(nil)
+                .asObservable()
         }
+        return Observable.just(nil)
     }
     
     /// 接听电话
-    public static func requestReceivePhone(userId: String, consultId: String) {
+    public static func requestReceivePhone(memberId: String, consultId: String) ->Observable<Bool> {
         if let user = HCHelper.share.userInfoModel {
-            HCProvider.request(.consultReceivePhone(memberId: user.uid, userId: userId, consultId: consultId))
-                .mapJSON()
-                .subscribe { res in
-                    print(res)
-                } onError: { error in
-                    print(error)
-                }
+            return HCProvider.request(.consultReceivePhone(memberId: memberId, userId: user.uid, consultId: consultId))
+                .map(model: HCReceivePhoneModel.self)
+                .map{ _ in true }
+                .do(onError: { NoticesCenter.alert(message: "接听电话失败：\(BaseViewModel().errorMessage($0))") })
+                .catchErrorJustReturn(false)
+                .asObservable()
+        }else {
+            NoticesCenter.alert(message: "未登陆")
+            return Observable.just(false)
         }
     }
 
     /// 拨打电话
-    public static func requestStartPhone(userId: String) {
+    public static func requestStartPhone(memberId: String) ->Observable<Bool> {
         if let user = HCHelper.share.userInfoModel {
-            HCProvider.request(.consultStartPhone(memberId: user.uid, userId: userId))
+            return HCProvider.request(.consultStartPhone(memberId: memberId, userId: user.uid))
                 .mapJSON()
-                .subscribe { res in
-                    print(res)
-                } onError: { error in
-                    print(error)
-                }
+                .map { _ in true }
+                .do(onError: { NoticesCenter.alert(message: "拨打电话失败：\(BaseViewModel().errorMessage($0))") })
+                .catchErrorJustReturn(false)
+                .asObservable()
+        }else {
+            NoticesCenter.alert(message: "未登陆")
+            return Observable.just(false)
         }
     }
 
     /// 结束通话
-    public static func requestEndPhone(userId: String) {
+    public static func requestEndPhone(userId: String) ->Observable<Bool> {
         if let user = HCHelper.share.userInfoModel {
-            HCProvider.request(.consultEndPhone(memberId: user.uid, userId: userId, watchTime: Date.formatCurrentDate()))
+            return HCProvider.request(.consultEndPhone(memberId: user.uid, userId: userId, watchTime: Date.formatCurrentDate()))
                 .mapJSON()
-                .subscribe { res in
-                    print(res)
-                } onError: { error in
-                    print(error)
-                }
+                .map { _ in true }
+                .do(onError: { NoticesCenter.alert(message: "结束通话失败：\(BaseViewModel().errorMessage($0))") })
+                .catchErrorJustReturn(false)
+                .asObservable()
+        }else {
+            NoticesCenter.alert(message: "未登陆")
+            return Observable.just(false)
         }
     }
 
@@ -148,28 +183,30 @@ extension HCHelper {
     }
     
     class func saveLogin(user: HCUserModel) {
-        TRTCCalling.shareInstance().login(sdkAppID: trtc_appid,
-                                          user: user.uid,
-                                          userSig: GenerateTestUserSig.genTestUserSig(user.uid)) {
-            PrintLog("trtc登录成功")
-        } failed: { (code, des) in
-          PrintLog("trtc登录失败: code - \(code)\ninfo\(des)")
-        }
-
-        
         userDefault.uid = user.uid
         userDefault.token = user.token
         userDefault.unitId = user.unitId
         userDefault.unitIdNoEmpty = user.unitId
-
+        
         HCHelper.share.userInfoModel = user
         
         HCHelper.share.userInfoHasReload.onNext(user)
         
-        HCHelper.requestVideoChatSignature()
-        HCHelper.requestVideoCallUserInfo(userId: "2378") { _ in
-            
-        }
+        _ = HCHelper.requestVideoChatSignature()
+            .subscribe(onNext: { userSig in
+                if let sign = userSig {
+                    TRTCCalling.shareInstance().login(sdkAppID: trtc_appid,
+                                                      user: user.uid,
+                                                      userSig: sign) {
+                        PrintLog("trtc登录成功")
+                    } failed: { (code, des) in
+                        PrintLog("trtc登录失败: code - \(code)\ninfo\(des)")
+                    }
+                }
+            })
+        
+        _ = HCHelper.requestEndPhone(userId: "2378")
+            .subscribe(onNext:{ _ in })
     }
 
 }

@@ -31,6 +31,18 @@ class HCPatientItemModel: HJModel {
         }
         return "女"
     }()
+    
+    public static func testDatas() ->[HCPatientItemModel] {
+        var data: [HCPatientItemModel] = []
+        for _ in 0..<5 {
+            let m = HCPatientItemModel()
+            m.userName = "测试数据"
+            m.sex = 0
+            m.age = "20"
+            data.append(m)
+        }
+        return data
+    }
 }
 
 /// 患者管理-分组数据

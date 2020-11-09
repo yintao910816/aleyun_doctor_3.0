@@ -189,14 +189,12 @@ enum API{
     /// 咨询退回
     case withdrawConsult(orderSn: String)
     
-    /// 获取视频签名 memberId - 当前登陆用户id
-    case videoChatSignature(memberId: String)
+    /// 获取视频签名 医生用userId 患者用memberId
+    case videoChatSignature(userId: String)
     /**
      * 接听电话获取头像姓名信息
-     * memberId - 当前登陆用户id
-     * userId - 查询的用户id
      */
-    case consultVideoUserInfo(memberId: String, userId: String)
+    case consultVideoUserInfo(memberId: String, userId: String, consultId: String)
     /// 接听电话
     case consultReceivePhone(memberId: String, userId: String, consultId: String)
     /// 拨打电话
@@ -331,15 +329,15 @@ extension API: TargetType{
             return "api/patientConsult/withdrawConsult/\(orderSn)"
         
         case .videoChatSignature(_):
-            return "api/consult/signature"
-        case .consultVideoUserInfo(_, _):
-            return "api/consult/videoUserInfo"
+            return "api/patientConsult/signature"
+        case .consultVideoUserInfo(_, _, _):
+            return "api/patientConsult/videoUserInfo"
         case .consultReceivePhone(_, _, _):
-            return "api/consult/receivePhone"
+            return "api/patientConsult/receivePhone"
         case .consultStartPhone(_, _):
-            return "api/consult/startPhone"
+            return "api/patientConsult/startPhone"
         case .consultEndPhone(_, _, _):
-            return "api/consult/endPhone"
+            return "api/patientConsult/endPhone"
             
             
         case .realNameAuth(_, _, _, _, _):
@@ -532,11 +530,12 @@ extension API {
         case .getPatientCoupleInfo(let memberId):
             params["memberId"] = memberId
         
-        case .videoChatSignature(let memberId):
-            params["memberId"] = memberId
-        case .consultVideoUserInfo(let memberId, let userId):
+        case .videoChatSignature(let userId):
+            params["userId"] = userId
+        case .consultVideoUserInfo(let memberId, let userId, let consultId):
             params["memberId"] = memberId
             params["userId"] = userId
+            params["consultId"] = consultId
         case .consultReceivePhone(let memberId, let userId, let consultId):
             params["memberId"] = memberId
             params["userId"] = userId

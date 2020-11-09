@@ -7,7 +7,18 @@
 //
 
 import Foundation
+import RxSwift
 
-class HCRegisterPatientViewModel: BaseViewModel {
+class HCRegisterPatientViewModel: RefreshVM<HCPatientItemModel> {
     
+    override init() {
+        super.init()
+        
+    }
+    
+    override func requestData(_ refresh: Bool) {
+        super.requestData(refresh)
+        
+        updateRefresh(refresh, HCPatientItemModel.testDatas(), 1)
+    }
 }
