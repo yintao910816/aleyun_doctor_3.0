@@ -16,6 +16,7 @@ class HCHomeViewContainer: UIView {
     private var bannerItems: [HCBannerModel] = []
     private var animotionMenuItems: [HCAninotionMenuModel] = HCAninotionMenuModel.creatHomeMenuItems()
     private var userInfo: HCUserModel = HCUserModel()
+    private var userServerStatistics: HCUserServerStatisticsModel = HCUserServerStatisticsModel()
 
     private var pageIdx: Int = 0
     
@@ -42,11 +43,16 @@ class HCHomeViewContainer: UIView {
         collectionView.frame = bounds
     }
    
-    public func reloadData(menuItems: [HCFunctionsMenuModel], bannerItems: [HCBannerModel], page: Int, userInfo: HCUserModel) {
+    public func reloadData(menuItems: [HCFunctionsMenuModel],
+                           bannerItems: [HCBannerModel],
+                           page: Int,
+                           userInfo: HCUserModel,
+                           userServerStatistics: HCUserServerStatisticsModel) {
         pageIdx = page
         self.menuItems = menuItems
         self.bannerItems = bannerItems
         self.userInfo = userInfo
+        self.userServerStatistics = userServerStatistics
         
         collectionView.reloadData()
     }
@@ -79,6 +85,8 @@ extension HCHomeViewContainer {
         collectionView.register(HCHomeHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HCHomeHeaderReusableView_identifier)
         collectionView.register(HCMenuReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HCMenuReusableView_identifier)
 
+        collectionView.register(HCFuncMenuCell.self, forCellWithReuseIdentifier: HCFuncMenuCell_identifier)
+        
         collectionView.register(HCBannerItemCell.self, forCellWithReuseIdentifier: HCBannerItemCell_identifier)
     }
 
@@ -87,12 +95,14 @@ extension HCHomeViewContainer {
 extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
+            return menuItems.count > 0 ? 1 : 0
+        case 1:
             return bannerItems.count > 0 ? 1 : 0
         default:
             return 0
@@ -102,6 +112,9 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         if indexPath.section == 0 {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCFuncMenuCell_identifier, for: indexPath)
+            (cell as! HCFuncMenuCell).funcMenuModels = menuItems
+        }else if indexPath.section == 1 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCBannerItemCell_identifier, for: indexPath)
             (cell as! HCBannerItemCell).bannerDatas = bannerItems
         }
@@ -111,6 +124,8 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case 0:
+            return .init(width: collectionView.width, height: HCFuncMenuCell_height)
+        case 1:
             if bannerItems.count > 0 {
                 return .init(width: width, height: HCBannerItemCell_height)
             }
@@ -126,11 +141,12 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
         if kind == UICollectionView.elementKindSectionHeader {
             if indexPath.section == 0 {
                 header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HCHomeHeaderReusableView_identifier, for: indexPath)
-                (header as? HCHomeHeaderReusableView)?.funcMenuModels = menuItems
                 (header as? HCHomeHeaderReusableView)?.userModel = userInfo
-                (header as? HCHomeHeaderReusableView)?.funcItemClicked = { [weak self] in self?.funcItemClicked?($0) }
+                (header as? HCHomeHeaderReusableView)?.userServerStatistics = userServerStatistics
                 (header as? HCHomeHeaderReusableView)?.buttonClicked = { [weak self] in self?.buttonClicked?($0) }
             }else if indexPath.section == 1 {
+
+            }else if indexPath.section == 2 {
                 header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HCMenuReusableView_identifier, for: indexPath)
                 (header as? HCMenuReusableView)?.menuItems = animotionMenuItems
                 (header as? HCMenuReusableView)?.menuChangeCallBack = { [weak self] in self?.menuChangeCallBack?($0) }
@@ -143,12 +159,15 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch section {
         case 0:
-            if #available(iOS 11.0, *) {
-                return .init(width: width, height: HCHomeHeaderReusableView.viewHeight(with: width, funcCount: menuItems.count, safeAreaTop: safeAreaInsets.top))
-            } else {
-                return .init(width: width, height: HCHomeHeaderReusableView.viewHeight(with: width, funcCount: menuItems.count, safeAreaTop: 0))
-            }
+//            if #available(iOS 11.0, *) {
+//                return .init(width: width, height: HCHomeHeaderReusableView.viewHeight(with: width, funcCount: menuItems.count, safeAreaTop: safeAreaInsets.top))
+//            } else {
+//                return .init(width: width, height: HCHomeHeaderReusableView.viewHeight(with: width, funcCount: menuItems.count, safeAreaTop: 0))
+//            }
+            return .init(width: width, height: HCHomeHeaderReusableView_height)
         case 1:
+            return .zero
+        case 2:
             return .init(width: width, height: HCMenuReusableView_height)
         default:
             return .zero
@@ -158,7 +177,7 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         switch section {
         case 0:
-            return .init(top: 0, left: 0, bottom: 10, right: 0)
+            return .init(top: 0, left: 0, bottom: 0, right: 0)
         case 1:
             return .init(top: 0, left: 0, bottom: 0, right: 0)
         default:

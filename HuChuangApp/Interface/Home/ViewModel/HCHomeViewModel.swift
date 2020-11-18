@@ -15,7 +15,7 @@ class HCHomeViewModel: BaseViewModel {
     private var allArticleDatas: [String: [HCCmsArticleModel]] = [:]
     private var pageIdxs: [String: Int] = [:]
     
-    public let functionsMenuSignal = PublishSubject<([HCFunctionsMenuModel], [HCCmsCmsChanelListModel], [HCBannerModel], Int, HCUserModel)>()
+    public let functionsMenuSignal = PublishSubject<([HCFunctionsMenuModel], [HCCmsCmsChanelListModel], [HCBannerModel], Int, HCUserModel, HCUserServerStatisticsModel)>()
     public let articleDataSignal = PublishSubject<([HCCmsArticleModel], Int)>()
     public let articleTypeChangeSignal = PublishSubject<HCMenuItemModel>()
     
@@ -38,6 +38,7 @@ class HCHomeViewModel: BaseViewModel {
         
         reloadSubject.subscribe(onNext: { [weak self] in self?.requestHeaderDatas() })
             .disposed(by: disposeBag)
+        
     }
     
 }
@@ -45,7 +46,11 @@ class HCHomeViewModel: BaseViewModel {
 extension HCHomeViewModel {
     
     private func requestHeaderDatas() {
-        Observable.combineLatest(requestMenuItems(), requestCmsChanelList(), requestBanner()) { ($0, $1, $2) }
+        Observable.combineLatest(requestMenuItems(),
+                                 requestCmsChanelList(),
+                                 requestBanner(),
+                                 requestUserServerStatistics(),
+                                 requestUnreplyNum()) { ($0, $1, $2, $3, $4) }
             .concatMap({ [unowned self] data -> Observable<[HCCmsArticleModel]> in
                 var tempArr: [HCCmsCmsChanelListModel] = []
                 let recommendItem = HCCmsCmsChanelListModel()
@@ -58,7 +63,9 @@ extension HCHomeViewModel {
                     self.pageIdxs[tempArr[idx].id] = idx
                 }
                 
-                self.functionsMenuSignal.onNext((data.0, tempArr, data.2, 0, HCHelper.share.userInfoModel ?? HCUserModel()))
+                data.3.unreplyNum = data.4
+                
+                self.functionsMenuSignal.onNext((data.0, tempArr, data.2, 0, HCHelper.share.userInfoModel ?? HCUserModel(), data.3))
                 return self.requestRecomCms()
             })
             .subscribe(onNext: { [unowned self] data in
@@ -67,11 +74,32 @@ extension HCHomeViewModel {
             })
             .disposed(by: disposeBag)
     }
-
+    
+    // 待接诊数量
+    private func requestUnreplyNum() ->Observable<Int> {
+        return HCProvider.request(.getUnreplyNum)
+            .mapJSON()
+            .map { res -> Int in
+                if let dic = res as? [String: Any], let num = dic["data"] as? Int {
+                    return num
+                }
+                return 0
+            }
+            .asObservable()
+            .catchErrorJustReturn(0)
+    }
+    
+    // 用户咨询数量相关
+    private func requestUserServerStatistics() ->Observable<HCUserServerStatisticsModel> {
+        return HCProvider.request(.userServerStatistics)
+            .map(model: HCUserServerStatisticsModel.self)
+            .asObservable()
+            .catchErrorJustReturn(HCUserServerStatisticsModel())
+    }
     
     // banner
     private func requestBanner() ->Observable<[HCBannerModel]> {
-        return HCProvider.request(.selectBanner)
+        return HCProvider.request(.selectBanner(code: .bannerdoctor))
             .map(models: HCBannerModel.self)
             .asObservable()
             .catchErrorJustReturn([HCBannerModel]())

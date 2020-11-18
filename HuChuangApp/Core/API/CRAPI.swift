@@ -144,7 +144,7 @@ enum HCsearchModule: String {
 }
 
 enum HCBannerCode: String {
-    case bannerdoctor = "bannerdoctor"
+    case bannerdoctor = "doctorBanner"
 }
 
 
@@ -153,9 +153,11 @@ enum HCBannerCode: String {
 enum API{
     // --------------- 医生3.0接口
     /// banner
-//    case selectBanner(code: HCBannerCode)
-    /// 首页banner
-    case selectBanner
+    case selectBanner(code: HCBannerCode)
+    ///
+    case userServerStatistics
+    ///
+    case getUnreplyNum
     /// 首页菜单
     case functionsMenu
     /// 获取验证码
@@ -291,10 +293,12 @@ extension API: TargetType{
     
     var path: String{
         switch self {
-//        case .selectBanner(let code):
-//            return "api/advert/banner/\(code.rawValue)"
-        case .selectBanner:
-            return "index/bannerList"
+        case .userServerStatistics:
+            return "api/patientConsult/userServerStatistics"
+        case .getUnreplyNum:
+            return "api/patientConsult/getUnreplyNum"
+        case .selectBanner(_):
+            return "api/index/selectBanner"
         case .functionsMenu:
             return "api/index/select"
         case .validateCode(_):
@@ -490,15 +494,18 @@ extension API {
     private var parameters: [String: Any]? {
         var params = [String: Any]()
         switch self {
+        case .functionsMenu:
+            params["facilityType"] = "APP"
+        case .getUnreplyNum:
+            break
+        case .selectBanner(let code):
+            params["code"] = code.rawValue
         case .validateCode(let mobile):
             params["mobile"] = mobile
         case .loginTel(let mobile, let smsCode):
             params["mobile"] = mobile
             params["smsCode"] = smsCode
         
-        case .functionsMenu:
-            params["facilityType"] = "APP"
-
         case .getConsultsPatientList(let pageNum, let pageSize, let searchName):
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize

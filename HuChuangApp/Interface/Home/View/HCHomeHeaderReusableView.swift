@@ -15,33 +15,32 @@ enum HCHomeHeaderClickedMode {
 }
 
 public let HCHomeHeaderReusableView_identifier = "HCHomeHeaderReusableView"
+public let HCHomeHeaderReusableView_height: CGFloat = 310
 
 class HCHomeHeaderReusableView: UICollectionReusableView {
    
     private var colorBgView: UIImageView!
-    private var gradientLayer: CAGradientLayer!
-    
-    private var qrCodeButton: UIButton!
-    private var noticeButton: UIButton!
-    private var settingButton: UIButton!
     private var avatarBgView: UIImageView!
     private var avatar: UIButton!
     private var nameLabel: UILabel!
-    private var markTypeFirstImgV: UIImageView!
-    private var markTypeSecondImgV: UIImageView!
-    private var jobRoleLabel: UILabel!
-    /// 服务患者
-    private var serverPatientLabel: UILabel!
-    /// 好评率
-    private var praiseRateLabel: UILabel!
-    /// 回复率
-    private var replyRateLabel: UILabel!
+    // 好评 - 回复率
+    private var briefLabel: UILabel!
+    // 名片
+    private var userCardButton: UIButton!
+    // 消息
+    private var messageButton: UIButton!
     
-    private var funcCornerBgView: UIView!
-    private var funcShadowBgView: UIView!
-    private var funcCollectionView: UICollectionView!
-    
-    public var funcItemClicked: ((HCFunctionsMenuModel)->())?
+    // 工作台
+    private var jobCornerBgView: UIView!
+    private var jobShadowBgView: UIView!
+    private var jobTitleLabel: UILabel!
+    // 新的待接诊订单
+    private var newOrderBgView: UIView!
+    private var gradientLayer: CAGradientLayer!
+    private var newOrderCountLabel: UILabel!
+    private var orderLine: UIImageView!
+    private var newOrderRemindLabel: UILabel!
+
     public var buttonClicked: ((HCHomeHeaderClickedMode)->())?
 
     override init(frame: CGRect) {
@@ -53,74 +52,87 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    public var funcMenuModels: [HCFunctionsMenuModel] = [] {
-        didSet {
-            funcCollectionView.reloadData()
-        }
-    }
-    
+        
     public var userModel: HCUserModel = HCUserModel() {
         didSet {
             avatar.setImage(userModel.headPath)
             nameLabel.text = userModel.name
-            jobRoleLabel.text = userModel.technicalPost
-            serverPatientLabel.attributedText = userModel.serverNumberText
-            praiseRateLabel.attributedText = userModel.prasiRatText
-            replyRateLabel.attributedText = userModel.respRateText
                         
             setNeedsLayout()
             layoutIfNeeded()
         }
     }
     
+    public var userServerStatistics: HCUserServerStatisticsModel = HCUserServerStatisticsModel() {
+        didSet {
+            briefLabel.text = userServerStatistics.briefText
+            newOrderCountLabel.attributedText = userServerStatistics.unreplyNumText
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
     
-        var safeTop: CGFloat = 0
-        if #available(iOS 11.0, *) {
-            safeTop = safeAreaInsets.top
-            colorBgView.frame = .init(x: 0, y: 0, width: width, height: 384)
-            qrCodeButton.frame = .init(x: 15, y: safeAreaInsets.top + (44 - 20) / 2.0, width: 20, height: 20)
-        } else {
-            colorBgView.frame = .init(x: 0, y: 0, width: width, height: 360)
-            qrCodeButton.frame = .init(x: 15, y: (44 - 20) / 2.0 + 20.0, width: 20, height: 20)
-        }
+        colorBgView.frame = bounds
         
-        gradientLayer.frame = .init(x: 0, y: 0, width: colorBgView.width, height: colorBgView.height)
+        avatarBgView.frame = .init(x: 25, y: 80, width: 68, height: 68)
+        avatar.frame = .init(x: 4, y: 4, width: 60, height: 60)
+
+        let maxNameWidth: CGFloat = width - avatarBgView.frame.maxX - 12 - 15
+        nameLabel.frame = .init(x: avatarBgView.frame.maxX + 12, y: avatarBgView.y + 4, width: maxNameWidth, height: 28)
         
-        settingButton.frame = .init(x: width - 35, y: qrCodeButton.y, width: 20, height: 20)
-        noticeButton.frame = .init(x: settingButton.x - 40, y: qrCodeButton.y, width: 20, height: 20)
+        briefLabel.frame = .init(x: nameLabel.x, y: nameLabel.frame.maxY + 3, width: nameLabel.width, height: 14)
+
+        userCardButton.frame = .init(x: nameLabel.x,
+                                     y: briefLabel.frame.maxY + 5,
+                                     width: 55,
+                                     height: 24)
         
-        avatarBgView.frame = .init(x: 15, y: qrCodeButton.frame.maxY + 16, width: 72, height: 72)
-        avatar.frame = .init(x: 2, y: 2, width: 68, height: 68)
+        messageButton.frame = .init(x: userCardButton.frame.maxX + 5,
+                                    y: userCardButton.y,
+                                    width: 55,
+                                    height: 24)
         
-        var maxNameWidth: CGFloat = width - avatarBgView.frame.maxX
-        maxNameWidth -= (18 + 10 + 15 + 5 + 15 + 15)
-        var nameSize: CGSize = nameLabel.sizeThatFits(.init(width: CGFloat(MAXFLOAT), height: 31))
-        nameSize.width = nameSize.width > maxNameWidth ? maxNameWidth : nameSize.width
-        nameLabel.frame = .init(x: avatarBgView.frame.maxX + 18, y: avatarBgView.y + 8, width: nameSize.width, height: 31)
+        jobShadowBgView.frame = .init(x: 15,
+                                      y: userCardButton.frame.maxY + 20,
+                                      width: width - 30,
+                                      height: 125)
         
-        markTypeFirstImgV.frame = .init(x: nameLabel.frame.maxX + 10, y: nameLabel.frame.maxY - 20, width: 15, height: 20)
-        markTypeSecondImgV.frame = .init(x: markTypeFirstImgV.frame.maxX + 5, y: markTypeFirstImgV.y, width: 15, height: 20)
+        jobCornerBgView.frame = .init(x: 15,
+                                      y: userCardButton.frame.maxY + 20,
+                                      width: width - 30,
+                                      height: 125)
         
-        jobRoleLabel.frame = .init(x: nameLabel.x,
-                                   y: nameLabel.frame.maxY + 12,
-                                   width: width - nameLabel.x - 15,
-                                   height: 14)
+        jobTitleLabel.frame = .init(x: 15,
+                                    y: 10,
+                                    width: jobCornerBgView.width - 30,
+                                    height: 25)
         
-        let labelW: CGFloat = width / 3.0
-        serverPatientLabel.frame = .init(x: 0, y: avatarBgView.frame.maxY + 20, width: labelW, height: 55)
-        praiseRateLabel.frame = .init(x: serverPatientLabel.frame.maxX, y: serverPatientLabel.y, width: labelW, height: 55)
-        replyRateLabel.frame = .init(x: praiseRateLabel.frame.maxX, y: serverPatientLabel.y, width: labelW, height: 55)
+        newOrderBgView.frame = .init(x: 0,
+                                     y: jobTitleLabel.frame.maxY + 10,
+                                     width: jobCornerBgView.width,
+                                     height: 80)
         
-        let funcBgHeight: CGFloat = HCHomeHeaderReusableView.colViewHeight(with: width, funcCount: funcMenuModels.count, safeAreaTop: safeTop)
-        funcShadowBgView.frame = .init(x: 15, y: height - funcBgHeight, width: width - 30, height: funcBgHeight)
-        funcCornerBgView.frame = funcShadowBgView.frame
-        funcCollectionView.frame = .init(x: 0, y: 0, width: funcCornerBgView.width, height: funcBgHeight)
+        newOrderCountLabel.frame = .init(x: 0,
+                                         y: 0,
+                                         width: newOrderBgView.width / 3,
+                                         height: newOrderBgView.height)
         
-        if funcShadowBgView.layer.shadowPath == nil {
-            funcShadowBgView.setCornerAndShaow(shadowOpacity: 0.05)
+        orderLine.frame = .init(x: newOrderCountLabel.frame.maxX,
+                                y: 15,
+                                width: 1,
+                                height: newOrderBgView.height - 30)
+        
+        newOrderRemindLabel.frame = .init(x: orderLine.frame.maxX + 20,
+                                          y: (newOrderBgView.height - 15) / 2,
+                                          width: newOrderBgView.width - orderLine.frame.maxX - 40,
+                                          height: 15)
+        
+        gradientLayer.frame = .init(x: 0, y: 0, width: newOrderBgView.width, height: newOrderBgView.height)
+        
+        
+        if jobShadowBgView.layer.shadowPath == nil {
+            jobShadowBgView.setCornerAndShaow(shadowOpacity: 0.05)
         }
     }
 }
@@ -131,183 +143,94 @@ extension HCHomeHeaderReusableView {
         backgroundColor = .clear
         
         colorBgView = UIImageView()
+        colorBgView.image = UIImage(named: "home_bg")
         colorBgView.backgroundColor = .clear
         colorBgView.isUserInteractionEnabled = true
         
-        gradientLayer = CAGradientLayer.drawBg(with: [RGB(100, 162, 248, 0.93).cgColor,
-                                                      RGB(101, 163, 249, 0.62).cgColor,
-                                                      RGB(92, 153, 249, 0).cgColor],
-                                               gradientLocations: [.init(value: 0),
-                                                                   .init(value: 0.7),
+        gradientLayer = CAGradientLayer.drawBg(with: [RGB(36, 84, 195, 1).cgColor,
+                                                      RGB(80, 131, 248, 1).cgColor],
+                                               gradientLocations: [.init(value: 0.5),
                                                                    .init(value: 1)])
         
-        qrCodeButton = UIButton()
-        qrCodeButton.setImage(UIImage(named: "nav_qr_code"), for: .normal)
-        qrCodeButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
-
-        noticeButton = UIButton()
-        noticeButton.setImage(UIImage(named: "nav_notice"), for: .normal)
-        noticeButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
-
-        settingButton = UIButton()
-        settingButton.setImage(UIImage(named: "nav_setting"), for: .normal)
-        settingButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
 
         avatarBgView = UIImageView(image: UIImage(named: "home_avatar_bg"))
         avatar = UIButton()
-        avatar.layer.cornerRadius = 34
+        avatar.layer.cornerRadius = 30
         avatar.clipsToBounds = true
         
         nameLabel = UILabel()
-        nameLabel.textColor = .white
-        nameLabel.font = .font(fontSize: 30, fontName: .PingFSemibold)
+        nameLabel.textColor = RGB(51, 51, 51)
+        nameLabel.font = .font(fontSize: 20, fontName: .PingFSemibold)
+                
+        briefLabel = UILabel()
+        briefLabel.textColor = RGB(102, 102, 102)
+        briefLabel.font = .font(fontSize: 10)
         
-        markTypeFirstImgV = UIImageView(image: UIImage(named: "hzy"))
-        markTypeSecondImgV = UIImageView(image: UIImage(named: "hze"))
+        userCardButton = UIButton(type: .custom)
+        userCardButton.setImage(UIImage(named: "home_user_card"), for: .normal)
+        userCardButton.setTitle("名片", for: .normal)
+        userCardButton.titleLabel?.font = .font(fontSize: 10, fontName: .PingFSemibold)
+        userCardButton.setTitleColor(RGB(79, 130, 247), for: .normal)
+        userCardButton.layer.cornerRadius = 12
+        userCardButton.clipsToBounds = true
+        userCardButton.layer.borderWidth = 0.5
+        userCardButton.layer.borderColor = RGB(79, 130, 247).cgColor
+
+        messageButton = UIButton(type: .custom)
+        messageButton.setImage(UIImage(named: "home_message"), for: .normal)
+        messageButton.setTitle("消息", for: .normal)
+        messageButton.titleLabel?.font = .font(fontSize: 10, fontName: .PingFSemibold)
+        messageButton.setTitleColor(RGB(79, 130, 247), for: .normal)
+        messageButton.layer.cornerRadius = 12
+        messageButton.clipsToBounds = true
+        messageButton.layer.borderWidth = 0.5
+        messageButton.layer.borderColor = RGB(79, 130, 247).cgColor
         
-        jobRoleLabel = UILabel()
-        jobRoleLabel.textColor = RGB(220, 234, 253)
-        jobRoleLabel.font = .font(fontSize: 14)
-
-        serverPatientLabel = UILabel()
-        serverPatientLabel.textColor = .white
-        serverPatientLabel.font = .font(fontSize: 22)
-        serverPatientLabel.numberOfLines = 2
-        serverPatientLabel.textAlignment = .center
-
-        praiseRateLabel = UILabel()
-        praiseRateLabel.textColor = .white
-        praiseRateLabel.font = .font(fontSize: 22)
-        praiseRateLabel.numberOfLines = 2
-        praiseRateLabel.textAlignment = .center
-
-        replyRateLabel = UILabel()
-        replyRateLabel.textColor = .white
-        replyRateLabel.font = .font(fontSize: 22)
-        replyRateLabel.numberOfLines = 2
-        replyRateLabel.textAlignment = .center
-
-        funcShadowBgView = UIView()
-        funcShadowBgView.backgroundColor = .clear
+        jobShadowBgView = UIView()
+        jobShadowBgView.backgroundColor = .clear
         
-        funcCornerBgView = UIView()
-        funcCornerBgView.layer.cornerRadius = 7
-        funcCornerBgView.clipsToBounds = true
+        jobCornerBgView = UIView()
+        jobCornerBgView.backgroundColor = .white
+        jobCornerBgView.layer.cornerRadius = 7
+        jobCornerBgView.clipsToBounds = true
         
-        let layout = UICollectionViewFlowLayout()
-        funcCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
-        funcCollectionView.backgroundColor = .white
-        funcCollectionView.showsVerticalScrollIndicator = false
-        funcCollectionView.showsHorizontalScrollIndicator = false
-        funcCollectionView.delegate = self
-        funcCollectionView.dataSource = self
+        jobTitleLabel = UILabel()
+        jobTitleLabel.textColor = RGB(51, 51, 51)
+        jobTitleLabel.font = .font(fontSize: 18, fontName: .PingFSemibold)
+        jobTitleLabel.text = "我的工作台"
+
+        newOrderBgView = UIView()
+        newOrderBgView.layer.cornerRadius = 7
+        newOrderBgView.clipsToBounds = true
+        
+        newOrderCountLabel = UILabel()
+        newOrderCountLabel.textColor = .white
+        newOrderCountLabel.font = .font(fontSize: 18, fontName: .PingFSemibold)
+        newOrderCountLabel.numberOfLines = 2
+        
+        orderLine = UIImageView(image: UIImage.init(named: "home_line"))
+        
+        newOrderRemindLabel = UILabel()
+        newOrderRemindLabel.textColor = .white
+        newOrderRemindLabel.font = .font(fontSize: 14)
+        newOrderRemindLabel.text = "您有新的待订单，请及时查看"
         
         addSubview(colorBgView)
-        colorBgView.addSubview(qrCodeButton)
-        colorBgView.addSubview(noticeButton)
-        colorBgView.addSubview(settingButton)
         colorBgView.addSubview(avatarBgView)
         avatarBgView.addSubview(avatar)
         colorBgView.addSubview(nameLabel)
-        colorBgView.addSubview(markTypeFirstImgV)
-        colorBgView.addSubview(markTypeSecondImgV)
-        colorBgView.addSubview(jobRoleLabel)
-        colorBgView.addSubview(serverPatientLabel)
-        colorBgView.addSubview(praiseRateLabel)
-        colorBgView.addSubview(replyRateLabel)
+        colorBgView.addSubview(briefLabel)
+        colorBgView.addSubview(userCardButton)
+        colorBgView.addSubview(messageButton)
 
-        addSubview(funcShadowBgView)
-        addSubview(funcCornerBgView)
-        funcCornerBgView.addSubview(funcCollectionView)
+        colorBgView.addSubview(jobShadowBgView)
+        colorBgView.addSubview(jobCornerBgView)
+        jobCornerBgView.addSubview(jobTitleLabel)
+        jobCornerBgView.addSubview(newOrderBgView)
+        newOrderBgView.addSubview(newOrderCountLabel)
+        newOrderBgView.addSubview(orderLine)
+        newOrderBgView.addSubview(newOrderRemindLabel)
         
-        colorBgView.layer.insertSublayer(gradientLayer, at: 0)
-        
-        funcCollectionView.register(HCFuncMenuCel.self, forCellWithReuseIdentifier: HCFuncMenuCel_identifier)
+        newOrderBgView.layer.insertSublayer(gradientLayer, at: 0)
     }
-    
-    @objc private func buttonAction(button: UIButton) {
-        if button == qrCodeButton {
-            buttonClicked?(.qrCode)
-        }else if button == noticeButton {
-            buttonClicked?(.message)
-        }else if button == settingButton {
-            buttonClicked?(.setting)
-        }
-    }
-}
-
-extension HCHomeHeaderReusableView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return funcMenuModels.count
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return HCHomeHeaderReusableView.itemSize(forCell: width, funcCount: funcMenuModels.count)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCFuncMenuCel_identifier, for: indexPath) as! HCFuncMenuCel
-        cell.funcModel = funcMenuModels[indexPath.row]
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 20, left: 10, bottom: 20, right: 10)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        funcItemClicked?(funcMenuModels[indexPath.row])
-    }
-}
-
-extension HCHomeHeaderReusableView {
-    
-    public static func viewHeight(with width: CGFloat, funcCount: Int, safeAreaTop: CGFloat) ->CGFloat {
-
-        var height: CGFloat = HCHomeHeaderReusableView.colViewHeight(with: width, funcCount: funcCount, safeAreaTop: safeAreaTop)
-        
-        /// --- 功能区之上部分
-        height += safeAreaTop
-        height += 210.0
-        
-        return height
-    }
-    
-    private static func colViewHeight(with width: CGFloat, funcCount: Int, safeAreaTop: CGFloat) ->CGFloat {
-        guard funcCount > 0 else { return 0 }
-        
-        let itemSize: CGSize = HCHomeHeaderReusableView.itemSize(forCell: width, funcCount: funcCount)
-        
-        /// --- 功能区
-        // 顶部和底部
-        var height: CGFloat = 20 * 2
-        var lines = funcCount / 4
-        lines = (funcCount % 4) == 0 ? lines : lines + 1;
-        // 行间距之和
-        height += CGFloat((lines - 1) * 15)
-        // cell
-        height += itemSize.height * CGFloat(lines)
-                
-        return height
-    }
-    
-    private static func itemSize(forCell width: CGFloat, funcCount: Int) ->CGSize {
-        let itemWidth: CGFloat = (width - 1 - 15 * 2 - 10 * 2 - 20 * 3) / 4.0
-        let itemHeight: CGFloat = itemWidth + 10 + 13
-        return .init(width: itemWidth, height: itemHeight)
-    }
-
 }

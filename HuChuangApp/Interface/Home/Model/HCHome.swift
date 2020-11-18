@@ -11,24 +11,25 @@ import HandyJSON
 
 /// 功能按钮
 class HCFunctionsMenuModel: HJModel {
-    var bak: String = ""
-    var bind: String = ""
-    var code: String = ""
-    var createDate: String = ""
-    var creates: String = ""
-    var functionUrl: String = ""
-    var hide: Bool = false
-    var iconPath: String = ""
     var id: String = ""
-    var modifyDate: String = ""
-    var modifys: String = ""
+    var code: String = ""
     var name: String = ""
+    var sort: Int = 0
+    var createDate: String = ""
+    var modifyDate: String = ""
+    var creates: String = ""
+    var modifys: String = ""
+    var bak: String = ""
+    var unitId: String = ""
+    var iconPath: String = ""
+    var functionUrl: String = ""
+    var type: String = ""
+    var unitName: String = ""
+    var facilityType: String = ""
     var primordial: String = ""
     var recom: Int = 0
-    var sort: Int = 0
-    var type: String = ""
-    var unitId: String = ""
-    var unitName: String = ""
+    var bind: String = ""
+    var hide: Bool = false
 }
 
 /// 文章栏目菜单
@@ -79,4 +80,62 @@ class HCBannerModel: HJModel, CarouselSource {
     }
 
     var url: String? { return path }
+}
+
+/// 好评相关
+class HCUserServerStatisticsModel: HJModel {
+    var consultNum: Int = 0
+    var prasiRat: Float = 0.0
+    var replyNum: Int = 0
+    var respRate: Float = 0.0
+    
+    /// 手动添加：待接诊订单
+    var unreplyNum: Int = 0
+    
+    public lazy var briefText: String = {
+        // 咨询数
+        let consultText = "\(consultNum)"
+        // 回复率
+        let replyText = consultNum == 0 ? "良好" : Float(replyNum / consultNum) < 0.8 ? "良好" : "高"
+        // 好评率
+        let praiseText = prasiRat == 0 ? "100%" : "\(Int(prasiRat * 100))%"
+        return "服务患者\(consultText)  好评率\(praiseText)  回复率:\(replyText)"
+//        let string = NSMutableAttributedString.init(string: "咨询数\(consultText)，回复率\(replyText)，好评率\(praiseText)")
+//
+//        string.addAttribute(NSAttributedString.Key.foregroundColor,
+//                            value: RGB(244, 174, 62),
+//                            range: .init(location: 3, length: consultText.count))
+//        string.addAttribute(NSAttributedString.Key.font,
+//                            value: UIFont.font(fontSize: 12, fontName: .PingFSemibold),
+//                            range: .init(location: 3, length: consultText.count))
+//
+//        string.addAttribute(NSAttributedString.Key.foregroundColor,
+//                            value: RGB(244, 174, 62),
+//                            range: .init(location: 3 + consultText.count + 4,
+//                                         length: replyText.count))
+//        string.addAttribute(NSAttributedString.Key.font,
+//                            value: UIFont.font(fontSize: 12, fontName: .PingFSemibold),
+//                            range: .init(location: 3 + consultText.count + 4,
+//                                         length: replyText.count))
+//
+//        string.addAttribute(NSAttributedString.Key.foregroundColor,
+//                            value: RGB(244, 174, 62),
+//                            range: .init(location: 3 + consultText.count + 4 + replyText.count + 4,
+//                                         length: praiseText.count))
+//        string.addAttribute(NSAttributedString.Key.font,
+//                            value: UIFont.font(fontSize: 12, fontName: .PingFSemibold),
+//                            range: .init(location: 3 + consultText.count + 4 + replyText.count + 4,
+//                                         length: praiseText.count))
+//
+//        return string
+    }()
+
+    public lazy var unreplyNumText: NSAttributedString = {
+        let string = "待接诊\n\(unreplyNum)"
+        return string.attributed(.init(location: 4,
+                                       length: "\(unreplyNum)".count),
+                                 .white,
+                                 .font(fontSize: 16),
+                                 lineSpace: 5)
+    }()
 }
