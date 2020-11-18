@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class HCPatientManageContainer: UIView {
 
@@ -15,6 +16,8 @@ class HCPatientManageContainer: UIView {
     
     private var tableView: UITableView!
     private var saveButton: UIButton!
+
+    public let cellSelectedSignal = PublishSubject<HCListCellItem>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -124,5 +127,6 @@ extension HCPatientManageContainer: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        cellSelectedSignal.onNext(listDatas[indexPath.section][indexPath.row])
     }
 }

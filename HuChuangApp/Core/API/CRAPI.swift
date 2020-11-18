@@ -170,10 +170,20 @@ enum API{
     case selectInfo
     /// 获取患者列表
     case getConsultsPatientList(pageNum: Int, pageSize: Int, searchName: String)
+   
     /// 患者分组数据
     case groupTagMemberList
     /// 修改标签内容
     case editUserMemberTags(id: String, tagName: String)
+    /// 获取已有标签
+    case getUserTagList(memberId: String)
+    /// 设置患者标签
+    case addUserMemberTags(memberId: String, tagName: String, id: String)
+    /// 删除患者标签
+    case removeUserTag(memberId: String, id: String)
+    /// 添加标签
+    case addUserTag(tagName: String, clinicId: String)
+
     /// 获取资讯消息列表 replyStatus: 0未回复1已回复2已退回3已评论（完结）
     case getPatientConsultList(pageNum: Int, pageSize: Int, sort: HCRequestListSort, replyStatus: String)
     /// 第一次获取咨询列表
@@ -313,10 +323,20 @@ extension API: TargetType{
             return "api/user/selectInfo"
         case .getConsultsPatientList(_, _, _):
             return "api/patientConsult/getConsultMemberList"
+        
         case .groupTagMemberList:
             return "api/patientInfo/groupTagMemberList"
         case .editUserMemberTags(_, _):
             return "api/patientConsult/editUserMemberTags"
+        case .getUserTagList(_):
+            return "api/patientConsult/getUserTagList"
+        case .addUserMemberTags(_):
+            return "api/patientConsult/addUserMemberTags"
+        case .removeUserTag(_, _):
+            return "api/patientConsult/removeUserTag"
+        case .addUserTag(_, _):
+            return "api/patientConsult/addUserTag"
+
         case .getPatientConsultList(_, _, _, _):
             return "api/patientConsult/getConsultListWx"
         case .chatDetail(_, _):
@@ -520,6 +540,19 @@ extension API {
         case .editUserMemberTags(let id, let tagName):
             params["id"] = id
             params["tagName"] = tagName
+        case .getUserTagList(let memberId):
+            params["memberId"] = memberId
+        case .addUserMemberTags(let memberId, let tagName, let id):
+            params["memberId"] = memberId
+            params["tagName"] = tagName
+            params["id"] = id
+        case .removeUserTag(let memberId, let id):
+            params["memberId"] = memberId
+            params["id"] = id
+        case .addUserTag(let tagName, let clinicId):
+            params["tagName"] = tagName
+            params["clinicId"] = clinicId
+
         case .getPatientConsultList(let pageNum, let pageSize, let sort, let replyStatus):
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize

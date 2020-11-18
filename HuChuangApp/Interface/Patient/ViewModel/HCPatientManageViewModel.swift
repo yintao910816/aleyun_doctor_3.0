@@ -11,16 +11,26 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class HCPatientManageViewModel: BaseViewModel {
+class HCPatientManageViewModel: BaseViewModel, VMNavigation {
     
     private var patientInfo: HCPatientItemModel!
     
     public let reloadSignal = PublishSubject<(HCPatientItemModel, [[HCListCellItem]])>()
-    
+    public let cellSelectedSignal = PublishSubject<HCListCellItem>()
+
     init(patientInfo: HCPatientItemModel) {
         super.init()
         
         self.patientInfo = patientInfo
+        
+        cellSelectedSignal
+            .subscribe(onNext: { [unowned self] in
+                if $0.title == "分组" {
+                    HCPatientManageViewModel.push(HCEditPatientGroupController.self,
+                                                  ["memberId": self.patientInfo.id])
+                }
+            })
+            .disposed(by: disposeBag)
         
         reloadSubject
             .subscribe(onNext: { [weak self] in self?.prepareData() })

@@ -321,6 +321,12 @@
 		B847C04E2536D5B0000CA140 /* HCConsult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B847C04D2536D5B0000CA140 /* HCConsult.swift */; };
 		B847C0512536E256000CA140 /* HCConsultListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B847C0502536E256000CA140 /* HCConsultListCell.swift */; };
 		B8508E332340FC9F008C24BA /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8508E322340FC9F008C24BA /* Doctor.swift */; };
+		B853CF002565719A00A3A90D /* HCFiliterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CEFF2565719A00A3A90D /* HCFiliterView.swift */; };
+		B853CF042565722A00A3A90D /* HCFiliterViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF032565722A00A3A90D /* HCFiliterViewData.swift */; };
+		B853CF07256572BA00A3A90D /* HCFiliterLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF06256572BA00A3A90D /* HCFiliterLayout.swift */; };
+		B853CF0A2565746100A3A90D /* HCEditPatientGroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF092565746100A3A90D /* HCEditPatientGroupController.swift */; };
+		B853CF0D2565749800A3A90D /* HCEditPatientGroupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF0C2565749800A3A90D /* HCEditPatientGroupContainer.swift */; };
+		B853CF11256574D500A3A90D /* HCEditPatientGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF10256574D500A3A90D /* HCEditPatientGroupViewModel.swift */; };
 		B85BD069255545730026A508 /* chatBar_recordSelectedBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B85BD05C255545730026A508 /* chatBar_recordSelectedBg@2x.png */; };
 		B85BD06A255545730026A508 /* chatBar_recordBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B85BD05D255545730026A508 /* chatBar_recordBg@2x.png */; };
 		B85BD06B255545730026A508 /* ChatToolBarAudioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B85BD05E255545730026A508 /* ChatToolBarAudioButton.m */; };
@@ -1217,6 +1223,12 @@
 		B8508E322340FC9F008C24BA /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		B8508E992341BFB3008C24BA /* HCMineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCMineCell.swift; sourceTree = "<group>"; };
 		B8508EB1234251D5008C24BA /* HCFindDoctorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFindDoctorViewModel.swift; sourceTree = "<group>"; };
+		B853CEFF2565719A00A3A90D /* HCFiliterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFiliterView.swift; sourceTree = "<group>"; };
+		B853CF032565722A00A3A90D /* HCFiliterViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFiliterViewData.swift; sourceTree = "<group>"; };
+		B853CF06256572BA00A3A90D /* HCFiliterLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCFiliterLayout.swift; sourceTree = "<group>"; };
+		B853CF092565746100A3A90D /* HCEditPatientGroupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditPatientGroupController.swift; sourceTree = "<group>"; };
+		B853CF0C2565749800A3A90D /* HCEditPatientGroupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditPatientGroupContainer.swift; sourceTree = "<group>"; };
+		B853CF10256574D500A3A90D /* HCEditPatientGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditPatientGroupViewModel.swift; sourceTree = "<group>"; };
 		B85BD05C255545730026A508 /* chatBar_recordSelectedBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_recordSelectedBg@2x.png"; sourceTree = "<group>"; };
 		B85BD05D255545730026A508 /* chatBar_recordBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_recordBg@2x.png"; sourceTree = "<group>"; };
 		B85BD05E255545730026A508 /* ChatToolBarAudioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBarAudioButton.m; sourceTree = "<group>"; };
@@ -2476,6 +2488,7 @@
 			isa = PBXGroup;
 			children = (
 				B818BB7825148A9B003842A3 /* HCMyPatientViewModel.swift */,
+				B853CF10256574D500A3A90D /* HCEditPatientGroupViewModel.swift */,
 				B818BB7E25149C2E003842A3 /* HCPatientManageViewModel.swift */,
 				B818BB8A2514C8B5003842A3 /* HCPatientGroupViewModel.swift */,
 				B818BB922514D4D7003842A3 /* HCGroupManageViewModel.swift */,
@@ -2492,6 +2505,7 @@
 			children = (
 				B818BB7225148A79003842A3 /* HCMyPatientController.swift */,
 				B818BB7C25149C17003842A3 /* HCPatientManageController.swift */,
+				B853CF092565746100A3A90D /* HCEditPatientGroupController.swift */,
 				B818BB882514C88B003842A3 /* HCPatientGroupController.swift */,
 				B818BB902514D467003842A3 /* HCGroupManageController.swift */,
 				B89C2F6E2515CA0E004B5C71 /* HCEditTagController.swift */,
@@ -2516,11 +2530,12 @@
 			isa = PBXGroup;
 			children = (
 				B818BB7425148A8B003842A3 /* HCMyPatientContainer.swift */,
+				B853CF0C2565749800A3A90D /* HCEditPatientGroupContainer.swift */,
+				B818BB8025149C5A003842A3 /* HCPatientManageContainer.swift */,
 				B818BB942514D71C003842A3 /* HCGroupManageContainer.swift */,
 				B818BB8C2514C9F6003842A3 /* HCPatientGroupContainer.swift */,
 				B89C2F722515CA29004B5C71 /* HCEditTagContainer.swift */,
 				B818BB7A251492F2003842A3 /* HCMyPatientListCell.swift */,
-				B818BB8025149C5A003842A3 /* HCPatientManageContainer.swift */,
 				B818BB822514A234003842A3 /* HCPatientManageHeaderView.swift */,
 				B818BB8E2514CD5D003842A3 /* HCPatientGroupHeaderView.swift */,
 				B89C2F7B2515D64A004B5C71 /* HCRegisterPatientContainer.swift */,
@@ -2622,6 +2637,16 @@
 				B80A3808253D55E800A74F14 /* HCConsultChatContainer.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B853CEFE2565716500A3A90D /* HCFiliterView */ = {
+			isa = PBXGroup;
+			children = (
+				B853CEFF2565719A00A3A90D /* HCFiliterView.swift */,
+				B853CF032565722A00A3A90D /* HCFiliterViewData.swift */,
+				B853CF06256572BA00A3A90D /* HCFiliterLayout.swift */,
+			);
+			path = HCFiliterView;
 			sourceTree = "<group>";
 		};
 		B85BD05A255545730026A508 /* Record&Player */ = {
@@ -3676,6 +3701,7 @@
 		C494136024DE544300045749 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				B853CEFE2565716500A3A90D /* HCFiliterView */,
 				C4AB272724E53D6F0095F693 /* HCCellItem */,
 				C494136124DE547400045749 /* CustomView */,
 			);
@@ -4322,6 +4348,7 @@
 				B816EAAA221DABF400F024D5 /* ZXQRCodeFinderPatternInfo.m in Sources */,
 				C42133582205883D006C10C4 /* BaseViewModel.swift in Sources */,
 				B816EAEC221DABF400F024D5 /* ZXDataMatrixHighLevelEncoder.m in Sources */,
+				B853CF042565722A00A3A90D /* HCFiliterViewData.swift in Sources */,
 				C4382BFF24E56281000C00CE /* HCAccountSettingViewModel.swift in Sources */,
 				B816EAFD221DABF400F024D5 /* ZXOneDReader.m in Sources */,
 				B85CD93523BE609A00B1A1C3 /* HCEditUserCityViewModel.swift in Sources */,
@@ -4380,6 +4407,7 @@
 				B816EB39221DABF400F024D5 /* ZXEmailDoCoMoResultParser.m in Sources */,
 				B816EAAB221DABF400F024D5 /* ZXQRCodeAlignmentPattern.m in Sources */,
 				B816EADD221DABF400F024D5 /* ZXPDF417DetectorResult.m in Sources */,
+				B853CF11256574D500A3A90D /* HCEditPatientGroupViewModel.swift in Sources */,
 				B816EB2A221DABF400F024D5 /* ZXUPCEANWriter.m in Sources */,
 				B816EB0A221DABF400F024D5 /* ZXRSSExpandedDecodedInformation.m in Sources */,
 				B816EA8B221DABF400F024D5 /* ZXAztecDetectorResult.m in Sources */,
@@ -4557,6 +4585,7 @@
 				B816EB3F221DABF400F024D5 /* ZXAddressBookParsedResult.m in Sources */,
 				B816EAA2221DABF400F024D5 /* ZXQRCodeDecoder.m in Sources */,
 				B816EAEF221DABF400F024D5 /* ZXDataMatrixBitMatrixParser.m in Sources */,
+				B853CF002565719A00A3A90D /* HCFiliterView.swift in Sources */,
 				C421330B22056B59006C10C4 /* HCAppDelegate.swift in Sources */,
 				B87CCB652556A83400792F76 /* HCFastReplyController.swift in Sources */,
 				B816EB4E221DABF400F024D5 /* ZXSMSTOMMSTOResultParser.m in Sources */,
@@ -4582,6 +4611,7 @@
 				B890693823BA40D2001D3FE9 /* HCDoctorHomeController.swift in Sources */,
 				C4C8EB3F235175660054A295 /* HCHomePreparePregnantInfoCell.swift in Sources */,
 				B816EAB2221DABF400F024D5 /* ZXDetectorResult.m in Sources */,
+				B853CF07256572BA00A3A90D /* HCFiliterLayout.swift in Sources */,
 				B890693A23BA4262001D3FE9 /* HCDoctorHomeViewModel.swift in Sources */,
 				C4C3257B2205B8490091783C /* ScrollTextView.swift in Sources */,
 				C42133592205883D006C10C4 /* PageModel.swift in Sources */,
@@ -4609,6 +4639,7 @@
 				B8BE603323BB4C4D00EC0027 /* Dictionary+Extension.swift in Sources */,
 				B816EAFC221DABF400F024D5 /* ZXEAN8Reader.m in Sources */,
 				B818BB852514A624003842A3 /* HCListTextViewCell.swift in Sources */,
+				B853CF0D2565749800A3A90D /* HCEditPatientGroupContainer.swift in Sources */,
 				B8BE1AED23A7E92F00DF472A /* HCSearchHeaderView.swift in Sources */,
 				B816EA74221DABF400F024D5 /* LBXScanViewController.m in Sources */,
 				B89C2F7A2515D62E004B5C71 /* HCRegisterPatientViewModel.swift in Sources */,
@@ -4648,6 +4679,7 @@
 				B816EA82221DABF400F024D5 /* ZXResultPoint.m in Sources */,
 				B818BB8125149C5A003842A3 /* HCPatientManageContainer.swift in Sources */,
 				B816EAA7221DABF400F024D5 /* ZXQRCodeFormatInformation.m in Sources */,
+				B853CF0A2565746100A3A90D /* HCEditPatientGroupController.swift in Sources */,
 				B816EA90221DABF400F024D5 /* ZXAztecHighLevelEncoder.m in Sources */,
 				B816EA89221DABF400F024D5 /* ZXGenericMultipleBarcodeReader.m in Sources */,
 				B816EAC3221DABF400F024D5 /* ZXReedSolomonDecoder.m in Sources */,

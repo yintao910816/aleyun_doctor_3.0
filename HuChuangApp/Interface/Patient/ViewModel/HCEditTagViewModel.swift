@@ -35,11 +35,11 @@ class HCEditTagViewModel: BaseViewModel {
     private func requestEditUserMemberTags(tagName: String) {
         hud.noticeLoading()
         HCProvider.request(.editUserMemberTags(id: patientGroup.id, tagName: tagName))
-            .map(result: HCTagItemModel.self)
+            .map(result: HCTagNameModel.self)
             .subscribe(onSuccess: { [weak self] in
                 if RequestCode(rawValue: $0.code) == .success {
                     self?.hud.noticeHidden()
-                    HCDataObserCenter.share.tagEditSuccessSignal.onNext($0.data ?? HCTagItemModel())
+                    HCDataObserCenter.share.tagEditSuccessSignal.onNext($0.data ?? HCTagNameModel())
                     self?.popSubject.onNext(Void())
                 }else {
                     self?.hud.failureHidden($0.message)

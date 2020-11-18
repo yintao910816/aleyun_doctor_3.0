@@ -14,7 +14,7 @@ class HCDataObserCenter {
     public static let share = HCDataObserCenter()
     
     /// 标签修改
-    public let tagEditSuccessSignal = PublishSubject<HCTagItemModel>()
+    public let tagEditSuccessSignal = PublishSubject<HCTagNameModel>()
     
     init() {
         

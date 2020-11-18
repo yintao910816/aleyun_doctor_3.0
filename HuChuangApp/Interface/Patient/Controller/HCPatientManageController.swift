@@ -29,6 +29,10 @@ class HCPatientManageController: HCSlideItemController {
             .subscribe(onNext: { [weak self] in self?.container.reload(listDatas: $0.1, patientInfo: $0.0) })
             .disposed(by: disposeBag)
         
+        container.cellSelectedSignal
+            .bind(to: viewModel.cellSelectedSignal)
+            .disposed(by: disposeBag)
+        
         viewModel.reloadSubject.onNext(Void())
     }
     
