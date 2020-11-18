@@ -34,9 +34,15 @@ class HCLoginViewController: BaseViewController {
     }
     
     override func rxBind() {
-        viewModel = HCLoginViewModel.init(input: containerView.phoneTf.rx.text.orEmpty.asDriver(),
+        viewModel = HCLoginViewModel.init(input: (phoneSignal: containerView.phoneTf.rx.text.orEmpty.asDriver(),
+                                                  pwdSignal: containerView.pwdTf.rx.text.orEmpty.asDriver()),
                                           tap: (codeTap: containerView.getCodeButton.rx.tap.asDriver(),
                                                 agreeTap: containerView.agreeSignal.asDriver()))
+        
+        containerView.loginModeSignal.asDriver()
+            .drive(viewModel.loginModeSignal)
+            .disposed(by: disposeBag)
+        
         viewModel.enableCode
             .do(onNext: { [weak self] flag in
                 self?.containerView.getCodeButton.backgroundColor = flag ? HC_MAIN_COLOR : RGB(242, 242, 242)
@@ -45,6 +51,9 @@ class HCLoginViewController: BaseViewController {
             .drive(containerView.getCodeButton.rx.isUserInteractionEnabled)
             .disposed(by: disposeBag)
         
+        viewModel.popSubject
+            .subscribe(onNext: { [weak self] in self?.dismiss(animated: true, completion: nil) })
+            .disposed(by: disposeBag)
     }
     
 }

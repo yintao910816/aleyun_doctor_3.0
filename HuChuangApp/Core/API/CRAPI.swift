@@ -162,6 +162,8 @@ enum API{
     case functionsMenu
     /// 获取验证码
     case validateCode(mobile: String)
+    /// 密码登陆
+    case pwdLogin(account: String, psd: String)
     /// 登录
     case loginTel(mobile: String, smsCode: String)
     /// 获取用户信息
@@ -305,6 +307,8 @@ extension API: TargetType{
             return "api/login/validateCode"
         case .loginTel(_, _):
             return "api/login/login"
+        case .pwdLogin(_, _):
+            return "api/login/loginTwo"
         case .selectInfo:
             return "api/user/selectInfo"
         case .getConsultsPatientList(_, _, _):
@@ -505,7 +509,10 @@ extension API {
         case .loginTel(let mobile, let smsCode):
             params["mobile"] = mobile
             params["smsCode"] = smsCode
-        
+        case .pwdLogin(let account, let psd):
+            params["account"] = account
+            params["psd"] = psd
+
         case .getConsultsPatientList(let pageNum, let pageSize, let searchName):
             params["pageNum"] = pageNum
             params["pageSize"] = pageSize
