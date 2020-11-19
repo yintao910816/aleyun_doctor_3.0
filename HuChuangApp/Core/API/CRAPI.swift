@@ -185,6 +185,8 @@ enum API{
     case removeUserTag(memberId: String, id: String)
     /// 添加标签
     case addUserTag(tagName: String, clinicId: String)
+    /// 修改患者黑名单和备注 bak(别名) note(备注)
+    case updateConsultBlack(memberId: String, userId: String, bak: String, black: Bool, consultId: String, note: String)
 
     /// 获取资讯消息列表 replyStatus: 0未回复1已回复2已退回3已评论（完结）
     case getPatientConsultList(pageNum: Int, pageSize: Int, sort: HCRequestListSort, replyStatus: String)
@@ -196,8 +198,6 @@ enum API{
     case uploadFile(data: Data, fileType: HCFileUploadType)
     /// 咨询回复 - filePath：图片或录音文件地址  bak：录音时长
     case replyConsult(content: String, filePath: String, bak: String, consultId: String)
-    /// 编辑患者备注
-    case updateConsultBlack(memberId: String, userId: String, bak: String, black: Bool)
     /// 患者健康档案
     case getHealthArchives(memberId: String)
     /// 周期档案
@@ -340,6 +340,8 @@ extension API: TargetType{
             return "api/patientConsult/removeUserTag"
         case .addUserTag(_, _):
             return "api/patientConsult/addUserTag"
+        case .updateConsultBlack(_, _, _, _, _, _):
+            return "api/patientConsult/updateConsultBlackWx"
 
         case .getPatientConsultList(_, _, _, _):
             return "api/patientConsult/getConsultListWx"
@@ -351,8 +353,6 @@ extension API: TargetType{
             return "api/upload/fileSingle"
         case .replyConsult(_, _, _, _):
             return "api/patientConsult/replyConsult"
-        case .updateConsultBlack(_, _, _, _):
-            return "api/patientConsult/updateConsultBlackWx"
         case .getHealthArchives:
             return "api/patientConsult/getHealthArchives"
         case .getPatientCoupleInfo(_):
@@ -559,6 +559,13 @@ extension API {
         case .addUserTag(let tagName, let clinicId):
             params["tagName"] = tagName
             params["clinicId"] = clinicId
+        case .updateConsultBlack(let memberId, let userId, let bak, let black, let id, let note):
+            params["memberId"] = memberId
+            params["userId"] = userId
+            params["bak"] = bak
+            params["black"] = black
+            params["id"] = id
+            params["note"] = note
 
         case .getPatientConsultList(let pageNum, let pageSize, let sort, let replyStatus):
             params["pageNum"] = pageNum
@@ -578,11 +585,6 @@ extension API {
             params["filePath"] = filePath
             params["bak"] = bak
             params["consultId"] = consultId
-        case .updateConsultBlack(let memberId, let userId, let bak, let black):
-            params["memberId"] = memberId
-            params["userId"] = userId
-            params["bak"] = bak
-            params["black"] = black
         case .getHealthArchives(let memberId):
             params["memberId"] = memberId
         case .getPatientCoupleInfo(let memberId):

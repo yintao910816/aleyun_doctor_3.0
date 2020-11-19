@@ -17,6 +17,8 @@ extension Notification.Name {
          * 登录成功，需要重新拉取数据和重新向app后台上传umtoken的界面可接受此通知
          */
         static let LoginSuccess = Notification.Name(rawValue: "org.user.notification.name.loginSuccess")
+        /// 编辑别名
+        static let EditAlias = Notification.Name(rawValue: "org.user.notification.name.editAlias")
     }
     
     public struct UserInterface {

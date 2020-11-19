@@ -27,7 +27,8 @@ class HCPatientItemModel: HJModel {
     var mobile: String = ""
     var userId: String = ""
     var userName: String = ""
-        
+    var consultId: String = ""
+
     override func mapping(mapper: HelpingMapper) {
         mapper.specify(property: &memberId, name: "id")
         mapper.specify(property: &memberName, name: "name")

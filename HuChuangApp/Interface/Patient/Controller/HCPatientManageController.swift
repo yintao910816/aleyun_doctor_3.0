@@ -33,6 +33,10 @@ class HCPatientManageController: HCSlideItemController {
             .bind(to: viewModel.cellSelectedSignal)
             .disposed(by: disposeBag)
         
+        container.saveSignal
+            .bind(to: viewModel.saveSignal)
+            .disposed(by: disposeBag)
+        
         viewModel.reloadSubject.onNext(Void())
     }
     

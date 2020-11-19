@@ -122,25 +122,25 @@ class HCPatientDetailViewModel: BaseViewModel {
     
     private func updateConsultBlack(mark: String) {
         if let item = consultRecordData.value.first {
-            HCProvider.request(.updateConsultBlack(memberId: memberId, userId: item.userId, bak: mark, black: item.black))
-                .mapResponse()
-                .subscribe(onSuccess: { [weak self] res in
-                    self?.consultRecordData.value.first?.bak = mark
-                    PrintLog("修改备注结果：\(res.message)")
-                }) { _ in }
-                .disposed(by: disposeBag)
+//            HCProvider.request(.updateConsultBlack(memberId: memberId, userId: item.userId, bak: mark, black: item.black))
+//                .mapResponse()
+//                .subscribe(onSuccess: { [weak self] res in
+//                    self?.consultRecordData.value.first?.bak = mark
+//                    PrintLog("修改备注结果：\(res.message)")
+//                }) { _ in }
+//                .disposed(by: disposeBag)
         }
     }
     
     private func updateConsultBlack(black: Bool) {
         if let item = consultRecordData.value.first {
-            HCProvider.request(.updateConsultBlack(memberId: memberId, userId: item.userId, bak: item.bak, black: black))
-                .mapResponse()
-                .subscribe(onSuccess: { [weak self] res in
-                    self?.consultRecordData.value.first?.black = black
-                    PrintLog("屏蔽患者结果：\(res.message)")
-                }) { _ in }
-                .disposed(by: disposeBag)
+//            HCProvider.request(.updateConsultBlack(memberId: memberId, userId: item.userId, bak: item.bak, black: black))
+//                .mapResponse()
+//                .subscribe(onSuccess: { [weak self] res in
+//                    self?.consultRecordData.value.first?.black = black
+//                    PrintLog("屏蔽患者结果：\(res.message)")
+//                }) { _ in }
+//                .disposed(by: disposeBag)
         }
     }
 

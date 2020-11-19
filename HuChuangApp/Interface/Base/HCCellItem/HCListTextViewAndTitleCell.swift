@@ -14,8 +14,6 @@ public let HCListTextViewAndTitleCell_identifier = "HCListTextViewAndTitleCell"
 class HCListTextViewAndTitleCell: HCBaseListCell {
 
     private var textView: UITextView!
-
-    public var textChangeCallBack: ((String)->())?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

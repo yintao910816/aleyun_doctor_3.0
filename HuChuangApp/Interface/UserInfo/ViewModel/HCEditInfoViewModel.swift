@@ -16,24 +16,41 @@ class HCEditInfoViewModel: BaseViewModel {
     public let enableSignal = PublishSubject<Bool>()
     public let contentSignal = PublishSubject<String>()
     
-    init(inputSignal: Driver<String>, commitSignal: Driver<Void>) {
+    private var mode: HCEditMode = .nickName
+
+    init(inputSignal: Driver<String>, commitSignal: Driver<Void>, mode: HCEditMode) {
         super.init()
+        
+        self.mode = mode
         
         inputSignal.map { $0.count > 0 }
             .drive(enableSignal)
             .disposed(by: disposeBag)
         
         commitSignal.withLatestFrom(inputSignal)
-            .drive(onNext: { [weak self] in self?.requestUpdateNickName(nickName: $0) })
-            .disposed(by: disposeBag)
-        
-        reloadSubject
-            .subscribe(onNext: { [weak self] in
-                let content = HCHelper.share.userInfoModel?.name ?? ""
-                self?.contentSignal.onNext(content)
-                self?.enableSignal.onNext(content.count > 0)
+            .drive(onNext: { [unowned self] in
+                switch self.mode {
+                case .nickName:
+                    self.requestUpdateNickName(nickName: $0)
+                case .alias:
+                    NotificationCenter.default.post(name: NotificationName.User.EditAlias, object: $0)
+                    self.popSubject.onNext(Void())
+                }
             })
             .disposed(by: disposeBag)
+        
+        switch mode {
+        case .nickName:
+            reloadSubject
+                .subscribe(onNext: { [weak self] in
+                    let content = HCHelper.share.userInfoModel?.name ?? ""
+                    self?.contentSignal.onNext(content)
+                    self?.enableSignal.onNext(content.count > 0)
+                })
+                .disposed(by: disposeBag)
+        default:
+            break
+        }
     }
 }
 

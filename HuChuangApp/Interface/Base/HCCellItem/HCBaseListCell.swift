@@ -20,6 +20,7 @@ class HCBaseListCell: UITableViewCell {
     public var didEndEditCallBack: ((String)->())?
     public var didEndEditWithModel: ((HCListCellItem)->())?
     public var switchCallBack: ((Bool)->())?
+    public var textChangeCallBack: ((String)->())?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -11,13 +11,18 @@ import RxSwift
 
 class HCPatientManageContainer: UIView {
 
+    private let disposeBag = DisposeBag()
+    
     private var listDatas: [[HCListCellItem]] = []
     private var patientInfo: HCPatientItemModel = HCPatientItemModel()
     
     private var tableView: UITableView!
     private var saveButton: UIButton!
 
+    private var isBlack: Bool?
+    private var bakInfo: String?
     public let cellSelectedSignal = PublishSubject<HCListCellItem>()
+    public let saveSignal = PublishSubject<(Bool?, String?)>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,11 +68,15 @@ extension HCPatientManageContainer {
         saveButton.titleLabel?.font = .font(fontSize: 16)
         saveButton.backgroundColor = RGB(75, 138, 239)
         
+        saveButton.rx.tap.asDriver()
+            .map{ [unowned self] in (self.isBlack, self.bakInfo) }
+            .drive(saveSignal)
+            .disposed(by: disposeBag)
+        
         addSubview(tableView)
         addSubview(saveButton)
                 
         tableView.register(HCPatientManageHeaderView.self, forHeaderFooterViewReuseIdentifier: HCPatientManageHeaderView_identifier)
-        tableView.register(HCBaseListCell.self, forCellReuseIdentifier: HCBaseListCell_identifier)
         tableView.register(HCListDetailCell.self, forCellReuseIdentifier: HCListDetailCell_identifier)
         tableView.register(HCListSwitchCell.self, forCellReuseIdentifier: HCListSwitchCell_identifier)
         tableView.register(HCListTextViewAndTitleCell.self, forCellReuseIdentifier: HCListTextViewAndTitleCell_identifier)
@@ -92,6 +101,8 @@ extension HCPatientManageContainer: UITableViewDelegate, UITableViewDataSource {
         let model = listDatas[indexPath.section][indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: model.cellIdentifier) as! HCBaseListCell
         cell.model = model
+        cell.textChangeCallBack = { [weak self] in self?.bakInfo = $0 }
+        cell.switchCallBack = { [weak self] in self?.isBlack = $0 }
         return cell
     }
     
