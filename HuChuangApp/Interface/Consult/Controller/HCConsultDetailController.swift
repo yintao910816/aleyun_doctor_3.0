@@ -35,13 +35,6 @@ class HCConsultDetailController: BaseViewController {
             self?.viewModel.healthArchivesExpand.onNext($0)
         }
         
-//        manageCtrl.cellDidSelected = { [unowned self] in
-//            guard $0.segue.count > 0 else { return }
-//            self.performSegue(withIdentifier: $0.segue, sender: nil)
-//        }
-//        manageCtrl.didEndEditCallBack = { [unowned self] in self.viewModel.didEndEditMakrSubject.onNext($0) }
-//        manageCtrl.switchCallBack = { [unowned self] in self.viewModel.blackPatientSubject.onNext($0) }
-
         slideCtrl.menuItems = TYSlideItemModel.creatModel(for: ["咨询记录", "健康档案", "患者管理"])
         consultChatCtrl.prepare(parameters: ["memberId":consultItemModel.memberId, "consultId":consultItemModel.id])
         manageCtrl.prepare(parameters: ["model": consultItemModel.transformToPatientItem()])
@@ -70,7 +63,6 @@ class HCConsultDetailController: BaseViewController {
                 self?.healthArchivesCtrl.reloadData(data: $0)
             })
             .disposed(by: disposeBag)
-
         
 //        consultRecordCtrl.operationCallBack = { [unowned self] in
 //            switch $0.0 {

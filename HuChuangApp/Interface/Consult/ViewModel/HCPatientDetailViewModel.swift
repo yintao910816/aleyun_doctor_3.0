@@ -16,7 +16,9 @@ class HCPatientDetailViewModel: BaseViewModel {
     public let healthArchivesExpand = PublishSubject<(Bool, Int)>()
     public let consultRecordData = Variable([HCConsultDetailItemModel]())
     public let manageData = Variable([HCListCellItem]())
-    
+    // 患者信息
+    public let patientInfoSignal = Variable(HCPatientItemModel())
+
     /// 图片回复
     public let sendImageSubject = PublishSubject<(UIImage, String)>()
     /// 语音回复
@@ -25,17 +27,13 @@ class HCPatientDetailViewModel: BaseViewModel {
     public let sendTextSubject = PublishSubject<(String, String)>()
     /// 退回
     public let sendBackSubject = PublishSubject<String>()
-    
-    /// 编辑备注
-    public let didEndEditMakrSubject = PublishSubject<String>()
-    /// 屏蔽患者
-    public let blackPatientSubject = PublishSubject<Bool>()
-    
+        
     private var healthArchivesOriginalData: [[Any]] = []
     // 健康档案数据
     private var healthArchivesModel = HCHealthArchivesModel()
     // 周期档案数据
     private var circleOrignalData: [HCPatientCircleModel] = []
+    
     
     private var memberId: String = ""
     
@@ -65,85 +63,15 @@ class HCPatientDetailViewModel: BaseViewModel {
         })
             .disposed(by: disposeBag)
         
-        didEndEditMakrSubject
-            .subscribe(onNext: { [unowned self] in self.updateConsultBlack(mark: $0) })
-            .disposed(by: disposeBag)
-        
-        blackPatientSubject
-            .subscribe(onNext: { [unowned self] in self.updateConsultBlack(black: $0) })
-            .disposed(by: disposeBag)
-
         reloadSubject
             .subscribe(onNext: { [weak self] in
                 self?.requestConsultRecords()
                 self?.requestHealthArchives()
             })
             .disposed(by: disposeBag)
-        
-        NotificationCenter.default.rx.notification(NotificationName.Patient.changedTagName)
-            .subscribe(onNext: { [weak self]  in
-                if let strongSelf = self {
-                    var tempManageData = strongSelf.manageData.value
-                    if let data = $0.object as? (Bool, String) {
-                        if data.0 == false {
-                            let model = HCListCellItem()
-                            model.title = "分组"
-                            model.detailTitle = data.1
-                            model.titleColor = .black
-                            model.cellIdentifier = HCListDetailCell_identifier
-                            tempManageData[2] = model
-//                            tempManageData[2] = HCListCellItem(title: "分组",
-//                                                               detailTitle: data.1,
-//                                                               titleColor: .black,
-//                                                               cellIdentifier: HCListDetailCell_identifier,
-//                                                               segue: "patientGroupSegue")
-                        }else if tempManageData[2].detailTitle == data.1 {
-                            let model = HCListCellItem()
-                            model.title = "分组"
-                            model.detailTitle = "请选择"
-                            model.titleColor = .black
-                            model.cellIdentifier = HCListDetailCell_identifier
-                            tempManageData[2] = model
-//                            tempManageData[2] = HCListCellItem(title: "分组",
-//                                                               detailTitle: "请选择",
-//                                                               titleColor: .black,
-//                                                               cellIdentifier: HCListDetailCell_identifier,
-//                                                               segue: "patientGroupSegue")
-                        }
-                        
-                        strongSelf.manageData.value = tempManageData
-                    }
-                }
-            })
-            .disposed(by: disposeBag)
-        
+                
         prepareReply()
     }
-    
-    private func updateConsultBlack(mark: String) {
-        if let item = consultRecordData.value.first {
-//            HCProvider.request(.updateConsultBlack(memberId: memberId, userId: item.userId, bak: mark, black: item.black))
-//                .mapResponse()
-//                .subscribe(onSuccess: { [weak self] res in
-//                    self?.consultRecordData.value.first?.bak = mark
-//                    PrintLog("修改备注结果：\(res.message)")
-//                }) { _ in }
-//                .disposed(by: disposeBag)
-        }
-    }
-    
-    private func updateConsultBlack(black: Bool) {
-        if let item = consultRecordData.value.first {
-//            HCProvider.request(.updateConsultBlack(memberId: memberId, userId: item.userId, bak: item.bak, black: black))
-//                .mapResponse()
-//                .subscribe(onSuccess: { [weak self] res in
-//                    self?.consultRecordData.value.first?.black = black
-//                    PrintLog("屏蔽患者结果：\(res.message)")
-//                }) { _ in }
-//                .disposed(by: disposeBag)
-        }
-    }
-
     
     // 咨询记录
     private func requestConsultRecords() {

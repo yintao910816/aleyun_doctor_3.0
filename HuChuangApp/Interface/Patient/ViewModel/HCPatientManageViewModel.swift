@@ -69,7 +69,7 @@ class HCPatientManageViewModel: BaseViewModel, VMNavigation {
 
         saveSignal
             .subscribe(onNext: { [unowned self] in
-                if $0.0 == nil && $0.1 == nil { return }
+                if $0.0 == nil && $0.1 == nil && aliasText.count == 0 { return }
                 
                 var needCommit: Bool = false
                 var bakInfo = self.patientInfo.note
@@ -83,6 +83,10 @@ class HCPatientManageViewModel: BaseViewModel, VMNavigation {
                 if let note = $0.1, note != bakInfo {
                     needCommit = true
                     bakInfo = note
+                }
+                
+                if aliasText.count > 0 {
+                    needCommit = true
                 }
                 
                 if needCommit {
@@ -106,6 +110,7 @@ class HCPatientManageViewModel: BaseViewModel, VMNavigation {
                 self?.patientInfo.bak = $0.bak
                 self?.patientInfo.black = $0.black
                 self?.patientInfo.tagName = $0.tagName
+                self?.patientInfo.note = $0.note
                 self?.aliasText = $0.bak
                 
                 self?.prepareData(patientModel: $0)

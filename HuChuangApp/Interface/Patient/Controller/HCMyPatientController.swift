@@ -29,7 +29,7 @@ class HCMyPatientController: BaseViewController, VMNavigation {
             case "随访":
                 break
             case "屏蔽患者":
-                break
+                HCMyPatientController.push(HCHideMembersController.self)
             default:
                 break
             }

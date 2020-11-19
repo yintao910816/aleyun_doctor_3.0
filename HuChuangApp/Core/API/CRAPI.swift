@@ -170,6 +170,8 @@ enum API{
     case selectInfo
     /// 获取患者列表
     case getConsultsPatientList(pageNum: Int, pageSize: Int, searchName: String)
+    /// 屏蔽患者列表
+    case hieldMember(pageNum: Int, pageSize: Int)
    
     /// 患者分组数据
     case groupTagMemberList
@@ -325,7 +327,9 @@ extension API: TargetType{
             return "api/user/selectInfo"
         case .getConsultsPatientList(_, _, _):
             return "api/patientConsult/getConsultMemberList"
-        
+        case .hieldMember(_, _):
+            return "api/patientInfo/shieldMember"
+            
         case .groupTagMemberList:
             return "api/patientInfo/groupTagMemberList"
         case .editUserMemberTags(_, _):
@@ -471,6 +475,9 @@ extension API: TargetType{
             return .uploadMultipart([formData])
         case .version:
             return .requestParameters(parameters: ["type": "ios", "packageName": "com.huchuang.guangsanuser"],
+                                      encoding: URLEncoding.default)
+        case .hieldMember(let pageNum, let pageSize):
+            return .requestParameters(parameters: ["pageNum": pageNum, "pageSize": pageSize],
                                       encoding: URLEncoding.default)
         default:
             if let _parameters = parameters {

@@ -31,7 +31,7 @@ class HCPatientManageHeaderView: UITableViewHeaderFooterView {
     public var model: HCPatientItemModel! {
         didSet {
             avatarImgV.setImage(model.headPath)
-            nameLabel.text = model.userName
+            nameLabel.text = model.memberName
             ageLabel.text = "\(model.age)岁"
         }
     }

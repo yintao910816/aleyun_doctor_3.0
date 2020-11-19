@@ -30,8 +30,10 @@ class HCPatientItemModel: HJModel {
     var consultId: String = ""
 
     override func mapping(mapper: HelpingMapper) {
-        mapper.specify(property: &memberId, name: "id")
-        mapper.specify(property: &memberName, name: "name")
+        mapper <<<
+            memberId <-- ["id", "memberId"]
+        mapper <<<
+            memberName <-- ["name", "memberName"]
     }
     
     public lazy var sexText: String = {
@@ -74,4 +76,9 @@ class HCPatientGroupListItemModel: HJModel {
     var memberName: String = ""
     var headPath: String = ""
     var userId: String = ""
+}
+
+/// 屏蔽患者列表
+class HCHideMembersListModel: HJModel {
+    var records: [HCPatientItemModel] = []
 }

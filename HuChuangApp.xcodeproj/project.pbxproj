@@ -327,6 +327,9 @@
 		B853CF0A2565746100A3A90D /* HCEditPatientGroupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF092565746100A3A90D /* HCEditPatientGroupController.swift */; };
 		B853CF0D2565749800A3A90D /* HCEditPatientGroupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF0C2565749800A3A90D /* HCEditPatientGroupContainer.swift */; };
 		B853CF11256574D500A3A90D /* HCEditPatientGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF10256574D500A3A90D /* HCEditPatientGroupViewModel.swift */; };
+		B853CF172566273000A3A90D /* HCHideMembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF162566273000A3A90D /* HCHideMembersController.swift */; };
+		B853CF1A2566275400A3A90D /* HCHideMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF192566275400A3A90D /* HCHideMembersViewModel.swift */; };
+		B853CF1D2566325C00A3A90D /* HCHideMembersContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B853CF1C2566325C00A3A90D /* HCHideMembersContainer.swift */; };
 		B85BD069255545730026A508 /* chatBar_recordSelectedBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B85BD05C255545730026A508 /* chatBar_recordSelectedBg@2x.png */; };
 		B85BD06A255545730026A508 /* chatBar_recordBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B85BD05D255545730026A508 /* chatBar_recordBg@2x.png */; };
 		B85BD06B255545730026A508 /* ChatToolBarAudioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B85BD05E255545730026A508 /* ChatToolBarAudioButton.m */; };
@@ -1229,6 +1232,9 @@
 		B853CF092565746100A3A90D /* HCEditPatientGroupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditPatientGroupController.swift; sourceTree = "<group>"; };
 		B853CF0C2565749800A3A90D /* HCEditPatientGroupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditPatientGroupContainer.swift; sourceTree = "<group>"; };
 		B853CF10256574D500A3A90D /* HCEditPatientGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditPatientGroupViewModel.swift; sourceTree = "<group>"; };
+		B853CF162566273000A3A90D /* HCHideMembersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHideMembersController.swift; sourceTree = "<group>"; };
+		B853CF192566275400A3A90D /* HCHideMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHideMembersViewModel.swift; sourceTree = "<group>"; };
+		B853CF1C2566325C00A3A90D /* HCHideMembersContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHideMembersContainer.swift; sourceTree = "<group>"; };
 		B85BD05C255545730026A508 /* chatBar_recordSelectedBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_recordSelectedBg@2x.png"; sourceTree = "<group>"; };
 		B85BD05D255545730026A508 /* chatBar_recordBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBar_recordBg@2x.png"; sourceTree = "<group>"; };
 		B85BD05E255545730026A508 /* ChatToolBarAudioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBarAudioButton.m; sourceTree = "<group>"; };
@@ -2496,6 +2502,7 @@
 				B89C2F792515D62E004B5C71 /* HCRegisterPatientViewModel.swift */,
 				B89C2F7F2515D7D0004B5C71 /* HCFollowUpPlanViewModel.swift */,
 				B89C2F872515D8E0004B5C71 /* HCFollowUpAddViewModel.swift */,
+				B853CF192566275400A3A90D /* HCHideMembersViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2512,6 +2519,7 @@
 				B89C2F772515D612004B5C71 /* HCRegisterPatientController.swift */,
 				B89C2F7D2515D7AD004B5C71 /* HCFollowUpPlanController.swift */,
 				B89C2F852515D876004B5C71 /* HCFollowUpAddViewController.swift */,
+				B853CF162566273000A3A90D /* HCHideMembersController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2541,6 +2549,7 @@
 				B89C2F7B2515D64A004B5C71 /* HCRegisterPatientContainer.swift */,
 				B89C2F812515D7E8004B5C71 /* HCFollowUpPlanContainer.swift */,
 				B89C2F892515D8EE004B5C71 /* HCFollowUpAddContainer.swift */,
+				B853CF1C2566325C00A3A90D /* HCHideMembersContainer.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4324,6 +4333,7 @@
 				B818BB892514C88B003842A3 /* HCPatientGroupController.swift in Sources */,
 				B89C2F762515CBF4004B5C71 /* HCDataObserCenter.swift in Sources */,
 				B818BB7525148A8B003842A3 /* HCMyPatientContainer.swift in Sources */,
+				B853CF1A2566275400A3A90D /* HCHideMembersViewModel.swift in Sources */,
 				B87CCAE6255553FB00792F76 /* VideoCallingRenderView.swift in Sources */,
 				B87CCADF255553FB00792F76 /* GenerateTestUserSig.m in Sources */,
 				B816EAC6221DABF400F024D5 /* ZXIntArray.m in Sources */,
@@ -4373,6 +4383,7 @@
 				B816EA79221DABF400F024D5 /* LBXScanNetAnimation.m in Sources */,
 				C4AB273224E53D6F0095F693 /* HCListDetailIconCell.swift in Sources */,
 				B89C2F842515D7EF004B5C71 /* HCFollowUpPlan.swift in Sources */,
+				B853CF1D2566325C00A3A90D /* HCHideMembersContainer.swift in Sources */,
 				B816EA7F221DABF400F024D5 /* ZXResult.m in Sources */,
 				B816EAD4221DABF400F024D5 /* ZXPDF417DecodedBitStreamParser.m in Sources */,
 				B816EAF9221DABF400F024D5 /* ZXCode93Reader.m in Sources */,
@@ -4598,6 +4609,7 @@
 				B816EB51221DABF400F024D5 /* ZXCalendarParsedResult.m in Sources */,
 				C4C3257D2205C3AD0091783C /* UIView+XIB.swift in Sources */,
 				B8BE351722147B1E00EF16F1 /* HCEditBirthdayViewController.swift in Sources */,
+				B853CF172566273000A3A90D /* HCHideMembersController.swift in Sources */,
 				B816EAD0221DABF400F024D5 /* ZXPDF417CodewordDecoder.m in Sources */,
 				B8CD926F23A29C6800C9C061 /* HCRecordActionItemCell.swift in Sources */,
 				C4382BED24E5604D000C00CE /* HCAccountSettingViewController.swift in Sources */,

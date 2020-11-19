@@ -37,8 +37,6 @@ class HCConsultListItemModel: HJModel {
     public func transformToPatientItem() ->HCPatientItemModel {
         let model = HCPatientItemModel()
         model.age = "\(age)"
-        model.bak = ""
-        model.black = false
         model.headPath = headPath
         model.memberId = memberId
         model.mobile = ""
@@ -46,6 +44,7 @@ class HCConsultListItemModel: HJModel {
         model.sex = sex
         model.userId = userId
         model.userName = userName
+        model.consultId = id
         return model
     }
     
