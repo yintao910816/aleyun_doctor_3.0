@@ -22,12 +22,8 @@ class HCMyPatientController: BaseViewController, VMNavigation {
         
         container.selectedCallBack = {
             switch $0.title {
-            case "报到患者":
-                HCMyPatientController.push(HCRegisterPatientController.self)
             case "分组":
                 HCMyPatientController.push(HCPatientGroupController.self)
-            case "随访":
-                break
             case "屏蔽患者":
                 HCMyPatientController.push(HCHideMembersController.self)
             default:
@@ -37,9 +33,9 @@ class HCMyPatientController: BaseViewController, VMNavigation {
     }
     
     override func rxBind() {
-        addBarItem(title: "随访计划", titleColor: RGB(12, 12, 12))
-            .drive(onNext: { HCMyPatientController.push(HCFollowUpPlanController.self) })
-            .disposed(by: disposeBag)
+//        addBarItem(title: "随访计划", titleColor: RGB(12, 12, 12))
+//            .drive(onNext: { HCMyPatientController.push(HCFollowUpPlanController.self) })
+//            .disposed(by: disposeBag)
         
         viewModel = HCMyPatientViewModel.init()
         

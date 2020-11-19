@@ -47,8 +47,8 @@ class HCMyPatientViewModel: RefreshVM<HCPatientItemModel> {
 extension HCMyPatientViewModel {
     
     private func prepareStaticGroupData() {
-        let titles: [String] = ["报到患者", "分组", "随访", "屏蔽患者"]
-        let icons: [String] = ["patient_baodao", "patient_group", "patient_suifang", "patient_pinbi"]
+        let titles: [String] = ["分组", "屏蔽患者"]
+        let icons: [String] = ["patient_group", "patient_pinbi"]
         for idx in 0..<titles.count {
             let m = HCListCellItem()
             m.shwoArrow = false
