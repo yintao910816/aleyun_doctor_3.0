@@ -25,7 +25,7 @@ class HCPatientManageController: HCSlideItemController {
     override func rxBind() {
         viewModel = HCPatientManageViewModel.init(patientInfo: patientInfo)
         
-        viewModel.reloadSignal
+        viewModel.reloadSignal.asObservable()
             .subscribe(onNext: { [weak self] in self?.container.reload(listDatas: $0.1, patientInfo: $0.0) })
             .disposed(by: disposeBag)
         

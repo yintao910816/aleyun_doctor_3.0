@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HandyJSON
 
 /// 患者列表
 class HCMyPatientListModel: HJModel {
@@ -18,12 +19,19 @@ class HCPatientItemModel: HJModel {
     var bak: String = ""
     var black: Bool = false
     var headPath: String = ""
-    var id: String = ""
-    var mobile: String = ""
-    var name: String = ""
+    var memberId: String = ""
+    var memberName: String = ""
+    var note: String = ""
     var sex: Int = 1
+    var tagName: String = ""
+    var mobile: String = ""
     var userId: String = ""
     var userName: String = ""
+        
+    override func mapping(mapper: HelpingMapper) {
+        mapper.specify(property: &memberId, name: "id")
+        mapper.specify(property: &memberName, name: "name")
+    }
     
     public lazy var sexText: String = {
         if let type = HCGender(rawValue: self.sex) {

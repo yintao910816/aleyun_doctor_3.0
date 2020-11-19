@@ -91,8 +91,9 @@ class HCBaseListCell: UITableViewCell {
                     $0.size.equalTo(model.titleIconSize)
                 }
                 
-                titleLabel.snp.updateConstraints {
+                titleLabel.snp.remakeConstraints {
                     $0.left.equalTo(titleIcon.snp.right).offset(12)
+                    $0.centerY.equalTo(contentView.snp.centerY)
                 }
 
             }else {
@@ -101,8 +102,9 @@ class HCBaseListCell: UITableViewCell {
                     $0.size.equalTo(CGSize.zero)
                 }
                 
-                titleLabel.snp.updateConstraints {
+                titleLabel.snp.remakeConstraints {
                     $0.left.equalTo(titleIcon.snp.right).offset(0)
+                    $0.centerY.equalTo(contentView.snp.centerY)
                 }
             }
             

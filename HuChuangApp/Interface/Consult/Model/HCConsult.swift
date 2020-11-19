@@ -40,9 +40,9 @@ class HCConsultListItemModel: HJModel {
         model.bak = ""
         model.black = false
         model.headPath = headPath
-        model.id = memberId
+        model.memberId = memberId
         model.mobile = ""
-        model.name = memberName
+        model.memberName = memberName
         model.sex = sex
         model.userId = userId
         model.userName = userName

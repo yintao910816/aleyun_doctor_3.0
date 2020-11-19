@@ -68,6 +68,7 @@ extension HCPatientManageContainer {
                 
         tableView.register(HCPatientManageHeaderView.self, forHeaderFooterViewReuseIdentifier: HCPatientManageHeaderView_identifier)
         tableView.register(HCBaseListCell.self, forCellReuseIdentifier: HCBaseListCell_identifier)
+        tableView.register(HCListDetailCell.self, forCellReuseIdentifier: HCListDetailCell_identifier)
         tableView.register(HCListSwitchCell.self, forCellReuseIdentifier: HCListSwitchCell_identifier)
         tableView.register(HCListTextViewAndTitleCell.self, forCellReuseIdentifier: HCListTextViewAndTitleCell_identifier)
     }

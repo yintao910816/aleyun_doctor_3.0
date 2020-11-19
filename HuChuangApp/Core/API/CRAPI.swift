@@ -177,6 +177,8 @@ enum API{
     case editUserMemberTags(id: String, tagName: String)
     /// 获取已有标签
     case getUserTagList(memberId: String)
+    /// 获取患者信息设置
+    case getConsultPatientInfo(userId: String, memberId: String)
     /// 设置患者标签
     case addUserMemberTags(memberId: String, tagName: String, id: String)
     /// 删除患者标签
@@ -330,6 +332,8 @@ extension API: TargetType{
             return "api/patientConsult/editUserMemberTags"
         case .getUserTagList(_):
             return "api/patientConsult/getUserTagList"
+        case .getConsultPatientInfo(_, _):
+            return "api/patientConsult/getConsultPatientInfo"
         case .addUserMemberTags(_):
             return "api/patientConsult/addUserMemberTags"
         case .removeUserTag(_, _):
@@ -541,6 +545,9 @@ extension API {
             params["id"] = id
             params["tagName"] = tagName
         case .getUserTagList(let memberId):
+            params["memberId"] = memberId
+        case .getConsultPatientInfo(let userId, let memberId):
+            params["userId"] = userId
             params["memberId"] = memberId
         case .addUserMemberTags(let memberId, let tagName, let id):
             params["memberId"] = memberId
