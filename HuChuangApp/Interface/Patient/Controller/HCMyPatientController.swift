@@ -39,7 +39,7 @@ class HCMyPatientController: BaseViewController, VMNavigation {
         
         viewModel = HCMyPatientViewModel.init()
         
-        container.tableView.prepare(viewModel, showFooter: true, showHeader: true)
+        container.tableView.prepare(viewModel, isAddNoMoreContent: false)
         
         viewModel.listSignal
             .subscribe(onNext: { [weak self] in self?.container.reload(with: $0.1, patientDatas: $0.0) })

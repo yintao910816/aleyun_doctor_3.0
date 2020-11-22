@@ -45,7 +45,9 @@ class HCHomeViewController: BaseViewController {
             case .message:
                 break
             case .setting:
-                self?.navigationController?.pushViewController(HCSettingViewController(), animated: true)
+                break;
+            case .newOrder:
+                NotificationCenter.default.post(name: NotificationName.UserInterface.consultList, object: nil)
             }
         }
 

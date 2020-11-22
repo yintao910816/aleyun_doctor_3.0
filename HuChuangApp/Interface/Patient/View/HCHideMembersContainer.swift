@@ -22,6 +22,7 @@ class HCHideMembersContainer: UIView {
         tableView = UITableView.init(frame: .init(x: 0, y: 10, width: width, height: height - 10), style: .plain)
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
+        tableView.rowHeight = 50
 
         addSubview(tableView)
         

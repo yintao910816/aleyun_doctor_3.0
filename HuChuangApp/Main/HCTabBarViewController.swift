@@ -37,6 +37,12 @@ class HCTabBarViewController: UITabBarController {
                 self?.selectedIndex = 2
             })
             .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(NotificationName.UserInterface.consultList)
+            .subscribe(onNext: { [weak self] data in
+                self?.selectedIndex = 1
+            })
+            .disposed(by: disposeBag)
     }
 
     private func setupTabBar() {

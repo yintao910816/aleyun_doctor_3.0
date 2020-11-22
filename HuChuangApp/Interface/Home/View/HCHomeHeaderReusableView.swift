@@ -8,10 +8,11 @@
 
 import UIKit
 
-enum HCHomeHeaderClickedMode {
-    case qrCode
-    case message
-    case setting
+enum HCHomeHeaderClickedMode: Int {
+    case qrCode    = 100
+    case message   = 101
+    case setting   = 102
+    case newOrder  = 103
 }
 
 public let HCHomeHeaderReusableView_identifier = "HCHomeHeaderReusableView"
@@ -40,6 +41,7 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
     private var newOrderCountLabel: UILabel!
     private var orderLine: UIImageView!
     private var newOrderRemindLabel: UILabel!
+    private var newOrderButton: UIButton!
 
     public var buttonClicked: ((HCHomeHeaderClickedMode)->())?
 
@@ -113,6 +115,8 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
                                      width: jobCornerBgView.width,
                                      height: 80)
         
+        newOrderButton.frame = .init(x: 0, y: 0, width: newOrderBgView.width, height: newOrderBgView.height)
+
         newOrderCountLabel.frame = .init(x: 0,
                                          y: 0,
                                          width: newOrderBgView.width / 3,
@@ -175,7 +179,9 @@ extension HCHomeHeaderReusableView {
         userCardButton.clipsToBounds = true
         userCardButton.layer.borderWidth = 0.5
         userCardButton.layer.borderColor = RGB(79, 130, 247).cgColor
-
+        userCardButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
+        userCardButton.tag = HCHomeHeaderClickedMode.qrCode.rawValue
+        
         messageButton = UIButton(type: .custom)
         messageButton.setImage(UIImage(named: "home_message"), for: .normal)
         messageButton.setTitle("消息", for: .normal)
@@ -185,7 +191,9 @@ extension HCHomeHeaderReusableView {
         messageButton.clipsToBounds = true
         messageButton.layer.borderWidth = 0.5
         messageButton.layer.borderColor = RGB(79, 130, 247).cgColor
-        
+        messageButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
+        messageButton.tag = HCHomeHeaderClickedMode.message.rawValue
+
         jobShadowBgView = UIView()
         jobShadowBgView.backgroundColor = .clear
         
@@ -215,6 +223,11 @@ extension HCHomeHeaderReusableView {
         newOrderRemindLabel.font = .font(fontSize: 14)
         newOrderRemindLabel.text = "您有新的待订单，请及时查看"
         
+        newOrderButton = UIButton(type: .custom)
+        newOrderButton.backgroundColor = .clear
+        newOrderButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
+        newOrderButton.tag = HCHomeHeaderClickedMode.newOrder.rawValue
+
         addSubview(colorBgView)
         colorBgView.addSubview(avatarBgView)
         avatarBgView.addSubview(avatar)
@@ -230,7 +243,14 @@ extension HCHomeHeaderReusableView {
         newOrderBgView.addSubview(newOrderCountLabel)
         newOrderBgView.addSubview(orderLine)
         newOrderBgView.addSubview(newOrderRemindLabel)
-        
+        newOrderBgView.addSubview(newOrderButton)
+
         newOrderBgView.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    @objc private func buttonAction(button: UIButton) {
+        if let mode = HCHomeHeaderClickedMode(rawValue: button.tag) {
+            buttonClicked?(mode)
+        }
     }
 }

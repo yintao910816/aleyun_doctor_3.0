@@ -18,10 +18,10 @@ class HCHideMembersViewModel: RefreshVM<HCPatientItemModel> {
         super.requestData(refresh)
         
         HCProvider.request(.hieldMember(pageNum: pageModel.currentPage, pageSize: pageModel.pageSize))
-            .map(models: HCPatientItemModel.self)
+            .map(result: HCHideMembersListModel.self)
             .subscribe(onSuccess: { [weak self] data in
                 guard let strongSelf = self else { return }
-                strongSelf.updateRefresh(refresh, data, 1)
+                strongSelf.updateRefresh(refresh, data.data?.records, data.pages)
             }, onError: { [weak self] _ in
                 self?.revertCurrentPageAndRefreshStatus()
             })

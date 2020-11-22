@@ -32,6 +32,9 @@ extension Notification.Name {
         static let jsReloadHome = Notification.Name(rawValue: "org.UserInterface.notification.name.jsReloadHome")
         /// 记录对比时同步滚动
         static let recordScroll = Notification.Name(rawValue: "org.UserInterface.notification.name.recordScroll")
+        
+        /// 跳转咨询列表
+        static let consultList = Notification.Name(rawValue: "org.UserInterface.notification.name.consultList")
     }
     
     public struct UILogic {
