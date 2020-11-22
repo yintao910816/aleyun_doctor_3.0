@@ -43,6 +43,66 @@ extension String {
 // MARK:
 // MARK: 字符串操作
 extension String {
+    
+    /// 计算于当前时间的差值
+    public func timeDvalue() ->String {
+        
+        guard let date = stringFormatDate()  else {
+            return ""
+        }
+        
+        let today = Date()
+        // 计算时间差
+        let timeInterval = today.timeIntervalSince(date)
+        
+        let cal = Calendar.current
+        let todate = Date.init(timeIntervalSinceNow: timeInterval)
+        let components: Set = [
+            Calendar.Component.year,
+            Calendar.Component.month,
+            Calendar.Component.day,
+            Calendar.Component.hour,
+            Calendar.Component.minute,
+            Calendar.Component.second
+        ]
+        
+        let gap = cal.dateComponents(components, from: today, to: todate)
+        var y = 0
+        var m = 0
+        var d = 0
+        var h = 0
+        var mi = 0
+        var s = 0
+        
+        if abs(gap.year ?? 0) > 0 {
+            y = abs(gap.year!)
+        }else if abs(gap.month ?? 0) > 0 {
+            m = abs(gap.month!)
+        }else if abs(gap.day ?? 0) > 0 {
+            d = abs(gap.day!)
+        }else if abs(gap.hour ?? 0) > 0 {
+            h = abs(gap.hour!)
+        }else if abs(gap.minute ?? 0) > 0 {
+            mi = abs(gap.minute!)
+        }else if abs(gap.second ?? 0) > 0 {
+            s = abs(gap.second!)
+        }
+        
+        if y > 0 {
+            return "\(y)年"
+        }else if m > 0 {
+            return "\(m)个月"
+        }else if d > 0 {
+            return "\(d)天"
+        }else if h > 0 {
+            return "\(h)小时\(mi)分钟"
+        }else if mi > 0 {
+            return "\(mi)分钟"
+        }else {
+            return "\(s)秒钟"
+        }        
+    }
+
 
     public func sr_timeFormat() ->String {
         

@@ -54,6 +54,18 @@ enum HCOrderDetailStatus: Int {
             return "未知状态"
         }
     }
+    
+    /// 聊天室温馨提示
+    public var chatRoonRemindText: String {
+        switch self {
+        case .unReplay:
+            return "医生临床工作繁忙，请您理解"
+        case .replay:
+            return "医生临床工作繁忙，回复简洁，请您理解"
+        default:
+            return "医生临床工作繁忙，请您理解"
+        }
+    }
 }
 
 class HCConsultDetailModel: HJModel {
@@ -250,11 +262,11 @@ class HCConsultDetailItemModel: HJModel {
         if let t = HCOrderDetailStatus.init(rawValue: replyStatus) {
             switch t {
             case .unReplay:
-                let infoText = "4小时01分钟"
+                let infoText = createDate.timeDvalue()
                 let text = "已等待 \(infoText)"
                 str = text.attributed(.init(location: 4, length: infoText.count), RGB(255, 179, 0), .font(fontSize: 16, fontName: .PingFSemibold))
             case .replay:
-                let infoText = "8回合/24小时"
+                let infoText = "\(question)回合"
                 let text = "将在 \(infoText) 后结束"
                 str = text.attributed(.init(location: 3, length: infoText.count), RGB(255, 179, 0), .font(fontSize: 16, fontName: .PingFSemibold))
             case .finish:
@@ -435,7 +447,7 @@ class HCConsultDetailConsultListModel: HJModel {
     var userName: String = ""
     var userHeadPath: String = ""
     var content: String = ""
-    var replyStatus: String = ""
+    var replyStatus: Int = -1
     var read: String = ""
     var createDate: String = ""
     var fileList: [String] = []

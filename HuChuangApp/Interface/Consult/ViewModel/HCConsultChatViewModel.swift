@@ -212,22 +212,29 @@ extension HCConsultChatViewModel {
                 consultsList.remove(at: 0)
             }
 
-            if dataList.startDate.count > 0 {
-                startDate = dataList.startDate
-                let starDateModel = HCConsultDetailConsultListModel()
-                starDateModel.cellIdentifier = HCConsultDetailTimeCell_identifier
-                starDateModel.timeString = "开始回复 \(dataList.startDate)"
-                consultsList.insert(starDateModel, at: 0)
-            }
+            // 现在不显示开始回复的时间了
+//            if dataList.startDate.count > 0 {
+//                startDate = dataList.startDate
+//                let starDateModel = HCConsultDetailConsultListModel()
+//                starDateModel.cellIdentifier = HCConsultDetailTimeCell_identifier
+//                starDateModel.timeString = "开始回复 \(dataList.startDate)"
+//                consultsList.insert(starDateModel, at: 0)
+//            }
+//
+//            if dataList.endDate.count > 0 {
+//                let endDateModel = HCConsultDetailConsultListModel()
+//                endDateModel.cellIdentifier = HCConsultDetailTimeCell_identifier
+//                endDateModel.timeString = "结束回复 \(dataList.endDate)"
+//                consultsList.append(endDateModel)
+//
+//                isEndReply = true
+//            }
             
-            if dataList.endDate.count > 0 {
-                let endDateModel = HCConsultDetailConsultListModel()
-                endDateModel.cellIdentifier = HCConsultDetailTimeCell_identifier
-                endDateModel.timeString = "结束回复 \(dataList.endDate)"
-                consultsList.append(endDateModel)
-                
-                isEndReply = true
-            }
+            let remindModel = HCConsultDetailConsultListModel()
+            remindModel.cellIdentifier = HCConsultDetailTimeCell_identifier
+            let status = HCOrderDetailStatus(rawValue: dataList.replyStatus) ?? .unknow
+            remindModel.timeString = status.chatRoonRemindText
+            consultsList.insert(remindModel, at: 0)
             
             sectionDatas.append(SectionModel.init(model: dataList, items: consultsList))
 
