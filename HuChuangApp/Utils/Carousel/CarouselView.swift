@@ -80,6 +80,9 @@ class CarouselView: UIView {
             
             timer?.fireDate = Date.init(timeIntervalSinceNow: timeInterval)
         }
+        
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     public var pageContrlIsHidden: Bool = false {
