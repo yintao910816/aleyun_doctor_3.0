@@ -490,6 +490,7 @@
 		B8CFBAC4258BB78600BD03A1 /* HCPresentBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBAC2258BB78600BD03A1 /* HCPresentBottom.swift */; };
 		B8CFBAC5258BB78600BD03A1 /* UIViewController+Presation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBAC3258BB78600BD03A1 /* UIViewController+Presation.swift */; };
 		B8CFBAC9258BB98C00BD03A1 /* HCVideoConsultSettingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBAC8258BB98C00BD03A1 /* HCVideoConsultSettingPicker.swift */; };
+		B8CFBACC258BC51E00BD03A1 /* HCQueryScheduleConsultSettingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBACB258BC51E00BD03A1 /* HCQueryScheduleConsultSettingPicker.swift */; };
 		B8D4D47B2394258C00AA3D52 /* HCPicAndTextAskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */; };
 		B8D4D47D239426B400AA3D52 /* HCPicAndTextAskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47C239426B400AA3D52 /* HCPicAndTextAskViewModel.swift */; };
 		B8D4D47F2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47E2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift */; };
@@ -1437,6 +1438,7 @@
 		B8CFBAC2258BB78600BD03A1 /* HCPresentBottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCPresentBottom.swift; sourceTree = "<group>"; };
 		B8CFBAC3258BB78600BD03A1 /* UIViewController+Presation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Presation.swift"; sourceTree = "<group>"; };
 		B8CFBAC8258BB98C00BD03A1 /* HCVideoConsultSettingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVideoConsultSettingPicker.swift; sourceTree = "<group>"; };
+		B8CFBACB258BC51E00BD03A1 /* HCQueryScheduleConsultSettingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCQueryScheduleConsultSettingPicker.swift; sourceTree = "<group>"; };
 		B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskViewController.swift; sourceTree = "<group>"; };
 		B8D4D47C239426B400AA3D52 /* HCPicAndTextAskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskViewModel.swift; sourceTree = "<group>"; };
 		B8D4D47E2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskFooterReusableView.swift; sourceTree = "<group>"; };
@@ -3166,6 +3168,7 @@
 				C404489D24EA721200AD1610 /* HCPickerController.swift */,
 				C40448A224EA722A00AD1610 /* HCPickerData.swift */,
 				B8CFBAC8258BB98C00BD03A1 /* HCVideoConsultSettingPicker.swift */,
+				B8CFBACB258BC51E00BD03A1 /* HCQueryScheduleConsultSettingPicker.swift */,
 			);
 			path = HCPicker;
 			sourceTree = "<group>";
@@ -4490,6 +4493,7 @@
 				B8F1587824EF64150046B107 /* HCCollectionViewController.swift in Sources */,
 				B88497E124E7F8E500B91262 /* APIAdapt.swift in Sources */,
 				B816EAED221DABF400F024D5 /* ZXDataMatrixTextEncoder.m in Sources */,
+				B8CFBACC258BC51E00BD03A1 /* HCQueryScheduleConsultSettingPicker.swift in Sources */,
 				B816EA79221DABF400F024D5 /* LBXScanNetAnimation.m in Sources */,
 				B89C2F842515D7EF004B5C71 /* HCFollowUpPlan.swift in Sources */,
 				B853CF1D2566325C00A3A90D /* HCHideMembersContainer.swift in Sources */,

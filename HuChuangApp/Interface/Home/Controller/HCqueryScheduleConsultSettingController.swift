@@ -19,6 +19,12 @@ class HCqueryScheduleConsultSettingController: BaseViewController {
         
         container = HCQueryScheduleConsultSettingContainer.init(frame: view.bounds)
         view.addSubview(container)
+        
+        container.dayItemSelectedCallBack = { [unowned self] _ in
+            let picker = HCQueryScheduleConsultSettingPicker()
+            self.model(for: picker, controllerHeight: self.view.height)
+        }
+
     }
     
     override func rxBind() {

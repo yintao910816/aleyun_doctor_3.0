@@ -13,6 +13,8 @@ class HCQueryScheduleConsultSettingContainer: UIView {
     private var actionView: HCConsultSettingBottomActionView!
     private var collectionView: UICollectionView!
     
+    public var dayItemSelectedCallBack: ((HCQueryScheduleSettingModel)->())?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -141,4 +143,11 @@ extension HCQueryScheduleConsultSettingContainer: UICollectionViewDataSource, UI
         let model = datasource[indexPath.section][indexPath.row] as! HCListCellItem
         return .init(width: collectionView.width, height: model.cellHeight)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let model = datasource[indexPath.section][indexPath.row] as? HCQueryScheduleSettingModel {
+            dayItemSelectedCallBack?(model)
+        }
+    }
+
 }
