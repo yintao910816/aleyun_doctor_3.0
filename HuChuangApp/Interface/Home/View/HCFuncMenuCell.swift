@@ -9,11 +9,20 @@
 import UIKit
 
 public let HCFuncMenuCell_identifier: String = "HCFuncMenuCell"
-public let HCFuncMenuCell_height: CGFloat = 180
+
+private let minimumInteritemSpacing: CGFloat = 24
+private let minimumLineSpacing: CGFloat = 35
+private let inset: UIEdgeInsets = .init(top: 10, left: 25, bottom: 15, right: 25)
+private let itemHeight: CGFloat = 55
+private let iconSize: CGSize = .init(width: 28, height: 28)
+private let titleHeight: CGFloat = 17
+private let titleTop: CGFloat = 10
 
 class HCFuncMenuCell: UICollectionViewCell {
     
     private var funcCollectionView: UICollectionView!
+
+    public var itemClicked: ((HCFunctionsMenuModel)->())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,6 +54,15 @@ class HCFuncMenuCell: UICollectionViewCell {
         
         funcCollectionView.frame = bounds
     }
+    
+
+    public class func cellHeight(itemCount: Int) ->CGFloat {
+        let lines: Int = itemCount > 4 ? 2 : 1
+        
+        var height = CGFloat(lines) * itemHeight + inset.top + inset.bottom
+        height += lines == 2 ? minimumInteritemSpacing : 0
+        return height
+    }
 }
 
 extension HCFuncMenuCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -58,7 +76,8 @@ extension HCFuncMenuCell: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: (width - 25 * 2 - 36*3) / 4, height: (height - 10 - 15 - 25) / 2)
+        let w: CGFloat = (width - inset.left - inset.right - 3 * minimumLineSpacing) / 4.0
+        return .init(width: w, height: itemHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -68,19 +87,19 @@ extension HCFuncMenuCell: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 25
+        return minimumLineSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 36
+        return minimumInteritemSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 10, left: 25, bottom: 15, right: 25)
+        return inset
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        itemClicked?(funcMenuModels[indexPath.row])
     }
 }
 
@@ -112,8 +131,8 @@ class HCFuncMenuItemCell: UICollectionViewCell {
         icon = UIImageView()
         
         title = UILabel()
-        title.textColor = RGB(12, 12, 12)
-        title.font = .font(fontSize: 12)
+        title.textColor = RGB(70, 70, 70)
+        title.font = .font(fontSize: 14)
         title.textAlignment = .center
         
         addSubview(icon)
@@ -123,7 +142,9 @@ class HCFuncMenuItemCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        icon.frame = .init(x: 0, y: 0, width: width, height: width)
-        title.frame = .init(x: 0, y: icon.frame.maxY + 10, width: width, height: 12)
+        icon.frame = .init(origin: CGPoint.init(x: (width - iconSize.width) / 2,
+                                                y: 0),
+                           size: iconSize)
+        title.frame = .init(x: 0, y: icon.frame.maxY + titleTop, width: width, height: titleHeight)
     }
 }

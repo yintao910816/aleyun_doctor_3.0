@@ -71,7 +71,7 @@ extension HCHomeViewContainer {
         
         collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.backgroundColor = backgroundColor
+        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         addSubview(collectionView)
@@ -114,6 +114,7 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
         if indexPath.section == 0 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCFuncMenuCell_identifier, for: indexPath)
             (cell as! HCFuncMenuCell).funcMenuModels = menuItems
+            (cell as! HCFuncMenuCell).itemClicked = { [unowned self] in self.funcItemClicked?($0) }
         }else if indexPath.section == 1 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCBannerItemCell_identifier, for: indexPath)
             (cell as! HCBannerItemCell).bannerDatas = bannerItems
@@ -124,7 +125,7 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case 0:
-            return .init(width: collectionView.width, height: HCFuncMenuCell_height)
+            return .init(width: collectionView.width, height: HCFuncMenuCell.cellHeight(itemCount: menuItems.count))
         case 1:
             if bannerItems.count > 0 {
                 return .init(width: width, height: HCBannerItemCell_height)
@@ -205,7 +206,7 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
 //        }
 //    }
 
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        switch indexPath.section {
 //        case 0:
 //            funcItemClicked?(menuItems[3 + indexPath.row])
@@ -216,5 +217,5 @@ extension HCHomeViewContainer: UICollectionViewDataSource, UICollectionViewDeleg
 //        default:
 //            break
 //        }
-//    }
+    }
 }

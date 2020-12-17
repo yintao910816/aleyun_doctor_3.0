@@ -220,6 +220,15 @@ enum API{
     /// 结束通话
     case consultEndPhone(memberId: String, userId: String, watchTime: String)
     
+    /**
+     * 医生咨询服务相关
+     */
+    /// 查询医生排班及咨询类型开通状态
+    case getOpenConsultStatus
+    /// 医生端查询精准预约排班
+    case queryPreciseSchedule
+    /// 修改排班（图文和视频）
+    case updateConsultUserStatus(params: [String: Any])
     
     // --------------- 3.0接口
     /// 实名认证
@@ -374,7 +383,13 @@ extension API: TargetType{
             return "api/patientConsult/startPhone"
         case .consultEndPhone(_, _, _):
             return "api/patientConsult/endPhone"
-            
+        
+        case .getOpenConsultStatus:
+            return "api/patientConsult/getOpenConsultStatus"
+        case .queryPreciseSchedule:
+            return "api/preciseSchedule/queryPreciseSchedule"
+        case .updateConsultUserStatus(_):
+            return "api/patientConsult/updateConsultUserStatus"
             
         case .realNameAuth(_, _, _, _, _):
             return "api/consumer/realNameAuth"
@@ -614,6 +629,9 @@ extension API {
             params["memberId"] = memberId
             params["userId"] = userId
             params["watchTime"] = watchTime
+            
+        case .updateConsultUserStatus(let p):
+            params = p
 
         case .realNameAuth(let realName, let sex, let birthDay, let certificateType, let certificateNo):
             params["realName"] = realName

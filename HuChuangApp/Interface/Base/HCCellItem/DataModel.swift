@@ -8,18 +8,30 @@
 
 import Foundation
 
+import RxSwift
+
 enum CellIconType {
     case local
     case network
     case userIcon
 }
 
+//MARK: 底部分割线对齐方式
+enum HCBottomLineMode {
+    /// 顶到最左边
+    case noSpace
+    /// 与titleIcon对齐
+    case icon
+    /// 与title对齐
+    case title
+}
+
 class HCListCellItem {
     
     var title: String = ""
+    var titleFont: UIFont = .font(fontSize: 15)
     var titleIcon: String = ""
     var titleIconSize: CGSize = .init(width: 25, height: 25)
-    var titleFont: UIFont = .font(fontSize: 15)
     
     var attrbuiteTitle: NSAttributedString = NSAttributedString.init()
     
@@ -29,9 +41,12 @@ class HCListCellItem {
 
     var iconType: CellIconType = .local
     
-    var titleColor: UIColor = RGB(60, 60, 60)
+    var titleColor: UIColor = RGB(51, 51, 51)
     var detailTitleColor: UIColor = RGB(173, 173, 173)
-        
+       
+    /// 开关是否打开
+    var isOn: Bool = false
+
     // 输入框
     var inputSize: CGSize = .init(width: 100, height: 25)
     var placeholder: String = ""
@@ -46,9 +61,6 @@ class HCListCellItem {
     
     var cellIdentifier: String = ""
     
-    /// 开关是否打开
-    var isOn: Bool = false
-
     /// 是否是退出登录
     var isLoginOut: Bool = false
     /// sb中界面跳转标识
@@ -59,4 +71,9 @@ class HCListCellItem {
     var buttonEdgeInsets: UIEdgeInsets = .zero
     
     var detailInputTextAlignment: NSTextAlignment = .left
+    
+    var bottomLineMode: HCBottomLineMode = .noSpace
+    
+    /// 监听输入框文字变化
+    var textSignal = Variable("")
 }

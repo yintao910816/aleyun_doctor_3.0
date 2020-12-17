@@ -201,3 +201,45 @@ extension TYDateCalculate {
     }
 }
 
+extension TYDateCalculate {
+    
+    /// 获取指定时间段的日期和星期几
+    public class func getDatesAndWeekDays(startDate: Date, endDate: Date) ->(dates: [Date], weeks: [String]) {
+        var star = startDate
+        let end = endDate
+        
+        var calendar = Calendar.init(identifier: .gregorian)
+        calendar.timeZone = TimeZone.init(secondsFromGMT: 8) ?? TimeZone.current
+        
+        var compontDates: [Date] = []
+        var compontWeeks: [String] = []
+        let weeksStr = [1: "周日", 2: "周一", 3: "周二", 4: "周三", 5: "周四", 6: "周五", 7: "周六"]
+        
+        var result: ComparisonResult = star.compare(end)
+        while result != .orderedDescending {
+            var comps = calendar.dateComponents([.year, .month, .day, .weekday], from: star)
+            compontDates.append(star)
+            
+            if let weekInt = comps.weekday, let weekS = weeksStr[weekInt] {
+                compontWeeks.append(weekS)
+            }else {
+                compontWeeks.append("")
+            }
+            
+            // 后一天
+            comps.day = comps.day! + 1
+            star = calendar.date(from: comps)!
+         
+            // 对比日期大小
+            result = star.compare(end)
+        }
+        
+        for idx in 0..<compontDates.count {
+            compontDates[idx] = TYDateCalculate.formatDate(date: compontDates[idx])
+        }
+        
+        return (compontDates, compontWeeks)
+    }
+
+}
+

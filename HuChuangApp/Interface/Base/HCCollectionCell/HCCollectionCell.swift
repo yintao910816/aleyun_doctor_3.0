@@ -1,16 +1,17 @@
 //
-//  HCBaseListCell.swift
+//  HCCollectionCell.swift
 //  HuChuangApp
 //
-//  Created by yintao on 2019/9/30.
-//  Copyright © 2019 sw. All rights reserved.
+//  Created by yintao on 2020/12/17.
+//  Copyright © 2020 sw. All rights reserved.
 //
 
 import UIKit
 
-public let HCBaseListCell_identifier = "HCBaseListCell"
-class HCBaseListCell: UITableViewCell {
+public let HCCollectionCell_identifier = "HCCollectionCell"
 
+class HCCollectionCell: UICollectionViewCell {
+    
     public var titleLabel: UILabel!
     public var titleIcon: UIImageView!
     
@@ -21,8 +22,8 @@ class HCBaseListCell: UITableViewCell {
     public var textChangeCallBack: ((String)->())?
     public var didEndEditWithModel:((HCListCellItem)->())?
         
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         setupView()
     }
@@ -36,6 +37,8 @@ class HCBaseListCell: UITableViewCell {
     }
     
     private func setupView() {
+        backgroundColor = .white
+        
         titleIcon = UIImageView()
         titleIcon.contentMode = .scaleAspectFill
         titleIcon.clipsToBounds = true

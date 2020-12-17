@@ -102,7 +102,7 @@ extension HCPatientManageContainer: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: model.cellIdentifier) as! HCBaseListCell
         cell.model = model
         cell.textChangeCallBack = { [weak self] in self?.bakInfo = $0 }
-        cell.switchCallBack = { [weak self] in self?.isBlack = $0 }
+        cell.clickedSwitchCallBack = { [weak self] in self?.isBlack = $0.0 }
         return cell
     }
     

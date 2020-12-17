@@ -1,19 +1,19 @@
 //
-//  HCListDetailInputCell.swift
+//  HCDetailTextFiledCollectionCell.swift
 //  HuChuangApp
 //
-//  Created by sw on 2019/10/19.
-//  Copyright © 2019 sw. All rights reserved.
+//  Created by yintao on 2020/12/17.
+//  Copyright © 2020 sw. All rights reserved.
 //
 
 import UIKit
+
 import RxSwift
 
-public let HCListDetailInputCell_identifier = "HCListDetailInputCell"
-public let HCListDetailInputCell_height: CGFloat = 50
+public let HCDetailTextFiledCollectionCell_identifier = "HCDetailTextFiledCollectionCell"
 
-class HCListDetailInputCell: HCBaseListCell {
-
+class HCDetailTextFiledCollectionCell: HCCollectionCell {
+    
     private var inputTf: UITextField!
     
     private let disposeBag = DisposeBag()
@@ -70,9 +70,10 @@ class HCListDetailInputCell: HCBaseListCell {
     }
 }
 
-extension HCListDetailInputCell: UITextFieldDelegate {
+extension HCDetailTextFiledCollectionCell: UITextFieldDelegate {
         
     func textFieldDidEndEditing(_ textField: UITextField) {
         model.detailTitle = textField.text ?? ""
     }
 }
+

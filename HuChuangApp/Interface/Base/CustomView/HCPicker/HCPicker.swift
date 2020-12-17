@@ -17,30 +17,26 @@ class HCPickerView: HCPicker {
         super.viewDidLoad()
         
         modalPresentationStyle = .fullScreen
+        
+        containerView.addSubview(picker)
     }
-    
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
+        
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
         let containViewHeight = pickerHeight + 44
         containerView.frame = .init(x: 0, y: view.height - containViewHeight, width: view.width, height: containViewHeight)
 
         picker.frame = .init(x: 0, y: 44, width: containerView.width, height: pickerHeight)
-
-        containerView.addSubview(picker)
-        
-        containerView.transform = .init(translationX: 0, y: pickerHeight + 44)
-
-        show(animotion: true)
     }
     
     override func doneAction() {
         finishSelected?((.ok, datasource[selectedComponent].items[selectedRow].title))
-        cancelAction()
+        super.doneAction()
     }
     
     //MARK: - lazy
-    private lazy var picker: UIPickerView = {
+    public lazy var picker: UIPickerView = {
         let p = UIPickerView()
         p.backgroundColor = .white
         p.delegate = self
@@ -49,24 +45,22 @@ class HCPickerView: HCPicker {
     }()
     
     //MARK: - interface
-    public var datasource: [HCPickerSection] = [] {
+    public var datasource: [HCPickerSectionData] = [] {
         didSet {
             picker.reloadAllComponents()
         }
     }
+    
+    public func selectRow(_ row: Int, inComponent component: Int, animated: Bool) {
+        selectedComponent = component
+        selectedRow = row
+        picker.selectRow(row, inComponent: component, animated: animated)
+    }
         
     override var pickerHeight: CGFloat {
         didSet {
-            var frame = picker.frame
-            frame.size.height = pickerHeight
-            picker.frame = frame
-            
-            frame = containerView.frame
-            frame.size.height = pickerHeight + 44
-            frame.origin.y = view.width - (frame.size.height)
-            containerView.frame = frame
-            
-            containerView.transform = .init(translationX: 0, y: pickerHeight + 44)
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
         }
     }
 }
@@ -121,6 +115,7 @@ extension HCPickerView: UIPickerViewDelegate, UIPickerViewDataSource {
 
 public enum HCPickerAction {
     case cancel
+    case leftItemAction
     case ok
 }
 
@@ -145,10 +140,9 @@ class HCPicker: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = RGB(10, 10, 10, 0.2)
-
         ///
         containerView = UIView.init(frame: .init(x: 0, y: view.height - self.pickerHeight - 44, width: view.width, height: self.pickerHeight + 44))
+        containerView.backgroundColor = .white
         view.addSubview(containerView)
         
         toolBar = UIToolbar.init()
@@ -185,48 +179,25 @@ class HCPicker: UIViewController {
     }
     
     @objc func tapAction() {
-        hidden(animotion: true, complement: nil)
+        finishSelected?((HCPickerAction.cancel, ""))
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func cancelAction() {
-        hidden(animotion: true, complement: nil)
+        if !isCustomCancel {
+            finishSelected?((HCPickerAction.leftItemAction, ""))
+        }
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func doneAction() {
-
+        dismiss(animated: true, completion: nil)
     }
         
-    public func show(animotion: Bool) {
-        if animotion {
-            view.backgroundColor = RGB(10, 10, 10, 0.5)
-            UIView.animate(withDuration: 0.25) { self.containerView.transform = .identity }
-        }else {
-            containerView.transform = .identity
-        }
-    }
-    
-    public func hidden(animotion: Bool, complement: (()->())?) {
-        if animotion {
-            UIView.animate(withDuration: 0.25, animations: {
-                self.containerView.transform = .init(translationX: 0, y: self.pickerHeight + 44)
-            }) { flag in
-                if flag {
-                    self.removeFromParaentViewController()
-                    complement?()
-                }
-            }
-        }else {
-            containerView.transform = .init(translationX: 0, y: self.pickerHeight + 44)
-            
-            self.removeFromParaentViewController()
-            complement?()
-        }
-    }
-    
 }
 
 extension HCPicker: UIGestureRecognizerDelegate {
-    
+
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return !containerView.frame.contains(gestureRecognizer.location(in: view))
     }

@@ -1,17 +1,17 @@
 //
-//  HCListDetailCell.swift
+//  HCDetailCollectionCell.swift
 //  HuChuangApp
 //
-//  Created by yintao on 2019/9/30.
-//  Copyright © 2019 sw. All rights reserved.
+//  Created by yintao on 2020/12/17.
+//  Copyright © 2020 sw. All rights reserved.
 //
 
 import UIKit
 
-public let HCListDetailCell_identifier = "HCListDetailCell"
+public let HCDetailCollectionCell_identifier = "HCDetailCollectionCell"
 
-class HCListDetailCell: HCBaseListCell {
-
+class HCDetailCollectionCell: HCCollectionCell {
+    
     public var detailTitleLabel: UILabel!
 
     override func loadView() {

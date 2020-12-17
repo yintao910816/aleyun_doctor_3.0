@@ -1,21 +1,21 @@
 //
-//  HCListSwitchCell.swift
+//  HCListCustomSwitchCell.swift
 //  HuChuangApp
 //
-//  Created by yintao on 2019/9/30.
-//  Copyright © 2019 sw. All rights reserved.
+//  Created by yintao on 2020/12/16.
+//  Copyright © 2020 sw. All rights reserved.
 //
 
 import UIKit
 
-public let HCListSwitchCell_identifier = "HCListSwitchCell"
+public let HCListCustomSwitchCell_identifier = "HCListCustomSwitchCell"
 
-class HCListSwitchCell: HCBaseListCell {
-
-    private var switchView: UISwitch!
+class HCListCustomSwitchCell: HCBaseListCell {
+    
+    private var switchView: HCSwitch!
     
     override func loadView() {
-        switchView = UISwitch()
+        switchView = HCSwitch()
         switchView.addTarget(self, action: #selector(changeValue(switch:)), for: .valueChanged)
 //        switchView.onTintColor = RGB(245, 102, 149)
         contentView.addSubview(switchView)
@@ -40,11 +40,10 @@ class HCListSwitchCell: HCBaseListCell {
             arrowImgV.removeFromSuperview()
         }
         
-        let tempSize = switchView.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: height))
-        switchView.frame = .init(x: width - 15 - tempSize.width,
-                                 y: (height - tempSize.height) / 2,
-                                 width: tempSize.width,
-                                 height: tempSize.height)
+        switchView.frame = .init(x: width - 15 - HCSwitchNormalSize.width,
+                                 y: (height - HCSwitchNormalSize.height) / 2,
+                                 width: HCSwitchNormalSize.width,
+                                 height: HCSwitchNormalSize.height)
     }
     
 }

@@ -8,24 +8,49 @@
 
 import Foundation
 
-struct HCPickerSection {
+struct HCPickerSectionData {
     var items: [HCPickerItemModel] = []
-    
-//    public static func createTemperature() ->HCPickerSectionData {
-//        var intPart: [HCPickerItemModel] = []
-//        var floatPart: [HCPickerItemModel] = []
-//
-//        for idx in 35...38 {
-//            intPart.append(HCPickerItemModel(title: "\(idx)"))
-//        }
-//
-//        for idx in 0...99 {
-//            let idxString = idx < 10 ? ".0\(idx)" : ".\(idx)"
-//            floatPart.append(HCPickerItemModel(title: "\(idxString)"))
-//        }
-//
-//        return HCPickerSectionData(sectionData: [intPart, floatPart])
-//    }
+        
+    /// 创建视频咨询排班设置数据
+    public static func createVideoConsultSettingDatas() ->[HCPickerSectionData] {
+        var startDatas: [HCPickerItemModel] = []
+        var endDatas: [HCPickerItemModel] = []
+        var peosDatas: [HCPickerItemModel] = []
+        
+        for idx in 0...24 {
+            if idx < 10 {
+                var m1 = HCPickerItemModel()
+                m1.title = "0\(idx):00"
+                startDatas.append(m1)
+                endDatas.append(m1)
+
+                var m2 = HCPickerItemModel()
+                m2.title = "0\(idx):30"
+                startDatas.append(m2)
+                endDatas.append(m2)
+            }else {
+                var m1 = HCPickerItemModel()
+                m1.title = "\(idx):00"
+                startDatas.append(m1)
+                endDatas.append(m1)
+
+                var m2 = HCPickerItemModel()
+                m2.title = "\(idx):30"
+                startDatas.append(m2)
+                endDatas.append(m2)
+            }
+        }
+        
+        for idx in 1...5 {
+            var m = HCPickerItemModel()
+            m.title = "\(idx)"
+            peosDatas.append(m)
+        }
+        
+        return [HCPickerSectionData(items: startDatas),
+                HCPickerSectionData(items: endDatas),
+                HCPickerSectionData(items: peosDatas)]
+    }
 }
 
 struct HCPickerItemModel {

@@ -32,10 +32,15 @@ class HCHomeViewController: BaseViewController {
 //        }
         
         containerView.funcItemClicked = { [weak self] in
-            let webVC = BaseWebViewController()
-            webVC.url = $0.functionUrl
-            webVC.title = $0.name
-            self?.navigationController?.pushViewController(webVC, animated: true)
+            if $0.name == "排班设置" {
+                self?.navigationController?.pushViewController(HCServerSettingController(),
+                                                               animated: true)
+            }else {
+                let webVC = BaseWebViewController()
+                webVC.url = $0.functionUrl
+                webVC.title = $0.name
+                self?.navigationController?.pushViewController(webVC, animated: true)
+            }
         }
         
         containerView.buttonClicked = { [weak self] in
