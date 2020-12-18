@@ -227,8 +227,16 @@ enum API{
     case getOpenConsultStatus
     /// 医生端查询精准预约排班
     case queryPreciseSchedule
+    /// 添加视频咨询排班 api/patientConsult/addVideoConsultSchedule
+    case addVideoConsultSchedule(params: [String: Any])
     /// 修改排班（图文和视频）
     case updateConsultUserStatus(params: [String: Any])
+    /// 取消排班（图文和视频）
+    case deleteVideoConsultSchedule(scheduleId: String)
+    /// 添加精准预约排班
+    case addPreciseSchedule(params: [String: Any])
+    /// api/preciseSchedule/delPreciseSchedule
+    case delPreciseSchedule(scheduleId: String)
     
     // --------------- 3.0接口
     /// 实名认证
@@ -388,8 +396,16 @@ extension API: TargetType{
             return "api/patientConsult/getOpenConsultStatus"
         case .queryPreciseSchedule:
             return "api/preciseSchedule/queryPreciseSchedule"
+        case .addVideoConsultSchedule(_):
+            return "api/patientConsult/addVideoConsultSchedule"
         case .updateConsultUserStatus(_):
             return "api/patientConsult/updateConsultUserStatus"
+        case .deleteVideoConsultSchedule(_):
+            return "api/patientConsult/deleteVideoConsultSchedule"
+        case .addPreciseSchedule(_):
+            return "api/preciseSchedule/addPreciseSchedule"
+        case .delPreciseSchedule(_):
+            return "api/preciseSchedule/delPreciseSchedule"
             
         case .realNameAuth(_, _, _, _, _):
             return "api/consumer/realNameAuth"
@@ -632,6 +648,14 @@ extension API {
             
         case .updateConsultUserStatus(let p):
             params = p
+        case .addVideoConsultSchedule(let p):
+            params = p
+        case .deleteVideoConsultSchedule(let scheduleId):
+            params["scheduleId"] = scheduleId
+        case .addPreciseSchedule(let p):
+            params = p
+        case .delPreciseSchedule(let scheduleId):
+            params["scheduleId"] = scheduleId
 
         case .realNameAuth(let realName, let sex, let birthDay, let certificateType, let certificateNo):
             params["realName"] = realName

@@ -8,12 +8,17 @@
 
 import UIKit
 
+import RxSwift
+
 class HCQueryScheduleConsultSettingContainer: UIView {
     
     private var actionView: HCConsultSettingBottomActionView!
     private var collectionView: UICollectionView!
     
+    private var lastSelected = IndexPath.init(row: 0, section: 3)
+
     public var dayItemSelectedCallBack: ((HCQueryScheduleSettingModel)->())?
+    public let updateConsultUserStatusSubject = PublishSubject<Void>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +33,13 @@ class HCQueryScheduleConsultSettingContainer: UIView {
         collectionView.dataSource = self
         
         actionView = HCConsultSettingBottomActionView(frame: .init(x: 0, y: height - 50, width: width, height: 50))
-
+        actionView.actionCallBack = { [unowned self] in
+            if $0 == .save {
+                self.updateConsultUserStatusSubject.onNext(Void())
+            }else {
+                
+            }
+        }
         addSubview(actionView)
         addSubview(collectionView)
         
@@ -144,10 +155,22 @@ extension HCQueryScheduleConsultSettingContainer: UICollectionViewDataSource, UI
         return .init(width: collectionView.width, height: model.cellHeight)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {        
         if let model = datasource[indexPath.section][indexPath.row] as? HCQueryScheduleSettingModel {
+            
+            if let lastItem = datasource[lastSelected.section][lastSelected.row] as? HCQueryScheduleSettingModel {
+                lastItem.isSelected = false
+            }
+            
+            model.isSelected = true
+            
+            lastSelected = indexPath
+            
+            collectionView.reloadData()
+            
             dayItemSelectedCallBack?(model)
         }
+
     }
 
 }

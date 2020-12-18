@@ -25,6 +25,7 @@ class HCDetailTextFiledCollectionCell: HCCollectionCell {
         inputTf.font = .font(fontSize: 14)
         inputTf.textColor = .black
         inputTf.delegate = self
+        inputTf.returnKeyType = .done
         contentView.addSubview(inputTf)
         
         NotificationCenter.default.rx.notification(UITextField.textDidChangeNotification, object: nil)
@@ -42,6 +43,8 @@ class HCDetailTextFiledCollectionCell: HCCollectionCell {
         didSet {
             super.model = model
             
+            inputTf.keyboardType = model.keyboardType
+
             if inputTf.delegate == nil {
                 inputTf.delegate = self
             }
@@ -66,7 +69,6 @@ class HCDetailTextFiledCollectionCell: HCCollectionCell {
     
     deinit {
         inputTf.delegate = nil
-        inputTf.removeFromSuperview()
     }
 }
 
@@ -74,6 +76,11 @@ extension HCDetailTextFiledCollectionCell: UITextFieldDelegate {
         
     func textFieldDidEndEditing(_ textField: UITextField) {
         model.detailTitle = textField.text ?? ""
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

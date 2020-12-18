@@ -25,8 +25,10 @@ class HCQueryScheduleDaySettingCell: UICollectionViewCell {
         backgroundColor = RGB(248, 248, 250)
         
         layer.cornerRadius = 3
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.clear.cgColor
         clipsToBounds = true
-        
+
         dateLabel = UILabel()
         dateLabel.font = .font(fontSize: 12)
         dateLabel.textColor = RGB(51, 51, 51)
@@ -83,6 +85,14 @@ class HCQueryScheduleDaySettingCell: UICollectionViewCell {
                 remindLabel.isHidden = false
                 morningtimeLabel.isHidden = true
                 afternoonLabel.isHidden = true
+            }
+            
+            if model.isSelected {
+                backgroundColor = RGB(226, 237, 255)
+                layer.borderColor = HC_MAIN_COLOR.cgColor
+            }else {
+                backgroundColor = RGB(248, 248, 250)
+                layer.borderColor = UIColor.clear.cgColor
             }
         }
     }

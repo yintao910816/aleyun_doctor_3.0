@@ -19,6 +19,18 @@ class HCPicConsultSettingController: BaseViewController {
         
         container = HCPicConsultSettingContainer.init(frame: view.bounds)
         view.addSubview(container)
+        
+        container.cellDidSelected = { [unowned self] in
+            if $0.row == 3 {
+                let picker = HCPicConsultSettingPicker()
+                picker.pickerHeight = 230
+                picker.datasource = HCPickerSectionData.createPicConsultSettingDatas()
+                picker.submitSubject
+                    .bind(to: self.viewModel.submitSubject)
+                    .disposed(by: disposeBag)
+                self.model(for: picker, controllerHeight: self.view.height)
+            }
+        }
     }
     
     override func rxBind() {
@@ -26,6 +38,10 @@ class HCPicConsultSettingController: BaseViewController {
         
         viewModel.datasource.asDriver()
             .drive(onNext: { [unowned self] in self.container.datasource = $0 })
+            .disposed(by: disposeBag)
+        
+        container.updateConsultUserStatusSubject
+            .bind(to: viewModel.updateConsultUserStatusSubject)
             .disposed(by: disposeBag)
         
         viewModel.reloadSubject.onNext(Void())

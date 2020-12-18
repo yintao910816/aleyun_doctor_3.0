@@ -51,6 +51,7 @@ class HCListCellItem {
     var inputSize: CGSize = .init(width: 100, height: 25)
     var placeholder: String = ""
     var inputEnable: Bool = true
+    var keyboardType: UIKeyboardType = .default
     
     // 右边按钮
     var detailButtonSize:CGSize = .zero

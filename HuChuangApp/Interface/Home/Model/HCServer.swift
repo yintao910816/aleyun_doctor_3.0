@@ -8,6 +8,15 @@
 
 import Foundation
 
+public enum HCConsultSettingDelMode {
+    /// 未设置
+    case noSetting
+    /// 已有人预约
+    case hasReceive
+    /// 可以取消排班
+    case enable
+}
+
 //MARK: 界面展示
 struct HCServerSettingModel {
     var icon: UIImage?
@@ -92,16 +101,18 @@ class HCQueryPreciseScheduleModel: HJModel {
     var address: String = ""
     var open: Bool = false
     
-    var scheduleList: [HCQueryPreciseScheduleItemModel] = []
+    var scheduleMap: [String: [String: Any]] = [:]
 }
 
 class HCQueryPreciseScheduleItemModel: HJModel {
     var id: String = ""
     var userId: String = ""
     var subjectsDate: String = ""
-    var morningNum: String = ""
-    var afternoonNum: String = ""
+    var morningNum: Int = 0
+    var afternoonNum: Int = 0
     var del: Bool = false
     var createDate: String = ""
     var modifyDate: String = ""
+    var morningReservedNum: Int = 0
+    var afternoonReservedNum: Int = 0
 }

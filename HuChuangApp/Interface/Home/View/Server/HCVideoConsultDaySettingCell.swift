@@ -25,6 +25,8 @@ class HCVideoConsultDaySettingCell: UICollectionViewCell {
         backgroundColor = RGB(248, 248, 250)
         
         layer.cornerRadius = 3
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.clear.cgColor
         clipsToBounds = true
         
         dateLabel = UILabel()
@@ -83,6 +85,14 @@ class HCVideoConsultDaySettingCell: UICollectionViewCell {
                 remindLabel.isHidden = false
                 timeLabel.isHidden = true
                 peosLabel.isHidden = true
+            }
+            
+            if model.isSelected {
+                backgroundColor = RGB(226, 237, 255)
+                layer.borderColor = HC_MAIN_COLOR.cgColor
+            }else {
+                backgroundColor = RGB(248, 248, 250)
+                layer.borderColor = UIColor.clear.cgColor
             }
         }
     }

@@ -299,19 +299,44 @@ extension String {
 
 extension String { /**时间与日期*/
 
-    public func stringFormatDate() ->Date?{
+    public func stringFormatDate(mode: HCDateMode = .yymmddhhmm) ->Date?{
         let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let date = format.date(from: _transform())
-        return date
+        format.dateFormat = mode.rawValue
+        return format.date(from: transform(mode: mode))
     }
     
-    fileprivate func _transform() -> String {
-        
-        if components(separatedBy: " ").count == 1{
-            return appending(" 00:00:00")
+    public func transform(mode: HCDateMode) -> String {
+        var result: String = ""
+        switch mode {
+        case .yymm:
+            let comps = components(separatedBy: "-")
+            if comps.count > 2 {
+                result = "\(comps[0])-\(comps[1])"
+            }else {
+                result = self
+            }
+        case .yymmdd:
+            let comps = components(separatedBy: " ")
+            if comps.count > 1 {
+                result = comps[0]
+            }else {
+                result = self
+            }
+        case .yymmddhhmm:
+            if components(separatedBy: " ").count == 1{
+                result = appending(" 00:00")
+            }
+        case .yymmddhhmmss:
+            if components(separatedBy: " ").count == 1{
+                result = appending(" 00:00:00")
+            }
+        case .newyymmdd:
+            let comps = components(separatedBy: "-")
+            if comps.count == 3 {
+                result = "\(comps[0])\(comps[1])\(comps[2])"
+            }
         }
-        return self
+        return result
     }
 }
 

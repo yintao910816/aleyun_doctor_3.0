@@ -24,6 +24,13 @@ class HCVideoConsultSettingController: BaseViewController {
             let picker = HCVideoConsultSettingPicker()
             picker.pickerHeight = 230
             picker.datasource = HCPickerSectionData.createVideoConsultSettingDatas()
+            picker.submitSubject
+                .bind(to: self.viewModel.submitSubject)
+                .disposed(by: disposeBag)
+            picker.cancelScheduleSubject
+                .bind(to: self.viewModel.cancelScheduleSubject)
+                .disposed(by: disposeBag)
+
             self.model(for: picker, controllerHeight: self.view.height)
         }
     }
@@ -33,6 +40,10 @@ class HCVideoConsultSettingController: BaseViewController {
         
         viewModel.datasource.asDriver()
             .drive(onNext: { [unowned self] in self.container.datasource = $0 })
+            .disposed(by: disposeBag)
+        
+        container.updateConsultUserStatusSubject
+            .bind(to: viewModel.updateConsultUserStatusSubject)
             .disposed(by: disposeBag)
         
         viewModel.reloadSubject.onNext(Void())

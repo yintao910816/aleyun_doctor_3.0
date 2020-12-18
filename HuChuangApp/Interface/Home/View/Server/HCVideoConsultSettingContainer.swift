@@ -8,13 +8,18 @@
 
 import UIKit
 
+import RxSwift
+
 class HCVideoConsultSettingContainer: UIView {
     
     private var actionView: HCConsultSettingBottomActionView!
     private var collectionView: UICollectionView!
     
-    public var dayItemSelectedCallBack: ((HCVideoDaySettingModel)->())?
+    private var lastSelected = IndexPath.init(row: 0, section: 2)
     
+    public var dayItemSelectedCallBack: ((HCVideoDaySettingModel)->())?
+    public let updateConsultUserStatusSubject = PublishSubject<Void>()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -28,6 +33,13 @@ class HCVideoConsultSettingContainer: UIView {
         collectionView.dataSource = self
         
         actionView = HCConsultSettingBottomActionView(frame: .init(x: 0, y: height - 50, width: width, height: 50))
+        actionView.actionCallBack = { [unowned self] in
+            if $0 == .save {
+                self.updateConsultUserStatusSubject.onNext(Void())
+            }else {
+                
+            }
+        }
 
         addSubview(actionView)
         addSubview(collectionView)
@@ -145,7 +157,19 @@ extension HCVideoConsultSettingContainer: UICollectionViewDataSource, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         if let model = datasource[indexPath.section][indexPath.row] as? HCVideoDaySettingModel {
+            
+            if let lastItem = datasource[lastSelected.section][lastSelected.row] as? HCVideoDaySettingModel {
+                lastItem.isSelected = false
+            }
+            
+            model.isSelected = true
+            
+            lastSelected = indexPath
+            
+            collectionView.reloadData()
+            
             dayItemSelectedCallBack?(model)
         }
     }

@@ -22,6 +22,7 @@ class HCSwitchCollectionCell: HCCollectionCell {
     }
     
     @objc private func changeValue(switch: UISwitch) {
+        model.isOn = switchView.isOn
         clickedSwitchCallBack?((switchView.isOn, model))
     }
     

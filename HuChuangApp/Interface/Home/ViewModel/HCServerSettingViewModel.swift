@@ -20,9 +20,31 @@ class HCServerSettingViewModel: BaseViewModel {
     
     override init() {
         super.init()
+
+        NotificationCenter.default.rx.notification(NotificationName.ConsultSetting.picSettingChanged, object: nil)
+            .subscribe(onNext: { [weak self] in
+                if let m = $0.object as? HCConsultStatusModel {
+                    self?.openStatusModel.picModel = m
+                    self?.prepareCellData(isFirst: false)
+                }
+            })
+            .disposed(by: disposeBag)
         
-        
-        
+        NotificationCenter.default.rx.notification(NotificationName.ConsultSetting.videoSettingChanged, object: nil)
+            .subscribe(onNext: { [weak self] in
+                if let m = $0.object as? HCConsultStatusModel {
+                    self?.openStatusModel.picModel = m
+                    self?.prepareCellData(isFirst: false)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        NotificationCenter.default.rx.notification(NotificationName.ConsultSetting.querySettingChanged, object: nil)
+            .subscribe(onNext: { [weak self] _ in
+                self?.prepareCellData(isFirst: false)
+            })
+            .disposed(by: disposeBag)
+
         reloadSubject
             .subscribe(onNext: { [weak self] in
                 self?.prepareCellData(isFirst: true)
@@ -36,8 +58,7 @@ class HCServerSettingViewModel: BaseViewModel {
         Observable.combineLatest(requestGetOpenConsultStatus(),
                                  requestQueryPreciseSchedule()){ ($0, $1) }
             .subscribe(onNext: { [weak self] data in
-                self?.queryPreciseScheduleModel = data.1
-                
+
                 if let jsonDic = data.0 as? [String: Any] {
                     
                     if let code = jsonDic["code"] as? Int,
@@ -58,16 +79,48 @@ class HCServerSettingViewModel: BaseViewModel {
                             self?.openStatusModel.videoModel = model
                         }
 
-                        self?.prepareCellData(isFirst: false)
-                        
-                        self?.hud.noticeHidden()
                     }else {
                         self?.hud.failureHidden(jsonDic["message"] as? String)
+                        return
                     }
                 }else {
                     self?.hud.failureHidden("json解析失败")
+                    return
                 }
 
+                if let jsonDic = data.1 as? [String: Any] {
+                    
+                    if let code = jsonDic["code"] as? Int,
+                       let resDic = jsonDic["data"] as? [String: Any],
+                       code == RequestCode.success.rawValue {
+                                                
+                        if let price = resDic["price"] as? Float  {
+                            self?.queryPreciseScheduleModel.price = price
+                        }
+                        
+                        if let address = resDic["address"] as? String {
+                            self?.queryPreciseScheduleModel.address = address
+                        }
+
+                        if let open = resDic["open"] as? Bool {
+                            self?.queryPreciseScheduleModel.open = open
+                        }
+                        
+                        if let scheduleMap = resDic["scheduleMap"] as? [String: [String : Any]] {
+                            self?.queryPreciseScheduleModel.scheduleMap = scheduleMap
+                        }
+                    }else {
+                        self?.hud.failureHidden(jsonDic["message"] as? String)
+                        return
+                    }
+                }else {
+                    self?.hud.failureHidden("json解析失败")
+                    return
+                }
+
+                self?.prepareCellData(isFirst: false)
+                
+                self?.hud.noticeHidden()
             })
             .disposed(by: disposeBag)
     }
@@ -79,10 +132,10 @@ class HCServerSettingViewModel: BaseViewModel {
             .asObservable()
     }
     
-    private func requestQueryPreciseSchedule() ->Observable<HCQueryPreciseScheduleModel> {
+    private func requestQueryPreciseSchedule() ->Observable<Any> {
         return HCProvider.request(.queryPreciseSchedule)
-            .map(model: HCQueryPreciseScheduleModel.self)
-            .catchErrorJustReturn(HCQueryPreciseScheduleModel())
+            .mapJSON()
+            .catchErrorJustReturn([:])
             .asObservable()
     }
 }

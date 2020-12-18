@@ -8,11 +8,16 @@
 
 import UIKit
 
+import RxSwift
+
 class HCPicConsultSettingContainer: UIView {
 
     private var collectionView: UICollectionView!
     private var actionView: HCConsultSettingBottomActionView!
     
+    public var cellDidSelected: ((IndexPath)->())?
+    public let updateConsultUserStatusSubject = PublishSubject<Void>()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -30,7 +35,14 @@ class HCPicConsultSettingContainer: UIView {
         collectionView.dataSource = self
         
         actionView = HCConsultSettingBottomActionView(frame: .init(x: 0, y: height - 50, width: width, height: 50))
-        
+        actionView.actionCallBack = { [unowned self] in
+            if $0 == .save {
+                self.updateConsultUserStatusSubject.onNext(Void())
+            }else {
+                
+            }
+        }
+
         addSubview(actionView)
         addSubview(collectionView)
         
@@ -73,4 +85,7 @@ extension HCPicConsultSettingContainer: UICollectionViewDataSource, UICollection
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        cellDidSelected?(indexPath)
+    }
 }

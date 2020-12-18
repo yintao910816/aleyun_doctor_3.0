@@ -20,8 +20,23 @@ class HCqueryScheduleConsultSettingController: BaseViewController {
         container = HCQueryScheduleConsultSettingContainer.init(frame: view.bounds)
         view.addSubview(container)
         
-        container.dayItemSelectedCallBack = { [unowned self] _ in
+        container.dayItemSelectedCallBack = { [unowned self] in
             let picker = HCQueryScheduleConsultSettingPicker()
+            if let m = $0.settingModel {
+                picker.afternoonCount = m.afternoonReservedNum > 0 ? m.afternoonReservedNum : m.afternoonNum
+                picker.morningCount = m.morningReservedNum > 0 ? m.morningReservedNum : m.morningNum
+                picker.morningReservedNum = m.morningReservedNum
+                picker.afternoonReservedNum = m.afternoonReservedNum
+                picker.mode = (m.morningReservedNum > 0 || m.afternoonReservedNum > 0) ? .hasReceive : .enable
+            }else {
+                picker.mode = .noSetting
+            }
+            picker.submitSubject
+                .bind(to: self.viewModel.submitSubject)
+                .disposed(by: disposeBag)
+            picker.cancelScheduleSubject
+                .bind(to: self.viewModel.cancelScheduleSubject)
+                .disposed(by: disposeBag)
             self.model(for: picker, controllerHeight: self.view.height)
         }
 
@@ -34,6 +49,10 @@ class HCqueryScheduleConsultSettingController: BaseViewController {
             .drive(onNext: { [unowned self] in self.container.datasource = $0 })
             .disposed(by: disposeBag)
         
+        container.updateConsultUserStatusSubject
+            .bind(to: viewModel.updateConsultUserStatusSubject)
+            .disposed(by: disposeBag)
+
         viewModel.reloadSubject.onNext(Void())
     }
     

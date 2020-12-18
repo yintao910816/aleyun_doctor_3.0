@@ -31,16 +31,16 @@ class HCHomeViewController: BaseViewController {
 ////            self?.navigationController?.pushViewController(webVC, animated: true)
 //        }
         
-        containerView.funcItemClicked = { [weak self] in
-            if $0.name == "排班设置" {
+        containerView.funcItemClicked = { [weak self] _ in
+//            if $0.name == "排班设置" {
                 self?.navigationController?.pushViewController(HCServerSettingController(),
                                                                animated: true)
-            }else {
-                let webVC = BaseWebViewController()
-                webVC.url = $0.functionUrl
-                webVC.title = $0.name
-                self?.navigationController?.pushViewController(webVC, animated: true)
-            }
+//            }else {
+//                let webVC = BaseWebViewController()
+//                webVC.url = $0.functionUrl
+//                webVC.title = $0.name
+//                self?.navigationController?.pushViewController(webVC, animated: true)
+//            }
         }
         
         containerView.buttonClicked = { [weak self] in

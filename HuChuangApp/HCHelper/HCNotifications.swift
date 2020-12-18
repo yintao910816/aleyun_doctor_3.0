@@ -65,4 +65,13 @@ extension Notification.Name {
         static let onLineBusyVideoCall = Notification.Name(rawValue: "org.UILogic.notification.name.onLineBusyVideoCall")
     }
 
+    public struct ConsultSetting {
+        /// 图文咨询设置修改
+        static let picSettingChanged = Notification.Name(rawValue: "org.UILogic.notification.name.picSettingChanged")
+        /// 视频咨询设置修改
+        static let videoSettingChanged = Notification.Name(rawValue: "org.UILogic.notification.name.videoSettingChanged")
+        /// 精准预约设置修改
+        static let querySettingChanged = Notification.Name(rawValue: "org.UILogic.notification.name.querySettingChanged")
+    }
+
 }
