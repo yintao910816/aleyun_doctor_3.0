@@ -325,15 +325,21 @@ extension String { /**时间与日期*/
         case .yymmddhhmm:
             if components(separatedBy: " ").count == 1{
                 result = appending(" 00:00")
+            }else {
+                result = self
             }
         case .yymmddhhmmss:
             if components(separatedBy: " ").count == 1{
                 result = appending(" 00:00:00")
+            }else {
+                result = self
             }
         case .newyymmdd:
             let comps = components(separatedBy: "-")
             if comps.count == 3 {
                 result = "\(comps[0])\(comps[1])\(comps[2])"
+            }else {
+                result = self
             }
         }
         return result

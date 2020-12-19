@@ -248,50 +248,37 @@ extension HCqueryScheduleConsultSettingViewModel {
 
                 postParams["schedule"] = scheduleParams
             }else {
-                if let dic = model.scheduleMap[selectedDay.date.transform(mode: .newyymmdd)],
-                   let m = JSONDeserializer<HCQueryPreciseScheduleItemModel>.deserializeFrom(dict: dic) {
-                    var tempParams: [String: Any] = [:]
-                    tempParams["scheduleId"] = m.id
-                    tempParams["subjectsDate"] = selectedDay.date
-                    tempParams["morningNum"] = m.morningNum
-                    tempParams["afternoonNum"] = m.afternoonNum
-                    
-                    postParams["schedule"] = tempParams
-                }else {
-                    hud.failureHidden("参数错误")
+
+                if (datasource.value[1].first as! HCListCellItem).detailTitle.count == 0 {
+                    NoticesCenter.alert(message: "咨询价格不能为空")
                     return
                 }
+                
+                var twzx: [String: Any] = [:]
+                twzx["isOpen"] = (datasource.value[0].first as! HCListCellItem).isOn
+
+                var price = (datasource.value[1].first as! HCListCellItem).detailTitle
+                price = price.replacingOccurrences(of: "元", with: "")
+                
+                guard let floatPrice = Float(price) else {
+                    NoticesCenter.alert(message: "请输入正确的价格")
+                    return
+                }
+                dealPrice = floatPrice
+                twzx["price"] = floatPrice
+
+                twzx["address"] = (datasource.value[2].first as! HCListCellItem).detailTitle
+
+                postParams["jzyy"] = twzx
             }
             
-            if (datasource.value[1].first as! HCListCellItem).detailTitle.count == 0 {
-                NoticesCenter.alert(message: "咨询价格不能为空")
-                return
-            }
-            
-            var twzx: [String: Any] = [:]
-            twzx["isOpen"] = (datasource.value[0].first as! HCListCellItem).isOn
-
-            var price = (datasource.value[1].first as! HCListCellItem).detailTitle
-            price = price.replacingOccurrences(of: "元", with: "")
-            
-            guard let floatPrice = Float(price) else {
-                NoticesCenter.alert(message: "请输入正确的价格")
-                return
-            }
-            dealPrice = floatPrice
-            twzx["price"] = floatPrice
-
-            twzx["address"] = (datasource.value[2].first as! HCListCellItem).detailTitle
-
-            postParams["jzyy"] = twzx
-
         }else {
             hud.failureHidden("参数错误")
             return
         }
 
         hud.noticeLoading()
-        HCProvider.request(.updateConsultUserStatus(params: postParams))
+        HCProvider.request(.updatePreciseSchedule(params: postParams))
             .mapResponse()
             .subscribe(onSuccess: { [weak self] in
                 guard let strongSelf = self else { return }

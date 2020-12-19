@@ -73,7 +73,7 @@ class HCQueryScheduleConsultSettingPicker: UIViewController {
         morningLabel.font = .font(fontSize: 15, fontName: .PingFSemibold)
         
         morningRemindLabel = UILabel()
-        morningRemindLabel.text = "当前已预约\(morningReservedNum)人"
+        morningRemindLabel.text = "当前已预约\(morningReservedNum)人，接诊人数必须大于已预约人数"
         morningRemindLabel.textColor = RGB(231, 93, 88)
         morningRemindLabel.font = .font(fontSize: 14, fontName: .PingFSemibold)
         morningRemindLabel.isHidden = true
@@ -103,7 +103,7 @@ class HCQueryScheduleConsultSettingPicker: UIViewController {
         afternoonLabel.font = .font(fontSize: 15, fontName: .PingFSemibold)
 
         afternoonRemindLabel = UILabel()
-        afternoonRemindLabel.text = "当前已预约\(afternoonReservedNum)人"
+        afternoonRemindLabel.text = "当前已预约\(afternoonReservedNum)人，接诊人数必须大于已预约人数"
         afternoonRemindLabel.textColor = RGB(231, 93, 88)
         afternoonRemindLabel.font = .font(fontSize: 14, fontName: .PingFSemibold)
         afternoonRemindLabel.isHidden = true

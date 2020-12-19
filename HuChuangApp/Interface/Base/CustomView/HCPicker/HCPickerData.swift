@@ -17,31 +17,27 @@ struct HCPickerSectionData {
         var endDatas: [HCPickerItemModel] = []
         var peosDatas: [HCPickerItemModel] = []
         
-        for idx in 0...24 {
+        for idx in 0..<24 {
             if idx < 10 {
                 var m1 = HCPickerItemModel()
                 m1.title = "0\(idx):00"
                 startDatas.append(m1)
                 endDatas.append(m1)
 
-                if idx < 24 {
-                    var m2 = HCPickerItemModel()
-                    m2.title = "0\(idx):30"
-                    startDatas.append(m2)
-                    endDatas.append(m2)
-                }
+                var m2 = HCPickerItemModel()
+                m2.title = "0\(idx):30"
+                startDatas.append(m2)
+                endDatas.append(m2)
             }else {
                 var m1 = HCPickerItemModel()
                 m1.title = "\(idx):00"
                 startDatas.append(m1)
                 endDatas.append(m1)
 
-                if idx < 24 {
-                    var m2 = HCPickerItemModel()
-                    m2.title = "\(idx):30"
-                    startDatas.append(m2)
-                    endDatas.append(m2)
-                }
+                var m2 = HCPickerItemModel()
+                m2.title = "\(idx):30"
+                startDatas.append(m2)
+                endDatas.append(m2)
             }
         }
         
@@ -61,31 +57,27 @@ struct HCPickerSectionData {
         var startDatas: [HCPickerItemModel] = []
         var endDatas: [HCPickerItemModel] = []
         
-        for idx in 0...24 {
+        for idx in 0..<24 {
             if idx < 10 {
                 var m1 = HCPickerItemModel()
                 m1.title = "0\(idx):00"
                 startDatas.append(m1)
                 endDatas.append(m1)
 
-                if idx < 24 {
-                    var m2 = HCPickerItemModel()
-                    m2.title = "0\(idx):30"
-                    startDatas.append(m2)
-                    endDatas.append(m2)
-                }
+                var m2 = HCPickerItemModel()
+                m2.title = "0\(idx):30"
+                startDatas.append(m2)
+                endDatas.append(m2)
             }else {
                 var m1 = HCPickerItemModel()
                 m1.title = "\(idx):00"
                 startDatas.append(m1)
                 endDatas.append(m1)
 
-                if idx < 24 {
-                    var m2 = HCPickerItemModel()
-                    m2.title = "\(idx):30"
-                    startDatas.append(m2)
-                    endDatas.append(m2)
-                }
+                var m2 = HCPickerItemModel()
+                m2.title = "\(idx):30"
+                startDatas.append(m2)
+                endDatas.append(m2)
             }
         }
                 

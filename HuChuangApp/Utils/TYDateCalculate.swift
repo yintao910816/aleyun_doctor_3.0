@@ -199,6 +199,15 @@ extension TYDateCalculate {
         let endOfMonth = calendar.date(byAdding: components, to: startOfCurrentMonth())!
         return endOfMonth
     }
+    
+    /// 比较两个时间大小
+    public class func compare(dateStr: String, other: String, mode: HCDateMode = .yymmdd) ->ComparisonResult {
+        guard let date = dateStr.stringFormatDate(mode: mode),
+              let otherDate = other.stringFormatDate(mode: mode) else {
+            return .orderedSame
+        }
+        return date.compare(otherDate)
+    }
 }
 
 extension TYDateCalculate {

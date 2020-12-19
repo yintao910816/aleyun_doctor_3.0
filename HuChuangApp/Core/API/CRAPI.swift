@@ -235,8 +235,10 @@ enum API{
     case deleteVideoConsultSchedule(scheduleId: String)
     /// 添加精准预约排班
     case addPreciseSchedule(params: [String: Any])
-    /// api/preciseSchedule/delPreciseSchedule
+    /// 取消精准预约排班
     case delPreciseSchedule(scheduleId: String)
+    /// 修改精准预约排班
+    case updatePreciseSchedule(params: [String: Any])
     
     // --------------- 3.0接口
     /// 实名认证
@@ -406,6 +408,8 @@ extension API: TargetType{
             return "api/preciseSchedule/addPreciseSchedule"
         case .delPreciseSchedule(_):
             return "api/preciseSchedule/delPreciseSchedule"
+        case .updatePreciseSchedule(_):
+            return "api/preciseSchedule/updatePreciseSchedule"
             
         case .realNameAuth(_, _, _, _, _):
             return "api/consumer/realNameAuth"
@@ -656,6 +660,8 @@ extension API {
             params = p
         case .delPreciseSchedule(let scheduleId):
             params["scheduleId"] = scheduleId
+        case .updatePreciseSchedule(let p):
+            params = p
 
         case .realNameAuth(let realName, let sex, let birthDay, let certificateType, let certificateNo):
             params["realName"] = realName

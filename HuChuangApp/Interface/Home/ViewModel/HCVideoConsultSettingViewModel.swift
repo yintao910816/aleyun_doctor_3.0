@@ -27,7 +27,17 @@ class HCVideoConsultSettingViewModel: BaseViewModel {
         self.model = model
         
         submitSubject
-            .subscribe(onNext: { [unowned self] in self.requestAddVideoConsultSchedule(params: $0) })
+            .subscribe(onNext: { [unowned self] in
+                if let tempItems = datasource.value[2] as? [HCVideoDaySettingModel],
+                   let dayItem = tempItems.first(where: { $0.isSelected == true }) {
+                   
+                    if dayItem.settingModel == nil {
+                        requestAddVideoConsultSchedule(params: $0)
+                    }else {
+                        requestUpdateConsultUserStatus(params: $0)
+                    }
+                }
+            })
             .disposed(by: disposeBag)
         
         cancelScheduleSubject
@@ -35,7 +45,7 @@ class HCVideoConsultSettingViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         updateConsultUserStatusSubject
-            .subscribe(onNext: { [unowned self] in self.requestUpdateConsultUserStatus() })
+            .subscribe(onNext: { [unowned self] in self.requestUpdateConsultUserStatus(params: nil) })
             .disposed(by: disposeBag)
 
         reloadSubject
@@ -98,20 +108,25 @@ extension HCVideoConsultSettingViewModel {
         datasource.value = [[switchModel], [priceModel], dayItems]
     }
     
-    private func reloadDayItems(dateStr: String, updateParams: [String: Any]?) {
+    private func reloadDayItems(dateStr: String, params: [String: Any]?) {
         let datas = datasource.value
         
         if let tempItems = datas[2] as? [HCVideoDaySettingModel],
            let dayItem = tempItems.first(where: { $0.date == dateStr }) {
          
-            if let json = updateParams {
-                if let model = JSONDeserializer<HCConsultDaySettingModel>.deserializeFrom(dict: json) {
-                    dayItem.settingModel = model
-                }
+            if let p = params, let model = JSONDeserializer<HCConsultDaySettingModel>.deserializeFrom(dict: p) {
+                dayItem.settingModel = model
             }else {
-                dayItem.settingModel = nil
+                if let json = model.consultVideoUserSubjectTimeMap[dateStr.transform(mode: .newyymmdd)] {
+                    if let model = JSONDeserializer<HCConsultDaySettingModel>.deserializeFrom(dict: json) {
+                 
+                        dayItem.settingModel = model
+                    }
+                }else {
+                    dayItem.settingModel = nil
+                }
             }
-
+            
             datasource.value = datas
         }
     }
@@ -143,7 +158,7 @@ extension HCVideoConsultSettingViewModel {
                             tempDic[selectedDay.date.transform(mode: .newyymmdd)] = resDic
                             strongSelf.model.consultVideoUserSubjectTimeMap = tempDic
                             
-                            strongSelf.reloadDayItems(dateStr: selectedDay.date, updateParams: resDic)
+                            strongSelf.reloadDayItems(dateStr: selectedDay.date, params: resDic)
                             
                             self?.hud.noticeHidden()
                         }else {
@@ -176,7 +191,7 @@ extension HCVideoConsultSettingViewModel {
                     .subscribe(onSuccess: { [weak self] in
                         if $0.code == RequestCode.success.rawValue {
                             self?.model.consultVideoUserSubjectTimeMap[key] = nil
-                            self?.reloadDayItems(dateStr: selectedDay.date, updateParams: nil)
+                            self?.reloadDayItems(dateStr: selectedDay.date, params: nil)
                             self?.hud.noticeHidden()
                         }else {
                             self?.hud.failureHidden($0.message)
@@ -193,47 +208,69 @@ extension HCVideoConsultSettingViewModel {
         }
     }
     
-    private func requestUpdateConsultUserStatus() {
-        if (datasource.value[1].first as! HCListCellItem).detailTitle.count == 0 {
-            NoticesCenter.alert(message: "咨询价格不能为空")
-            return
-        }
-        
-        var spzx: [String: Any] = [:]
-        var price = (datasource.value[1].first as! HCListCellItem).detailTitle
-        price = price.replacingOccurrences(of: "元", with: "")
-        spzx["isOpen"] = (datasource.value[0].first as! HCListCellItem).isOn
-        spzx["price"] = price
-        spzx["type"] = 2
-        
-        guard  let floatPrice = Float(price) else {
-            NoticesCenter.alert(message: "请输入正确的价格")
-            return
-        }
+    private func requestUpdateConsultUserStatus(params: [String: Any]?) {
+        var postParams: [String: [String: Any]] = [:]
+        var dealPrice: Float = 0
+        var dayKey: String = ""
 
-        var schedule: [String: Any] = [:]
         if let days = datasource.value[2] as? [HCVideoDaySettingModel],
-           let selectedDay = days.first(where: { $0.isSelected == true }),
-           let dic = model.consultVideoUserSubjectTimeMap[selectedDay.date.transform(mode: .newyymmdd)],
-           let m = JSONDeserializer<HCConsultDaySettingModel>.deserializeFrom(dict: dic) {
-            schedule["subjectsDate"] = selectedDay.date
-            schedule["startTime"] = m.startTime
-            schedule["endTime"] = m.endTime
-            schedule["recevieNum"] = m.recevieNum
+           let selectedDay = days.first(where: { $0.isSelected == true }) {
+            
+            dayKey = selectedDay.date
+            
+            if var scheduleParams = params {
+                scheduleParams["id"] = selectedDay.settingModel?.id ?? ""
+                scheduleParams["subjectsDate"] = selectedDay.date
+
+                postParams["schedule"] = scheduleParams
+            }else {
+
+                if (datasource.value[1].first as! HCListCellItem).detailTitle.count == 0 {
+                    NoticesCenter.alert(message: "咨询价格不能为空")
+                    return
+                }
+                
+                var spzx: [String: Any] = [:]
+                spzx["isOpen"] = (datasource.value[0].first as! HCListCellItem).isOn
+
+                var price = (datasource.value[1].first as! HCListCellItem).detailTitle
+                price = price.replacingOccurrences(of: "元", with: "")
+                
+                guard let floatPrice = Float(price) else {
+                    NoticesCenter.alert(message: "请输入正确的价格")
+                    return
+                }
+                dealPrice = floatPrice
+                
+                spzx["price"] = floatPrice
+                spzx["type"] = 2
+
+                postParams["spzx"] = spzx
+            }
+            
         }else {
             hud.failureHidden("参数错误")
             return
         }
-        
+
         hud.noticeLoading()
-        let postParams = ["spzx": spzx, "schedule": schedule]
+                
         HCProvider.request(.updateConsultUserStatus(params: postParams))
             .mapResponse()
             .subscribe(onSuccess: { [weak self] in
                 guard let strongSelf = self else { return }
                 if $0.code == RequestCode.success.rawValue {
-                    strongSelf.model.price = floatPrice
-                    strongSelf.model.isOpen = (strongSelf.datasource.value[0].first as! HCListCellItem).isOn
+                    if params == nil {
+                        strongSelf.model.price = dealPrice
+                        strongSelf.model.isOpen = (strongSelf.datasource.value[0].first as! HCListCellItem).isOn
+                    }else {
+                        let key = dayKey.transform(mode: .newyymmdd)
+                        strongSelf.model.consultVideoUserSubjectTimeMap[key]?["startTime"] = params?["startTime"]
+                        strongSelf.model.consultVideoUserSubjectTimeMap[key]?["endTime"] = params?["endTime"]
+                        strongSelf.model.consultVideoUserSubjectTimeMap[key]?["recevieNum"] = params?["recevieNum"]
+                        
+                        strongSelf.reloadDayItems(dateStr: dayKey, params: strongSelf.model.consultVideoUserSubjectTimeMap[key])
+                    }
                     
                     NotificationCenter.default.post(name: NotificationName.ConsultSetting.videoSettingChanged,
                                                     object: strongSelf.model)

@@ -109,24 +109,27 @@ class HCPicConsultSettingPicker: HCPickerView {
     
     @objc private func actions(button: UIButton) {
         
-        dismiss(animated: true) { [weak self] in
-            guard let strongSelf = self else { return }
-            if let firstRow = strongSelf.selectedInfo[0],
-               let secondRow = strongSelf.selectedInfo[1] {
-                strongSelf.submitSubject.onNext(["startTime":strongSelf.datasource[0].items[firstRow].title, "endTime":strongSelf.datasource[1].items[secondRow].title])
-            }
+        guard let firstRow = selectedInfo[0],
+              let secondRow = selectedInfo[1] else {
+            NoticesCenter.alert(message: "时间格式化错误")
+            return
         }
-    }
-    
-    override func doneAction() {
-                
+        
+        let startTime = datasource[0].items[firstRow].title
+        let endTime = datasource[1].items[secondRow].title
+        
+        let tempStartTime = "2020-12-01 \(startTime)"
+        let tempEndTime = "2020-12-01 \(endTime)"
+        
+        let compare = TYDateCalculate.compare(dateStr: tempStartTime, other: tempEndTime, mode: .yymmddhhmm)
+        if compare != .orderedAscending {
+            NoticesCenter.alert(message: "结束时间必须大于开始时间")
+            return
+        }
+
         dismiss(animated: true) { [weak self] in
             guard let strongSelf = self else { return }
-            if let firstRow = strongSelf.selectedInfo[0],
-               let secondRow = strongSelf.selectedInfo[1],
-               let thirdRow = strongSelf.selectedInfo[2] {
-                strongSelf.submitSubject.onNext(["startTime":strongSelf.datasource[0].items[firstRow].title, "endTime":strongSelf.datasource[1].items[secondRow].title, "recevieNum":strongSelf.datasource[2].items[thirdRow].title])
-            }
+            strongSelf.submitSubject.onNext(["startTime":startTime, "endTime":endTime])
         }
     }
 }
