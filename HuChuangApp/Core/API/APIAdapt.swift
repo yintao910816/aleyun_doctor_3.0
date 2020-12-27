@@ -63,7 +63,10 @@ struct APIAssistance {
      */
     static public func mothed(API: API) ->Moya.Method{
         switch API {
-        case .version, .getUserInfo(_), .queryPreciseSchedule:
+        case .version,
+             .getUserInfo(_),
+             .queryPreciseSchedule,
+             .getConsultTemplates:
             return .get
         default:
             return .post

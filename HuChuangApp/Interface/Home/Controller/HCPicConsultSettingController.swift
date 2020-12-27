@@ -31,6 +31,10 @@ class HCPicConsultSettingController: BaseViewController {
                 self.model(for: picker, controllerHeight: self.view.height)
             }
         }
+        
+        container.closeCallBack = { [unowned self] in
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     override func rxBind() {

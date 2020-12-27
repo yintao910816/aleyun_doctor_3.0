@@ -25,17 +25,23 @@ class HCConsultDetailPhotoCell: HCConsultDetailBaseCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override public var model: HCConsultDetailConsultListModel! {
+    override public var model: HCChatListModel! {
         didSet {
             super.model = model
+
+            if model.files.count == 0 {
+                let file = HCConsultDetailFileModel()
+                file.filePath = model.content
+                model.files.append(file)
+            }
             
-            boxPhotoView.filles = model.imageModels
+            boxPhotoView.filles = model.files
         }
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         boxPhotoView.frame = model.getImageBoxFrame
     }
 

@@ -32,12 +32,12 @@ class HCConsultDetailAudioCell: HCConsultDetailBaseCell {
         super.init(coder: coder)
     }
     
-    override var model: HCConsultDetailConsultListModel! {
+    override var model: HCChatListModel! {
         didSet {
             super.model = model
-            
+
             audioIcon.image = UIImage(named: model.isMine ? "consult_icon_voice" : "consult_icon_voice_other")
-            audioDrution.text = model.audioDurationText
+            audioDrution.text = "\(model.timeLen)"
         }
     }
     

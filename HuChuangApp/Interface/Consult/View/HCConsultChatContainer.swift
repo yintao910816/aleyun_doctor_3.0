@@ -18,11 +18,11 @@ class HCConsultChatContainer: UIView {
     
     private var keyboardManager = KeyboardManager()
 
-    private var chatStatusView: HCConsultChatStatusView!
+    public var chatStatusView: HCConsultChatStatusView!
     
     public var tableView: UITableView!
     
-    public let dataSignal = Variable([SectionModel<HCConsultDetailItemModel, HCConsultDetailConsultListModel>]())
+    public let dataSignal = Variable([SectionModel<HCChatDataModel, HCChatListModel>]())
     /// 文字回复
     public let sendTextSubject = PublishSubject<String>()
     /// 图片回复
@@ -175,19 +175,20 @@ extension HCConsultChatContainer {
     }
     
     private func bindData() {
-        let datasource = RxTableViewSectionedReloadDataSource<SectionModel<HCConsultDetailItemModel, HCConsultDetailConsultListModel>>.init(configureCell: { _,tb,indexPath,model ->UITableViewCell in
+        let datasource = RxTableViewSectionedReloadDataSource<SectionModel<HCChatDataModel, HCChatListModel>>.init(configureCell: { _,tb,indexPath,model ->UITableViewCell in
             let cell = tb.dequeueReusableCell(withIdentifier: model.cellIdentifier) as! HCBaseConsultCell
             cell.model = model
-            cell.contentBgTagCallBack = {
-                AudioPlayHelper.share.prepare(with: $0.fileList.first ?? "")
+            cell.contentBgTagCallBack = { [weak self] in
+                AudioPlayHelper.share.prepare(with: $0.content)
             }
             return cell
         })
 
         dataSignal.asDriver()
             .do(onNext: { [weak self] in
-                self?.consultStatus = $0.last?.model.status ?? .unknow
-                self?.chatStatusView.sectionModel = $0.last?.model
+                guard let sectionModel = $0.last?.model else { return }
+                self?.consultStatus = sectionModel.mainInfo.statusMode
+                self?.chatStatusView.sectionModel = sectionModel.mainInfo
             })
             .drive(tableView.rx.items(dataSource: datasource))
             .disposed(by: disposeBag)
@@ -201,12 +202,12 @@ extension HCConsultChatContainer: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HCConsultDetailSectionHeader_identifier) as! HCConsultDetailSectionHeader
-        header.sectionModel = dataSignal.value[section].model
+        header.sectionModel = dataSignal.value[section].model.mainInfo
         return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return dataSignal.value[section].model.getSectionHeaderSize.height
+        return dataSignal.value[section].model.mainInfo.getSectionHeaderSize.height
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

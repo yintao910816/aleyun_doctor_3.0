@@ -30,15 +30,15 @@ class HCConsultDetailTimeCell: HCBaseConsultCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public var model: HCConsultDetailConsultListModel! {
-        didSet {
-            titleLabel.text = model.timeString
-        }
-    }
+//    override public var model: HCConsultDetailConsultListModel! {
+//        didSet {
+//            titleLabel.text = model.timeString
+//        }
+//    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        titleLabel.frame = model.getTimeFrame
+//        titleLabel.frame = model.getTimeFrame
     }
 }

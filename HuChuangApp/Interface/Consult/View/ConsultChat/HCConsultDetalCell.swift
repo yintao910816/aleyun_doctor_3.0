@@ -29,7 +29,7 @@ class HCConsultDetalCell: HCConsultDetailBaseCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public var model: HCConsultDetailConsultListModel! {
+    override public var model: HCChatListModel! {
         didSet {
             super.model = model
             contentTextLabel.text = model.content

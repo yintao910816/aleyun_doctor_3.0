@@ -23,8 +23,11 @@ class HCFastReplyController: BaseViewController {
         
         container = HCFastReplyContainer.init(frame: view.bounds)
         container.sendActionCallBack = { _ in  }
-        container.addActionCallBack = {  }
+        container.addActionCallBack = { [unowned self] in presentFastReplyEditCtrl() }
         container.dismissActionCallBack = { [weak self] in self?.dismiss(animated: true, completion: nil) }
+        container.moveTopActionCallBack = { [weak self] in self?.viewModel.moveTopSignal.onNext($0) }
+        container.delActionCallBack = { [weak self] in self?.viewModel.removeSignal.onNext($0) }
+
         view.addSubview(container)
     }
     
@@ -41,5 +44,11 @@ class HCFastReplyController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         container.frame = view.bounds
+    }
+    
+    private func presentFastReplyEditCtrl() {
+        let presentCtrl = MainNavigationController.init(rootViewController: HCEditFastReplyController())
+        presentCtrl.view.backgroundColor = .clear
+        model(for: presentCtrl, controllerHeight: view.size.height)
     }
 }

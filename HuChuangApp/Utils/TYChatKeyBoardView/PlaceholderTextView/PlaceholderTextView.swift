@@ -39,7 +39,7 @@ class PlaceholderTextView: UITextView, UITextViewDelegate {
         
         placeholderLabel.font = self.font
         placeholderLabel.textColor = placeholderColor
-        addSubview(placeholderLabel)        
+        addSubview(placeholderLabel)
     }
     
     private var placeholderLabel: UILabel = {
@@ -52,26 +52,45 @@ class PlaceholderTextView: UITextView, UITextViewDelegate {
     var placeholder: String? {
         didSet {
             placeholderLabel.text = placeholder
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
+    
+    override var contentInset: UIEdgeInsets {
+        didSet {
+            super.contentInset = contentInset
+            
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    
+        let w: CGFloat = width - contentInset.left - contentInset.right
+        let size = placeholderLabel.sizeThatFits(.init(width: w, height: CGFloat.greatestFiniteMagnitude))
+        let tempH = height - size.height > 0 ? size.height : height - contentInset.top - contentInset.bottom
+        if placeholderCenter {
+            let tempY = height - size.height > 0 ? (height - size.height) / 2.0 : contentInset.top
+            placeholderLabel.frame = .init(x: contentInset.left,
+                                           y: tempY,
+                                           width: size.width,
+                                           height: tempH)
+        }else {
+            placeholderLabel.frame = .init(x: 0,
+                                           y: 0,
+                                           width: size.width,
+                                           height: tempH)
         }
     }
     
     // 水印文字是否居中显示
     var placeholderCenter: Bool! = false {
         didSet {
-            if placeholderCenter == true {
-                placeholderLabel.snp.remakeConstraints({ make in
-                    make.centerY.equalTo(self.snp.centerY)
-                    make.left.equalTo(self).offset(5)
-                    make.right.equalTo(self).offset(-5)
-                })
-            }else {
-                placeholderLabel.snp.remakeConstraints { make in
-                    make.left.equalTo(self).offset(5)
-                    make.right.equalTo(self).offset(-5)
-                    make.top.equalTo(self).offset(5)
-                    make.bottom.equalTo(self).offset(-5)
-                }
-            }
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     
@@ -79,6 +98,9 @@ class PlaceholderTextView: UITextView, UITextViewDelegate {
         didSet {
             placeholderLabel.font = font
             super.font = font
+            
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
 
@@ -106,12 +128,6 @@ class PlaceholderTextView: UITextView, UITextViewDelegate {
             textView.resignFirstResponder()
         }
         return tvdelegate?.tv_textView(self, shouldChangeTextIn: range, replacementText: text) ?? true
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        placeholderLabel.snp.makeConstraints { $0.edges.equalTo(UIEdgeInsets.init(top: 5, left: 5, bottom: -5, right: -5)) }
     }
 }
 

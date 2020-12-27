@@ -66,11 +66,11 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var sectionModel: HCConsultDetailItemModel! {
+    public var sectionModel: HCChatMainInfoModel! {
         didSet {
             timeLabel.text = sectionModel.createDate
             contentLabel.text = sectionModel.content
-            boxPhotoView.filles = sectionModel.fileList
+            boxPhotoView.filles = sectionModel.fileListModel
             desPhotoTitleLabel.text = sectionModel.fileList.count > 0 ? "报告病例：" : ""
         }
     }

@@ -16,6 +16,7 @@ class HCPicConsultSettingContainer: UIView {
     private var actionView: HCConsultSettingBottomActionView!
     
     public var cellDidSelected: ((IndexPath)->())?
+    public var closeCallBack: (()->())?
     public let updateConsultUserStatusSubject = PublishSubject<Void>()
 
     override init(frame: CGRect) {
@@ -39,7 +40,7 @@ class HCPicConsultSettingContainer: UIView {
             if $0 == .save {
                 self.updateConsultUserStatusSubject.onNext(Void())
             }else {
-                
+                self.closeCallBack?()
             }
         }
 

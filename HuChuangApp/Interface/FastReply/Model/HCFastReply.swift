@@ -9,20 +9,24 @@
 import Foundation
 
 class HCFastReplyModel: HJModel {
+    var id: String = ""
     var title: String = ""
-    var link: String = ""
-    var iconPath: String = ""
-    var markText: String = ""
+    var content: String = ""
+    var userId: String = ""
+    var creates: String = ""
+    var modifys: String = ""
+    var createDate: String = ""
+    var modifyDate: String = ""
+    var unitId: String = ""
+    var path: String = ""
+    var pathList: String = ""
+    var sort: Int = 0
     
-    public static func creatTestDatas() ->[HCFastReplyModel] {
-        var datas: [HCFastReplyModel] = []
-        for _ in 0..<10 {
-            let m = HCFastReplyModel()
-            m.title = "测试标题"
-            m.link = "http://www.baidu.com"
-            m.markText = "备注：爱乐晕"
-            datas.append(m)
+    public lazy var imagePath: String = {
+        let strings = path.components(separatedBy: ",")
+        if strings.count > 0 {
+            return strings[0]
         }
-        return datas
-    }
+        return path
+    }()
 }

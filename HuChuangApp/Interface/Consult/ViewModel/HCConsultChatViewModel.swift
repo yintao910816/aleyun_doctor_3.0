@@ -12,13 +12,13 @@ import Foundation
 import RxDataSources
 import RxSwift
 
-class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, HCConsultDetailConsultListModel>> {
+class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatListModel>> {
     
     private var memberId: String = ""
     private var consultId: String = ""
 
     private var hasStartTimer: Bool = false
-    private var timer: CountdownTimer!
+    private var timer: Timer!
 
     public let timeObser = Variable("30:00")
     public let questionObser = Variable("1/1")
@@ -36,13 +36,9 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
     /// 用户信息获取完成
     public let getUerInfoSubject = PublishSubject<CallingUserModel>()
 
-    public func customDeinit() {
-        if timer != nil {
-            timer.timerRemove()
-            timer = nil
-        }
-    }
-    
+    /// 更新待接诊等待时间 - 等待时间已到期
+    public let waitTimeSignal = PublishSubject<Bool>()
+        
     init(memberId: String, consultId: String) {
         super.init()
         
@@ -57,21 +53,14 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
             }
             return Observable.just(HCFileUploadModel())
         }
-        .concatMap { [weak self] file -> Observable<ResponseModel> in
-            guard let strongSelf = self else { return Observable.just(ResponseModel()) }
+        .concatMap { [weak self] file -> Observable<HCReplySuccessModel> in
+            guard let strongSelf = self else { return Observable.just(HCReplySuccessModel()) }
             return strongSelf.submitReply(content: "", filePath: file.filePath, bak: "")
         }
-        .subscribe(onNext: { [weak self] res in
-            PrintLog("图片回复结果：\(res.message)")
-            if RequestCode(rawValue: res.code) == RequestCode.success {
-//                if self?.timer.isStart == false {
-//                    self?.timer.timerStar()
-//                }
-                self?.hud.noticeHidden()
-                self?.requestData(true)
-            }else {
-                self?.hud.failureHidden(res.message)
-            }
+        .subscribe(onNext: { [weak self] in
+            PrintLog("图片回复成功")
+            self?.dealReplySuccess(model: $0, contentMode: .image)
+            self?.hud.noticeHidden()
         }, onError: { [weak self] in
             self?.hud.failureHidden(self?.errorMessage($0))
         })
@@ -82,22 +71,15 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
             .flatMap { [unowned self] data -> Observable<(HCFileUploadModel, UInt)> in
                 return self.uploadFile(data: data.0, type: .audio)
                     .map{ ($0, data.1) }
-        }
-        .concatMap { [weak self] data -> Observable<ResponseModel> in
-            guard let strongSelf = self else { return Observable.just(ResponseModel()) }
-            return strongSelf.submitReply(content: "", filePath: data.0.filePath, bak: "\(data.1)")
-        }
-            .subscribe(onNext: { [weak self] res in
-                PrintLog("语音回复结果：\(res.message)")
-                if RequestCode(rawValue: res.code) == RequestCode.success {
-//                    if self?.timer.isStart == false {
-//                        self?.timer.timerStar()
-//                    }
-                    self?.hud.noticeHidden()
-                    self?.requestData(true)
-                }else {
-                    self?.hud.failureHidden(res.message)
-                }
+            }
+            .concatMap { [weak self] data -> Observable<HCReplySuccessModel> in
+                guard let strongSelf = self else { return Observable.just(HCReplySuccessModel()) }
+                return strongSelf.submitReply(content: "", filePath: data.0.filePath, bak: "\(data.1)")
+            }
+            .subscribe(onNext: { [weak self] in
+                PrintLog("语音回复成功")
+                self?.dealReplySuccess(model: $0, contentMode: .audio)
+                self?.hud.noticeHidden()
             }, onError: { [weak self] in
                 self?.hud.failureHidden(self?.errorMessage($0))
             })
@@ -106,17 +88,10 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCConsultDetailItemModel, H
         sendTextSubject
             ._doNext(forNotice: hud)
             .flatMap{ [unowned self] in self.submitReply(content: $0, filePath: "", bak: "") }
-            .subscribe(onNext: { [weak self] res in
-                PrintLog("文字回复结果：\(res.message)")
-                if RequestCode(rawValue: res.code) == RequestCode.success {
-//                    if self?.timer.isStart == false {
-//                        self?.timer.timerStar()
-//                    }
-//                    self?.requestData(true)
-                    self?.requestCurrentConsult()
-                }else {
-                    self?.hud.failureHidden(res.message)
-                }
+            .subscribe(onNext: { [weak self] in
+                PrintLog("文字回复成功")
+                self?.dealReplySuccess(model: $0, contentMode: .text)
+                self?.hud.noticeHidden()
             }, onError: { [weak self] in
                 self?.hud.failureHidden(self?.errorMessage($0))
             })
@@ -169,16 +144,15 @@ extension HCConsultChatViewModel {
     
     /// 加载当前咨询的消息
     private func requestCurrentConsult() {
-        HCProvider.request(.chatDetail(consultId: consultId, memberId: memberId))
-            .map(model: HCConsultDetailModel.self)
-            .subscribe(onSuccess: { [weak self] in
-                self?.dealRequestData(refresh:true, data: $0)
-            }) { [weak self] in
+        HCProvider.request(.chatDetail(consultId: consultId))
+            .map(model: HCChatDataModel.self)
+            .subscribe { [weak self] in
+                self?.dealRequestData(refresh: true, data: $0)
+            } onError: { [weak self] in
                 self?.revertCurrentPageAndRefreshStatus()
                 self?.hud.failureHidden(self?.errorMessage($0))
-        }
+            }
             .disposed(by: disposeBag)
-
     }
     
     private func uploadFile(data: Data, type: HCFileUploadType) ->Observable<HCFileUploadModel> {
@@ -187,9 +161,9 @@ extension HCConsultChatViewModel {
             .asObservable()
     }
 
-    private func submitReply(content: String, filePath: String, bak: String) ->Observable<ResponseModel> {
+    private func submitReply(content: String, filePath: String, bak: String) ->Observable<HCReplySuccessModel> {
         return HCProvider.request(.replyConsult(content: content, filePath: filePath, bak: bak, consultId: consultId))
-            .mapResponse()
+            .map(model: HCReplySuccessModel.self)
             .asObservable()
     }
 }
@@ -198,102 +172,140 @@ extension HCConsultChatViewModel {
 /// 消息展示逻辑处理
 extension HCConsultChatViewModel {
     
-    private func dealRequestData(refresh: Bool, data: HCConsultDetailModel) {
-        var sectionDatas: [SectionModel<HCConsultDetailItemModel, HCConsultDetailConsultListModel>] = []
+    private func dealReplySuccess(model: HCReplySuccessModel, contentMode: HCChatContentMode) {
+        var datas = datasource.value
+        if var items = datas.last?.items,
+           let sectionModel = datas.last?.model {
+            items.append(model.transform(contentType: contentMode))
+            datas = datas.dropLast()
+            datas.append(SectionModel(model: sectionModel, items: items))
+            datasource.value = datas
+        }
+    }
+    
+    private func dealRequestData(refresh: Bool, data: HCChatDataModel) {
+        var sectionDatas: [SectionModel<HCChatDataModel, HCChatListModel>] = []
         
-        var isEndReply: Bool = false
-        var startDate: String = ""
-        // 进入单聊界面，records只可能有一条数据
-        if let dataList = data.records.first {
-            var consultsList: [HCConsultDetailConsultListModel] = []
-            consultsList.append(contentsOf: dataList.consultList)
-            
-            if dataList.content == dataList.consultList.first?.content {
-                consultsList.remove(at: 0)
+        var fileModels: [HCConsultDetailFileModel] = []
+        for item in data.mainInfo.fileList {
+            let m = HCConsultDetailFileModel()
+            m.filePath = item
+            fileModels.append(m)
+        }
+        data.mainInfo.fileListModel = fileModels
+        
+        sectionDatas.append(SectionModel(model: data, items: data.chatList))
+        
+        let status = HCOrderDetailStatus(rawValue: data.mainInfo.status)
+        
+        if status == .unReplay {
+            if let startDate = data.mainInfo.createDate.stringFormatDate(mode: .yymmddhhmm) {
+                
+                let endDate = TYDateCalculate.getDate(currentDate: startDate,
+                                                      days: 1,
+                                                      isAfter: true)
+                
+                let compare = endDate.compare(Date())
+                if compare == .orderedDescending {
+                    sectionDatas.last?.model.mainInfo.isExpire = false
+                    startTimer()
+                }else {
+                    sectionDatas.last?.model.mainInfo.isExpire = true
+                }
             }
-
-            // 现在不显示开始回复的时间了
-//            if dataList.startDate.count > 0 {
-//                startDate = dataList.startDate
-//                let starDateModel = HCConsultDetailConsultListModel()
-//                starDateModel.cellIdentifier = HCConsultDetailTimeCell_identifier
-//                starDateModel.timeString = "开始回复 \(dataList.startDate)"
-//                consultsList.insert(starDateModel, at: 0)
-//            }
-//
-//            if dataList.endDate.count > 0 {
-//                let endDateModel = HCConsultDetailConsultListModel()
-//                endDateModel.cellIdentifier = HCConsultDetailTimeCell_identifier
-//                endDateModel.timeString = "结束回复 \(dataList.endDate)"
-//                consultsList.append(endDateModel)
-//
-//                isEndReply = true
-//            }
-            
-            let remindModel = HCConsultDetailConsultListModel()
-            remindModel.cellIdentifier = HCConsultDetailTimeCell_identifier
-            let status = HCOrderDetailStatus(rawValue: dataList.replyStatus) ?? .unknow
-            remindModel.timeString = status.chatRoonRemindText
-            consultsList.insert(remindModel, at: 0)
-            
-            sectionDatas.append(SectionModel.init(model: dataList, items: consultsList))
-
         }
         
-        questionObser.value = data.records.last?.question ?? "1/1"
-
-//        if !hasStartTimer {
-//            dealReplyTime(startTime: startDate, isEndReply: isEndReply)
-//        }
         
         updateRefresh(refresh, sectionDatas, data.pages)
         hud.noticeHidden()
     }
     
-    private func dealReplyTime(startTime: String, isEndReply: Bool) {
-        
-        isEndReplyObser.value = isEndReply
-        
-        if isEndReply {
-           timeObser.value = "已结束"
-        }else {
-            if timer != nil {
-                timer.timerRemove()
-            }
-            
-            var count: Int = 0
-            var starTimerNow: Bool = false
-            let totleTimer: Int = 30 * 60
-            if startTime.count > 0 {
-                count = totleTimer - TYDateCalculate.seconds(of: startTime)
-                timeObser.value = TYDateCalculate.getHHMMSSFormSS(seconds: count)
-                starTimerNow = true
-            }else {
-                count = 30 * 60
-                timeObser.value = "30:00"
-            }
-            if count > 0 {
-                timer = CountdownTimer.init(totleCount: count)
-                timer.showText.asDriver()
-                    .skip(1)
-                    .drive(onNext: { [weak self] second in
-                        if second == 0 {
-                            self?.timeObser.value = "已结束"
-                            self?.isEndReplyObser.value = true
-                        }else {
-                            self?.timeObser.value = TYDateCalculate.getHHMMSSFormSS(seconds: second)
-                        }
-                    })
-                    .disposed(by: disposeBag)
-                if starTimerNow {
-                    timer.timerStar()
-                }
-            }else {
-                timeObser.value = "已结束"
-            }
+}
+
+//MARK: 计时器
+extension HCConsultChatViewModel {
+    
+    public func customDeinit() {
+        if timer != nil {
+            timer.invalidate()
+            timer = nil
         }
-        
-        hasStartTimer = true
     }
 
+    private func startTimer() {
+        if timer == nil {
+            initTimer()
+        }
+
+        timer.fireDate = Date.distantPast
+    }
+    
+    private func initTimer() {
+        
+        if #available(iOS 10.0, *) {
+            timer = Timer.init(fire: Date.distantFuture,
+                               interval: 60,
+                               repeats: true,
+                               block: { [unowned self] timer in
+                                timerAction()
+                               })
+        } else {
+            timer = Timer.init(fireAt: Date.distantFuture,
+                               interval: 60,
+                               target: self,
+                               selector: #selector(timerAction),
+                               userInfo: nil,
+                               repeats: true)
+            timer.fireDate = Date.distantFuture
+        }
+        
+        RunLoop.main.add(timer, forMode: RunLoop.Mode.default)
+    }
+    
+    @objc private func timerAction() {
+        guard let model = datasource.value.last?.model else {
+            customDeinit()
+            return
+        }
+        var date: Date?
+        if let d = model.mainInfo.createDate.stringFormatDate(mode: .yymmddhhmm) {
+            date = d
+        }else {
+            if let d = model.mainInfo.createDate.stringFormatDate(mode: .yymmddhhmm) {
+                date = d
+            }else {
+                customDeinit()
+            }
+        }
+
+        if let aDate = date {
+            var timeInterval = aDate.timeIntervalSince1970
+            timeInterval += 60
+
+            var endDate: Date?
+            if let startDate = model.mainInfo.createDate.stringFormatDate(mode: .yymmddhhmm) {
+                endDate = TYDateCalculate.getDate(currentDate: startDate, days: 1, isAfter: true)
+            }else {
+                if let startDate = model.mainInfo.createDate.stringFormatDate(mode: .yymmddhhmm) {
+                    endDate = TYDateCalculate.getDate(currentDate: startDate, days: 1, isAfter: true)
+                }
+            }
+            
+            if let aEndDate = endDate {
+                let endDateTimeInterval = aEndDate.timeIntervalSince1970
+                if timeInterval >= endDateTimeInterval {
+                    model.mainInfo.isExpire = true
+                    waitTimeSignal.onNext(true)
+                    customDeinit()
+                }else {
+                    model.mainInfo.isExpire = false
+                    waitTimeSignal.onNext(false)
+                }
+            }else {
+                waitTimeSignal.onNext(false)
+            }
+        }else {
+            customDeinit()
+        }
+    }
 }

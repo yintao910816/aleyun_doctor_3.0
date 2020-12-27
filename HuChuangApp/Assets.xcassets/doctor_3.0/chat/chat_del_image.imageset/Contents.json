@@ -1,21 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "chat_del_image.png",
       "idiom" : "universal",
-      "filename" : "ic_introduce_two.png",
       "scale" : "1x"
     },
     {
+      "filename" : "chat_del_image@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "chat_del_image@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

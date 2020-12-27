@@ -35,10 +35,10 @@ class HCFastReplyCell: UITableViewCell {
     
     public var model: HCFastReplyModel! {
         didSet {
-            coverImg.setImage(model.iconPath)
-            titleLabel.text = model.title
-            subTitleLabel.text = model.link
-            markLabel.text = model.markText
+            coverImg.setImage(model.imagePath)
+            titleLabel.text = model.content
+//            subTitleLabel.text = model.content
+            markLabel.text = "备注：\(model.title)"
         }
     }
     
@@ -80,7 +80,7 @@ extension HCFastReplyCell {
         markLabel.font = .font(fontSize: 12)
 
         coverImg = UIImageView()
-        coverImg.backgroundColor = RGB(245, 245, 245)
+        coverImg.backgroundColor = .clear
         coverImg.layer.cornerRadius = 8
         coverImg.clipsToBounds = true
         coverImg.contentMode = .scaleAspectFill

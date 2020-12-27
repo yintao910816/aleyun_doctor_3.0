@@ -74,4 +74,13 @@ extension Notification.Name {
         static let querySettingChanged = Notification.Name(rawValue: "org.UILogic.notification.name.querySettingChanged")
     }
 
+    public struct FastReply {
+        /// 添加快捷回复
+        static let add = Notification.Name(rawValue: "org.UILogic.notification.name.FastReply.add")
+        /// 修改快捷回复
+        static let edit = Notification.Name(rawValue: "org.UILogic.notification.name.FastReply.edit")
+        /// 删除快捷回复
+        static let del = Notification.Name(rawValue: "org.UILogic.notification.name.FastReply.del")
+    }
+
 }

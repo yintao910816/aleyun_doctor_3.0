@@ -33,18 +33,18 @@ class HCConsultDetailTextPhotoCell: HCConsultDetailBaseCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public var model: HCConsultDetailConsultListModel! {
+    override public var model: HCChatListModel! {
         didSet {
             super.model = model
             contentTextLabel.text = model.content
-            boxPhotoView.filles = model.imageModels
+//            boxPhotoView.filles = model.imageModels
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentTextLabel.frame = model.getContentTextFrame
-        boxPhotoView.frame = model.getImageBoxFrame
+//        contentTextLabel.frame = model.getContentTextFrame
+//        boxPhotoView.frame = model.getImageBoxFrame
     }
 
 }

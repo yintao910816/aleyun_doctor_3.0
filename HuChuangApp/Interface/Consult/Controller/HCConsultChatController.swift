@@ -17,9 +17,9 @@ class HCConsultChatController: HCSlideItemController {
 
     private let pickerManager = HCImagePickerManager()
     
-    private var viewModel: HCConsultChatViewModel!
+    public var viewModel: HCConsultChatViewModel!
 
-    override func setupUI() {        
+    override func setupUI() {
         container = HCConsultChatContainer.init(frame: view.bounds)
         view.addSubview(container)
 
@@ -42,6 +42,10 @@ class HCConsultChatController: HCSlideItemController {
             .drive(container.dataSignal)
             .disposed(by: disposeBag)
         
+        viewModel.waitTimeSignal
+            .subscribe(onNext: { [weak self] in self?.container.chatStatusView.isExpire = $0 })
+            .disposed(by: disposeBag)
+
         viewModel.getUerInfoSubject
             .subscribe(onNext: { [weak self] in self?.presentVideoCallCtrl(callUser: $0) })
             .disposed(by: disposeBag)

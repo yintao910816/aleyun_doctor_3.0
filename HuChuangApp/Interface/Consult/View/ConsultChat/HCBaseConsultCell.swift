@@ -10,7 +10,7 @@ import UIKit
 
 class HCBaseConsultCell: UITableViewCell {
 
-    public var contentBgTagCallBack: ((HCConsultDetailConsultListModel)->())?
+    public var contentBgTagCallBack: ((HCChatListModel)->())?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,7 +25,7 @@ class HCBaseConsultCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    public var model: HCConsultDetailConsultListModel! {
+    public var model: HCChatListModel! {
         didSet {
 
         }
@@ -69,11 +69,12 @@ class HCConsultDetailBaseCell: HCBaseConsultCell {
         contentBgTagCallBack?(model)
     }
     
-    override public var model: HCConsultDetailConsultListModel! {
+    override public var model: HCChatListModel! {
         didSet {
-            tapBgGes.isEnabled = model.contentType == .audio
-            contentBgView.image = UIImage(named: model.isMine ? "绿框" : "灰色")
-            avatarButton.setImage(model.avatarURL)
+            tapBgGes.isEnabled = model.contentMode == .audio
+//            contentBgView.image = UIImage(named: model.isMine ? "绿框" : "灰色")
+            contentBgView.backgroundColor = model.isMine ? RGB(234, 243, 252) : .white
+            avatarButton.setImage(model.headPath)
         }
     }
 
@@ -81,5 +82,11 @@ class HCConsultDetailBaseCell: HCBaseConsultCell {
         super.layoutSubviews()
         avatarButton.frame = model.getAvatarFrame
         contentBgView.frame = model.getContentBgFrame
+        
+        if model.isMine {
+            contentBgView.set(cornerRadius: 10, borderCorners: [.topLeft, .bottomLeft, .bottomRight])
+        }else {
+            contentBgView.set(cornerRadius: 10, borderCorners: [.topRight, .bottomLeft, .bottomRight])
+        }
     }
 }

@@ -18,6 +18,7 @@ class HCVideoConsultSettingContainer: UIView {
     private var lastSelected = IndexPath.init(row: 0, section: 2)
     
     public var dayItemSelectedCallBack: ((HCVideoDaySettingModel)->())?
+    public var closeCallBack: (()->())?
     public let updateConsultUserStatusSubject = PublishSubject<Void>()
 
     override init(frame: CGRect) {
@@ -37,7 +38,7 @@ class HCVideoConsultSettingContainer: UIView {
             if $0 == .save {
                 self.updateConsultUserStatusSubject.onNext(Void())
             }else {
-                
+                self.closeCallBack?()
             }
         }
 

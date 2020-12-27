@@ -41,7 +41,7 @@ class HCLoginViewContainer: UIView {
     private var agreeButton: UIButton!
     private var agreeLabel: YYLabel!
     
-    private var platformContainer: UIView!
+    public var platformContainer: UIView!
     private var platformRemindLabel: UILabel!
     public var wchatLoginButton: UIButton!
     

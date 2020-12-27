@@ -26,6 +26,10 @@ class HCFastReplyContainer: UIView {
     public var addActionCallBack:(()->())?
     public var dismissActionCallBack:(()->())?
 
+    public var delActionCallBack:((IndexPath)->())?
+    public var moveTopActionCallBack:((IndexPath)->())?
+
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -136,11 +140,12 @@ extension HCFastReplyContainer {
         tableView.register(HCFastReplyCell.self, forCellReuseIdentifier: HCFastReplyCell_identifier)
         
         let tapGes = UITapGestureRecognizer.init(target: self, action: #selector(tapAction(ges:)))
+        tapGes.delegate = self
         addGestureRecognizer(tapGes)
     }
     
     @objc private func addAction() {
-        
+        addActionCallBack?()
     }
     
     @objc private func tapAction(ges: UITapGestureRecognizer) {
@@ -170,13 +175,15 @@ extension HCFastReplyContainer: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let moveTopAction = UITableViewRowAction.init(style: .normal, title: "上移") { (action, indexPath) in
+        let moveTopAction = UITableViewRowAction.init(style: .normal, title: "上移") { [weak self] (action, indexPath) in
             PrintLog("上移")
+            self?.moveTopActionCallBack?(indexPath)
         }
         moveTopAction.backgroundColor = RGB(244, 176, 57)
         
-        let deleteAction = UITableViewRowAction.init(style: .normal, title: "删除") { (action, indexPath) in
+        let deleteAction = UITableViewRowAction.init(style: .normal, title: "删除") { [weak self] (action, indexPath) in
             PrintLog("删除")
+            self?.delActionCallBack?(indexPath)
         }
         deleteAction.backgroundColor = RGB(231, 93, 88)
         return [deleteAction, moveTopAction]

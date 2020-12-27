@@ -20,6 +20,16 @@ class HCConsultDetailController: BaseViewController {
     private var consultItemModel: HCConsultListItemModel!
     private var navTitle: String?
 
+    deinit {
+        if consultChatCtrl.viewModel != nil {
+            consultChatCtrl.viewModel.customDeinit()
+            consultChatCtrl.viewModel = nil
+            consultChatCtrl.removeFromParent()
+            
+            slideCtrl.removeFromParent()
+        }
+    }
+    
     override func setupUI() {
         navigationItem.title = "\(consultItemModel.memberName)(\(HCGender(rawValue: consultItemModel.sex)?.genderText ?? "男"))"
         

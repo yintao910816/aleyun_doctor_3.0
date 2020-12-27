@@ -492,6 +492,12 @@
 		B8CFBAC9258BB98C00BD03A1 /* HCVideoConsultSettingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBAC8258BB98C00BD03A1 /* HCVideoConsultSettingPicker.swift */; };
 		B8CFBACC258BC51E00BD03A1 /* HCQueryScheduleConsultSettingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBACB258BC51E00BD03A1 /* HCQueryScheduleConsultSettingPicker.swift */; };
 		B8CFBACF258C91A600BD03A1 /* HCPicConsultSettingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBACE258C91A500BD03A1 /* HCPicConsultSettingPicker.swift */; };
+		B8CFBAD3258E226100BD03A1 /* HCAppDelegate+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBAD2258E226100BD03A1 /* HCAppDelegate+Logic.swift */; };
+		B8CFBAD62598D97900BD03A1 /* HCEditFastReplyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBAD52598D97900BD03A1 /* HCEditFastReplyController.swift */; };
+		B8CFBAD92598DF7E00BD03A1 /* HCEditFastReplyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBAD82598DF7E00BD03A1 /* HCEditFastReplyViewModel.swift */; };
+		B8CFBADC2598DF9400BD03A1 /* HCEditFastReplyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBADB2598DF9400BD03A1 /* HCEditFastReplyContainer.swift */; };
+		B8CFBAE02598F93200BD03A1 /* HCPhotoSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBADF2598F93200BD03A1 /* HCPhotoSelectedView.swift */; };
+		B8CFBAE3259913C400BD03A1 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CFBAE2259913C400BD03A1 /* Array+Extension.swift */; };
 		B8D4D47B2394258C00AA3D52 /* HCPicAndTextAskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */; };
 		B8D4D47D239426B400AA3D52 /* HCPicAndTextAskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47C239426B400AA3D52 /* HCPicAndTextAskViewModel.swift */; };
 		B8D4D47F2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4D47E2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift */; };
@@ -1441,6 +1447,12 @@
 		B8CFBAC8258BB98C00BD03A1 /* HCVideoConsultSettingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVideoConsultSettingPicker.swift; sourceTree = "<group>"; };
 		B8CFBACB258BC51E00BD03A1 /* HCQueryScheduleConsultSettingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCQueryScheduleConsultSettingPicker.swift; sourceTree = "<group>"; };
 		B8CFBACE258C91A500BD03A1 /* HCPicConsultSettingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicConsultSettingPicker.swift; sourceTree = "<group>"; };
+		B8CFBAD2258E226100BD03A1 /* HCAppDelegate+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCAppDelegate+Logic.swift"; sourceTree = "<group>"; };
+		B8CFBAD52598D97900BD03A1 /* HCEditFastReplyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditFastReplyController.swift; sourceTree = "<group>"; };
+		B8CFBAD82598DF7E00BD03A1 /* HCEditFastReplyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditFastReplyViewModel.swift; sourceTree = "<group>"; };
+		B8CFBADB2598DF9400BD03A1 /* HCEditFastReplyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEditFastReplyContainer.swift; sourceTree = "<group>"; };
+		B8CFBADF2598F93200BD03A1 /* HCPhotoSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPhotoSelectedView.swift; sourceTree = "<group>"; };
+		B8CFBAE2259913C400BD03A1 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		B8D4D47A2394258C00AA3D52 /* HCPicAndTextAskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskViewController.swift; sourceTree = "<group>"; };
 		B8D4D47C239426B400AA3D52 /* HCPicAndTextAskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskViewModel.swift; sourceTree = "<group>"; };
 		B8D4D47E2394299E00AA3D52 /* HCPicAndTextAskFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCPicAndTextAskFooterReusableView.swift; sourceTree = "<group>"; };
@@ -2936,7 +2948,9 @@
 			isa = PBXGroup;
 			children = (
 				B87CCB6E2556A8DA00792F76 /* HCFastReplyContainer.swift */,
+				B8CFBADB2598DF9400BD03A1 /* HCEditFastReplyContainer.swift */,
 				B87CCB712556AB9B00792F76 /* HCFastReplyCell.swift */,
+				B8CFBADF2598F93200BD03A1 /* HCPhotoSelectedView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2953,6 +2967,7 @@
 			isa = PBXGroup;
 			children = (
 				B87CCB6B2556A86A00792F76 /* HCFastReplyViewModel.swift */,
+				B8CFBAD82598DF7E00BD03A1 /* HCEditFastReplyViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2961,6 +2976,7 @@
 			isa = PBXGroup;
 			children = (
 				B87CCB642556A83400792F76 /* HCFastReplyController.swift */,
+				B8CFBAD52598D97900BD03A1 /* HCEditFastReplyController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3308,6 +3324,7 @@
 				C421330A22056B59006C10C4 /* HCAppDelegate.swift */,
 				B842D1FD22258CC000A4F8DF /* HCAppDelegate+UM.swift */,
 				B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */,
+				B8CFBAD2258E226100BD03A1 /* HCAppDelegate+Logic.swift */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -3404,6 +3421,7 @@
 				B8BE603223BB4C4D00EC0027 /* Dictionary+Extension.swift */,
 				B8610BFF25502E72007D5D46 /* CAGradientLayer+GradientBG.swift */,
 				B87CCB0E2556672000792F76 /* Date+Extends.swift */,
+				B8CFBAE2259913C400BD03A1 /* Array+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -4392,12 +4410,14 @@
 				B816EB02221DABF400F024D5 /* ZXOneDimensionalCodeWriter.m in Sources */,
 				B85BD06F255545730026A508 /* amr_wav_converter.c in Sources */,
 				B816EB21221DABF400F024D5 /* ZXCode128Writer.m in Sources */,
+				B8CFBAD62598D97900BD03A1 /* HCEditFastReplyController.swift in Sources */,
 				B8610C0025502E72007D5D46 /* CAGradientLayer+GradientBG.swift in Sources */,
 				B8FC3F872396D74D006EB478 /* HCDoctorInfoViewModel.swift in Sources */,
 				B8610C2C2554FD2A007D5D46 /* HCConsultChatStatusView.swift in Sources */,
 				B816EAB1221DABF400F024D5 /* ZXStringUtils.m in Sources */,
 				C497E9712344728200328B47 /* HCHomeBabyTuinaClassroomReusableView.swift in Sources */,
 				C4C11AD824E41C6F001CBE74 /* HCMenuHorizontalCell.swift in Sources */,
+				B8CFBAE02598F93200BD03A1 /* HCPhotoSelectedView.swift in Sources */,
 				B816EA8E221DABF400F024D5 /* ZXAztecBinaryShiftToken.m in Sources */,
 				B8CFBA91258B6F7700BD03A1 /* HCVideoConsultSettingController.swift in Sources */,
 				B816EB42221DABF400F024D5 /* ZXURIParsedResult.m in Sources */,
@@ -4406,6 +4426,7 @@
 				C40448A524EAA31A00AD1610 /* HCFileModel.swift in Sources */,
 				C421332822056F24006C10C4 /* TYHUDAnimating.swift in Sources */,
 				C4213336220570B6006C10C4 /* UIView+Frame.swift in Sources */,
+				B8CFBAD3258E226100BD03A1 /* HCAppDelegate+Logic.swift in Sources */,
 				B816EB53221DABF400F024D5 /* ZXISBNParsedResult.m in Sources */,
 				B816EAA0221DABF400F024D5 /* ZXQRCodeDecoderMetaData.m in Sources */,
 				C4CED9B42501121B00E3DEE6 /* HCBannerItemCell.swift in Sources */,
@@ -4475,6 +4496,7 @@
 				B816EAAA221DABF400F024D5 /* ZXQRCodeFinderPatternInfo.m in Sources */,
 				C42133582205883D006C10C4 /* BaseViewModel.swift in Sources */,
 				B8CFBABE258BB24500BD03A1 /* HCQueryScheduleDaySettingCell.swift in Sources */,
+				B8CFBAD92598DF7E00BD03A1 /* HCEditFastReplyViewModel.swift in Sources */,
 				B816EAEC221DABF400F024D5 /* ZXDataMatrixHighLevelEncoder.m in Sources */,
 				B853CF042565722A00A3A90D /* HCFiliterViewData.swift in Sources */,
 				C4382BFF24E56281000C00CE /* HCAccountSettingViewModel.swift in Sources */,
@@ -4495,6 +4517,7 @@
 				B818BB7325148A79003842A3 /* HCMyPatientController.swift in Sources */,
 				B816EAC8221DABF400F024D5 /* ZXPDF417Writer.m in Sources */,
 				B8F1587824EF64150046B107 /* HCCollectionViewController.swift in Sources */,
+				B8CFBADC2598DF9400BD03A1 /* HCEditFastReplyContainer.swift in Sources */,
 				B88497E124E7F8E500B91262 /* APIAdapt.swift in Sources */,
 				B816EAED221DABF400F024D5 /* ZXDataMatrixTextEncoder.m in Sources */,
 				B8CFBACC258BC51E00BD03A1 /* HCQueryScheduleConsultSettingPicker.swift in Sources */,
@@ -4637,6 +4660,7 @@
 				B816EA91221DABF400F024D5 /* ZXAztecEncoder.m in Sources */,
 				C42133712205961D006C10C4 /* UIControl+_Rx.swift in Sources */,
 				B816EB00221DABF400F024D5 /* ZXMultiFormatUPCEANReader.m in Sources */,
+				B8CFBAE3259913C400BD03A1 /* Array+Extension.swift in Sources */,
 				C449FA5B2298021D00B7803E /* AppAbout.swift in Sources */,
 				B816EAA5221DABF400F024D5 /* ZXQRCodeDataBlock.m in Sources */,
 				B88497DC24E7F6FB00B91262 /* HCVerifyViewModel.swift in Sources */,

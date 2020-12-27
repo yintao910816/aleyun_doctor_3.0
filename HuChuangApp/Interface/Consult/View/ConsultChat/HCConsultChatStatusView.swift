@@ -41,11 +41,28 @@ class HCConsultChatStatusView: UIView {
         super.init(coder: coder)
     }
     
-    public var sectionModel: HCConsultDetailItemModel? {
+    public var sectionModel: HCChatMainInfoModel? {
         didSet {
             consultStatusContent.isHidden = sectionModel == nil
             consultStatusLabel.text = sectionModel?.statusText
-            consultStatusDetailLabel.attributedText = sectionModel?.statusDetailText
+            if sectionModel?.isExpire == true {
+                consultStatusDetailLabel.attributedText = NSAttributedString(string: "")
+            }else {
+                consultStatusDetailLabel.attributedText = sectionModel?.statusDetailText
+            }
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
+    
+    /// 等待超时
+    public var isExpire: Bool = false {
+        didSet {
+            if isExpire {
+                consultStatusDetailLabel.attributedText = NSAttributedString(string: "")
+            }else {
+                consultStatusDetailLabel.attributedText = sectionModel?.statusDetailText
+            }
             setNeedsLayout()
             layoutIfNeeded()
         }

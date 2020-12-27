@@ -47,8 +47,15 @@ extension String {
     /// 计算于当前时间的差值
     public func timeDvalue() ->String {
         
-        guard let date = stringFormatDate()  else {
-            return ""
+        var date: Date!
+        if let d = stringFormatDate(mode: .yymmddhhmmss) {
+            date = d
+        }else {
+            if let d = stringFormatDate(mode: .yymmddhhmm) {
+                date = d
+            }else {
+                return ""
+            }
         }
         
         let today = Date()
@@ -76,15 +83,20 @@ extension String {
         
         if abs(gap.year ?? 0) > 0 {
             y = abs(gap.year!)
-        }else if abs(gap.month ?? 0) > 0 {
+        }
+        if abs(gap.month ?? 0) > 0 {
             m = abs(gap.month!)
-        }else if abs(gap.day ?? 0) > 0 {
+        }
+        if abs(gap.day ?? 0) > 0 {
             d = abs(gap.day!)
-        }else if abs(gap.hour ?? 0) > 0 {
+        }
+        if abs(gap.hour ?? 0) > 0 {
             h = abs(gap.hour!)
-        }else if abs(gap.minute ?? 0) > 0 {
+        }
+        if abs(gap.minute ?? 0) > 0 {
             mi = abs(gap.minute!)
-        }else if abs(gap.second ?? 0) > 0 {
+        }
+        if abs(gap.second ?? 0) > 0 {
             s = abs(gap.second!)
         }
         
@@ -93,14 +105,12 @@ extension String {
         }else if m > 0 {
             return "\(m)个月"
         }else if d > 0 {
-            return "\(d)天"
+            return "\(d)天\(h)小时\(mi)分钟"
         }else if h > 0 {
             return "\(h)小时\(mi)分钟"
-        }else if mi > 0 {
-            return "\(mi)分钟"
         }else {
-            return "\(s)秒钟"
-        }        
+            return "\(mi)分钟"
+        }
     }
 
 

@@ -109,5 +109,5 @@ extension UserDefaults{
             synchronize()
         }
     }
-    
+
 }

@@ -193,7 +193,7 @@ enum API{
     /// 获取资讯消息列表 replyStatus: 0未回复1已回复2已退回3已评论（完结）
     case getPatientConsultList(pageNum: Int, pageSize: Int, sort: HCRequestListSort, replyStatus: String)
     /// 第一次获取咨询列表
-    case chatDetail(consultId: String, memberId: String)
+    case chatDetail(consultId: String)
     /// 加载咨询历史 下拉加载一条新的记录。。loadSize 是1,2,3,4,5，。。。分别代表之前的第一条，第二条记录。。。
     case chatHistoryDetail(memberId: String, userId: String, loadSize: Int)
     /// 文件上传
@@ -209,9 +209,7 @@ enum API{
     
     /// 获取视频签名 医生用userId 患者用memberId
     case videoChatSignature(userId: String)
-    /**
-     * 接听电话获取头像姓名信息
-     */
+    /// 接听电话获取头像姓名信息
     case consultVideoUserInfo(memberId: String, userId: String, consultId: String)
     /// 接听电话
     case consultReceivePhone(memberId: String, userId: String, consultId: String)
@@ -220,9 +218,15 @@ enum API{
     /// 结束通话
     case consultEndPhone(memberId: String, userId: String, watchTime: String)
     
-    /**
-     * 医生咨询服务相关
-     */
+    //MARK: 快捷回复相关
+    /// 添加快捷回复
+    case addConsultTemplates(path: String, title: String, content: String)
+    /// 查询快捷回复
+    case getConsultTemplates
+    /// 删除快捷回复
+    case removeConsultTemplates(id: String)
+    
+    //MARK: 医生咨询服务相关
     /// 查询医生排班及咨询类型开通状态
     case getOpenConsultStatus
     /// 医生端查询精准预约排班
@@ -368,8 +372,8 @@ extension API: TargetType{
 
         case .getPatientConsultList(_, _, _, _):
             return "api/patientConsult/getConsultListWx"
-        case .chatDetail(_, _):
-            return "api/patientConsult/getConsultDetailWx"
+        case .chatDetail(let consultId):
+            return "api/patientConsult/chatDetail/\(consultId)"
         case .chatHistoryDetail(_, _, _):
             return "api/patientConsult/chatHistoryDetail"
         case .uploadFile(_):
@@ -393,6 +397,13 @@ extension API: TargetType{
             return "api/patientConsult/startPhone"
         case .consultEndPhone(_, _, _):
             return "api/patientConsult/endPhone"
+        
+        case .addConsultTemplates(_, _, _):
+            return "api/doctorConsultTemplate/addConsultTemplates"
+        case .getConsultTemplates:
+            return "api/doctorConsultTemplate/getConsultTemplates"
+        case .removeConsultTemplates(_):
+            return "api/doctorConsultTemplate/removeConsultTemplates"
         
         case .getOpenConsultStatus:
             return "api/patientConsult/getOpenConsultStatus"
@@ -614,9 +625,6 @@ extension API {
             params["pageSize"] = pageSize
             params["sort"] = sort.rawValue
             params["replyStatus"] = replyStatus
-        case .chatDetail(let consultId, let memberId):
-            params["consultId"] = consultId
-            params["memberId"] = memberId
         case .chatHistoryDetail(let memberId, let userId, let loadSize):
             params["memberId"] = memberId
             params["userId"] = userId
@@ -649,7 +657,14 @@ extension API {
             params["memberId"] = memberId
             params["userId"] = userId
             params["watchTime"] = watchTime
-            
+        
+        case .addConsultTemplates(let path, let title, let content):
+            params["path"] = path
+            params["title"] = title
+            params["content"] = content
+        case .removeConsultTemplates(let id):
+            params["id"] = id
+
         case .updateConsultUserStatus(let p):
             params = p
         case .addVideoConsultSchedule(let p):

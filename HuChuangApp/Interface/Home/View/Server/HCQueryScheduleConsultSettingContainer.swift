@@ -18,6 +18,7 @@ class HCQueryScheduleConsultSettingContainer: UIView {
     private var lastSelected = IndexPath.init(row: 0, section: 3)
 
     public var dayItemSelectedCallBack: ((HCQueryScheduleSettingModel)->())?
+    public var closeCallBack: (()->())?
     public let updateConsultUserStatusSubject = PublishSubject<Void>()
 
     override init(frame: CGRect) {
@@ -37,7 +38,7 @@ class HCQueryScheduleConsultSettingContainer: UIView {
             if $0 == .save {
                 self.updateConsultUserStatusSubject.onNext(Void())
             }else {
-                
+                self.closeCallBack?()
             }
         }
         addSubview(actionView)

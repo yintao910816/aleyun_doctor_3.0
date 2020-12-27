@@ -34,6 +34,9 @@ class HCHelper {
     public var userInfoModel: HCUserModel?
     public var isPresentLogin: Bool = false
     
+    public var enableWchatLoginSubjet = PublishSubject<Bool>()
+    public var enableWchatLogin: Bool = false
+
     init() {
         
         let userInfoSignal = HCProvider.request(.selectInfo)
@@ -194,6 +197,10 @@ extension HCHelper {
 
 extension HCHelper {
     
+    class func userIsLogin() ->Bool {
+        return userDefault.uid != noUID && userDefault.token.count > 0
+    }
+
     class func presentLogin(presentVC: UIViewController? = nil, isPopToRoot: Bool = false, _ completion: (() ->())? = nil) {
         HCHelper.share.isPresentLogin = true
         

@@ -1,8 +1,8 @@
 {
   "images" : [
     {
+      "filename" : "launch_02.png",
       "idiom" : "universal",
-      "filename" : "ic_introduce_group.png",
       "scale" : "1x"
     },
     {
@@ -15,7 +15,7 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
