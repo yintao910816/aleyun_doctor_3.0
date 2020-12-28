@@ -106,6 +106,11 @@ class HCPhotoSelectedViewCell: UICollectionViewCell {
     public var model: HCPhotoViewModel! {
         didSet {
             content.image = model.image
+            
+            if model.url.count > 0 {
+                content.setImage(model.url)
+            }
+            
             delButton.isHidden = model.isAdd
             content.contentMode = model.isAdd ? .center : .scaleAspectFill
         }
@@ -125,10 +130,12 @@ class HCPhotoSelectedViewCell: UICollectionViewCell {
 
 class HCPhotoViewModel {
     var image: UIImage?
+    var url: String = ""
     var isAdd: Bool = false
     
-    init(image: UIImage?, isAdd: Bool = false) {
+    init(image: UIImage?, url: String = "", isAdd: Bool = false) {
         self.image = image
+        self.url = url
         self.isAdd = isAdd
     }
 }

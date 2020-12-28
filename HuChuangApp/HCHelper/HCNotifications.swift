@@ -83,4 +83,9 @@ extension Notification.Name {
         static let del = Notification.Name(rawValue: "org.UILogic.notification.name.FastReply.del")
     }
 
+    public struct Consult {
+        /// 咨询状态发生改变
+        static let statusChange = Notification.Name(rawValue: "org.UILogic.notification.name.Consult.statusChange")
+    }
+
 }

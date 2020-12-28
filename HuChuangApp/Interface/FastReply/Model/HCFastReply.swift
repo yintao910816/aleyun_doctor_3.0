@@ -23,10 +23,28 @@ class HCFastReplyModel: HJModel {
     var sort: Int = 0
     
     public lazy var imagePath: String = {
-        let strings = path.components(separatedBy: ",")
-        if strings.count > 0 {
-            return strings[0]
+        if imageList.count > 0 {
+            return imageList[0]
         }
         return path
+    }()
+    
+    public lazy var imageList: [String] = {
+        if path.count > 0 {
+            let strings = path.components(separatedBy: ",")
+            return strings
+        }
+        return []
+    }()
+
+    public lazy var photoModels: [HCPhotoViewModel] = {
+        if imageList.count > 0 {
+            var datas: [HCPhotoViewModel] = []
+            for item in imageList {
+                datas.append(HCPhotoViewModel(image: nil, url: item))
+            }
+            return datas
+        }
+        return []
     }()
 }

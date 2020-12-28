@@ -17,13 +17,7 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
     private var memberId: String = ""
     private var consultId: String = ""
 
-    private var hasStartTimer: Bool = false
     private var timer: Timer!
-
-    public let timeObser = Variable("30:00")
-    public let questionObser = Variable("1/1")
-    /// 是否已结束回复
-    public let isEndReplyObser = Variable(true)
 
     /// 图片回复
     public let sendImageSubject = PublishSubject<UIImage>()
@@ -31,10 +25,15 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
     public let sendAudioSubject = PublishSubject<(Data, UInt)>()
     /// 文字回复
     public let sendTextSubject = PublishSubject<String>()
+    /// 快捷回复
+    public let sendFastReplySignal = PublishSubject<HCFastReplyModel>()
     /// 发起视频获取用户信息
     public let requestUserInfoSubject = PublishSubject<Void>()
     /// 用户信息获取完成
     public let getUerInfoSubject = PublishSubject<CallingUserModel>()
+
+    /// 咨询退回
+    public let cancelSignal = PublishSubject<Void>()
 
     /// 更新待接诊等待时间 - 等待时间已到期
     public let waitTimeSignal = PublishSubject<Bool>()
@@ -44,6 +43,8 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
         
         self.memberId = memberId
         self.consultId = consultId
+        
+        pageModel.pageSize = 1
         
         sendImageSubject
             ._doNext(forNotice: hud)
@@ -97,8 +98,20 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
             })
             .disposed(by: disposeBag)
         
+        sendFastReplySignal
+            .subscribe { [unowned self] in
+                submitFastReply(model: $0)
+            }
+            .disposed(by: disposeBag)
+        
         requestUserInfoSubject
             .subscribe(onNext: { [unowned self] in self.requestShortUserInfo() })
+            .disposed(by: disposeBag)
+        
+        cancelSignal
+            .subscribe(onNext: { [unowned self] in
+                requestWithdrawConsult()
+            })
             .disposed(by: disposeBag)
         
         reloadSubject
@@ -106,16 +119,30 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
             .disposed(by: disposeBag)
     }
     
+    public var consultMode: HCConsultType {
+        get {
+            if let sectionModel = datasource.value.last?.model.mainInfo,
+               let status = HCConsultType(rawValue: sectionModel.consultType) {
+                return status
+            }
+            
+            return .chatConsult
+        }
+    }
+    
     override func requestData(_ refresh: Bool) {
-//        HCProvider.request(.getConsultDetail(memberId: memberId, id: id))
-//            .map(model: HCConsultDetailModel.self)
-//            .subscribe(onSuccess: { [weak self] in
-//                self?.dealRequestData(refresh:refresh, data: $0)
-//            }) { [weak self] in
-//                self?.revertCurrentPageAndRefreshStatus()
-//                self?.hud.failureHidden(self?.errorMessage($0))
-//        }
-//            .disposed(by: disposeBag)
+        HCProvider.request(.chatHistoryDetail(memberId: memberId,
+                                              userId: HCHelper.share.userInfoModel?.uid ?? "",
+                                              loadSize: pageModel.currentPage,
+                                              consultType: HCConsultType.chatConsult.rawValue))
+            .map(model: HCChatDataModel.self)
+            .subscribe(onSuccess: { [weak self] in
+                self?.pageModel.currentPage += 1
+                self?.dealRequestData(refresh: false, data: $0)
+            }) { [weak self] _ in
+                self?.refreshStatus.value = .DropDownSuccess
+        }
+            .disposed(by: disposeBag)
     }
     
     private func requestShortUserInfo() {
@@ -155,6 +182,28 @@ extension HCConsultChatViewModel {
             .disposed(by: disposeBag)
     }
     
+    // 咨询退回
+    private func requestWithdrawConsult() {
+        if let orderSn = datasource.value.last?.model.mainInfo.orderSn,
+           orderSn.count > 0 {
+            hud.noticeLoading()
+            HCProvider.request(.withdrawConsult(orderSn: orderSn))
+                .mapResponse()
+                .subscribe(onSuccess: { [weak self] in
+                    if $0.code == RequestCode.success.rawValue {
+                        NotificationCenter.default.post(name: NotificationName.Consult.statusChange, object: nil)
+                        self?.hud.noticeHidden()
+                        self?.requestCurrentConsult()
+                    }else {
+                        self?.hud.failureHidden($0.message)
+                    }
+                }) { [weak self] in
+                    self?.hud.failureHidden(self?.errorMessage($0))
+                }
+                .disposed(by: disposeBag)
+        }
+    }
+    
     private func uploadFile(data: Data, type: HCFileUploadType) ->Observable<HCFileUploadModel> {
         return HCProvider.request(.uploadFile(data: data, fileType: type))
             .map(model: HCFileUploadModel.self)
@@ -166,6 +215,30 @@ extension HCConsultChatViewModel {
             .map(model: HCReplySuccessModel.self)
             .asObservable()
     }
+    
+    private func submitFastReply(model: HCFastReplyModel) {
+        if model.imageList.count > 0 {
+            for item in model.imageList {
+                submitReply(content: "", filePath: item, bak: "")
+                    .subscribe { [weak self] in
+                        PrintLog("快捷回复成功")
+                        self?.dealReplySuccess(model: $0, contentMode: .image)
+                    } onError: { [weak self] in
+                        self?.hud.failureHidden(self?.errorMessage($0))
+                    }
+                    .disposed(by: disposeBag)
+            }
+        }
+        
+        submitReply(content: model.content, filePath: "", bak: "")
+            .subscribe { [weak self] in
+                PrintLog("快捷回复成功")
+                self?.dealReplySuccess(model: $0, contentMode: .text)
+            } onError: { [weak self] in
+                self?.hud.failureHidden(self?.errorMessage($0))
+            }
+            .disposed(by: disposeBag)
+    }
 }
 
 
@@ -176,13 +249,17 @@ extension HCConsultChatViewModel {
         var datas = datasource.value
         if var items = datas.last?.items,
            let sectionModel = datas.last?.model {
+            if sectionModel.mainInfo.status == HCOrderDetailStatus.unReplay.rawValue {
+                NotificationCenter.default.post(name: NotificationName.Consult.statusChange, object: nil)
+                sectionModel.mainInfo.status = HCOrderDetailStatus.replay.rawValue
+            }
             items.append(model.transform(contentType: contentMode))
             datas = datas.dropLast()
             datas.append(SectionModel(model: sectionModel, items: items))
             datasource.value = datas
         }
     }
-    
+
     private func dealRequestData(refresh: Bool, data: HCChatDataModel) {
         var sectionDatas: [SectionModel<HCChatDataModel, HCChatListModel>] = []
         
@@ -198,7 +275,7 @@ extension HCConsultChatViewModel {
         
         let status = HCOrderDetailStatus(rawValue: data.mainInfo.status)
         
-        if status == .unReplay {
+        if status == .unReplay, refresh == true {
             if let startDate = data.mainInfo.createDate.stringFormatDate(mode: .yymmddhhmm) {
                 
                 let endDate = TYDateCalculate.getDate(currentDate: startDate,
@@ -215,8 +292,16 @@ extension HCConsultChatViewModel {
             }
         }
         
+        if refresh {
+            updateRefresh(refresh, sectionDatas, data.pages)
+        }else {
+            refreshStatus.value = .DropDownSuccess
+            
+            var tempDatas = datasource.value
+            tempDatas.insert(contentsOf: sectionDatas, at: 0)
+            datasource.value = tempDatas
+        }
         
-        updateRefresh(refresh, sectionDatas, data.pages)
         hud.noticeHidden()
     }
     

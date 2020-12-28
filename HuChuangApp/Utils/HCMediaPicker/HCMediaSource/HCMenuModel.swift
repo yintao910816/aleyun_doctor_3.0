@@ -59,14 +59,23 @@ class HCPickerMenuItemModel {
 extension HCPickerMenuSectionModel {
     
     /// 医生咨询
-    public static func createChatPicker() ->[HCPickerMenuSectionModel] {
-        return [HCPickerMenuSectionModel.init(items: [HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_message"),
-                                                                                 title: "快捷回复"),
-                                                      HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_photo"),
-                                                                                 title: "相册"),
-                                                      HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_camera"),
-                                                                                 title: "拍摄"),
-                                                      HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_video_call"),
-                                                                                 title: "视频通话")])]
+    public static func createChatPicker(consultMode: HCConsultType) ->[HCPickerMenuSectionModel] {
+        if consultMode == .videoConsult {
+            return [HCPickerMenuSectionModel.init(items: [HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_message"),
+                                                                                     title: "快捷回复"),
+                                                          HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_photo"),
+                                                                                     title: "相册"),
+                                                          HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_camera"),
+                                                                                     title: "拍摄"),
+                                                          HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_video_call"),
+                                                                                     title: "视频通话")])]
+        }else {
+            return [HCPickerMenuSectionModel.init(items: [HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_message"),
+                                                                                     title: "快捷回复"),
+                                                          HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_photo"),
+                                                                                     title: "相册"),
+                                                          HCPickerMenuItemModel.init(iconImage: UIImage(named: "picker_camera"),
+                                                                                     title: "拍摄")])]
+        }
     }
 }

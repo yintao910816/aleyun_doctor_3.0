@@ -673,12 +673,14 @@ extension HCConsultVideoCallController {
     
     // Dispatch Timer
      func startGCDTimer() {
+        HCHelper.share.watchTime = 0
         // 设定这个时间源是每秒循环一次，立即开始
         codeTimer.schedule(deadline: .now(), repeating: .seconds(1))
         // 设定时间源的触发事件
         codeTimer.setEventHandler(handler: { [weak self] in
             guard let self = self else {return}
             self.callingTime += 1
+            HCHelper.share.watchTime = Int(self.callingTime)
             // UI 更新
             DispatchQueue.main.async {
                 var mins: UInt32 = 0

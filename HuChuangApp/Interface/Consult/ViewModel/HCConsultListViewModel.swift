@@ -13,6 +13,11 @@ class HCConsultListViewModel: RefreshVM<HCConsultListItemModel> {
     override init() {
         super.init()
         
+        NotificationCenter.default.rx.notification(NotificationName.Consult.statusChange, object: nil)
+            .subscribe(onNext: { [weak self] _ in
+                self?.requestData(true)
+            })
+            .disposed(by: disposeBag)
     }
     
     override func requestData(_ refresh: Bool) {

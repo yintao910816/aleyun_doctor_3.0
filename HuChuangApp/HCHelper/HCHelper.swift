@@ -28,6 +28,8 @@ class HCHelper {
 
     /// 缓存的用户信息
     private var cachedLocalUsers: [CallingUserModel] = []
+    /// 记录本次通话时长（秒）
+    public var watchTime: Int = 0
     
     /// 当前登陆用户
     public let userInfoHasReload = PublishSubject<HCUserModel>()
@@ -164,7 +166,7 @@ extension HCHelper {
     /// 结束通话
     public static func requestEndPhone(userId: String, watchTime: String) ->Observable<Bool> {
         if let user = HCHelper.share.userInfoModel {
-            return HCProvider.request(.consultEndPhone(memberId: user.uid, userId: userId, watchTime: watchTime))
+            return HCProvider.request(.consultEndPhone(memberId: userId, userId: user.uid, watchTime: watchTime))
                 .mapJSON()
                 .map({ res -> Bool in
                     if let dic = res as? [String: Any],

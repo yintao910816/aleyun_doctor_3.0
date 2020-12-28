@@ -14,6 +14,8 @@ class HCEditFastReplyController: BaseViewController {
     private var viewModel: HCEditFastReplyViewModel!
     
     private let pickerManager = HCImagePickerManager()
+    
+    private var replyModel: HCFastReplyModel?
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -24,6 +26,7 @@ class HCEditFastReplyController: BaseViewController {
         view.backgroundColor = .clear
         
         container = HCEditFastReplyContainer.init(frame: view.bounds)
+        container.replyModel = replyModel
         view.addSubview(container)
         
         container.dismissActionCallBack = { [weak self] in self?.dismiss(animated: true, completion: nil) }
@@ -35,7 +38,7 @@ class HCEditFastReplyController: BaseViewController {
     }
     
     override func rxBind() {
-        viewModel = HCEditFastReplyViewModel()
+        viewModel = HCEditFastReplyViewModel(replyModel: replyModel)
         
         viewModel.datasource.asDriver()
             .drive(onNext: { [unowned self] in container.photoModels = $0 })
@@ -53,5 +56,9 @@ class HCEditFastReplyController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         container.frame = view.bounds
+    }
+    
+    override func prepare(parameters: [String : Any]?) {
+        replyModel = parameters?["model"] as? HCFastReplyModel
     }
 }

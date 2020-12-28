@@ -48,6 +48,13 @@ class HCEditFastReplyContainer: UIView {
         }
     }
     
+    public var replyModel: HCFastReplyModel? {
+        didSet {
+            markTf.text = replyModel?.title
+            remindTextView.text = replyModel?.content
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         

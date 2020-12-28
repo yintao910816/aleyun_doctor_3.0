@@ -195,7 +195,7 @@ enum API{
     /// 第一次获取咨询列表
     case chatDetail(consultId: String)
     /// 加载咨询历史 下拉加载一条新的记录。。loadSize 是1,2,3,4,5，。。。分别代表之前的第一条，第二条记录。。。
-    case chatHistoryDetail(memberId: String, userId: String, loadSize: Int)
+    case chatHistoryDetail(memberId: String, userId: String, loadSize: Int, consultType: Int)
     /// 文件上传
     case uploadFile(data: Data, fileType: HCFileUploadType)
     /// 咨询回复 - filePath：图片或录音文件地址  bak：录音时长
@@ -225,7 +225,9 @@ enum API{
     case getConsultTemplates
     /// 删除快捷回复
     case removeConsultTemplates(id: String)
-    
+    /// 编辑快捷回复
+    case editTemplates(id: String, path: String, title: String, content: String)
+
     //MARK: 医生咨询服务相关
     /// 查询医生排班及咨询类型开通状态
     case getOpenConsultStatus
@@ -374,8 +376,8 @@ extension API: TargetType{
             return "api/patientConsult/getConsultListWx"
         case .chatDetail(let consultId):
             return "api/patientConsult/chatDetail/\(consultId)"
-        case .chatHistoryDetail(_, _, _):
-            return "api/patientConsult/chatHistoryDetail"
+        case .chatHistoryDetail(let memberId, let userId, let loadSize, let consultType):
+            return "api/patientConsult/chatHistoryDetail/\(memberId)/\(userId)/\(loadSize)/\(consultType)"
         case .uploadFile(_):
             return "api/upload/fileSingle"
         case .replyConsult(_, _, _, _):
@@ -404,6 +406,8 @@ extension API: TargetType{
             return "api/doctorConsultTemplate/getConsultTemplates"
         case .removeConsultTemplates(_):
             return "api/doctorConsultTemplate/removeConsultTemplates"
+        case .editTemplates(_, _, _, _):
+            return "api/doctorConsultTemplate/editTemplates"
         
         case .getOpenConsultStatus:
             return "api/patientConsult/getOpenConsultStatus"
@@ -625,10 +629,6 @@ extension API {
             params["pageSize"] = pageSize
             params["sort"] = sort.rawValue
             params["replyStatus"] = replyStatus
-        case .chatHistoryDetail(let memberId, let userId, let loadSize):
-            params["memberId"] = memberId
-            params["userId"] = userId
-            params["loadSize"] = loadSize
 
         case .replyConsult(let content, let filePath, let bak, let consultId):
             params["content"] = content
@@ -664,6 +664,11 @@ extension API {
             params["content"] = content
         case .removeConsultTemplates(let id):
             params["id"] = id
+        case .editTemplates(let id, let path, let title, let content):
+            params["id"] = id
+            params["path"] = path
+            params["title"] = title
+            params["content"] = content
 
         case .updateConsultUserStatus(let p):
             params = p

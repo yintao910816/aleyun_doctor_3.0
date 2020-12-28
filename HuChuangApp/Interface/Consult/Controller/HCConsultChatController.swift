@@ -58,6 +58,10 @@ class HCConsultChatController: HCSlideItemController {
             .bind(to: viewModel.sendAudioSubject)
             .disposed(by: disposeBag)
         
+        container.cancelSignal
+            .bind(to: viewModel.cancelSignal)
+            .disposed(by: disposeBag)
+
         viewModel.reloadSubject.onNext(Void())
         
         pickerManager.selectedImageCallBack = { [weak self] in
@@ -65,12 +69,13 @@ class HCConsultChatController: HCSlideItemController {
                 self?.viewModel.sendImageSubject.onNext($0!)
             }
         }
-//        container.tableView.prepare(viewModel, showFooter: false, showHeader: true)
+        
+        container.tableView.prepare(viewModel, showFooter: false, showHeader: true)
     }
     
     @objc private func presentMediaCtrol() {
         let pickerContrl = HCMediaPickerController()
-        pickerContrl.pickerMenuData = HCPickerMenuSectionModel.createChatPicker()
+        pickerContrl.pickerMenuData = HCPickerMenuSectionModel.createChatPicker(consultMode: viewModel.consultMode)
         self.model(for: pickerContrl, controllerHeight: self.view.height)
         
         pickerContrl.selectedMenu = { [unowned self] in
@@ -92,7 +97,11 @@ class HCConsultChatController: HCSlideItemController {
     }
     
     private func presentFastReplyCtrl() {
-        let presentCtrl = MainNavigationController.init(rootViewController: HCFastReplyController())
+        let rootVC = HCFastReplyController()
+        rootVC.sendActionCallBack = { [weak self] in
+            self?.viewModel.sendFastReplySignal.onNext($0)
+        }
+        let presentCtrl = MainNavigationController.init(rootViewController: rootVC)
         presentCtrl.view.backgroundColor = .clear
         model(for: presentCtrl, controllerHeight: view.size.height)
     }

@@ -14,7 +14,7 @@ import RxDataSources
 class HCConsultListContainer: UIView {
 
     private let disposeBag = DisposeBag()
-    public let dataSignal = PublishSubject<[HCConsultListItemModel]>()
+    public let dataSignal = Variable([HCConsultListItemModel]())
     
     public var tableView: UITableView!
     
@@ -53,7 +53,7 @@ extension HCConsultListContainer {
     
     private func bindData() {
         
-        dataSignal
+        dataSignal.asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: HCConsultListCell_identifier, cellType: HCConsultListCell.self)) { _, model, cell in
                 cell.model = model
             }
@@ -64,6 +64,15 @@ extension HCConsultListContainer {
                 self?.tableView.deselectRow(at: $0, animated: true)
             })
             .disposed(by: disposeBag)
-            
+        
+        tableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+    }
+}
+
+extension HCConsultListContainer: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return dataSignal.value[indexPath.row].cellHeight
     }
 }

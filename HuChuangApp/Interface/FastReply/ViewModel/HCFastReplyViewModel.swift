@@ -55,6 +55,12 @@ class HCFastReplyViewModel: BaseViewModel {
                 self?.requestGetConsultTemplates()
             })
             .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(NotificationName.FastReply.edit, object: nil)
+            .subscribe(onNext: { [weak self] _ in
+                self?.requestGetConsultTemplates()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func requestGetConsultTemplates() {

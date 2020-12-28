@@ -28,6 +28,7 @@ class HCFastReplyContainer: UIView {
 
     public var delActionCallBack:((IndexPath)->())?
     public var moveTopActionCallBack:((IndexPath)->())?
+    public var editCallBack:((HCFastReplyModel)->())?
 
     
     override init(frame: CGRect) {
@@ -168,6 +169,7 @@ extension HCFastReplyContainer: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        editCallBack?(datas[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

@@ -11,17 +11,32 @@ import Foundation
 enum HCConsultType: Int {
     /// 聊天咨询
     case chatConsult = 1
-    /// 视屏咨询
+    /// 视频咨询
     case videoConsult = 2
+    /// 精准预约
+    case query = 4
 
     public var typeText: String {
         switch self {
         case .chatConsult:
             return "聊天咨询"
         case .videoConsult:
-            return "视屏咨询"
+            return "视频咨询"
+        case .query:
+            return "精准预约"
         }
     }
+    
+    public var bgColor: UIColor {
+        switch self {
+        case .chatConsult:
+            return RGB(75, 138, 239)
+        case .videoConsult:
+            return RGB(245, 154, 35)
+        case .query:
+            return RGB(109, 206, 110)
+        }
+    }    
 }
 
 enum HCOrderDetailStatus: Int {

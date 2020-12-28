@@ -19,7 +19,7 @@ class HCConsultChatContainer: UIView {
     private var keyboardManager = KeyboardManager()
 
     public var chatStatusView: HCConsultChatStatusView!
-    
+        
     public var tableView: UITableView!
     
     public let dataSignal = Variable([SectionModel<HCChatDataModel, HCChatListModel>]())
@@ -31,6 +31,8 @@ class HCConsultChatContainer: UIView {
     public let sendAudioSubject = PublishSubject<(Data, UInt)>()
     /// 点击输入框右边多功能按钮
     public var clickedFuncCallBack:(()->())?
+    /// 咨询退回
+    public let cancelSignal = PublishSubject<Void>()
 
     private lazy var chatKeyboardView: TYChatKeyBoardView = {
         let view = TYChatKeyBoardView()
@@ -57,6 +59,19 @@ class HCConsultChatContainer: UIView {
         
         return view
     }()
+    
+    public lazy var startConsultView: HCConsultSettingBottomActionView = {
+        let view = HCConsultSettingBottomActionView()
+        view.setTitle(leftTitle: "退回", rightTitle: "开始接诊")
+        view.actionCallBack = { [unowned self] in
+            if $0 == .save {
+                self.startConsultView.removeFromSuperview()
+            }else if $0 == .close {
+                self.cancelSignal.onNext(Void())
+            }
+        }
+        return view
+    }()
 
     deinit {
         keyboardManager.removeNotification()
@@ -78,19 +93,43 @@ class HCConsultChatContainer: UIView {
     private var consultStatus: HCOrderDetailStatus = .unknow {
         didSet {
             switch consultStatus {
-            case .replay, .unReplay:
-                publicViewContent.removeFromSuperview()
-                addSubview(chatKeyboardView)
+            case .finish, .cancel:
+                chatKeyboardView.removeFromSuperview()
+                if startConsultView.superview != nil {
+                    startConsultView.removeFromSuperview()
+                }
                 setNeedsLayout()
                 layoutIfNeeded()
-            case .finish:
-                chatKeyboardView.removeFromSuperview()
-                addSubview(publicViewContent)
+            case .unReplay:
+                addSubview(chatKeyboardView)
+                addSubview(startConsultView)
+                setNeedsLayout()
+                layoutIfNeeded()
+            case .replay:
+                if startConsultView.superview != nil {
+                    startConsultView.removeFromSuperview()
+                }
+                addSubview(chatKeyboardView)
                 setNeedsLayout()
                 layoutIfNeeded()
             default:
                 break
             }
+
+//            switch consultStatus {
+//            case .replay, .unReplay:
+//                publicViewContent.removeFromSuperview()
+//                addSubview(chatKeyboardView)
+//                setNeedsLayout()
+//                layoutIfNeeded()
+//            case .finish:
+//                chatKeyboardView.removeFromSuperview()
+//                addSubview(publicViewContent)
+//                setNeedsLayout()
+//                layoutIfNeeded()
+//            default:
+//                break
+//            }
         }
     }
     
@@ -117,33 +156,21 @@ class HCConsultChatContainer: UIView {
                                              height: 50)
             }
             
-            tableView.frame = .init(x: 0,
-                                    y: chatStatusView.frame.maxY,
-                                    width: width,
-                                    height: chatKeyboardView.y - chatStatusView.frame.maxY)
-        case .finish:
-            if #available(iOS 11.0, *) {
-                publicViewContent.frame = .init(x: 0,
-                                             y: height - 50 - safeAreaInsets.bottom,
-                                             width: width,
-                                             height: 50 + safeAreaInsets.bottom)
-            } else {
-                publicViewContent.frame = .init(x: 0,
-                                             y: height - 50,
-                                             width: width,
-                                             height: 50)
+            if consultStatus == .unReplay {
+                startConsultView.frame = chatKeyboardView.frame
             }
-            publicViewContent.viewWithTag(100)?.frame = .init(x: 0, y: 0, width: publicViewContent.width, height: 50)
             
             tableView.frame = .init(x: 0,
                                     y: chatStatusView.frame.maxY,
                                     width: width,
-                                    height: publicViewContent.y - chatStatusView.frame.maxY)
-        default:
+                                    height: chatKeyboardView.y - chatStatusView.frame.maxY)
+        case .finish, .cancel:
             tableView.frame = .init(x: 0,
                                     y: chatStatusView.frame.maxY,
                                     width: width,
                                     height: height - chatStatusView.frame.maxY)
+        default:
+            break
         }
         
         if chatKeyboardView.superview != nil {

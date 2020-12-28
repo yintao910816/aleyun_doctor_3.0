@@ -151,9 +151,9 @@ extension String {
         return "刚刚"
     }
     
-    public func getDayDiff(more: Bool) -> String {
+    public func getDayDiff(more: Bool, mode: HCDateMode = .yymmddhhmm) -> String {
      
-        guard let date = stringFormatDate()  else {
+        guard let date = stringFormatDate(mode: mode)  else {
             return ""
         }
         

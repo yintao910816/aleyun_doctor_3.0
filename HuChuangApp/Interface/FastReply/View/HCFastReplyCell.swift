@@ -96,7 +96,7 @@ extension HCFastReplyCell {
         addSubview(subTitleLabel)
         addSubview(markLabel)
         addSubview(coverImg)
-        addSubview(sendButton)
+        contentView.addSubview(sendButton)
         addSubview(lineView)
     }
     

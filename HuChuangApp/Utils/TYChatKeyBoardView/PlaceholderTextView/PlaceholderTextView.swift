@@ -57,6 +57,13 @@ class PlaceholderTextView: UITextView, UITextViewDelegate {
         }
     }
     
+    override var text: String! {
+        didSet {
+            super.text = text
+            placeholderLabel.isHidden = text.count > 0
+        }
+    }
+    
     override var contentInset: UIEdgeInsets {
         didSet {
             super.contentInset = contentInset

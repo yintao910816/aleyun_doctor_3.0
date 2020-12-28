@@ -47,8 +47,10 @@ extension HCAppDelegate: TRTCCallingDelegate {
     func onUserLeave(uid: String) {
         print("离开通话")
         NotificationCenter.default.post(name: NotificationName.ChatCall.otherLeaveVideoCall, object: nil)
-        _ = HCHelper.requestEndPhone(userId: uid, watchTime: "100")
+        _ = HCHelper.requestEndPhone(userId: uid, watchTime: "\(HCHelper.share.watchTime)")
             .subscribe(onNext:{ _ in })
+        
+        HCHelper.share.watchTime = 0
     }
     
     // 拒绝通话回调-仅邀请者受到通知,其他用户应使用

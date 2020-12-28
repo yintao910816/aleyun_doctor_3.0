@@ -34,6 +34,13 @@ class HCConsultListItemModel: HJModel {
     var userId: String = ""
     var userName: String = ""
     
+    public lazy var cellHeight: CGFloat = {
+        var h: CGFloat = 73
+        let textH = content.ty_textSize(font: .font(fontSize: 12), width: PPScreenW - 95, height: CGFloat.greatestFiniteMagnitude).height
+        h += min(45, textH)
+        return h
+    }()
+    
     public func transformToPatientItem() ->HCPatientItemModel {
         let model = HCPatientItemModel()
         model.age = "\(age)"
@@ -54,4 +61,19 @@ class HCConsultListItemModel: HJModel {
         }
         return "未知状态"
     }
+    
+    public lazy var consultMode: HCConsultType = {
+        return HCConsultType(rawValue: consultType) ?? HCConsultType.chatConsult
+    }()
+    
+    public lazy var typeText: String = {
+        switch consultMode {
+        case .chatConsult:
+            return "图文"
+        case .videoConsult:
+            return "视频"
+        case .query:
+            return "精准预约"
+        }
+    }()
 }

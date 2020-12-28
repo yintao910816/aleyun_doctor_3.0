@@ -13,6 +13,8 @@ class HCFastReplyController: BaseViewController {
     private var container: HCFastReplyContainer!
     private var viewModel: HCFastReplyViewModel!
     
+    public var sendActionCallBack:((HCFastReplyModel)->())?
+
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
@@ -22,8 +24,9 @@ class HCFastReplyController: BaseViewController {
         view.backgroundColor = .clear
         
         container = HCFastReplyContainer.init(frame: view.bounds)
-        container.sendActionCallBack = { _ in  }
+        container.sendActionCallBack = { [unowned self] in sendActionCallBack?($0) }
         container.addActionCallBack = { [unowned self] in presentFastReplyEditCtrl() }
+        container.editCallBack = { [unowned self] in presentFastReplyEditCtrl(replyModel: $0) }
         container.dismissActionCallBack = { [weak self] in self?.dismiss(animated: true, completion: nil) }
         container.moveTopActionCallBack = { [weak self] in self?.viewModel.moveTopSignal.onNext($0) }
         container.delActionCallBack = { [weak self] in self?.viewModel.removeSignal.onNext($0) }
@@ -46,9 +49,13 @@ class HCFastReplyController: BaseViewController {
         container.frame = view.bounds
     }
     
-    private func presentFastReplyEditCtrl() {
-        let presentCtrl = MainNavigationController.init(rootViewController: HCEditFastReplyController())
+    private func presentFastReplyEditCtrl(replyModel: HCFastReplyModel? = nil) {
+        let rootVC = HCEditFastReplyController()
+        let presentCtrl = MainNavigationController.init(rootViewController: rootVC)
         presentCtrl.view.backgroundColor = .clear
+        if let m = replyModel {
+            rootVC.prepare(parameters: ["model": m])
+        }
         model(for: presentCtrl, controllerHeight: view.size.height)
     }
 }
