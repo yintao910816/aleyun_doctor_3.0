@@ -33,4 +33,8 @@ class HCConsultListViewModel: RefreshVM<HCConsultListItemModel> {
             }
             .disposed(by: disposeBag)
     }
+    
+    private func request(searchWords: String) {
+        HCProvider.request(.consultSearch(searchWords: searchWords))
+    }
 }

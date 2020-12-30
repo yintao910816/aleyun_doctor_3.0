@@ -976,6 +976,7 @@ class HCChatListModel: HJModel {
     var timeLen: String = ""
     
     var files: [HCConsultDetailFileModel] = []
+    var isEndChat: Bool = false
     
     private var avatarFrame: CGRect = .zero
     private var nameFrame: CGRect = .zero
@@ -994,6 +995,10 @@ class HCChatListModel: HJModel {
     }()
     
     public lazy var cellIdentifier: String = {
+        if isEndChat {
+            return HCConsultEndCell_identifier
+        }
+        
         if self.contentMode == .audio {
             return HCConsultDetailAudioCell_identifier
         }else if self.contentMode == .image {
@@ -1137,6 +1142,8 @@ class HCChatListModel: HJModel {
             if cellHeight == 0 {
                 if cellIdentifier == HCConsultDetailTimeCell_identifier {
                     cellHeight = getTimeFrame.maxY + 15
+                }else if cellIdentifier == HCConsultEndCell_identifier {
+                    cellHeight = 50
                 }else {
                     if contentMode == .image {
                         cellHeight = getImageBoxFrame.maxY + 10

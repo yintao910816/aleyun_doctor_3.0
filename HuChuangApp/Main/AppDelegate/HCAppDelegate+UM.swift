@@ -175,7 +175,7 @@ extension HCAppDelegate : UNUserNotificationCenterDelegate{
 
 extension HCAppDelegate {
     
-    private func uploadUMToken() {
+    public func uploadUMToken() {
         guard deviceToken.count > 0 else { return }
 
         if #available(iOS 10.0, *) {

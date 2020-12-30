@@ -82,11 +82,13 @@ extension HCPatientHealthArchivesController: UITableViewDelegate, UITableViewDat
             let tempModel = model as! HCListCellItem
             let cell = tableView.dequeueReusableCell(withIdentifier: tempModel.cellIdentifier) as! HCBaseListCell
             cell.model = tempModel
+            cell.selectionStyle = .none
             return cell
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: HCPatientCycleCell_identifier) as! HCPatientCycleCell
         cell.model = (model as! HCPatientCircleModel)
+        cell.selectionStyle = .none
         return cell
     }
 

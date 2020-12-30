@@ -18,7 +18,8 @@ class HCPatientHealthArchivesHeaderView: UITableViewHeaderFooterView {
     public var expandChangeCallBack: ((Bool)->())?
 
     @IBAction func action(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
+//        sender.isSelected = !sender.isSelected
+        sender.isSelected = !model.isExpand
         expandChangeCallBack?(sender.isSelected)
     }
         
@@ -37,6 +38,7 @@ class HCPatientHealthArchivesHeaderView: UITableViewHeaderFooterView {
     
     var model: HCPatientDetailSectionModel! {
         didSet {
+            (viewWithTag(200) as? UIButton)?.isSelected = model.isExpand
             titleOutlet.text = model.title
         }
     }

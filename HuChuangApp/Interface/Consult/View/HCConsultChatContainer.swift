@@ -16,7 +16,7 @@ class HCConsultChatContainer: UIView {
 
     private let disposeBag = DisposeBag()
     
-    private var keyboardManager = KeyboardManager()
+//    private var keyboardManager = HCKeyBoardManager()
 
     public var chatStatusView: HCConsultChatStatusView!
         
@@ -74,16 +74,18 @@ class HCConsultChatContainer: UIView {
     }()
 
     deinit {
-        keyboardManager.removeNotification()
+//        keyboardManager.removeNotification()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        keyboardManager.registerNotification()
 
         initUI()
         bindData()
+        
+//        keyboardManager.prepare(containerView: self, inputView: chatKeyboardView, moveView: self)
+//        keyboardManager.registerNotification()
     }
     
     required init?(coder: NSCoder) {
@@ -115,21 +117,6 @@ class HCConsultChatContainer: UIView {
             default:
                 break
             }
-
-//            switch consultStatus {
-//            case .replay, .unReplay:
-//                publicViewContent.removeFromSuperview()
-//                addSubview(chatKeyboardView)
-//                setNeedsLayout()
-//                layoutIfNeeded()
-//            case .finish:
-//                chatKeyboardView.removeFromSuperview()
-//                addSubview(publicViewContent)
-//                setNeedsLayout()
-//                layoutIfNeeded()
-//            default:
-//                break
-//            }
         }
     }
     
@@ -172,10 +159,6 @@ class HCConsultChatContainer: UIView {
         default:
             break
         }
-        
-        if chatKeyboardView.superview != nil {
-            keyboardManager.move(coverView: chatKeyboardView, moveView: chatKeyboardView)
-        }
     }
 }
 
@@ -199,6 +182,7 @@ extension HCConsultChatContainer {
         tableView.register(HCConsultDetailTextPhotoCell.self, forCellReuseIdentifier: HCConsultDetailTextPhotoCell_identifier)
         tableView.register(HCConsultDetailTimeCell.self, forCellReuseIdentifier: HCConsultDetailTimeCell_identifier)
         tableView.register(HCConsultDetailAudioCell.self, forCellReuseIdentifier: HCConsultDetailAudioCell_identifier)
+        tableView.register(HCConsultEndCell.self, forCellReuseIdentifier: HCConsultEndCell_identifier)
     }
     
     private func bindData() {

@@ -30,4 +30,6 @@ pod 'Toast-Swift'
 pod 'TXLiteAVSDK_Professional'
 pod 'TXIMSDK_iOS'
 
+pod 'IQKeyboardManagerSwift', '~> 6.5.6'
+
 end

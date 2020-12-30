@@ -91,6 +91,7 @@ class HCPatientDetailViewModel: BaseViewModel {
         let archivesSignal = HCProvider.request(.getHealthArchives(memberId: memberId))
             .map(model: HCHealthArchivesModel.self)
             .asObservable()
+            .catchErrorJustReturn(HCHealthArchivesModel())
         let coupleInfoSignal = HCProvider.request(.getPatientCoupleInfo(memberId: memberId))
             .map(models: HCPatientCircleModel.self)
             .asObservable()

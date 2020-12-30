@@ -24,12 +24,16 @@ class HCFastReplyController: BaseViewController {
         view.backgroundColor = .clear
         
         container = HCFastReplyContainer.init(frame: view.bounds)
-        container.sendActionCallBack = { [unowned self] in sendActionCallBack?($0) }
         container.addActionCallBack = { [unowned self] in presentFastReplyEditCtrl() }
         container.editCallBack = { [unowned self] in presentFastReplyEditCtrl(replyModel: $0) }
         container.dismissActionCallBack = { [weak self] in self?.dismiss(animated: true, completion: nil) }
         container.moveTopActionCallBack = { [weak self] in self?.viewModel.moveTopSignal.onNext($0) }
         container.delActionCallBack = { [weak self] in self?.viewModel.removeSignal.onNext($0) }
+
+        container.sendActionCallBack = { [unowned self] in
+            sendActionCallBack?($0)
+            dismiss(animated: true, completion: nil)
+        }
 
         view.addSubview(container)
     }

@@ -270,10 +270,17 @@ extension HCConsultChatViewModel {
             fileModels.append(m)
         }
         data.mainInfo.fileListModel = fileModels
-        
-        sectionDatas.append(SectionModel(model: data, items: data.chatList))
-        
+                
         let status = HCOrderDetailStatus(rawValue: data.mainInfo.status)
+        
+        var items = data.chatList
+        if status == .finish {
+            let end = HCChatListModel()
+            end.isEndChat = true
+            items.append(end)
+        }
+        
+        sectionDatas.append(SectionModel(model: data, items: items))
         
         if status == .unReplay, refresh == true {
             if let startDate = data.mainInfo.createDate.stringFormatDate(mode: .yymmddhhmm) {

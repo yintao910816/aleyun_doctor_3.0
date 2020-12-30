@@ -192,6 +192,9 @@ enum API{
 
     /// 获取资讯消息列表 replyStatus: 0未回复1已回复2已退回3已评论（完结）
     case getPatientConsultList(pageNum: Int, pageSize: Int, sort: HCRequestListSort, replyStatus: String)
+    /// 咨询列表搜索
+    case consultSearch(searchWords: String)
+    
     /// 第一次获取咨询列表
     case chatDetail(consultId: String)
     /// 加载咨询历史 下拉加载一条新的记录。。loadSize 是1,2,3,4,5，。。。分别代表之前的第一条，第二条记录。。。
@@ -374,6 +377,8 @@ extension API: TargetType{
 
         case .getPatientConsultList(_, _, _, _):
             return "api/patientConsult/getConsultListWx"
+        case .consultSearch(_):
+            return "api/search/searchData"
         case .chatDetail(let consultId):
             return "api/patientConsult/chatDetail/\(consultId)"
         case .chatHistoryDetail(let memberId, let userId, let loadSize, let consultType):
@@ -381,7 +386,7 @@ extension API: TargetType{
         case .uploadFile(_):
             return "api/upload/fileSingle"
         case .replyConsult(_, _, _, _):
-            return "api/patientConsult/replyConsult"
+            return "api/patientConsult/chat"
         case .getHealthArchives:
             return "api/patientConsult/getHealthArchives"
         case .getPatientCoupleInfo(_):

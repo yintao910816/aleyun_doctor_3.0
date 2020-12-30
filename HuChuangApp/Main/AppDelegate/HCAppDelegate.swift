@@ -10,6 +10,7 @@ import UIKit
 import StoreKit
 import RxSwift
 import HandyJSON
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class HCAppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,6 +38,9 @@ class HCAppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
         }
+        
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
                 
         setupAppLogic()
         return true
