@@ -13,17 +13,23 @@ import RxCocoa
 
 class HCPatientManageViewModel: BaseViewModel, VMNavigation {
     
-    private var patientInfo: HCPatientItemModel!
+    private var memberId: String = ""
+    private var consultId: String = ""
+    private var patientInfo: HCPatientItemModel = HCPatientItemModel()
     private var aliasText: String = ""
     
     public let reloadSignal = Variable((HCPatientItemModel(), [[HCListCellItem]]()))
     public let cellSelectedSignal = PublishSubject<HCListCellItem>()
     public let saveSignal = PublishSubject<(Bool?, String?)>()
 
-    init(patientInfo: HCPatientItemModel) {
+    init(memberId: String, consultId: String) {
         super.init()
         
-        self.patientInfo = patientInfo
+        self.memberId = memberId
+        self.consultId = consultId
+        
+        patientInfo.memberId = memberId
+        patientInfo.consultId = consultId
         
         cellSelectedSignal
             .subscribe(onNext: { [unowned self] in
@@ -104,7 +110,7 @@ class HCPatientManageViewModel: BaseViewModel, VMNavigation {
     private func requestConsultPatientInfo() {
         prepareData(patientModel: nil)
         
-        HCProvider.request(.getConsultPatientInfo(userId: HCHelper.share.userInfoModel?.uid ?? "", memberId: patientInfo.memberId))
+        HCProvider.request(.getConsultPatientInfo(userId: HCHelper.share.userInfoModel?.uid ?? "", memberId: memberId))
             .map(model: HCPatientItemModel.self)
             .subscribe { [weak self] in
                 self?.patientInfo.bak = $0.bak
@@ -112,6 +118,9 @@ class HCPatientManageViewModel: BaseViewModel, VMNavigation {
                 self?.patientInfo.tagName = $0.tagName
                 self?.patientInfo.note = $0.note
                 self?.aliasText = $0.bak
+                self?.patientInfo.headPath = $0.headPath
+                self?.patientInfo.memberName = $0.memberName
+                self?.patientInfo.age = $0.age
                 
                 self?.prepareData(patientModel: $0)
             } onError: { _ in
@@ -123,11 +132,11 @@ class HCPatientManageViewModel: BaseViewModel, VMNavigation {
     // 修改患者设置
     private func requestUpdateConsultBlack(note: String, black: Bool) {
         hud.noticeLoading()
-        HCProvider.request(.updateConsultBlack(memberId: patientInfo.memberId,
+        HCProvider.request(.updateConsultBlack(memberId: memberId,
                                                userId: HCHelper.share.userInfoModel?.uid ?? "",
                                                bak: aliasText,
                                                black: black,
-                                               consultId: patientInfo.consultId,
+                                               consultId: consultId,
                                                note: note))
             .mapResponse()
             .subscribe { [weak self] res in

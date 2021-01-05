@@ -16,8 +16,12 @@ class HCConsultListContainer: UIView {
     private let disposeBag = DisposeBag()
     public let dataSignal = Variable([HCConsultListItemModel]())
     
+    private var searchBar: TYSearchBar!
+
     public var tableView: UITableView!
     
+    public var tapInputCallBack: (()->())?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -31,7 +35,8 @@ class HCConsultListContainer: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        tableView.frame = bounds
+        searchBar.frame = .init(x: 0, y: 0, width: width, height: TYSearchBar.baseHeight)
+        tableView.frame = .init(x: 0, y: searchBar.frame.maxY, width: width, height: height - searchBar.frame.maxY)
     }
     
 }
@@ -39,15 +44,21 @@ class HCConsultListContainer: UIView {
 extension HCConsultListContainer {
     
     private func initUI() {
-        
+        searchBar = TYSearchBar()
+        searchBar.viewConfig = TYSearchBarConfig.createConsultList()
+        searchBar.backgroundColor = .white
+        searchBar.tapInputCallBack = { [unowned self] in self.tapInputCallBack?() }
+
         tableView = UITableView.init(frame: .zero, style: .plain)
         tableView.showsVerticalScrollIndicator = true
         tableView.separatorStyle = .none
         tableView.rowHeight = HCConsultListCell_height
-        addSubview(tableView)
         
         tableView.register(HCConsultListCell.self, forCellReuseIdentifier: HCConsultListCell_identifier)
-        
+
+        addSubview(tableView)
+        addSubview(searchBar)
+
         bindData()
     }
     

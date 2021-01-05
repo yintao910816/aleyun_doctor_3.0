@@ -158,10 +158,13 @@ extension HCHomeHeaderReusableView {
         
 
         avatarBgView = UIImageView(image: UIImage(named: "home_avatar_bg"))
+        avatarBgView.isUserInteractionEnabled = true
         avatar = UIButton()
         avatar.layer.cornerRadius = 30
         avatar.clipsToBounds = true
-        
+        avatar.tag = HCHomeHeaderClickedMode.setting.rawValue
+        avatar.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
+
         nameLabel = UILabel()
         nameLabel.textColor = RGB(51, 51, 51)
         nameLabel.font = .font(fontSize: 20, fontName: .PingFSemibold)

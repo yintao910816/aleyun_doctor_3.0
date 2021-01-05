@@ -28,12 +28,12 @@ class HCSearchViewController: BaseViewController {
         
         searchBar = TYSearchBar.init(frame: .init(x: 0, y: 0, width: view.width, height: TYSearchBar.baseHeight + (UIDevice.current.isX ? 0 : 24)))
         searchBar.coverButtonEnable = false
-        searchBar.searchPlaceholder = "搜索症状/疾病/药品/医生/科室"
-        searchBar.rightItemTitle = "取消"
-        searchBar.leftItemIcon = "navigationButtonReturnClick"
-        searchBar.inputBackGroundColor = RGB(240, 240, 240)
+//        searchBar.searchPlaceholder = "搜索症状/疾病/药品/医生/科室"
+//        searchBar.rightItemTitle = "取消"
+//        searchBar.leftItemIcon = "navigationButtonReturnClick"
+//        searchBar.inputBackGroundColor = RGB(240, 240, 240)
         searchBar.hasBottomLine = true
-        searchBar.returnKeyType = .search
+//        searchBar.returnKeyType = .search
         view.addSubview(searchBar)
         
         searchBar.leftItemTapBack = { [weak self] in self?.navigationController?.popViewController(animated: true) }
@@ -178,13 +178,13 @@ class HCSearchViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if #available(iOS 11.0, *) {
-            searchBar.frame = .init(x: 0, y: 0, width: view.width, height: TYSearchBar.baseHeight + view.safeAreaInsets.top)
-            searchBar.safeArea = view.safeAreaInsets
-        } else {
-            searchBar.frame = .init(x: 0, y: 0, width: view.width, height: TYSearchBar.baseHeight + 20)
-            searchBar.safeArea = .init(top: 20, left: 0, bottom: 0, right: 0)
-        }
+//        if #available(iOS 11.0, *) {
+//            searchBar.frame = .init(x: 0, y: 0, width: view.width, height: TYSearchBar.baseHeight + view.safeAreaInsets.top)
+//            searchBar.safeArea = view.safeAreaInsets
+//        } else {
+//            searchBar.frame = .init(x: 0, y: 0, width: view.width, height: TYSearchBar.baseHeight + 20)
+//            searchBar.safeArea = .init(top: 20, left: 0, bottom: 0, right: 0)
+//        }
         
         slideCtrl.view.frame = .init(x: 0, y: searchBar.frame.maxY, width: view.width, height: view.height - searchBar.frame.maxY)
         searchRecordView.frame = .init(x: 0, y: searchBar.frame.maxY, width: view.width, height: view.height - searchBar.frame.maxY)

@@ -634,6 +634,8 @@ extension API {
             params["pageSize"] = pageSize
             params["sort"] = sort.rawValue
             params["replyStatus"] = replyStatus
+        case .consultSearch(let searchWords):
+            params["searchWords"] = searchWords
 
         case .replyConsult(let content, let filePath, let bak, let consultId):
             params["content"] = content

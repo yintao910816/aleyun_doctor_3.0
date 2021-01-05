@@ -43,6 +43,13 @@ class HCPatientItemModel: HJModel {
         return "女"
     }()
     
+    public lazy var memberInfoText: String = {
+        if age.count > 0 {
+            return "\(memberName)(\(sexText) \(age)岁)"
+        }
+        return "\(memberName)(\(sexText))"
+    }()
+    
     public static func testDatas() ->[HCPatientItemModel] {
         var data: [HCPatientItemModel] = []
         for _ in 0..<5 {
@@ -76,6 +83,7 @@ class HCPatientGroupListItemModel: HJModel {
     var memberName: String = ""
     var headPath: String = ""
     var userId: String = ""
+    var consultId: String = ""
 }
 
 /// 屏蔽患者列表

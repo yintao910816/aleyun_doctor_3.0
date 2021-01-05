@@ -43,10 +43,8 @@ class HCMyPatientContainer: UIView {
         
         if #available(iOS 11.0, *) {
             searchBar.frame = .init(x: 0, y: 0, width: width, height: TYSearchBar.baseHeight + safeAreaInsets.top)
-            searchBar.safeArea = safeAreaInsets
         } else {
             searchBar.frame = .init(x: 0, y: 0, width: width, height: TYSearchBar.baseHeight + 20)
-            searchBar.safeArea = .init(top: 20, left: 0, bottom: 0, right: 0)
         }
 
         tableView.frame = .init(x: 0, y: searchBar.frame.maxY, width: width, height: height - searchBar.frame.maxY)
@@ -58,9 +56,7 @@ extension HCMyPatientContainer {
     
     private func initUI() {
         searchBar = TYSearchBar()
-        searchBar.searchPlaceholder = "搜索医院"
-        searchBar.rightItemIcon = "nav_message_gray"
-        searchBar.inputBackGroundColor = RGB(243, 243, 243)
+        searchBar.viewConfig = TYSearchBarConfig.createPatientList()
         searchBar.backgroundColor = .white
         
         tableView = UITableView.init(frame: .zero, style: .grouped)

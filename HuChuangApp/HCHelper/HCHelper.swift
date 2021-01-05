@@ -295,11 +295,15 @@ extension HCHelper: VMNavigation {
         }
     }
     
-    public class func pushH5(href: String) {
+    public class func pushH5(href: String, title: String? = nil) {
         PrintLog("链接跳转地址: \(href)")
-        HCHelper.push(BaseWebViewController.self, ["url": href])
+        if let t = title {
+            HCHelper.push(BaseWebViewController.self, ["url": href, "title": t])
+        }else {
+            HCHelper.push(BaseWebViewController.self, ["url": href])
+        }
     }
-    
+
     public class func pushLocalH5(type: H5Type) {
         let urlString = type.getLocalUrl()
         PrintLog("固定链接跳转地址: \(urlString)")
@@ -356,5 +360,19 @@ extension HCHelper {
         }
         
         UIApplication.shared.openURL(url)
+    }
+    
+    /// 跳转App Store评分
+    class func gotoAppstorePraise() {
+        let urlStr = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(ileyun_appid)&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
+        UIApplication.shared.openURL(URL.init(string: urlStr)!)
+    }
+    
+    /// 跳转系统设置
+    class func appSetting() {
+        let url = URL.init(string: UIApplication.openSettingsURLString)
+        if let u = url, UIApplication.shared.canOpenURL(u) {
+            UIApplication.shared.openURL(u)
+        }
     }
 }

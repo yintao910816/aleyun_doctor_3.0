@@ -21,9 +21,7 @@ class HCAccountSettingViewController: BaseViewController {
         view.addSubview(containerView)
         
         containerView.didSelected = { [weak self] in
-            if $0.title == "昵称" {
-                self?.navigationController?.pushViewController(HCEditInfoViewController(), animated: true)
-            }else if $0.title == "头像" {
+            if $0.title == "头像" {
                 self?.presetentSheet()
             }
         }
@@ -34,6 +32,10 @@ class HCAccountSettingViewController: BaseViewController {
         
         viewModel.listItemSubject
             .subscribe(onNext: { [weak self] in self?.containerView.reloadData(data: $0) })
+            .disposed(by: disposeBag)
+        
+        containerView.saveButton.rx.tap.asObservable()
+            .bind(to: viewModel.saveSignal)
             .disposed(by: disposeBag)
         
         viewModel.reloadSubject.onNext(Void())
@@ -101,10 +103,14 @@ extension HCAccountSettingViewController {
         let systemPicAction = UIAlertAction.init(title: "相册", style: .default) { _ in
             self.systemPic()
         }
-        
+        let cancelAction = UIAlertAction.init(title: "取消", style: .cancel) { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }
+
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(takePhotoAction)
         alert.addAction(systemPicAction)
+        alert.addAction(cancelAction)
 
         present(alert, animated: true, completion: nil)
     }

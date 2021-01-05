@@ -19,6 +19,9 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
 
     private var timer: Timer!
 
+    // 标题
+    public let navTitleSignal = PublishSubject<String>()
+
     /// 图片回复
     public let sendImageSubject = PublishSubject<UIImage>()
     /// 语音回复
@@ -174,6 +177,7 @@ extension HCConsultChatViewModel {
         HCProvider.request(.chatDetail(consultId: consultId))
             .map(model: HCChatDataModel.self)
             .subscribe { [weak self] in
+                self?.navTitleSignal.onNext($0.memberInfo.chatRoomTitle)
                 self?.dealRequestData(refresh: true, data: $0)
             } onError: { [weak self] in
                 self?.revertCurrentPageAndRefreshStatus()

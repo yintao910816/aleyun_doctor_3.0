@@ -60,6 +60,7 @@ class HCListTextViewCell: HCBaseListCell {
         didSet {
             super.model = model
             
+            textView.isUserInteractionEnabled = model.inputEnable
             textView.text = model.detailTitle
         }
     }

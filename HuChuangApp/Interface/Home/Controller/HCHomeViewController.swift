@@ -43,14 +43,14 @@ class HCHomeViewController: BaseViewController {
             }
         }
         
-        containerView.buttonClicked = { [weak self] in
+        containerView.buttonClicked = { [unowned self] in
             switch $0 {
             case .qrCode:
                 break
             case .message:
                 break
             case .setting:
-                break;
+                navigationController?.pushViewController(HCSettingViewController(), animated: true)
             case .newOrder:
                 NotificationCenter.default.post(name: NotificationName.UserInterface.consultList, object: nil)
             }

@@ -963,6 +963,10 @@ class HCChatMemberInfoModel: HJModel {
     var memberName: String = ""
     var sex: Int = 1
     var age: String = ""
+    
+    public lazy var chatRoomTitle: String = {
+      return "\(memberName)(\(HCGender(rawValue: sex)?.genderText ?? "男") \(age)岁)"
+    }()
 }
 
 class HCChatListModel: HJModel {

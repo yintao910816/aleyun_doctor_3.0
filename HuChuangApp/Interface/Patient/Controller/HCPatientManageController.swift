@@ -13,8 +13,9 @@ class HCPatientManageController: HCSlideItemController {
     private var container: HCPatientManageContainer!
     
     private var viewModel: HCPatientManageViewModel!
-    private var patientInfo: HCPatientItemModel!
-    
+    private var memberId: String = ""
+    private var consultId: String = ""
+
     override func setupUI() {
         navigationItem.title = "患者管理"
         
@@ -23,7 +24,7 @@ class HCPatientManageController: HCSlideItemController {
     }
     
     override func rxBind() {
-        viewModel = HCPatientManageViewModel.init(patientInfo: patientInfo)
+        viewModel = HCPatientManageViewModel(memberId: memberId, consultId: consultId)
         
         viewModel.reloadSignal.asObservable()
             .subscribe(onNext: { [weak self] in self?.container.reload(listDatas: $0.1, patientInfo: $0.0) })
@@ -46,6 +47,7 @@ class HCPatientManageController: HCSlideItemController {
     }
     
     override func prepare(parameters: [String : Any]?) {
-        patientInfo = (parameters!["model"] as! HCPatientItemModel)
+        memberId = (parameters!["memberId"] as! String)
+        consultId = (parameters!["consultId"] as! String)
     }
 }

@@ -29,7 +29,7 @@ class HCPatientListItemModel: HJModel {
 
 /// 患者搜索
 class HCPatientSearchDataModel: HJModel {
-    var memberLsit: [HCPatientListItemModel] = []
+    var memberLsit: [HCPatientGroupListItemModel] = []
 }
 
 /// 患者管理-周期档案

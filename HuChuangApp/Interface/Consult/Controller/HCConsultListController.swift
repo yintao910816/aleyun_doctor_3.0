@@ -20,6 +20,9 @@ class HCConsultListController: BaseViewController, VMNavigation {
         container = HCConsultListContainer.init(frame: view.bounds)
         view.addSubview(container)
 
+        container.tapInputCallBack = { [unowned self] in
+            navigationController?.pushViewController(HCPatientSearchController(), animated: true)
+        }
     }
     
     override func rxBind() {
@@ -34,7 +37,9 @@ class HCConsultListController: BaseViewController, VMNavigation {
         
         container.tableView.rx.modelSelected(HCConsultListItemModel.self)
             .asDriver()
-            .drive(onNext: { HCConsultListController.push(HCConsultDetailController.self, ["model":$0]) })
+            .drive(onNext: {
+                HCConsultListController.push(HCConsultDetailController.self, ["memberId":$0.memberId, "consultId": $0.id])                
+            })
             .disposed(by: disposeBag)
     }
     

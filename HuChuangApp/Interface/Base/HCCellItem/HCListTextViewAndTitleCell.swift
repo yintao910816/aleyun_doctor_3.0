@@ -53,6 +53,7 @@ class HCListTextViewAndTitleCell: HCBaseListCell {
         didSet {
             super.model = model
             
+            textView.isUserInteractionEnabled = model.inputEnable
             textView.text = model.detailTitle
             
             titleLabel.snp.remakeConstraints {

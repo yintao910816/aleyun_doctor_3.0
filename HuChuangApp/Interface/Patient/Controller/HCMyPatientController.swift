@@ -17,8 +17,10 @@ class HCMyPatientController: BaseViewController, VMNavigation {
     override func setupUI() {
         container = HCMyPatientContainer.init(frame: view.bounds)
         view.addSubview(container)
-        
-        container.patientSelectedCallBack = {  HCMyPatientController.push(HCPatientManageController.self, ["model": $0]) }
+
+        container.patientSelectedCallBack = {
+            HCMyPatientController.push(HCPatientManageController.self, ["memberId": $0.memberId, "consultId": $0.consultId])
+        }
         
         container.selectedCallBack = {
             switch $0.title {
