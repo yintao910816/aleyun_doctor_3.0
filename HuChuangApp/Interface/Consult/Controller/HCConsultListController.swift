@@ -41,6 +41,10 @@ class HCConsultListController: BaseViewController, VMNavigation {
                 HCConsultListController.push(HCConsultDetailController.self, ["memberId":$0.memberId, "consultId": $0.id])                
             })
             .disposed(by: disposeBag)
+        
+        container.sortedSignal
+            .bind(to: viewModel.sortedSignal)
+            .disposed(by: disposeBag)
     }
     
     override func viewDidLayoutSubviews() {

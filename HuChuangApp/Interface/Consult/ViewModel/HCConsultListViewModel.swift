@@ -8,10 +8,23 @@
 
 import Foundation
 
+import RxSwift
+
 class HCConsultListViewModel: RefreshVM<HCConsultListItemModel> {
     
+    private var sorted = HCRequestListSort.increase
+    
+    public let sortedSignal = PublishSubject<Bool>()
+
     override init() {
         super.init()
+        
+        sortedSignal
+            .subscribe(onNext: { [unowned self] in
+                sorted = $0 ? .increase : .decrease
+                requestData(true)
+            })
+            .disposed(by: disposeBag)
         
         NotificationCenter.default.rx.notification(NotificationName.Consult.statusChange, object: nil)
             .subscribe(onNext: { [weak self] _ in
@@ -23,7 +36,7 @@ class HCConsultListViewModel: RefreshVM<HCConsultListItemModel> {
     override func requestData(_ refresh: Bool) {
         super.requestData(refresh)
         
-        HCProvider.request(.getPatientConsultList(pageNum: pageModel.currentPage, pageSize: pageModel.pageSize, sort: .increase, replyStatus: ""))
+        HCProvider.request(.getPatientConsultList(pageNum: pageModel.currentPage, pageSize: pageModel.pageSize, sort: sorted, replyStatus: ""))
             .map(model: HCConsultListModel.self)
             .subscribe { [weak self] in
                 self?.updateRefresh(refresh, $0.records, $0.pages)
@@ -32,9 +45,5 @@ class HCConsultListViewModel: RefreshVM<HCConsultListItemModel> {
                 self?.revertCurrentPageAndRefreshStatus()
             }
             .disposed(by: disposeBag)
-    }
-    
-    private func request(searchWords: String) {
-        HCProvider.request(.consultSearch(searchWords: searchWords))
     }
 }
