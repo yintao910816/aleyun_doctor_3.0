@@ -18,23 +18,29 @@ class HCPatientItemModel: HJModel {
     var age: String = ""
     var bak: String = ""
     var black: Bool = false
+    var consultId: String = ""
+    var createDate: String = ""
+    var creates: String = ""
     var headPath: String = ""
+    var id: String = ""
     var memberId: String = ""
     var memberName: String = ""
+    var modifyDate: String = ""
+    var modifys: String = ""
     var note: String = ""
     var sex: Int = 1
+    var userId: String = ""
+
     var tagName: String = ""
     var mobile: String = ""
-    var userId: String = ""
     var userName: String = ""
-    var consultId: String = ""
 
-    override func mapping(mapper: HelpingMapper) {
-        mapper <<<
-            memberId <-- ["id", "memberId"]
-        mapper <<<
-            memberName <-- ["name", "memberName"]
-    }
+//    override func mapping(mapper: HelpingMapper) {
+//        mapper <<<
+//            memberId <-- ["id", "memberId"]
+//        mapper <<<
+//            memberName <-- ["name", "memberName"]
+//    }
     
     public lazy var sexText: String = {
         if let type = HCGender(rawValue: self.sex) {

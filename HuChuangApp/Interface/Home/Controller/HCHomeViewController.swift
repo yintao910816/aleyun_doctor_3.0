@@ -48,7 +48,7 @@ class HCHomeViewController: BaseViewController {
             case .qrCode:
                 break
             case .message:
-                break
+                navigationController?.pushViewController(HCMessageViewController(), animated: true)
             case .setting:
                 navigationController?.pushViewController(HCSettingViewController(), animated: true)
             case .newOrder:

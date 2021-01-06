@@ -19,7 +19,7 @@ class HCMyPatientController: BaseViewController, VMNavigation {
         view.addSubview(container)
 
         container.patientSelectedCallBack = {
-            HCMyPatientController.push(HCPatientManageController.self, ["memberId": $0.memberId, "consultId": $0.consultId])
+            HCMyPatientController.push(HCPatientManageController.self, ["memberId": $0.id, "consultId": $0.consultId])
         }
         
         container.selectedCallBack = {

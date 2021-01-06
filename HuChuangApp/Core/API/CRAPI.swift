@@ -9,6 +9,28 @@
 import Foundation
 import Moya
 
+/// 系统消息列表对应code
+enum HCMsgListCode: String {
+    /// 系统消息
+    case notification_type1 = "notification_type1"
+    /// 通知公告
+    case notification_type2 = "notification_type2"
+    /// 圈子
+    case notification_type3 = "notification_type3"
+    /// 医生咨询
+    case notification_type4 = "notification_type4"
+    /// 预约
+    case notification_type5 = "notification_type5"
+    /// 提醒
+    case notification_type6 = "notification_type6"
+    /// 预留1
+    case notification_type7 = "notification_type7"
+    /// 快速提问
+    case notification_type8 = "notification_type8"
+    /// 预留3
+    case notification_type9 = "notification_type9"
+}
+
 /// 文件类型
 enum HCFileUploadType: String {
     case image = "image/jpeg"
@@ -160,6 +182,10 @@ enum API{
     case getUnreplyNum
     /// 首页菜单
     case functionsMenu
+    /// 消息中心
+    case messageCenter
+    /// 系统消息列表
+    case msgListByCode(code: HCMsgListCode, pageNum: Int, pageSize: Int)
     /// 获取验证码
     case validateCode(mobile: String)
     /// 密码登陆
@@ -339,6 +365,10 @@ extension API: TargetType{
     
     var path: String{
         switch self {
+        case .messageCenter:
+            return "api/messageCenter/groupMsg"
+        case .msgListByCode(_, _, _):
+            return "api/messageCenter/msgListByCode"
         case .userServerStatistics:
             return "api/patientConsult/userServerStatistics"
         case .getUnreplyNum:
@@ -346,8 +376,7 @@ extension API: TargetType{
         case .selectBanner(_):
             return "api/index/selectBanner"
         case .functionsMenu:
-//            return "api/index/select?facilityType=APP"
-            return "api/index/select"
+            return "api/index/selectAPP"
         case .validateCode(_):
             return "api/login/validateCode"
         case .loginTel(_, _):
@@ -539,9 +568,6 @@ extension API: TargetType{
         case .hieldMember(let pageNum, let pageSize):
             return .requestParameters(parameters: ["pageNum": pageNum, "pageSize": pageSize],
                                       encoding: URLEncoding.default)
-        case .functionsMenu:
-            return .requestParameters(parameters: ["facilityType": "APP", "type": "c_user"],
-                                      encoding: URLEncoding.default)
         default:
             if let _parameters = parameters {
                 guard let jsonData = try? JSONSerialization.data(withJSONObject: _parameters, options: []) else {
@@ -592,6 +618,12 @@ extension API {
     private var parameters: [String: Any]? {
         var params = [String: Any]()
         switch self {
+        case .functionsMenu:
+            params["facilityType"] = "APP"
+        case .msgListByCode(let code, let pageNum, let pageSize):
+            params["code"] = code.rawValue
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
         case .selectBanner(let code):
             params["code"] = code.rawValue
         case .validateCode(let mobile):
@@ -821,17 +853,3 @@ extension API {
 //MARK: API server
 let HCProvider = MoyaProvider<API>(plugins: [MoyaPlugins.MyNetworkActivityPlugin,
                                              RequestLoadingPlugin()]).rx
-
-/**
- yyyy, [22.12.19 09:48]
- https://ileyun.ivfcn.com/hc-patient/api/physiology/mergePro
-
- yyyy, [22.12.19 09:49]
- opType = knewRecord
-
- yyyy, [22.12.19 09:49]
- opType = ovulation
-
- yyyy, [22.12.19 09:49]
- opType = temperature
- */

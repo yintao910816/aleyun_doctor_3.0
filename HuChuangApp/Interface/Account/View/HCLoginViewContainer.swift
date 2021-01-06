@@ -201,6 +201,7 @@ extension HCLoginViewContainer {
         phoneHLine.backgroundColor = RGB(229, 229, 229)
         
         pwdTf = UITextField()
+        pwdTf.isSecureTextEntry = true
         pwdTf.keyboardType = .numberPad
         pwdTf.returnKeyType = .done
         pwdTf.borderStyle = .none

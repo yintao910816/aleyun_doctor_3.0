@@ -19,8 +19,8 @@ class HCPatientGroupController: BaseViewController, VMNavigation {
         container = HCPatientGroupContainer(frame: view.bounds)
         view.addSubview(container)
         
-        container.didSelectedCallBack = { [weak self] in
-            PrintLog($0.memberName)
+        container.didSelectedCallBack = { 
+            HCMyPatientController.push(HCPatientManageController.self, ["memberId": $0.memberId, "consultId": $0.consultId])
         }
     }
     
