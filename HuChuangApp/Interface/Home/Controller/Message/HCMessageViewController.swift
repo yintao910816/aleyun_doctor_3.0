@@ -19,13 +19,13 @@ class HCMessageViewController: BaseViewController, VMNavigation {
         container = HCMessageContainer.init(frame: .init(x: 0, y: 0, width: view.width, height: view.height))
         view.addSubview(container)
         
-        container.didSelected = { [unowned self] in
+        container.didSelected = {
             if let codeMode = HCMsgListCode(rawValue: $0.code) {
                 switch codeMode {
                 case .notification_type1:
                     HCMessageViewController.push(HCServerMsgController.self, nil)
                 case .notification_type4:
-                    HCMessageViewController.push(HCConsultDetailController.self, ["memberId": $0.userId, "consultId": $0.consultId])
+                    HCMessageViewController.push(HCConsultDetailController.self, ["memberId": $0.memberId, "consultId": $0.consultId])
                 default:
                     break
                 }

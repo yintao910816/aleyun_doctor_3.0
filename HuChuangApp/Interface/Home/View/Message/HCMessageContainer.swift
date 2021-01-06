@@ -43,7 +43,7 @@ extension HCMessageContainer {
         backgroundColor = RGB(243, 243, 243)
         
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = .init(top: 10, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = .init(top: 10, left: 0, bottom: 0, right: 0)
         layout.minimumLineSpacing = 10
 
         collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
@@ -70,7 +70,7 @@ extension HCMessageContainer: UICollectionViewDelegateFlowLayout, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: width - 20, height: HCMessageCell_height)
+        return .init(width: width, height: HCMessageCell_height)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

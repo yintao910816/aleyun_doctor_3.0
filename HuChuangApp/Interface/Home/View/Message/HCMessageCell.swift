@@ -32,7 +32,7 @@ class HCMessageCell: UICollectionViewCell {
         didSet {
             avatar.setImage(model.headPath, .messageSystom)
             titleLabel.text = model.name
-            timeLabel.text = model.date
+            timeLabel.text = model.lastestConsultDate
             contentLabel.text = model.content
         }
     }
@@ -62,8 +62,6 @@ extension HCMessageCell {
     
     private func initUI() {
         backgroundColor = .white
-        layer.cornerRadius = 5
-        clipsToBounds = true
         
         avatar = UIImageView()
         avatar.contentMode = .scaleAspectFill

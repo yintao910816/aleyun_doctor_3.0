@@ -52,7 +52,7 @@ class HCServerMsgCell: UITableViewCell {
     public var model: HCMessageItemModel! {
         didSet {
             titleLabel.text = model.name
-            timeLabel.text = model.date
+            timeLabel.text = model.createDate
             contentLabel.text = model.content
         }
     }

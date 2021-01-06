@@ -18,9 +18,9 @@ class HCMessageViewModel: RefreshVM<HCMessageItemModel> {
         super.requestData(refresh)
         
         HCProvider.request(.messageCenter(pageNum: pageModel.currentPage, pageSize: pageModel.pageSize))
-            .map(models: HCMessageItemModel.self)
+            .map(model: HCMessageListModel.self)
             .subscribe(onSuccess: { [weak self] in
-                self?.updateRefresh(refresh, $0, 0)
+                self?.updateRefresh(refresh, $0.records, $0.pages)
             }) { [weak self] _ in
                 self?.revertCurrentPageAndRefreshStatus()
         }

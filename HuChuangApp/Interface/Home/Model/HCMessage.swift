@@ -8,15 +8,33 @@
 
 import Foundation
 
+class HCMessageListModel: HJModel {
+    var records: [HCMessageItemModel] = []
+}
+
 class HCMessageItemModel: HJModel {
-    var consultId: String = ""
+    var age: String = ""
+    var birthday: String = ""
     var code: String = ""
-    var content: String = "答复哈都是废话看哈电视立刻恢复健康哈速度快哈瞌睡的很疯狂啊数据恢复快乐啊速度很快"
-    var date: String = "2020-11-10 11:11"
+    var consultId: String = ""
+    var consultType: Int = 4
+    var consultTypeName: String = ""
+    var content: String = ""
+    var createDate: String = ""
     var headPath: String = ""
-    var name: String = "放大舒服阿斯顿发阿斯顿发阿斯顿发大发"
-    var unReadCount: Int = 0
+    var id: String = ""
+    var lastestConsultDate: String = ""
+    var memberId: String = ""
+    var memberName: String = ""
+    var name: String = ""
+    var price: String = ""
+    var realName: String = ""
+    var sex: Int = 0
+    var status: Int = 0
+    var totalConsultNum: Int = 0
+    var unreplyNum: Int = 0
     var userId: String = ""
+    var userName: String = ""
 }
 
 class HCServerMsgModel: HJModel {
