@@ -168,6 +168,8 @@ enum API{
     case loginTel(mobile: String, smsCode: String)
     /// 获取用户信息
     case selectInfo
+    /// 修改用户信息
+    case updateExtInfo(params: [String: Any])
     /// 获取患者列表
     case getConsultsPatientList(pageNum: Int, pageSize: Int, searchName: String)
     /// 屏蔽患者列表
@@ -344,6 +346,7 @@ extension API: TargetType{
         case .selectBanner(_):
             return "api/index/selectBanner"
         case .functionsMenu:
+//            return "api/index/select?facilityType=APP"
             return "api/index/select"
         case .validateCode(_):
             return "api/login/validateCode"
@@ -353,6 +356,8 @@ extension API: TargetType{
             return "api/login/loginTwo"
         case .selectInfo:
             return "api/user/selectInfo"
+        case .updateExtInfo(_):
+            return "api/user/updateExtInfo"
         case .getConsultsPatientList(_, _, _):
             return "api/patientConsult/getConsultMemberList"
         case .hieldMember(_, _):
@@ -534,6 +539,9 @@ extension API: TargetType{
         case .hieldMember(let pageNum, let pageSize):
             return .requestParameters(parameters: ["pageNum": pageNum, "pageSize": pageSize],
                                       encoding: URLEncoding.default)
+        case .functionsMenu:
+            return .requestParameters(parameters: ["facilityType": "APP", "type": "c_user"],
+                                      encoding: URLEncoding.default)
         default:
             if let _parameters = parameters {
                 guard let jsonData = try? JSONSerialization.data(withJSONObject: _parameters, options: []) else {
@@ -584,10 +592,6 @@ extension API {
     private var parameters: [String: Any]? {
         var params = [String: Any]()
         switch self {
-        case .functionsMenu:
-            params["facilityType"] = "APP"
-        case .getUnreplyNum:
-            break
         case .selectBanner(let code):
             params["code"] = code.rawValue
         case .validateCode(let mobile):
@@ -598,6 +602,9 @@ extension API {
         case .pwdLogin(let account, let psd):
             params["account"] = account
             params["psd"] = psd
+        
+        case .updateExtInfo(let aparams):
+            params = aparams
 
         case .getConsultsPatientList(let pageNum, let pageSize, let searchName):
             params["pageNum"] = pageNum

@@ -52,7 +52,8 @@ class HCListCellItem {
     var placeholder: String = ""
     var inputEnable: Bool = true
     var keyboardType: UIKeyboardType = .default
-    
+    var returnKeyType: UIReturnKeyType = .done
+
     // 右边按钮
     var detailButtonSize:CGSize = .zero
     var detailButtonTitle: String = ""

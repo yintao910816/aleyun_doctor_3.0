@@ -58,6 +58,7 @@ extension HCAccountSettingContainer {
         tableView.register(HCListDetailCell.self, forCellReuseIdentifier: HCListDetailCell_identifier)
         tableView.register(HCListDetailIconCell.self, forCellReuseIdentifier: HCListDetailIconCell_identifier)
         tableView.register(HCListTextViewAndTitleCell.self, forCellReuseIdentifier: HCListTextViewAndTitleCell_identifier)
+        tableView.register(HCListDetailInputCell.self, forCellReuseIdentifier: HCListDetailInputCell_identifier)
 
         addSubview(tableView)
         addSubview(saveButton)

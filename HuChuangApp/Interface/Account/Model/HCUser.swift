@@ -18,7 +18,7 @@ class HCUserModel: HJModel {
     var birthday: String = ""
     var brief: String = ""
     var cityName: String = ""
-    var consult: String = ""
+    var consult: Bool = true
     var consultNum: Int = 0
     var consultPrice: String = ""
     var createDate: String = ""
@@ -49,7 +49,7 @@ class HCUserModel: HJModel {
     var skilledIn: String = ""
     var skilledInIds: String = ""
     var skin: String = ""
-    var smsNotice: String = ""
+    var smsNotice: Bool = false
     var sort: String = ""
     var spellBrevityCode: String = ""
     var spellCode: String = ""

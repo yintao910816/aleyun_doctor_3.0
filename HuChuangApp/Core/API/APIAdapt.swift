@@ -66,7 +66,8 @@ struct APIAssistance {
         case .version,
              .getUserInfo(_),
              .queryPreciseSchedule,
-             .getConsultTemplates:
+             .getConsultTemplates,
+             .selectInfo:
             return .get
         default:
             return .post

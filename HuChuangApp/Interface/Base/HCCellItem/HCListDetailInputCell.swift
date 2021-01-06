@@ -46,6 +46,7 @@ class HCListDetailInputCell: HCBaseListCell {
                 inputTf.delegate = self
             }
             
+            inputTf.returnKeyType = model.returnKeyType
             inputTf.text = model.detailTitle
             inputTf.textAlignment = model.detailInputTextAlignment
             inputTf.placeholder = model.placeholder
@@ -74,5 +75,9 @@ extension HCListDetailInputCell: UITextFieldDelegate {
         
     func textFieldDidEndEditing(_ textField: UITextField) {
         model.detailTitle = textField.text ?? ""
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 }

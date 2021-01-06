@@ -71,6 +71,7 @@ extension HCListTextViewAndTitleCell: UITextViewDelegate {
         if text == "\n" {
             textView.resignFirstResponder()
         }else {
+            model.textSignal.value = textView.text
             textChangeCallBack?(textView.text)
         }
         return true

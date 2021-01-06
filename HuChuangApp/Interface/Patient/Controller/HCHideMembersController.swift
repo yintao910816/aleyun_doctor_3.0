@@ -31,7 +31,7 @@ class HCHideMembersController: BaseViewController, VMNavigation {
             .disposed(by: disposeBag)
         
         container.tableView.rx.modelSelected(HCPatientItemModel.self)
-            .subscribe(onNext: { HCHideMembersController.push(HCPatientManageController.self, ["model": $0]) })
+            .subscribe(onNext: { HCHideMembersController.push(HCPatientManageController.self, ["memberId": $0.memberId, "consultId": $0.consultId]) })
             .disposed(by: disposeBag)
         
         container.tableView.headerRefreshing()

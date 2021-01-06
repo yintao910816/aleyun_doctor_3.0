@@ -14,6 +14,7 @@ import Moya
 class BaseViewModel: NSObject {
 
     public let disposeBag = DisposeBag()
+    public var inputTextDisposeBag = DisposeBag()
 
     public var isEmptyContentObser = Variable(false)
 

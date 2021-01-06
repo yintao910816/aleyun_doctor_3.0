@@ -19,20 +19,19 @@ extension HCAppDelegate: SKStoreProductViewControllerDelegate {
         DbManager.dbSetup()
         
         if HCHelper.userIsLogin() {
-            if userDefault.loginInfoString.count == 0 {
-                HCProvider.request(.selectInfo)
-                    .map(model: HCUserModel.self)
-                    .subscribe(onSuccess: { user in
-                        HCHelper.saveLogin(user: user)
-                    }) { error in
-                        PrintLog(error)
-                    }
-                    .disposed(by: disposeBag)
-            }else {
-                if let user = JSONDeserializer<HCUserModel>.deserializeFrom(json: userDefault.loginInfoString) {
-                    HCHelper.saveLogin(user: user)
-                }
+            if userDefault.loginInfoString.count > 0,
+               let user = JSONDeserializer<HCUserModel>.deserializeFrom(json: userDefault.loginInfoString){
+                HCHelper.saveLogin(user: user)
             }
+
+            HCProvider.request(.selectInfo)
+                .map(model: HCUserModel.self)
+                .subscribe(onSuccess: { user in
+                    HCHelper.saveLogin(user: user)
+                }) { error in
+                    PrintLog(error)
+                }
+                .disposed(by: disposeBag)
         }
         
         if userDefault.lanuchStatue != vLaunch { AppLaunchView().show() }
