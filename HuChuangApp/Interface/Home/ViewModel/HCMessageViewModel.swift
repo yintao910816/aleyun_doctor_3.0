@@ -17,7 +17,7 @@ class HCMessageViewModel: RefreshVM<HCMessageItemModel> {
     override func requestData(_ refresh: Bool) {
         super.requestData(refresh)
         
-        HCProvider.request(.messageCenter)
+        HCProvider.request(.messageCenter(pageNum: pageModel.currentPage, pageSize: pageModel.pageSize))
             .map(models: HCMessageItemModel.self)
             .subscribe(onSuccess: { [weak self] in
                 self?.updateRefresh(refresh, $0, 0)

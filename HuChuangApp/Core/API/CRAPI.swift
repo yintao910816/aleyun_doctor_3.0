@@ -183,7 +183,7 @@ enum API{
     /// 首页菜单
     case functionsMenu
     /// 消息中心
-    case messageCenter
+    case messageCenter(pageNum: Int, pageSize: Int)
     /// 系统消息列表
     case msgListByCode(code: HCMsgListCode, pageNum: Int, pageSize: Int)
     /// 获取验证码
@@ -366,7 +366,7 @@ extension API: TargetType{
     var path: String{
         switch self {
         case .messageCenter:
-            return "api/messageCenter/groupMsg"
+            return "api/messageCenter/myMessageList"
         case .msgListByCode(_, _, _):
             return "api/messageCenter/msgListByCode"
         case .userServerStatistics:
@@ -618,6 +618,10 @@ extension API {
     private var parameters: [String: Any]? {
         var params = [String: Any]()
         switch self {
+        case .messageCenter(let pageNum, let pageSize):
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
+        
         case .functionsMenu:
             params["facilityType"] = "APP"
         case .msgListByCode(let code, let pageNum, let pageSize):

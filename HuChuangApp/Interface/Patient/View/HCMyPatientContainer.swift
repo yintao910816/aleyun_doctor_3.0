@@ -58,7 +58,8 @@ extension HCMyPatientContainer {
         searchBar = TYSearchBar()
         searchBar.viewConfig = TYSearchBarConfig.createPatientList()
         searchBar.backgroundColor = .white
-        
+        searchBar.tapInputCallBack = { [unowned self] in self.tapInputCallBack?() }
+
         tableView = UITableView.init(frame: .zero, style: .grouped)
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HCHomeViewController: BaseViewController {
+class HCHomeViewController: BaseViewController, VMNavigation {
 
     private var containerView: HCHomeViewContainer!
     private var viewModel: HCHomeViewModel!
@@ -31,26 +31,28 @@ class HCHomeViewController: BaseViewController {
 ////            self?.navigationController?.pushViewController(webVC, animated: true)
 //        }
         
-        containerView.funcItemClicked = { [weak self] in
-            if $0.name == "排班设置" {
-                self?.navigationController?.pushViewController(HCServerSettingController(),
-                                                               animated: true)
-            }else {
-                let webVC = BaseWebViewController()
-                webVC.url = $0.functionUrl
-                webVC.title = $0.name
-                self?.navigationController?.pushViewController(webVC, animated: true)
+        containerView.funcItemClicked = { [unowned self] in
+            if $0.primordial == 1 {
+                if $0.name == "设置" {
+                    navigationController?.pushViewController(HCSettingViewController(), animated: true)
+                }else if $0.name == "服务设置" {
+                    navigationController?.pushViewController(HCServerSettingController(), animated: true)
+                }else if $0.name == "扫码核销" {
+                    
+                }
+            }else {                
+                HCHomeViewController.push(BaseWebViewController.self, ["url": $0.functionUrl, "title": $0.name])
             }
         }
         
         containerView.buttonClicked = { [unowned self] in
             switch $0 {
             case .qrCode:
-                break
+                HCHomeViewController.push(BaseWebViewController.self, ["url": APIAssistance.doctorCardLink, "title": "我的名片"])
             case .message:
                 navigationController?.pushViewController(HCMessageViewController(), animated: true)
             case .setting:
-                navigationController?.pushViewController(HCSettingViewController(), animated: true)
+                navigationController?.pushViewController(HCAccountSettingViewController(), animated: true)
             case .newOrder:
                 NotificationCenter.default.post(name: NotificationName.UserInterface.consultList, object: nil)
             }

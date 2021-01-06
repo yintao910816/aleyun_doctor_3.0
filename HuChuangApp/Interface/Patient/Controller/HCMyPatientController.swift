@@ -22,6 +22,10 @@ class HCMyPatientController: BaseViewController, VMNavigation {
             HCMyPatientController.push(HCPatientManageController.self, ["memberId": $0.id, "consultId": $0.consultId])
         }
         
+        container.tapInputCallBack = { [unowned self] in
+            navigationController?.pushViewController(HCPatientSearchController(), animated: true)
+        }
+
         container.selectedCallBack = {
             switch $0.title {
             case "分组":

@@ -27,7 +27,7 @@ class HCSettingViewController: BaseViewController {
             }else if $0.title == "账号设置" {
                 self?.navigationController?.pushViewController(HCAccountSettingViewController(), animated: true)
             }else if $0.title == "消息通知" {
-//                self?.navigationController?.pushViewController(HCMessageViewController(), animated: true)
+                self?.navigationController?.pushViewController(HCMessageViewController(), animated: true)
             }else if $0.title == "法律声明" {
                 HCHelper.pushH5(href: "https://ileyun.ivfcn.com/cms/0-1072.html", title: "法律声明")
             }else if $0.title == "隐私" {

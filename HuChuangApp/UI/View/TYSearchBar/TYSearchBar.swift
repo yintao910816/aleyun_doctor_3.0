@@ -382,7 +382,7 @@ struct TYSearchBarConfig {
     
     /// 患者列表
     static public func createPatientList() ->TYSearchBarConfig {
-        return TYSearchBarConfig.init(isInNav: false, searchPlaceholder: "搜索医院", rightIcon: UIImage(named: "nav_message_gray"), tfBackGroundColor: RGB(243, 243, 243))
+        return TYSearchBarConfig.init(isInNav: false, searchPlaceholder: "请输入您要查找的患者姓名", rightIcon: UIImage(named: "nav_message_gray"), tfBackGroundColor: RGB(243, 243, 243))
     }
 
 }

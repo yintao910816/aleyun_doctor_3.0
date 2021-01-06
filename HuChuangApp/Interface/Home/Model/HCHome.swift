@@ -26,7 +26,7 @@ class HCFunctionsMenuModel: HJModel {
     var type: String = ""
     var unitName: String = ""
     var facilityType: String = ""
-    var primordial: String = ""
+    var primordial: Int = 0
     var recom: Int = 0
     var bind: String = ""
     var hide: Bool = false
