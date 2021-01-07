@@ -689,6 +689,8 @@
 		C4D3994A25A5DFBE007D72D5 /* LBXZXCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D3986225A5DFBD007D72D5 /* LBXZXCapture.m */; };
 		C4D3994E25A6E0D9007D72D5 /* HCVerificationQueryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3994D25A6E0D9007D72D5 /* HCVerificationQueryController.swift */; };
 		C4D3995125A6E0F9007D72D5 /* HCVerificationQueryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3995025A6E0F9007D72D5 /* HCVerificationQueryContainer.swift */; };
+		C4D3995525A71ABC007D72D5 /* HCAddTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3995425A71ABC007D72D5 /* HCAddTagController.swift */; };
+		C4D3995825A71ADA007D72D5 /* HCAddTagContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3995725A71ADA007D72D5 /* HCAddTagContainer.swift */; };
 		C4E254EA233E0793006922DB /* TYSlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E254E9233E0792006922DB /* TYSlideMenuController.swift */; };
 		C4E254EC233E0D4D006922DB /* TYSlideDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E254EB233E0D4D006922DB /* TYSlideDatasource.swift */; };
 		C4E254EF233E1C36006922DB /* HCClassRoomItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E254EE233E1C36006922DB /* HCClassRoomItemController.swift */; };
@@ -1677,6 +1679,8 @@
 		C4D3986425A5DFBD007D72D5 /* LBXScanTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXScanTypes.h; sourceTree = "<group>"; };
 		C4D3994D25A6E0D9007D72D5 /* HCVerificationQueryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerificationQueryController.swift; sourceTree = "<group>"; };
 		C4D3995025A6E0F9007D72D5 /* HCVerificationQueryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerificationQueryContainer.swift; sourceTree = "<group>"; };
+		C4D3995425A71ABC007D72D5 /* HCAddTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAddTagController.swift; sourceTree = "<group>"; };
+		C4D3995725A71ADA007D72D5 /* HCAddTagContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAddTagContainer.swift; sourceTree = "<group>"; };
 		C4E254E4233E069C006922DB /* HCClassRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCClassRoomViewController.swift; sourceTree = "<group>"; };
 		C4E254E9233E0792006922DB /* TYSlideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSlideMenuController.swift; sourceTree = "<group>"; };
 		C4E254EB233E0D4D006922DB /* TYSlideDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSlideDatasource.swift; sourceTree = "<group>"; };
@@ -1809,6 +1813,7 @@
 				B818BB882514C88B003842A3 /* HCPatientGroupController.swift */,
 				B818BB902514D467003842A3 /* HCGroupManageController.swift */,
 				B89C2F6E2515CA0E004B5C71 /* HCEditTagController.swift */,
+				C4D3995425A71ABC007D72D5 /* HCAddTagController.swift */,
 				B89C2F772515D612004B5C71 /* HCRegisterPatientController.swift */,
 				B89C2F7D2515D7AD004B5C71 /* HCFollowUpPlanController.swift */,
 				B89C2F852515D876004B5C71 /* HCFollowUpAddViewController.swift */,
@@ -1836,6 +1841,7 @@
 				B818BB942514D71C003842A3 /* HCGroupManageContainer.swift */,
 				B818BB8C2514C9F6003842A3 /* HCPatientGroupContainer.swift */,
 				B89C2F722515CA29004B5C71 /* HCEditTagContainer.swift */,
+				C4D3995725A71ADA007D72D5 /* HCAddTagContainer.swift */,
 				B818BB7A251492F2003842A3 /* HCMyPatientListCell.swift */,
 				B818BB822514A234003842A3 /* HCPatientManageHeaderView.swift */,
 				B818BB8E2514CD5D003842A3 /* HCPatientGroupHeaderView.swift */,
@@ -4443,6 +4449,7 @@
 				C4F34DBF239E492700D45995 /* HCPregnancyProbability.swift in Sources */,
 				C4D3991525A5DFBE007D72D5 /* ZXUPCAWriter.m in Sources */,
 				C4D3990325A5DFBE007D72D5 /* ZXRSSExpandedCurrentParsingState.m in Sources */,
+				C4D3995825A71ADA007D72D5 /* HCAddTagContainer.swift in Sources */,
 				B842D1FE22258CC000A4F8DF /* HCAppDelegate+UM.swift in Sources */,
 				B8CFBA7E258B447100BD03A1 /* HCServer.swift in Sources */,
 				C497E95923444EF200328B47 /* HCHomeGoodNewsCell.swift in Sources */,
@@ -4495,6 +4502,7 @@
 				C421332922056F24006C10C4 /* TYIndicatorBaseView.swift in Sources */,
 				C4D3990625A5DFBE007D72D5 /* ZXAbstractExpandedDecoder.m in Sources */,
 				C4D3992125A5DFBE007D72D5 /* ZXUPCEANExtensionSupport.m in Sources */,
+				C4D3995525A71ABC007D72D5 /* HCAddTagController.swift in Sources */,
 				B8610C1E2553F41B007D5D46 /* HCMenuModel.swift in Sources */,
 				C4D3930425A5ABBB007D72D5 /* HCMessage.swift in Sources */,
 				C4D3995125A6E0F9007D72D5 /* HCVerificationQueryContainer.swift in Sources */,

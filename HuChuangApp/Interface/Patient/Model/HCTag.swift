@@ -20,4 +20,13 @@ class HCTagNameModel: HJModel {
     var type: Int = 0
     var unitId: String = ""
     var userId: String = ""
+    
+    public func transform() ->HCPatientGroupListModel {
+        let model = HCPatientGroupListModel()
+        model.id = id
+        model.type = type
+        model.createDate = createDate
+        model.tagName = tagName
+        return model
+    }
 }

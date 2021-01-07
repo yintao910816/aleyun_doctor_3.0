@@ -13,9 +13,13 @@ import RxSwift
 class HCDataObserCenter {
     public static let share = HCDataObserCenter()
     
-    /// 标签修改
+    /// 分组修改
     public let tagEditSuccessSignal = PublishSubject<HCTagNameModel>()
-    
+    /// 分组添加
+    public let tagAddSuccessSignal = PublishSubject<HCTagNameModel>()
+    /// 分组删除
+    public let tagRemoveSuccessSignal = PublishSubject<String>()
+
     init() {
         
     }

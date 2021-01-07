@@ -34,9 +34,9 @@ class HCEditTagController: BaseViewController {
         
         container.removeButton.rx.tap.asDriver()
             .drive(onNext: { [unowned self] in
-                NoticesCenter.alert(title: "是否删除该组", message: "", cancleTitle: "取消", okTitle: "确定", presentCtrl: self) {
-                    
-                }
+                NoticesCenter.alert(title: "是否删除该组", message: "", cancleTitle: "取消", okTitle: "确定", presentCtrl: self, callBackOK:  {
+                    viewModel.removeTagSignal.onNext(Void())
+                })
             })
             .disposed(by: disposeBag)
     }

@@ -27,8 +27,8 @@ class HCGroupManageController: BaseViewController, VMNavigation {
     
     override func rxBind() {
         addBarItem(title: "新增", titleColor: RGB(12, 12, 12))
-            .drive(onNext: { [unowned self] in
-                PrintLog("新增")
+            .drive(onNext: {
+                HCPatientGroupController.push(HCAddTagController.self)
             })
             .disposed(by: disposeBag)
         

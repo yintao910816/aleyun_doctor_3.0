@@ -23,6 +23,22 @@ class HCGroupManageViewModel: BaseViewModel {
         reloadSubject
             .subscribe(onNext: { [unowned self] in self.prepareCellData() })
             .disposed(by: disposeBag)
+                
+        HCDataObserCenter.share.tagAddSuccessSignal
+            .subscribe(onNext: { [weak self] tagModel in
+                guard let strongSelf = self else { return }
+                strongSelf.groupPatientDatas.insert(tagModel.transform(), at: 0)
+                strongSelf.prepareCellData()
+            })
+            .disposed(by: disposeBag)
+        
+        HCDataObserCenter.share.tagRemoveSuccessSignal
+            .subscribe(onNext: { [weak self] id in
+                guard let strongSelf = self else { return }
+                strongSelf.groupPatientDatas = strongSelf.groupPatientDatas.filter({ $0.id != id })
+                strongSelf.prepareCellData()
+            })
+            .disposed(by: disposeBag)
         
         HCDataObserCenter.share.tagEditSuccessSignal
             .subscribe(onNext: { [weak self] tagModel in
@@ -43,7 +59,7 @@ class HCGroupManageViewModel: BaseViewModel {
         for idx in 0..<groupPatientDatas.count {
             let m = HCListCellItem()
             m.title = groupPatientDatas[idx].tagName
-            m.detailTitle = "\(groupPatientDatas[idx].memberList.count)"
+//            m.detailTitle = "\(groupPatientDatas[idx].memberList.count)"
             m.cellHeight = 50
             m.cellIdentifier = HCListDetailCell_identifier
             datas.append([m])
