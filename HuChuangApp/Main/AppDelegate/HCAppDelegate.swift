@@ -28,6 +28,10 @@ class HCAppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         TRTCCalling.shareInstance().addDelegate(self)
+        #if DEBUG
+        TRTCCloud.setConsoleEnabled(true)
+        #endif
+
         setupUM(launchOptions: launchOptions)
         
         window = UIWindow.init(frame: UIScreen.main.bounds)

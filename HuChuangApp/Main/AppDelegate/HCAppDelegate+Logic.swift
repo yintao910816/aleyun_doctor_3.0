@@ -17,31 +17,15 @@ extension HCAppDelegate: SKStoreProductViewControllerDelegate {
     public func setupAppLogic() {
         HCHelper.setupHelper()
         DbManager.dbSetup()
-        
-        if HCHelper.userIsLogin() {
-            if userDefault.loginInfoString.count > 0,
-               let user = JSONDeserializer<HCUserModel>.deserializeFrom(json: userDefault.loginInfoString){
-                HCHelper.saveLogin(user: user)
-            }
-
-            HCProvider.request(.selectInfo)
-                .map(model: HCUserModel.self)
-                .subscribe(onSuccess: { user in
-                    HCHelper.saveLogin(user: user)
-                }) { error in
-                    PrintLog(error)
-                }
-                .disposed(by: disposeBag)
-        }
-        
+                
         if userDefault.lanuchStatue != vLaunch {
             HCHelper.share.isShowLanuch = true
-            AppLaunchView(frame: .zero, complement: {
+            AppLaunchView(frame: .zero, complement: { [unowned self] in
                 HCHelper.share.isShowLanuch = false
-                if !HCHelper.userIsLogin() {
-                    HCHelper.presentLogin()
-                }
+                self.prepareUserInfo()
             }).show()
+        }else {
+            prepareUserInfo()
         }
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
@@ -81,5 +65,25 @@ extension HCAppDelegate: SKStoreProductViewControllerDelegate {
     
     func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
         viewController.dismiss(animated: true, completion: nil)
+    }
+    
+    private func prepareUserInfo() {
+        if HCHelper.userIsLogin() {
+            if userDefault.loginInfoString.count > 0,
+               let user = JSONDeserializer<HCUserModel>.deserializeFrom(json: userDefault.loginInfoString){
+                HCHelper.saveLogin(user: user)
+            }
+
+            HCProvider.request(.selectInfo)
+                .map(model: HCUserModel.self)
+                .subscribe(onSuccess: { user in
+                    HCHelper.saveLogin(user: user)
+                }) { error in
+                    PrintLog(error)
+                }
+                .disposed(by: disposeBag)
+        }else {
+            HCHelper.presentLogin()
+        }
     }
 }
