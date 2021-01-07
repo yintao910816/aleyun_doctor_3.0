@@ -10,12 +10,16 @@ import UIKit
 
 class AppLaunchView: UIView {
 
-    fileprivate var imageSource: [String]!
+    private var imageSource: [String]!
+        
+    private var complement: (()->())?
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, complement: (()->())? = nil) {
         let aframe = UIScreen.main.bounds
         super.init(frame: aframe)
 
+        self.complement = complement
+        
 //        imageSource = UIDevice.current.isX == true ? ["guide_x_01", "guide_x_02", "guide_x_03", "guide_x_04", "guide_x_05"]
 //            : ["guide_01", "guide_02", "guide_03", "guide_04", "guide_05"]
         imageSource = ["launch_01", "launch_02", "launch_03"]
@@ -100,6 +104,8 @@ extension AppLaunchView: CAAnimationDelegate {
         imageSource.removeAll()
         removeFromSuperview()
         layer.removeAllAnimations()
+        
+        complement?()
     }
     
 }

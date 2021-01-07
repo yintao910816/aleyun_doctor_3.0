@@ -34,7 +34,15 @@ extension HCAppDelegate: SKStoreProductViewControllerDelegate {
                 .disposed(by: disposeBag)
         }
         
-        if userDefault.lanuchStatue != vLaunch { AppLaunchView().show() }
+        if userDefault.lanuchStatue != vLaunch {
+            HCHelper.share.isShowLanuch = true
+            AppLaunchView(frame: .zero, complement: {
+                HCHelper.share.isShowLanuch = false
+                if !HCHelper.userIsLogin() {
+                    HCHelper.presentLogin()
+                }
+            }).show()
+        }
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             self.checkVersion()

@@ -61,7 +61,7 @@ public final class RequestLoadingPlugin: PluginType {
                 
                 guard let code = rdic["code"] as? Int else { return }
                 
-                if code == RequestCode.invalid.rawValue && HCHelper.share.isPresentLogin == false {
+                if code == RequestCode.invalid.rawValue && HCHelper.share.isPresentLogin == false && !HCHelper.share.isShowLanuch {
                     HCHelper.presentLogin()
                 }
 

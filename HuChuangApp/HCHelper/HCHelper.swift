@@ -35,6 +35,8 @@ class HCHelper {
     public let userInfoHasReload = PublishSubject<HCUserModel>()
     public var userInfoModel: HCUserModel?
     public var isPresentLogin: Bool = false
+    /// 是否显示引导页
+    public var isShowLanuch: Bool = false
     
     public var enableWchatLoginSubjet = PublishSubject<Bool>()
     public var enableWchatLogin: Bool = false
