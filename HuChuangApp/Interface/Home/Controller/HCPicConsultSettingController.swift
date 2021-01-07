@@ -24,7 +24,7 @@ class HCPicConsultSettingController: BaseViewController {
             if $0.row == 3 {
                 let picker = HCPicConsultSettingPicker()
                 picker.pickerHeight = 230
-                picker.datasource = HCPickerSectionData.createPicConsultSettingDatas()
+                picker.configData(model: model, pickerSource: HCPickerSectionData.createPicConsultSettingDatas())
                 picker.submitSubject
                     .bind(to: self.viewModel.submitSubject)
                     .disposed(by: disposeBag)

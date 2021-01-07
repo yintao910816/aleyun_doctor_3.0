@@ -34,7 +34,7 @@ class HCVideoConsultSettingViewModel: BaseViewModel {
                     if dayItem.settingModel == nil {
                         requestAddVideoConsultSchedule(params: $0)
                     }else {
-                        requestUpdateConsultUserStatus(params: $0)
+                        requestUpdateConsultUserStatus(params: $0, needRemind: false)
                     }
                 }
             })
@@ -45,7 +45,7 @@ class HCVideoConsultSettingViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         updateConsultUserStatusSubject
-            .subscribe(onNext: { [unowned self] in self.requestUpdateConsultUserStatus(params: nil) })
+            .subscribe(onNext: { [unowned self] in self.requestUpdateConsultUserStatus(params: nil, needRemind: true) })
             .disposed(by: disposeBag)
 
         reloadSubject
@@ -71,12 +71,8 @@ extension HCVideoConsultSettingViewModel {
         priceModel.shwoArrow = false
         priceModel.cellIdentifier = HCDetailTextFiledCollectionCell_identifier
         priceModel.detailInputTextAlignment = .right
-        if model.price > 0 {
-            priceModel.detailTitle = "\(model.price)元"
-        }else {
-            priceModel.placeholder = "请输入"
-        }
-        
+        priceModel.detailTitle = "\(model.price)元"
+
         let dateTup = TYDateCalculate.getDatesAndWeekDays(startDate: Date(),
                                                           endDate: TYDateCalculate.getDate(currentDate: Date(),
                                                                                            days: 6,
@@ -201,14 +197,14 @@ extension HCVideoConsultSettingViewModel {
                     }
                     .disposed(by: disposeBag)
             }else {
-                hud.failureHidden("参数错误")
+                NoticesCenter.alert(message: "还没有设置排班")
             }
         }else {
             hud.failureHidden("参数错误")
         }
     }
     
-    private func requestUpdateConsultUserStatus(params: [String: Any]?) {
+    private func requestUpdateConsultUserStatus(params: [String: Any]?, needRemind: Bool) {
         var postParams: [String: [String: Any]] = [:]
         var dealPrice: Float = 0
         var dayKey: String = ""
@@ -275,7 +271,11 @@ extension HCVideoConsultSettingViewModel {
                     NotificationCenter.default.post(name: NotificationName.ConsultSetting.videoSettingChanged,
                                                     object: strongSelf.model)
 
-                    strongSelf.hud.noticeHidden()
+                    if needRemind {
+                        strongSelf.hud.successHidden("保存成功")
+                    }else {
+                        strongSelf.hud.noticeHidden()
+                    }
                 }else {
                     strongSelf.hud.failureHidden($0.message)
                 }

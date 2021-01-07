@@ -33,7 +33,7 @@ class HCServerSettingViewModel: BaseViewModel {
         NotificationCenter.default.rx.notification(NotificationName.ConsultSetting.videoSettingChanged, object: nil)
             .subscribe(onNext: { [weak self] in
                 if let m = $0.object as? HCConsultStatusModel {
-                    self?.openStatusModel.picModel = m
+                    self?.openStatusModel.videoModel = m
                     self?.prepareCellData(isFirst: false)
                 }
             })

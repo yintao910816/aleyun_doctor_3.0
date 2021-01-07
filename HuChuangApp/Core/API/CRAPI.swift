@@ -249,6 +249,14 @@ enum API{
     /// 结束通话
     case consultEndPhone(memberId: String, userId: String, watchTime: String)
     
+    //MARK: 扫码核销相关
+    /// 根据核销码查询核销信息
+    case getVerificationByCode(verificationCode: String)
+    /// 确认核销
+    case confirmVerification(verificationId: String, consultId: String)
+    /// 核销记录列表
+    case verificationList(pageNum: Int, pageSize: Int)
+    
     //MARK: 快捷回复相关
     /// 添加快捷回复
     case addConsultTemplates(path: String, title: String, content: String)
@@ -409,6 +417,13 @@ extension API: TargetType{
         case .updateConsultBlack(_, _, _, _, _, _):
             return "api/patientConsult/updateConsultBlackWx"
 
+        case .getVerificationByCode(_):
+            return "api/patientConsult/getVerificationByCode"
+        case .confirmVerification(_, _):
+            return "api/patientConsult/confirmVerification"
+        case .verificationList(_, _):
+            return "api/patientConsult/verificationList"
+            
         case .getPatientConsultList(_, _, _, _):
             return "api/patientConsult/getConsultListWx"
         case .consultSearch(_):
@@ -690,6 +705,15 @@ extension API {
         case .getPatientCoupleInfo(let memberId):
             params["memberId"] = memberId
         
+        case .getVerificationByCode(let verificationCode):
+            params["verificationCode"] = verificationCode
+        case .confirmVerification(let verificationId, let consultId):
+            params["verificationId"] = verificationId
+            params["consultId"] = consultId
+        case .verificationList(let pageNum, let pageSize):
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
+
         case .videoChatSignature(let userId):
             params["userId"] = userId
         case .consultVideoUserInfo(let memberId, let userId, let consultId):

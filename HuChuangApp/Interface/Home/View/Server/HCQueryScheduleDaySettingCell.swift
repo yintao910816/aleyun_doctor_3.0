@@ -14,7 +14,6 @@ public let HCQueryScheduleDaySettingCell_height: CGFloat = 70
 class HCQueryScheduleDaySettingCell: UICollectionViewCell {
     
     private var dateLabel: UILabel!
-    private var markLabel: UILabel!
     private var morningtimeLabel: UILabel!
     private var afternoonLabel: UILabel!
     private var remindLabel: UILabel!
@@ -34,15 +33,6 @@ class HCQueryScheduleDaySettingCell: UICollectionViewCell {
         dateLabel.textColor = RGB(51, 51, 51)
         dateLabel.textAlignment = .center
 
-        markLabel = UILabel()
-        markLabel.font = .font(fontSize: 9, fontName: .PingFSemibold)
-        markLabel.textColor = RGB(14, 103, 217)
-        markLabel.backgroundColor = RGB(193, 217, 255)
-        markLabel.layer.cornerRadius = 6
-        markLabel.clipsToBounds = true
-        markLabel.textAlignment = .center
-        markLabel.text = "今天"
-
         morningtimeLabel = UILabel()
         morningtimeLabel.font = .font(fontSize: 14, fontName: .PingFSemibold)
         morningtimeLabel.textColor = RGB(51, 51, 51)
@@ -60,7 +50,6 @@ class HCQueryScheduleDaySettingCell: UICollectionViewCell {
         remindLabel.textAlignment = .center
 
         addSubview(dateLabel)
-        addSubview(markLabel)
         addSubview(morningtimeLabel)
         addSubview(afternoonLabel)
         addSubview(remindLabel)
@@ -73,14 +62,13 @@ class HCQueryScheduleDaySettingCell: UICollectionViewCell {
     public var model: HCQueryScheduleSettingModel! {
         didSet {
             dateLabel.text = "\(model.date)(\(model.week))"
-            markLabel.isHidden = !model.isToday
             if let m = model.settingModel {
                 remindLabel.isHidden = true
                 morningtimeLabel.isHidden = false
                 afternoonLabel.isHidden = false
                 
-                morningtimeLabel.text = "上午 \(m.morningNum)人"
-                afternoonLabel.text = "下午 \(m.afternoonNum)人"
+                morningtimeLabel.attributedText = m.morningNumText
+                afternoonLabel.attributedText = m.afternoonNumText
             }else {
                 remindLabel.isHidden = false
                 morningtimeLabel.isHidden = true
@@ -100,26 +88,13 @@ class HCQueryScheduleDaySettingCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        dateLabel.frame = .init(x: 33, y: 8, width: width - 66, height: 16)
-
-        if model.isToday {
-//            var dateSize = dateLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude,
-//                                                        height: 14))
-//            dateSize.width = min(dateSize.width, width - 20 - 4 - 22 - 7)
-
-            markLabel.frame = .init(x: width - 7 - 22,
-                                    y: 10,
-                                    width: 22,
-                                    height: 12)
-        }else {
-            markLabel.frame = .zero
-        }
+        dateLabel.frame = .init(x: 10, y: 8, width: width - 20, height: 16)
         
-        morningtimeLabel.frame = .init(x: 20, y: dateLabel.frame.maxY + 2, width: width - 40, height: 16)
-        afternoonLabel.frame = .init(x: 20, y: morningtimeLabel.frame.maxY + 2, width: width - 40, height: 16)
-        remindLabel.frame = .init(x: 20,
+        morningtimeLabel.frame = .init(x: dateLabel.x, y: dateLabel.frame.maxY + 2, width: dateLabel.width, height: 16)
+        afternoonLabel.frame = .init(x: dateLabel.x, y: morningtimeLabel.frame.maxY + 2, width: dateLabel.width, height: 16)
+        remindLabel.frame = .init(x: dateLabel.x,
                                   y: dateLabel.frame.maxY + ((height - dateLabel.frame.maxY - 16) / 2),
-                                  width: width - 40,
+                                  width: dateLabel.width,
                                   height: 16)
     }
 }

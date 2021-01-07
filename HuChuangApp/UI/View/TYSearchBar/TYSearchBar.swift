@@ -27,7 +27,8 @@ class TYSearchBar: UIView {
     
     /// 文字变化监听
     public let textObser = PublishSubject<String>()
-
+    public var text: String = ""
+    
     /// 点击右边按钮是否搜索
     public var isRightItemSearch: Bool = false
     
@@ -57,6 +58,7 @@ class TYSearchBar: UIView {
                 
         searchTf.rx.text.asObservable()
             .map{ ($0 == nil ? "" : $0!) }
+            .do(onNext: { [weak self] in self?.text = $0 })
             .bind(to: textObser)
             .disposed(by: disposeBag)
     }
@@ -383,6 +385,11 @@ struct TYSearchBarConfig {
     /// 患者列表
     static public func createPatientList() ->TYSearchBarConfig {
         return TYSearchBarConfig.init(isInNav: false, searchPlaceholder: "请输入您要查找的患者姓名", rightIcon: UIImage(named: "nav_message_gray"), tfBackGroundColor: RGB(243, 243, 243))
+    }
+
+    /// 核销
+    static public func createVerification() ->TYSearchBarConfig {
+        return TYSearchBarConfig.init(isInNav: false, searchPlaceholder: "请输入核销码", tfBackGroundColor: RGB(247, 247, 247), returnKeyType: .done)
     }
 
 }

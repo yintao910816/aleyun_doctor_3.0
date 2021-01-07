@@ -35,7 +35,7 @@ class HCqueryScheduleConsultSettingViewModel: BaseViewModel {
                     if dayItem.settingModel == nil {
                         requestAddPreciseSchedule(params: $0)
                     }else {
-                        requestUpdateConsultUserStatus(params: $0)
+                        requestUpdateConsultUserStatus(params: $0, needRemind: false)
                     }
                 }
             })
@@ -46,7 +46,7 @@ class HCqueryScheduleConsultSettingViewModel: BaseViewModel {
             .disposed(by: disposeBag)
 
         updateConsultUserStatusSubject
-            .subscribe(onNext: { [unowned self] in self.requestUpdateConsultUserStatus(params: nil) })
+            .subscribe(onNext: { [unowned self] in self.requestUpdateConsultUserStatus(params: nil, needRemind: true) })
             .disposed(by: disposeBag)
 
         reloadSubject
@@ -71,12 +71,8 @@ extension HCqueryScheduleConsultSettingViewModel {
         priceModel.inputSize = .init(width: 190, height: 30)
         priceModel.cellIdentifier = HCDetailTextFiledCollectionCell_identifier
         priceModel.detailInputTextAlignment = .right
-        if model.price > 0 {
-            priceModel.detailTitle = "\(model.price)"
-        }else {
-            priceModel.placeholder = "请输入"
-        }
-        
+        priceModel.detailTitle = "\(model.price)"
+
         let addressModel = HCListCellItem()
         addressModel.title = "坐诊地点"
         addressModel.shwoArrow = false
@@ -90,8 +86,9 @@ extension HCqueryScheduleConsultSettingViewModel {
             addressModel.placeholder = "请输入"
         }
         
-        let dateTup = TYDateCalculate.getDatesAndWeekDays(startDate: Date(),
-                                                          endDate: TYDateCalculate.getDate(currentDate: Date(),
+        let startDate = TYDateCalculate.getDate(currentDate: Date(), days: 1, isAfter: true)
+        let dateTup = TYDateCalculate.getDatesAndWeekDays(startDate: startDate,
+                                                          endDate: TYDateCalculate.getDate(currentDate: startDate,
                                                                                            days: 6,
                                                                                            isAfter: true))
         var dayItems: [HCQueryScheduleSettingModel] = []
@@ -100,11 +97,6 @@ extension HCqueryScheduleConsultSettingViewModel {
             item.date = dateTup.dates[idx].formatDate(mode: .yymmdd)
             item.week = dateTup.weeks[idx]
                         
-            let todayDate = TYDateCalculate.formatDate(date: Date())
-            if todayDate.compare(dateTup.dates[idx]) == .orderedSame {
-                item.isToday = true
-            }
-
             let dateS = dateTup.dates[idx].formatDate(mode: .newyymmdd)
             if let json = model.scheduleMap[dateS],
                let m = JSONDeserializer<HCQueryPreciseScheduleItemModel>.deserializeFrom(dict: json) {
@@ -232,7 +224,7 @@ extension HCqueryScheduleConsultSettingViewModel {
         }
     }
     
-    private func requestUpdateConsultUserStatus(params: [String: Any]?) {
+    private func requestUpdateConsultUserStatus(params: [String: Any]?, needRemind: Bool) {
         var postParams: [String: [String: Any]] = [:]
         var dealPrice: Float = 0
         var dayKey: String = ""
@@ -295,8 +287,12 @@ extension HCqueryScheduleConsultSettingViewModel {
                     }
 
                     NotificationCenter.default.post(name: NotificationName.ConsultSetting.querySettingChanged, object: nil)
-                    
-                    strongSelf.hud.noticeHidden()
+                   
+                    if needRemind {
+                        strongSelf.hud.successHidden("保存成功")
+                    }else {
+                        strongSelf.hud.noticeHidden()
+                    }
                 }else {
                     strongSelf.hud.failureHidden($0.message)
                 }

@@ -20,10 +20,10 @@ class HCVideoConsultSettingController: BaseViewController {
         container = HCVideoConsultSettingContainer.init(frame: view.bounds)
         view.addSubview(container)
         
-        container.dayItemSelectedCallBack = { [unowned self] _ in
+        container.dayItemSelectedCallBack = { [unowned self] in
             let picker = HCVideoConsultSettingPicker()
             picker.pickerHeight = 230
-            picker.datasource = HCPickerSectionData.createVideoConsultSettingDatas()
+            picker.configData(dayModel: $0, pickerSource: HCPickerSectionData.createVideoConsultSettingDatas())
             picker.submitSubject
                 .bind(to: self.viewModel.submitSubject)
                 .disposed(by: disposeBag)

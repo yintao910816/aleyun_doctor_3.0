@@ -83,6 +83,18 @@ class HCPicConsultSettingPicker: HCPickerView {
         infoView.addSubview(endTimeLabel)
     }
     
+    public func configData(model: HCConsultStatusModel, pickerSource: [HCPickerSectionData]) {
+        datasource = pickerSource
+        
+        if let startIdx = datasource[0].items.firstIndex(where: { $0.title == model.startTimeText }) {
+            picker.selectRow(startIdx, inComponent: 0, animated: false)
+        }
+        if let endIdx = datasource[1].items.firstIndex(where: { $0.title == model.endTimeText }) {
+            picker.selectRow(endIdx, inComponent: 1, animated: false)
+        }
+    }
+
+    
     override func viewDidLayoutSubviews() {
         let containViewHeight = pickerHeight + 44 + 30
         containerView.frame = .init(x: 0, y: view.height - containViewHeight, width: view.width, height: containViewHeight)

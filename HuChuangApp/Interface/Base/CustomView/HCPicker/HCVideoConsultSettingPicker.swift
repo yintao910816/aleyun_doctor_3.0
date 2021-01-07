@@ -95,11 +95,23 @@ class HCVideoConsultSettingPicker: HCPickerView {
         infoView.addSubview(peosLabel)
         
         containerView.addSubview(infoView)
-        containerView.addSubview(bottomView)
+        containerView.addSubview(bottomView)        
+    }
+    
+    public func configData(dayModel: HCVideoDaySettingModel, pickerSource: [HCPickerSectionData]) {
+        datasource = pickerSource
         
-//        picker.selectRow(3, inComponent: 0, animated: false)
-//        picker.selectRow(3, inComponent: 1, animated: false)
-//        picker.selectRow(3, inComponent: 2, animated: false)
+        if let item = dayModel.settingModel {
+            if let startIdx = datasource[0].items.firstIndex(where: { $0.title == item.startTimeText }) {
+                picker.selectRow(startIdx, inComponent: 0, animated: false)
+            }
+            if let endIdx = datasource[1].items.firstIndex(where: { $0.title == item.endTimeText }) {
+                picker.selectRow(endIdx, inComponent: 1, animated: false)
+            }
+            if let numIdx = datasource[2].items.firstIndex(where: { $0.title == item.recevieNum }) {
+                picker.selectRow(numIdx, inComponent: 2, animated: false)
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {

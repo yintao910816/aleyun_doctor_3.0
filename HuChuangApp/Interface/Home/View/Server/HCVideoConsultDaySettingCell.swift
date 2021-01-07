@@ -79,7 +79,7 @@ class HCVideoConsultDaySettingCell: UICollectionViewCell {
                 timeLabel.isHidden = false
                 peosLabel.isHidden = false
                 
-                timeLabel.text = "\(m.startTime)-\(m.endTime)"
+                timeLabel.text = m.showTimeText
                 peosLabel.text = "\(m.recevieNum)人"
             }else {
                 remindLabel.isHidden = false

@@ -38,9 +38,9 @@ class HCHomeViewController: BaseViewController, VMNavigation {
                 }else if $0.name == "服务设置" {
                     navigationController?.pushViewController(HCServerSettingController(), animated: true)
                 }else if $0.name == "扫码核销" {
-                    
+                    navigationController?.pushViewController(HCVerificationController(), animated: true)
                 }
-            }else {                
+            }else {
                 HCHomeViewController.push(BaseWebViewController.self, ["url": $0.functionUrl, "title": $0.name])
             }
         }

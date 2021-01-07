@@ -77,6 +77,33 @@ class HCConsultStatusModel: HJModel {
     var consultVideoUserSubjectTime: String = ""
     var recom: Bool = false
     var smsNotice: Bool = false
+    
+    public var startTimeText: String {
+        get {
+            let startArr = startTime.components(separatedBy: ":")
+            if startArr.count == 3 {
+                return "\(startArr[0]):\(startArr[1])"
+            }else {
+                return startTime
+            }
+        }
+    }
+    
+    public var endTimeText: String {
+        get {
+            let endArr = endTime.components(separatedBy: ":")
+            if endArr.count == 3 {
+                return "\(endArr[0]):\(endArr[1])"
+            }else {
+                return endTime
+            }
+        }
+    }
+
+    public var showTimeText: String {
+        return "\(startTimeText)-\(endTimeText)"
+    }
+
 }
 
 class HCConsultDaySettingModel: HJModel {
@@ -93,6 +120,32 @@ class HCConsultDaySettingModel: HJModel {
     var modifyDate: String = ""
     var apm: String = ""
     var status: Int = 0
+    
+    public var startTimeText: String {
+        get {
+            let startArr = startTime.components(separatedBy: ":")
+            if startArr.count == 3 {
+                return "\(startArr[0]):\(startArr[1])"
+            }else {
+                return startTime
+            }
+        }
+    }
+    
+    public var endTimeText: String {
+        get {
+            let endArr = endTime.components(separatedBy: ":")
+            if endArr.count == 3 {
+                return "\(endArr[0]):\(endArr[1])"
+            }else {
+                return endTime
+            }
+        }
+    }
+
+    public var showTimeText: String {
+        return "\(startTimeText)-\(endTimeText)"
+    }
 }
 
 //MARK: 精准预约
@@ -115,4 +168,18 @@ class HCQueryPreciseScheduleItemModel: HJModel {
     var modifyDate: String = ""
     var morningReservedNum: Int = 0
     var afternoonReservedNum: Int = 0
+    
+    public var morningNumText: NSAttributedString {
+        get {
+            let text = "上午 \(morningNum)-\(morningReservedNum)人"
+            return text.attributed(.init(location: text.count - 2, length: "\(morningReservedNum)".count), HC_MAIN_COLOR, .font(fontSize: 14, fontName: .PingFSemibold))
+        }
+    }
+    
+    public var afternoonNumText: NSAttributedString {
+        get {
+            let text = "上午 \(afternoonNum)-\(afternoonReservedNum)人"
+            return text.attributed(.init(location: text.count - 2, length: "\(afternoonReservedNum)".count), HC_MAIN_COLOR, .font(fontSize: 14, fontName: .PingFSemibold))
+        }
+    }
 }

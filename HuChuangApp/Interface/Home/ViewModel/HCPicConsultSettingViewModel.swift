@@ -62,17 +62,19 @@ extension HCPicConsultSettingViewModel {
         priceModel.cellIdentifier = HCDetailTextFiledCollectionCell_identifier
         priceModel.detailInputTextAlignment = .right
         priceModel.keyboardType = .numbersAndPunctuation
-        if model.price > 0 {
-            priceModel.detailTitle = "\(model.price)"
-        }else {
-            priceModel.placeholder = "请输入价格，建议30-40元"
-        }
+        
+        priceModel.detailTitle = "\(model.price)"
+//        if model.price > 0 {
+//            priceModel.detailTitle = "\(model.price)"
+//        }else {
+//            priceModel.placeholder = "请输入价格，建议30-40元"
+//        }
         
         let timeModel = HCListCellItem()
         timeModel.title = "咨询时间"
         timeModel.detailTitle = ""
         if model.startTime.count > 0, model.endTime.count > 0 {
-            timeModel.detailTitle = "\(model.startTime)-\(model.endTime)"
+            timeModel.detailTitle = model.showTimeText
         }
         timeModel.cellIdentifier = HCDetailCollectionCell_identifier
 
