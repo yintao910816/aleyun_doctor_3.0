@@ -125,7 +125,7 @@ extension HCPicConsultSettingViewModel {
 
                     NotificationCenter.default.post(name: NotificationName.ConsultSetting.picSettingChanged, object: strongSelf.model)
 
-                    strongSelf.hud.noticeHidden()
+                    strongSelf.hud.successHidden("保存成功")
                 }else {
                     strongSelf.hud.failureHidden($0.message)
                 }

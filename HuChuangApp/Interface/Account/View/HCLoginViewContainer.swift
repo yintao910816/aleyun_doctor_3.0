@@ -230,7 +230,6 @@ extension HCLoginViewContainer {
         agreeButton.setImage(UIImage(named: "login_unselected_agree"), for: .normal)
         agreeButton.setImage(UIImage(named: "login_selected_agree"), for: .selected)
         agreeButton.addTarget(self, action: #selector(agreeClicked), for: .touchUpInside)
-        agreeButton.isSelected = true
         
         agreeLabel = YYLabel()
         agreeLabel.textColor = RGB(154, 154, 154)

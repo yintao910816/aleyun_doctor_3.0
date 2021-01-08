@@ -100,17 +100,10 @@ class HCVideoConsultDaySettingCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        dateLabel.frame = .init(x: 33, y: 8, width: width - 66, height: 16)
+        dateLabel.frame = .init(x: 20, y: 8, width: width - 40, height: 16)
 
         if model.isToday {
-//            var dateSize = dateLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude,
-//                                                        height: 14))
-//            dateSize.width = min(dateSize.width, width - 20 - 4 - 22 - 7)
-
-            markLabel.frame = .init(x: width - 7 - 22,
-                                    y: 10,
-                                    width: 22,
-                                    height: 12)
+            markLabel.frame = .init(x: width - 7 - 22, y: 10, width: 22, height: 12)
         }else {
             markLabel.frame = .zero
         }

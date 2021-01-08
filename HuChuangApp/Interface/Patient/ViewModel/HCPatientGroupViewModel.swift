@@ -14,7 +14,19 @@ class HCPatientGroupViewModel: RefreshVM<HCPatientGroupListModel> {
         
     override init() {
         super.init()
+                
+        HCDataObserCenter.share.tagEditSuccessSignal
+            .subscribe(onNext: { [weak self] _ in self?.requestData(true) })
+            .disposed(by: disposeBag)
+
+        HCDataObserCenter.share.tagAddSuccessSignal
+            .subscribe(onNext: { [weak self] _ in self?.requestData(true) })
+            .disposed(by: disposeBag)
         
+        HCDataObserCenter.share.tagRemoveSuccessSignal
+            .subscribe(onNext: { [weak self] _ in self?.requestData(true) })
+            .disposed(by: disposeBag)
+
         requestData(true)
     }
 

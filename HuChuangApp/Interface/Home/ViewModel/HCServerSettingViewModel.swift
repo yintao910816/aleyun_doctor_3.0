@@ -93,22 +93,10 @@ class HCServerSettingViewModel: BaseViewModel {
                     if let code = jsonDic["code"] as? Int,
                        let resDic = jsonDic["data"] as? [String: Any],
                        code == RequestCode.success.rawValue {
-                                                
-                        if let price = resDic["price"] as? Float  {
-                            self?.queryPreciseScheduleModel.price = price
-                        }
-                        
-                        if let address = resDic["address"] as? String {
-                            self?.queryPreciseScheduleModel.address = address
-                        }
-
-                        if let open = resDic["open"] as? Bool {
-                            self?.queryPreciseScheduleModel.open = open
-                        }
-                        
-                        if let scheduleMap = resDic["scheduleMap"] as? [String: [String : Any]] {
-                            self?.queryPreciseScheduleModel.scheduleMap = scheduleMap
-                        }
+                             
+                        if let model = JSONDeserializer<HCQueryPreciseScheduleModel>.deserializeFrom(dict: resDic) {
+                            self?.queryPreciseScheduleModel = model
+                        }                        
                     }else {
                         self?.hud.failureHidden(jsonDic["message"] as? String)
                         return

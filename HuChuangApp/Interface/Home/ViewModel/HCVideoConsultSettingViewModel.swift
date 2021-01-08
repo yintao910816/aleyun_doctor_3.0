@@ -71,7 +71,7 @@ extension HCVideoConsultSettingViewModel {
         priceModel.shwoArrow = false
         priceModel.cellIdentifier = HCDetailTextFiledCollectionCell_identifier
         priceModel.detailInputTextAlignment = .right
-        priceModel.detailTitle = "\(model.price)元"
+        priceModel.detailTitle = "\(model.price)"
 
         let dateTup = TYDateCalculate.getDatesAndWeekDays(startDate: Date(),
                                                           endDate: TYDateCalculate.getDate(currentDate: Date(),
@@ -229,8 +229,7 @@ extension HCVideoConsultSettingViewModel {
                 var spzx: [String: Any] = [:]
                 spzx["isOpen"] = (datasource.value[0].first as! HCListCellItem).isOn
 
-                var price = (datasource.value[1].first as! HCListCellItem).detailTitle
-                price = price.replacingOccurrences(of: "元", with: "")
+                let price = (datasource.value[1].first as! HCListCellItem).detailTitle
                 
                 guard let floatPrice = Float(price) else {
                     NoticesCenter.alert(message: "请输入正确的价格")

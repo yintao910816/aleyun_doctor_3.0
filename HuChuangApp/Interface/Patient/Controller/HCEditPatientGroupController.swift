@@ -34,6 +34,10 @@ class HCEditPatientGroupController: BaseViewController {
             .drive(onNext: { [weak self] in self?.container.contentView.datasource = $0 })
             .disposed(by: disposeBag)
         
+        viewModel.popSubject
+            .subscribe(onNext: { [weak self] in self?.navigationController?.popViewController(animated: true) })
+            .disposed(by: disposeBag)
+        
         viewModel.reloadSubject.onNext(Void())
     }
     
