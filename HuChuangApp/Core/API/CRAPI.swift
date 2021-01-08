@@ -403,7 +403,7 @@ extension API: TargetType{
         case .groupTagMemberList:
             return "api/patientInfo/groupTagMemberList"
         case .editUserMemberTags(_, _):
-            return "api/patientConsult/editUserMemberTags"
+            return "api/patientConsult/editUserTags"
         case .getUserTagList(_):
             return "api/patientConsult/getUserTagList"
         case .getConsultPatientInfo(_, _):

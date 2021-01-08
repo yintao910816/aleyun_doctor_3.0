@@ -25,6 +25,7 @@ class HCPatientItemModel: HJModel {
     var id: String = ""
     var memberId: String = ""
     var memberName: String = ""
+    var name: String = ""
     var modifyDate: String = ""
     var modifys: String = ""
     var note: String = ""
@@ -49,11 +50,15 @@ class HCPatientItemModel: HJModel {
         return "女"
     }()
     
+    public lazy var nameText: String = {
+        return memberName.count > 0 ? memberName : name
+    }()
+    
     public lazy var memberInfoText: String = {
         if age.count > 0 {
-            return "\(memberName)(\(sexText) \(age)岁)"
+            return "\(nameText)(\(sexText) \(age)岁)"
         }
-        return "\(memberName)(\(sexText))"
+        return "\(nameText)(\(sexText))"
     }()
     
     public static func testDatas() ->[HCPatientItemModel] {

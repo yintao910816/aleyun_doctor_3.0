@@ -26,7 +26,7 @@ class HCConsultSettingBottomActionView: UIView {
         backgroundColor = .white
         
         closeButton = UIButton()
-        closeButton.setTitle("关闭服务", for: .normal)
+        closeButton.setTitle("关闭", for: .normal)
         closeButton.addTarget(self, action: #selector(actions(button:)), for: .touchUpInside)
         closeButton.setTitleColor(RGB(41, 38, 33), for: .normal)
         closeButton.titleLabel?.font = .font(fontSize: 16)

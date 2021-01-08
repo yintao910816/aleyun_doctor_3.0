@@ -28,8 +28,11 @@ class HCFuncMenuCell: UICollectionViewCell {
         super.init(frame: frame)
         
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
         funcCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
         funcCollectionView.backgroundColor = .white
+        funcCollectionView.isPagingEnabled = true
         funcCollectionView.showsVerticalScrollIndicator = false
         funcCollectionView.showsHorizontalScrollIndicator = false
         funcCollectionView.delegate = self
