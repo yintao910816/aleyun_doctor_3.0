@@ -207,7 +207,8 @@ extension HCHelper {
 
     class func presentLogin(presentVC: UIViewController? = nil, isPopToRoot: Bool = false, _ completion: (() ->())? = nil) {
         HCHelper.share.isPresentLogin = true
-        
+        HCHelper.share.clearUser()
+
         let loginControl = MainNavigationController.init(rootViewController: HCLoginViewController())
         loginControl.modalPresentationStyle = .fullScreen
         
@@ -223,6 +224,7 @@ extension HCHelper {
     func clearUser() {
         userDefault.uid = noUID
         userDefault.token = ""
+        userDefault.loginInfoString = ""
         
         userInfoModel = nil
     }
