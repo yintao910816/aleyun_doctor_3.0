@@ -46,7 +46,7 @@ class HCLoginViewContainer: UIView {
     public var wchatLoginButton: UIButton!
     
     public let loginModeSignal = Variable(HCLoginMode.phone)
-    public let agreeSignal = Variable(true)
+    public let agreeSignal = Variable(false)
     public var agreementTap: (()->())?
     
     override init(frame: CGRect) {
