@@ -323,6 +323,8 @@
 		C42B218F24ECCB1500B2A665 /* HCSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42B218E24ECCB1500B2A665 /* HCSettingViewModel.swift */; };
 		C42B219124ECCB4B00B2A665 /* HCSettingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42B219024ECCB4B00B2A665 /* HCSettingContainer.swift */; };
 		C42B219524ECD44D00B2A665 /* HCCollectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42B219424ECD44D00B2A665 /* HCCollectionContainer.swift */; };
+		C42DA7D025AC9C710094E4C8 /* HCSystemAudioPlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42DA7CE25AC9C700094E4C8 /* HCSystemAudioPlay.swift */; };
+		C42DA7D125AC9C710094E4C8 /* call.wav in Resources */ = {isa = PBXBuildFile; fileRef = C42DA7CF25AC9C700094E4C8 /* call.wav */; };
 		C4382BED24E5604D000C00CE /* HCAccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4382BEC24E5604D000C00CE /* HCAccountSettingViewController.swift */; };
 		C4382BF524E560C2000C00CE /* HCMineViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4382BEF24E560C2000C00CE /* HCMineViewContainer.swift */; };
 		C4382BF624E560C2000C00CE /* HCMineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4382BF024E560C2000C00CE /* HCMineHeaderView.swift */; };
@@ -1057,6 +1059,8 @@
 		C42B218E24ECCB1500B2A665 /* HCSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCSettingViewModel.swift; sourceTree = "<group>"; };
 		C42B219024ECCB4B00B2A665 /* HCSettingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCSettingContainer.swift; sourceTree = "<group>"; };
 		C42B219424ECD44D00B2A665 /* HCCollectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCCollectionContainer.swift; sourceTree = "<group>"; };
+		C42DA7CE25AC9C700094E4C8 /* HCSystemAudioPlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCSystemAudioPlay.swift; sourceTree = "<group>"; };
+		C42DA7CF25AC9C700094E4C8 /* call.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = call.wav; sourceTree = "<group>"; };
 		C4382BEC24E5604D000C00CE /* HCAccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAccountSettingViewController.swift; sourceTree = "<group>"; };
 		C4382BEF24E560C2000C00CE /* HCMineViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCMineViewContainer.swift; sourceTree = "<group>"; };
 		C4382BF024E560C2000C00CE /* HCMineHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCMineHeaderView.swift; sourceTree = "<group>"; };
@@ -2479,6 +2483,7 @@
 		C421330622056B19006C10C4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C42DA7CD25AC9C700094E4C8 /* HCSystemAudioPlay */,
 				B8CFBAC1258BB78600BD03A1 /* HCPresation */,
 				B8610C042553EBCD007D5D46 /* HCMediaPicker */,
 				B80A3819253D5B2A00A74F14 /* TYChatKeyBoardView */,
@@ -2784,6 +2789,15 @@
 				C421339A2205B224006C10C4 /* HttpImage.swift */,
 			);
 			path = ImageUtls;
+			sourceTree = "<group>";
+		};
+		C42DA7CD25AC9C700094E4C8 /* HCSystemAudioPlay */ = {
+			isa = PBXGroup;
+			children = (
+				C42DA7CE25AC9C700094E4C8 /* HCSystemAudioPlay.swift */,
+				C42DA7CF25AC9C700094E4C8 /* call.wav */,
+			);
+			path = HCSystemAudioPlay;
 			sourceTree = "<group>";
 		};
 		C4382BEE24E560C2000C00CE /* Mine */ = {
@@ -4218,6 +4232,7 @@
 				B8CD926A23A2967D00C9C061 /* HCRecordSuggestReusableView.xib in Resources */,
 				C497E9622344610500328B47 /* HCHomePregnancyClassroomReusableView.xib in Resources */,
 				C497E95123444E4600328B47 /* HCHomeConsultingVolumeReusableView.xib in Resources */,
+				C42DA7D125AC9C710094E4C8 /* call.wav in Resources */,
 				B8CD926623A2964800C9C061 /* HCRecordUserInfoReusableView.xib in Resources */,
 				C497E96E234466E100328B47 /* HCHomePregnancyClassroomCellItemCell.xib in Resources */,
 				C497E95A23444EF200328B47 /* HCHomeGoodNewsCell.xib in Resources */,
@@ -4304,6 +4319,7 @@
 				C4D3990425A5DFBE007D72D5 /* ZXRSSExpandedGeneralAppIdDecoder.m in Sources */,
 				B80A383A253D5B2B00A74F14 /* TYChatKeyBoardView.swift in Sources */,
 				C4D3990125A5DFBE007D72D5 /* ZXAI01393xDecoder.m in Sources */,
+				C42DA7D025AC9C710094E4C8 /* HCSystemAudioPlay.swift in Sources */,
 				B8BE351B22147DE500EF16F1 /* EditViewModel.swift in Sources */,
 				B87CCB6C2556A86A00792F76 /* HCFastReplyViewModel.swift in Sources */,
 				B87CCB6F2556A8DA00792F76 /* HCFastReplyContainer.swift in Sources */,

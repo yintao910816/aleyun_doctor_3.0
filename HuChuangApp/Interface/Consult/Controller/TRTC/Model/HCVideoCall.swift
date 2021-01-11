@@ -17,10 +17,11 @@ class HCShortUserInfoModel: HJModel {
     public func tranformUser(memberId: String) ->CallingUserModel {
         var curUser = CallingUserModel()
         curUser.name = memberName
-        curUser.avatarUrl = userHeadPath
+        curUser.avatarUrl = memberHeadPath
         curUser.userId = memberId
         curUser.isVideoAvaliable = true
         curUser.isEnter = true
+        curUser.volume = 100
         return curUser
     }
 }
