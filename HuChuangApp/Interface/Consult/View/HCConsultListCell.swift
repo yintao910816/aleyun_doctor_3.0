@@ -40,6 +40,7 @@ class HCConsultListCell: UITableViewCell {
     
     public var model: HCConsultListItemModel! {
         didSet {
+            sexIconImgV.image = UIImage(named: HCGender(rawValue: model.sex) == .male ? "gender_boy" : "gender_girl")
             avatarImgV.setImage(model.headPath, .userIconMen)
             nameLabel.text = model.userName
             ageLabel.text = "\(model.age)岁"

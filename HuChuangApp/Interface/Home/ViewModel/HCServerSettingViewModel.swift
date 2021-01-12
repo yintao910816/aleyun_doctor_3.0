@@ -132,31 +132,31 @@ extension HCServerSettingViewModel {
     
     private func prepareCellData(isFirst: Bool) {
         if !isFirst {
-            datasource.value = [HCServerSettingModel(icon: nil,
+            datasource.value = [HCServerSettingModel(icon: UIImage(named: "consult_pic_server"),
                                                      title: "图文咨询",
                                                      subTitle: "随时随地的快速高效为患者服务",
                                                      actionTitle: openStatusModel.picModel.isOpen == true ? "管理" : "马上开通",
                                                      isOpen: openStatusModel.picModel.isOpen),
-                                HCServerSettingModel(icon: nil,
+                                HCServerSettingModel(icon: UIImage(named: "consult_video_server"),
                                                      title: "视频咨询",
                                                      subTitle: "更加快速准确解决问题",
                                                      actionTitle: openStatusModel.videoModel.isOpen == true ? "管理" : "马上开通",
                                                      isOpen: openStatusModel.videoModel.isOpen),
-                                HCServerSettingModel(icon: nil,
+                                HCServerSettingModel(icon: UIImage(named: "consult_jingzhun_server"),
                                                      title: "精准预约",
                                                      subTitle: "方便患者在线预约您",
                                                      actionTitle: queryPreciseScheduleModel.open == true ? "管理" : "马上开通",
                                                      isOpen: queryPreciseScheduleModel.open)]
         }else {
-            datasource.value = [HCServerSettingModel(icon: nil,
+            datasource.value = [HCServerSettingModel(icon: UIImage(named: "consult_pic_server"),
                                                      title: "图文咨询",
                                                      subTitle: "随时随地的快速高效为患者服务",
                                                      actionTitle: ""),
-                                HCServerSettingModel(icon: nil,
+                                HCServerSettingModel(icon: UIImage(named: "consult_video_server"),
                                                      title: "视频咨询",
                                                      subTitle: "更加快速准确解决问题",
                                                      actionTitle: ""),
-                                HCServerSettingModel(icon: nil,
+                                HCServerSettingModel(icon: UIImage(named: "consult_jingzhun_server"),
                                                      title: "精准预约",
                                                      subTitle: "方便患者在线预约您",
                                                      actionTitle: "")]

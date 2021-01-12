@@ -20,7 +20,7 @@ class HCGroupManageController: BaseViewController, VMNavigation {
         
         container = HCGroupManageContainer.init(frame: view.bounds)
         container.didSelectedCallBack = { [unowned self] in
-            HCPatientGroupController.push(HCEditTagController.self, ["model": self.groupDatas[$0]])
+            viewModel.selectedSignal.onNext($0)
         }
         view.addSubview(container)
     }

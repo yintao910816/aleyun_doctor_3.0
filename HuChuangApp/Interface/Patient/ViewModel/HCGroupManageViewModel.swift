@@ -10,24 +10,31 @@ import Foundation
 
 import RxSwift
 
-class HCGroupManageViewModel: BaseViewModel {
+class HCGroupManageViewModel: BaseViewModel, VMNavigation {
     
     private var groupPatientDatas: [HCPatientGroupListModel] = []
     public let listSignal = PublishSubject<[[HCListCellItem]]>()
-    
+    public let selectedSignal = PublishSubject<Int>()
+
     init(groupPatientDatas: [HCPatientGroupListModel]) {
         super.init()
         
-        self.groupPatientDatas = groupPatientDatas
+        self.groupPatientDatas.append(contentsOf: groupPatientDatas)
         
         reloadSubject
             .subscribe(onNext: { [unowned self] in self.prepareCellData() })
             .disposed(by: disposeBag)
                 
+        selectedSignal
+            .subscribe(onNext: {
+                HCGroupManageViewModel.push(HCEditTagController.self, ["model": self.groupPatientDatas[$0]])
+            })
+            .disposed(by: disposeBag)
+
         HCDataObserCenter.share.tagAddSuccessSignal
             .subscribe(onNext: { [weak self] tagModel in
                 guard let strongSelf = self else { return }
-                strongSelf.groupPatientDatas.insert(tagModel.transform(), at: 0)
+                strongSelf.groupPatientDatas.append(tagModel.transform())
                 strongSelf.prepareCellData()
             })
             .disposed(by: disposeBag)
