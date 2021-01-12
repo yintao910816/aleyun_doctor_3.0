@@ -87,9 +87,11 @@ class HCPicConsultSettingPicker: HCPickerView {
         datasource = pickerSource
         
         if let startIdx = datasource[0].items.firstIndex(where: { $0.title == model.startTimeText }) {
+            selectedInfo[0] = startIdx
             picker.selectRow(startIdx, inComponent: 0, animated: false)
         }
         if let endIdx = datasource[1].items.firstIndex(where: { $0.title == model.endTimeText }) {
+            selectedInfo[1] = endIdx
             picker.selectRow(endIdx, inComponent: 1, animated: false)
         }
     }

@@ -103,12 +103,15 @@ class HCVideoConsultSettingPicker: HCPickerView {
         
         if let item = dayModel.settingModel {
             if let startIdx = datasource[0].items.firstIndex(where: { $0.title == item.startTimeText }) {
+                selectedInfo[0] = startIdx
                 picker.selectRow(startIdx, inComponent: 0, animated: false)
             }
             if let endIdx = datasource[1].items.firstIndex(where: { $0.title == item.endTimeText }) {
+                selectedInfo[1] = endIdx
                 picker.selectRow(endIdx, inComponent: 1, animated: false)
             }
             if let numIdx = datasource[2].items.firstIndex(where: { $0.title == item.recevieNum }) {
+                selectedInfo[2] = numIdx
                 picker.selectRow(numIdx, inComponent: 2, animated: false)
             }
         }
