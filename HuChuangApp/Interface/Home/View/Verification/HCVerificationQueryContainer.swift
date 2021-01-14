@@ -28,22 +28,32 @@ class HCVerificationQueryContainer: UIView {
 
     public var queryButton: UIButton!
     
-    private var successQueryBg: UIView!
-    private var successQueryContent: UIView!
-    private var successImgV: UIImageView!
-    private var successLabel: UILabel!
+    private var queryStatusBg: UIView!
+    private var queryStatusImgV: UIImageView!
+    private var queryStatusLabel: UILabel!
 
-    public let verificationSuccessSignal = PublishSubject<Void>()
+    public let verificationStatusSignal = PublishSubject<(Bool, String)>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupUI()
         
-        verificationSuccessSignal
+        verificationStatusSignal
             .subscribe(onNext: { [weak self] in
-                self?.queryButton.setTitle("返回首页", for: .normal)
-                self?.successQueryBg.isHidden = false
+                self?.queryStatusBg.isHidden = false
+                if $0.0 {
+                    self?.queryStatusImgV.image = UIImage(named: "verification_success")
+                    self?.queryStatusLabel.text = "核销成功"
+                    self?.queryButton.setTitle("返回首页", for: .normal)
+                }else {
+                    self?.queryStatusImgV.image = UIImage(named: "verification_failuer")
+                    self?.queryStatusLabel.text = $0.1
+                    self?.queryButton.setTitle("重新扫码", for: .normal)
+                }
+                
+                self?.setNeedsLayout()
+                self?.layoutIfNeeded()
             })
             .disposed(by: disposeBag)
     }
@@ -91,10 +101,12 @@ class HCVerificationQueryContainer: UIView {
         queryButton.frame = .init(x: 35, y: contentBg.height - 35 - 40, width: contentBg.width - 35 * 2, height: 40)
         
         //
-        successQueryBg.frame = .init(x: 25, y: 25, width: contentBg.width - 50, height: queryButton.y - 25)
-        successQueryContent.frame = .init(x: (successQueryBg.width - 70) / 2, y: (successQueryBg.height - 95) / 2, width: 70, height: 95)
-        successImgV.frame = .init(x: 0, y: 0, width: successQueryContent.width, height: 68)
-        successLabel.frame = .init(x: 0, y: successImgV.frame.maxY + 10, width: successQueryContent.width, height: 17)
+        queryStatusBg.frame = .init(x: 25, y: 25, width: contentBg.width - 50, height: queryButton.y - 25)
+        tempSize = queryStatusLabel.sizeThatFits(.init(width: queryStatusBg.width, height: CGFloat.greatestFiniteMagnitude))
+        let imgVX = (queryStatusBg.width - 70) / 2
+        let imgVY = (queryStatusBg.height - 68 - 10 - tempSize.height) / 2
+        queryStatusImgV.frame = .init(x: imgVX, y: imgVY, width: 70, height: 68)
+        queryStatusLabel.frame = .init(x: (queryStatusBg.width - tempSize.width) / 2, y: queryStatusImgV.frame.maxY + 10, width: tempSize.width, height: tempSize.height)
     }
 }
 
@@ -154,18 +166,16 @@ extension HCVerificationQueryContainer {
         queryButton.clipsToBounds = true
         
         //
-        successQueryBg = UIView()
-        successQueryBg.backgroundColor = .white
-        successQueryBg.isHidden = true
-
-        successQueryContent = UIView()
-        successQueryContent.backgroundColor = .white
+        queryStatusBg = UIView()
+        queryStatusBg.backgroundColor = .white
+        queryStatusBg.isHidden = true
         
-        successImgV = UIImageView(image: UIImage(named: "verification_success"))
-        successLabel = UILabel()
-        successLabel.textColor = RGB(51, 51, 51)
-        successLabel.font = .font(fontSize: 16, fontName: .PingFMedium)
-        successLabel.textAlignment = .center
+        queryStatusImgV = UIImageView(image: UIImage(named: "verification_success"))
+        queryStatusLabel = UILabel()
+        queryStatusLabel.textColor = RGB(51, 51, 51)
+        queryStatusLabel.font = .font(fontSize: 16, fontName: .PingFMedium)
+        queryStatusLabel.textAlignment = .center
+        queryStatusLabel.numberOfLines = 0
         
         addSubview(colorBg)
         addSubview(contentBg)
@@ -179,9 +189,8 @@ extension HCVerificationQueryContainer {
         contentBg.addSubview(timeLabel)
         contentBg.addSubview(queryButton)
         
-        contentBg.addSubview(successQueryBg)
-        successQueryBg.addSubview(successQueryContent)
-        successQueryContent.addSubview(successImgV)
-        successQueryContent.addSubview(successLabel)
+        contentBg.addSubview(queryStatusBg)
+        queryStatusBg.addSubview(queryStatusImgV)
+        queryStatusBg.addSubview(queryStatusLabel)
     }
 }

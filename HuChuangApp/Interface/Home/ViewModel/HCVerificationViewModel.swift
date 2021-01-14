@@ -60,9 +60,10 @@ extension HCVerificationViewModel {
 class HCVerificationQueryViewModel: BaseViewModel {
     
     private var infoModel: HCVerificationItemModel!
-    private var isSuccessQuery = false
+    private var isSuccessQuery: Bool?
     
-    public let verificationSuccessSignal = PublishSubject<Void>()
+    public let verificationStatusSignal = PublishSubject<(Bool, String)>()
+    public let reScanSignal = PublishSubject<Void>()
 
     init(infoModel: HCVerificationItemModel, queryTap: Driver<Void>) {
         super.init()
@@ -71,10 +72,12 @@ class HCVerificationQueryViewModel: BaseViewModel {
         
         queryTap
             .drive(onNext: { [unowned self] in
-                if isSuccessQuery {
+                if isSuccessQuery == nil {
+                    requestConfirmVerification()
+                }else if isSuccessQuery == true {
                     popSubject.onNext(Void())
                 }else {
-                    requestConfirmVerification()
+                    reScanSignal.onNext(Void())
                 }
             })
             .disposed(by: disposeBag)
@@ -85,15 +88,19 @@ class HCVerificationQueryViewModel: BaseViewModel {
         HCProvider.request(.confirmVerification(verificationId: infoModel.id, consultId: infoModel.consultId))
             .mapResponse()
             .subscribe { [weak self] in
+                self?.hud.noticeHidden()
+                var flag = false
                 if RequestCode(rawValue: $0.code) ==  .success {
+                    flag = true
                     self?.isSuccessQuery = true
-                    self?.hud.noticeHidden()
-                    self?.verificationSuccessSignal.onNext(Void())
                 }else {
-                    self?.hud.failureHidden($0.message)
+                    self?.isSuccessQuery = false
                 }
+                self?.verificationStatusSignal.onNext((flag, $0.message))
             } onError: { [weak self] in
-                self?.hud.failureHidden(self?.errorMessage($0))
+                self?.hud.noticeHidden()
+                self?.isSuccessQuery = false
+                self?.verificationStatusSignal.onNext((false, self?.errorMessage($0) ?? "无效码"))
             }
             .disposed(by: disposeBag)
     }

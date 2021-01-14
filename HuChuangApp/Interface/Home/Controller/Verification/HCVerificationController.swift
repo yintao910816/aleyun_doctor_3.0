@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HCVerificationController: BaseViewController, VMNavigation {
+class HCVerificationController: BaseViewController {
     
     private var container: HCVerificationContainer!
     private var viewModel: HCVerificationViewModel!
@@ -24,11 +24,7 @@ class HCVerificationController: BaseViewController, VMNavigation {
             case .search:
                 viewModel.getVerificationByCodeSignal.onNext((false, $0.1))
             case .scan:
-                let scanCtrl = HCScanViewController()
-                scanCtrl.scanResultCallBack = { [weak self] in
-                    self?.viewModel.getVerificationByCodeSignal.onNext((true, $0))
-                }
-                navigationController?.pushViewController(scanCtrl, animated: true)
+                pushScan()
             }
         }
     }
@@ -47,10 +43,25 @@ class HCVerificationController: BaseViewController, VMNavigation {
                 if $0.0 {
                     self?.navigationController?.popViewController(animated: false)
                 }
-                HCVerificationController.push(HCVerificationQueryController.self, ["model": $0.1])
+                let ctrl = HCVerificationQueryController()
+                ctrl.prepare(parameters: ["model": $0.1])
+                self?.navigationController?.pushViewController(ctrl, animated: true)
+                
+                ctrl.scanCallBack = { [weak self] in
+                    self?.navigationController?.popViewController(animated: false)
+                    self?.pushScan()
+                }
             })
             .disposed(by: disposeBag)
         
         container.tableView.headerRefreshing()
+    }
+    
+    private func pushScan() {
+        let scanCtrl = HCScanViewController()
+        scanCtrl.scanResultCallBack = { [weak self] in
+            self?.viewModel.getVerificationByCodeSignal.onNext((true, $0))
+        }
+        navigationController?.pushViewController(scanCtrl, animated: true)
     }
 }

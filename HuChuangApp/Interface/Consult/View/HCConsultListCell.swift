@@ -18,7 +18,7 @@ class HCConsultListCell: UITableViewCell {
     private var statusLabel: UILabel!
     private var nameLabel: UILabel!
     private var sexIconImgV: UIImageView!
-    private var ageLabel: UILabel!
+//    private var ageLabel: UILabel!
     private var consultTypeLabel: UILabel!
     private var timeLabel: UILabel!
     
@@ -43,7 +43,7 @@ class HCConsultListCell: UITableViewCell {
             sexIconImgV.image = UIImage(named: HCGender(rawValue: model.sex) == .male ? "gender_boy" : "gender_girl")
             avatarImgV.setImage(model.headPath, .userIconMen)
             nameLabel.text = model.userName
-            ageLabel.text = "\(model.age)岁"
+//            ageLabel.text = "\(model.age)岁"
             timeLabel.text = model.lastestConsultDate.getDayDiff(more: false, mode: .yymmddhhmmss)
             contentLabel.text = model.content
             markContentLabel.text = model.userName
@@ -84,11 +84,11 @@ class HCConsultListCell: UITableViewCell {
                                   y: ((nameLabel.height - 13) / 2) + nameLabel.frame.minY,
                                   width: 13, height: 13)
         
-        tempSize = ageLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: 12))
-        ageLabel.frame = .init(x: sexIconImgV.frame.maxX + 5,
-                               y: ((nameLabel.height - 12) / 2) + nameLabel.frame.minY,
-                               width: tempSize.width,
-                               height: 12)
+//        tempSize = ageLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: 12))
+//        ageLabel.frame = .init(x: sexIconImgV.frame.maxX + 5,
+//                               y: ((nameLabel.height - 12) / 2) + nameLabel.frame.minY,
+//                               width: tempSize.width,
+//                               height: 12)
         
         tempSize = timeLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: 12))
         timeLabel.frame = .init(x: width - 12 - tempSize.width,
@@ -96,8 +96,8 @@ class HCConsultListCell: UITableViewCell {
                                 width: tempSize.width, height: tempSize.height)
         
         tempSize = consultTypeLabel.sizeThatFits(.init(width: CGFloat.greatestFiniteMagnitude, height: 17))
-        tempSize.width = min(tempSize.width + 10, timeLabel.x - ageLabel.frame.maxX - 20)
-        consultTypeLabel.frame = .init(x: ageLabel.frame.maxX + 10, y: nameLabel.y, width: tempSize.width, height: 17)
+        tempSize.width = min(tempSize.width + 10, timeLabel.x - sexIconImgV.frame.maxX - 10)
+        consultTypeLabel.frame = .init(x: sexIconImgV.frame.maxX + 10, y: nameLabel.y, width: tempSize.width, height: 17)
         
         markIconImgV.frame = .init(x: nameLabel.x, y: nameLabel.frame.maxY + 5, width: 15, height: 12)
         markContentLabel.frame = .init(x: markIconImgV.frame.maxX + 3,
@@ -141,9 +141,9 @@ extension HCConsultListCell {
         sexIconImgV.contentMode = .scaleAspectFill
         sexIconImgV.backgroundColor = RGB(245, 245, 245)
         
-        ageLabel = UILabel()
-        ageLabel.font = .font(fontSize: 12)
-        ageLabel.textColor = RGB(153, 153, 153)
+//        ageLabel = UILabel()
+//        ageLabel.font = .font(fontSize: 12)
+//        ageLabel.textColor = RGB(153, 153, 153)
 
         consultTypeLabel = UILabel()
         consultTypeLabel.font = .font(fontSize: 10)
@@ -178,7 +178,7 @@ extension HCConsultListCell {
         addSubview(nameLabel)
         addSubview(sexIconImgV)
         addSubview(consultTypeLabel)
-        addSubview(ageLabel)
+//        addSubview(ageLabel)
         addSubview(timeLabel)
         addSubview(markIconImgV)
         addSubview(markContentLabel)

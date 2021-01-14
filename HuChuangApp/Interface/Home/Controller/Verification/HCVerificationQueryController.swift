@@ -15,6 +15,8 @@ class HCVerificationQueryController: BaseViewController {
     private var container: HCVerificationQueryContainer!
     private var viewModel: HCVerificationQueryViewModel!
     
+    public var scanCallBack: (()->())?
+    
     override func setupUI() {
         navigationItem.title = "核销"
         
@@ -28,8 +30,12 @@ class HCVerificationQueryController: BaseViewController {
         viewModel = HCVerificationQueryViewModel(infoModel: infoModel,
                                                  queryTap: container.queryButton.rx.tap.asDriver())
 
-        viewModel.verificationSuccessSignal
-            .bind(to: container.verificationSuccessSignal)
+        viewModel.verificationStatusSignal
+            .bind(to: container.verificationStatusSignal)
+            .disposed(by: disposeBag)
+        
+        viewModel.reScanSignal
+            .subscribe(onNext: { [weak self] in self?.scanCallBack?() })
             .disposed(by: disposeBag)
         
         viewModel.popSubject
