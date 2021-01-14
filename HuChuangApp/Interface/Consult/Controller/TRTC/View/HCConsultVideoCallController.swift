@@ -13,6 +13,8 @@ import Toast_Swift
 private let kSmallVideoViewWidth: CGFloat = 100.0
 
 class HCConsultVideoCallController: UIViewController, CallingViewControllerResponder {
+    private lazy var hud: NoticesCenter = { return NoticesCenter() }()
+    
     lazy var userList: [CallingUserModel] = []
     
     /// 需要展示的用户列表
@@ -39,6 +41,11 @@ class HCConsultVideoCallController: UIViewController, CallingViewControllerRespo
     let disposebag = DisposeBag()
     var curSponsor: CallingUserModel?
     var callingTime: UInt32 = 0
+    var cutdownCallingTime: Int = 0
+    
+    /// 通话对方的id
+    public var otherId: String = ""
+    
     var codeTimer = DispatchSource.makeTimerSource(queue: DispatchQueue.global(qos: .userInteractive))
     let callTimeLabel = UILabel()
     let localPreView = VideoCallingRenderView.init()
@@ -148,6 +155,16 @@ class HCConsultVideoCallController: UIViewController, CallingViewControllerRespo
             .subscribe(onNext: { [weak self] _ in
                 TRTCCalling.shareInstance().hangup()
                 self?.disMiss()
+            })
+            .disposed(by: disposebag)
+        
+        NotificationCenter.default.rx.notification(NotificationName.ChatCall.totleCallTime)
+            .subscribe(onNext: { [weak self] in
+                guard let strongSelf = self else { return }
+                if strongSelf.cutdownCallingTime == 0 {
+                    strongSelf.cutdownCallingTime = ($0.object as! HCReceivePhoneModel).seconds
+                    strongSelf.startGCDTimer()
+                }
             })
             .disposed(by: disposebag)
 
@@ -536,7 +553,13 @@ extension HCConsultVideoCallController {
             view.addSubview(hangup)
             hangup.rx.controlEvent(.touchUpInside).subscribe(onNext: {[weak self] in
                 HCSystemAudioPlay.share.videoCallStop()
+                
                 guard let self = self else {return}
+
+                let watchTime = TRTCCalling.shareInstance().curRoomList.count > 0 ? "1" : "0"
+                _ = HCHelper.requestEndPhone(memberId: self.otherId, watchTime: watchTime)
+                    .subscribe(onNext:{ _ in })
+                
                  TRTCCalling.shareInstance().hangup()
                 self.disMiss()
                 })
@@ -547,23 +570,40 @@ extension HCConsultVideoCallController {
         if accept.superview == nil {
             accept.setImage(UIImage(named: "ic_dialing"), for: .normal)
             view.addSubview(accept)
-            accept.rx.controlEvent(.touchUpInside).subscribe(onNext: {[weak self] in
+            accept.rx.controlEvent(.touchUpInside).subscribe(onNext: { [weak self] in
                 HCSystemAudioPlay.share.videoCallStop()
+                
                 guard let self = self else {return}
-                TRTCCalling.shareInstance().accept()
-                var curUser = CallingUserModel()
-                if let name = self.curSponsor?.name,
-                    let avatar = self.curSponsor?.avatarUrl,
-                    let userId = self.curSponsor?.userId {
-                    curUser.name = name
-                    curUser.avatarUrl = avatar
-                    curUser.userId = userId
-                    curUser.isEnter = true
-                    curUser.isVideoAvaliable = true
-                }
-                self.enterUser(user: curUser)
-                self.curState = .calling
-                self.accept.isHidden = true
+
+                self.hud.noticeLoading()
+                
+                _ = HCHelper.requestReceivePhone(memberId: self.otherId, consultId: "\(TRTCCalling.shareInstance().curRoomID)")
+                    .subscribe(onNext: { [weak self] model in
+                        self?.hud.noticeHidden()
+                        
+                        guard let self = self else {return}
+                        
+                        TRTCCalling.shareInstance().accept()
+                        var curUser = CallingUserModel()
+                        if let name = self.curSponsor?.name,
+                            let avatar = self.curSponsor?.avatarUrl,
+                            let userId = self.curSponsor?.userId {
+                            curUser.name = name
+                            curUser.avatarUrl = avatar
+                            curUser.userId = userId
+                            curUser.isEnter = true
+                            curUser.isVideoAvaliable = true
+                        }
+                        self.enterUser(user: curUser)
+                        self.curState = .calling
+                        self.accept.isHidden = true
+                        
+                        if self.cutdownCallingTime == 0 {
+                            self.cutdownCallingTime = model.seconds
+                            self.startGCDTimer()
+                        }
+                    })
+                
                 }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: disposebag)
         }
         
@@ -657,7 +697,7 @@ extension HCConsultVideoCallController {
                 make.width.equalTo(60)
                 make.height.equalTo(60)
             }
-            startGCDTimer()
+//            startGCDTimer()
             break
         }
         
@@ -684,20 +724,31 @@ extension HCConsultVideoCallController {
     
     // Dispatch Timer
      func startGCDTimer() {
-        HCHelper.share.watchTime = 0
         // 设定这个时间源是每秒循环一次，立即开始
         codeTimer.schedule(deadline: .now(), repeating: .seconds(1))
         // 设定时间源的触发事件
         codeTimer.setEventHandler(handler: { [weak self] in
             guard let self = self else {return}
-            self.callingTime += 1
-            HCHelper.share.watchTime = Int(self.callingTime)
+//            self.callingTime += 1
+            self.cutdownCallingTime -= 1
+            
+            if self.cutdownCallingTime <= 0 {
+                TRTCCalling.shareInstance().hangup()
+                DispatchQueue.main.async {
+                    self.disMiss()
+                }
+                return
+            }
+            
             // UI 更新
             DispatchQueue.main.async {
-                var mins: UInt32 = 0
-                var seconds: UInt32 = 0
-                mins = self.callingTime / 60
-                seconds = self.callingTime % 60
+                var mins: Int = 0
+                var seconds: Int = 0
+//                mins = self.callingTime / 60
+//                seconds = self.callingTime % 60
+                mins = self.cutdownCallingTime / 60
+                seconds = self.cutdownCallingTime % 60
+
                 self.callTimeLabel.text = String(format: "%02d:", mins) + String(format: "%02d", seconds)
             }
         })

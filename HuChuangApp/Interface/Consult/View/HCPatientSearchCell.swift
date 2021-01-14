@@ -9,7 +9,7 @@
 import UIKit
 
 public let HCPatientSearchCell_identifier: String = "HCPatientSearchCell"
-public let HCPatientSearchCell_height: CGFloat = 56
+public let HCPatientSearchCell_height: CGFloat = 66
 
 class HCPatientSearchCell: UITableViewCell {
 
@@ -65,7 +65,7 @@ class HCPatientSearchCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        avatarImgV.frame = .init(x: 15, y: 0, width: HCPatientSearchCell_height - 1, height: HCPatientSearchCell_height - 1)
+        avatarImgV.frame = .init(x: 15, y: 5, width: HCPatientSearchCell_height - 6, height: HCPatientSearchCell_height - 11)
         arrowImgV.frame = .init(x: width - 15 - 12, y: (height - 12) / 2, width: 9, height: 9)
         namelabel.frame = .init(x: avatarImgV.frame.maxX + 12, y: avatarImgV.y + 3, width: arrowImgV.x - avatarImgV.frame.maxX - 17, height: 20)
         desLabel.frame = .init(x: namelabel.x, y: avatarImgV.frame.maxY - 16 - 3, width: namelabel.width, height: 16)

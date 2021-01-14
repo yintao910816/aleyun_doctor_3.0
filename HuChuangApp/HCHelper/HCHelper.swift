@@ -119,17 +119,32 @@ extension HCHelper {
     }
     
     /// 接听电话
-    public static func requestReceivePhone(memberId: String, consultId: String) ->Observable<Bool> {
+    public static func requestReceivePhone(memberId: String, consultId: String) ->Observable<HCReceivePhoneModel> {
         if let user = HCHelper.share.userInfoModel {
             return HCProvider.request(.consultReceivePhone(memberId: memberId, userId: user.uid, consultId: consultId))
                 .map(model: HCReceivePhoneModel.self)
-                .map{ _ in true }
-                .do(onError: { NoticesCenter.alert(message: "接听电话失败：\(BaseViewModel().errorMessage($0))") })
-                .catchErrorJustReturn(false)
+                .do(onSuccess: { model in
+                    if model.isCallEnd {
+                        NotificationCenter.default.post(name: NotificationName.ChatCall.finishAudio, object: model)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                            NoticesCenter.alert(message: "视频通话时长已用尽")
+                        }
+                    }else {
+                        NotificationCenter.default.post(name: NotificationName.ChatCall.totleCallTime, object: model)
+                    }
+                }, onError: { error in
+                    NotificationCenter.default.post(name: NotificationName.ChatCall.finishAudio, object: nil)
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                        NoticesCenter.alert(message: "接听电话失败：\(BaseViewModel().errorMessage(error))")
+                    }
+                })
                 .asObservable()
         }else {
-            NoticesCenter.alert(message: "未登陆")
-            return Observable.just(false)
+            NotificationCenter.default.post(name: NotificationName.ChatCall.finishAudio, object: nil)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                NoticesCenter.alert(message: "未登陆")
+            }
+            return Observable.just(HCReceivePhoneModel())
         }
     }
 
@@ -166,9 +181,9 @@ extension HCHelper {
     }
 
     /// 结束通话
-    public static func requestEndPhone(userId: String, watchTime: String) ->Observable<Bool> {
+    public static func requestEndPhone(memberId: String, watchTime: String) ->Observable<Bool> {
         if let user = HCHelper.share.userInfoModel {
-            return HCProvider.request(.consultEndPhone(memberId: userId, userId: user.uid, watchTime: watchTime))
+            return HCProvider.request(.consultEndPhone(memberId: memberId, userId: user.uid, watchTime: watchTime))
                 .mapJSON()
                 .map({ res -> Bool in
                     if let dic = res as? [String: Any],

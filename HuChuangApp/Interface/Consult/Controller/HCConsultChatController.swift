@@ -110,7 +110,8 @@ class HCConsultChatController: HCSlideItemController {
         HCSystemAudioPlay.share.videoCallPlay()
 
         let callVC = HCConsultVideoCallController(sponsor: nil)
-        
+        callVC.otherId = callUser.userId
+
         callVC.dismissBlock = { }
         
         callVC.modalPresentationStyle = .fullScreen

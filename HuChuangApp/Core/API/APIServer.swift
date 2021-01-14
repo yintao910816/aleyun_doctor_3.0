@@ -55,12 +55,13 @@ public final class RequestLoadingPlugin: PluginType {
             do {
                 let json = try JSONSerialization.jsonObject(with: response.data, options: .allowFragments)
                 
-                PrintLog("返回json -- \(target) -- \(json)")
                 
                 guard let rdic = json as? [String : Any] else { return }
                 
                 guard let code = rdic["code"] as? Int else { return }
                 
+                PrintLog("返回json -- \(target) --\n \(rdic)")
+
                 if code == RequestCode.invalid.rawValue && HCHelper.share.isPresentLogin == false && !HCHelper.share.isShowLanuch {
                     HCHelper.presentLogin()
                 }
