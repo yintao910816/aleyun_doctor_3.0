@@ -18,6 +18,7 @@ class HCConsultChatController: HCSlideItemController {
     private let pickerManager = HCImagePickerManager()
     
     public var viewModel: HCConsultChatViewModel!
+    public var imageClicked: (((UIImage?, String))->())?
 
     override func setupUI() {
         container = HCConsultChatContainer.init(frame: view.bounds)
@@ -33,6 +34,8 @@ class HCConsultChatController: HCSlideItemController {
                 }
             }
         }
+        
+        container.imageClicked = { [unowned self] in imageClicked?($0) }
     }
     
     override func rxBind() {

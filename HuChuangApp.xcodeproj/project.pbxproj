@@ -694,6 +694,20 @@
 		C4D3995525A71ABC007D72D5 /* HCAddTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3995425A71ABC007D72D5 /* HCAddTagController.swift */; };
 		C4D3995825A71ADA007D72D5 /* HCAddTagContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3995725A71ADA007D72D5 /* HCAddTagContainer.swift */; };
 		C4D8290825B45E6D00697E52 /* HCLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8290725B45E6D00697E52 /* HCLayout.swift */; };
+		C4D8294125B46AE300697E52 /* HCBrowserTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8294025B46AE300697E52 /* HCBrowserTransitioningDelegate.swift */; };
+		C4D8294525B46B0400697E52 /* HCBrowserZoomDismissingAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8294425B46B0400697E52 /* HCBrowserZoomDismissingAnimator.swift */; };
+		C4D8294825B46B3A00697E52 /* HCBrowserZoomPresentingAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8294725B46B3A00697E52 /* HCBrowserZoomPresentingAnimator.swift */; };
+		C4D8294B25B46B6500697E52 /* HCBrowserZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8294A25B46B6500697E52 /* HCBrowserZoomAnimator.swift */; };
+		C4D8294F25B46BBB00697E52 /* HCBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8294E25B46BBB00697E52 /* HCBrowserViewController.swift */; };
+		C4D8295325B46C1F00697E52 /* HCBrowserZoomTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8295225B46C1F00697E52 /* HCBrowserZoomTransitioning.swift */; };
+		C4D8295625B46C7800697E52 /* HCBrowserTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8295525B46C7800697E52 /* HCBrowserTransitioning.swift */; };
+		C4D8295925B46CA600697E52 /* HCBrowserPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8295825B46CA600697E52 /* HCBrowserPresentationController.swift */; };
+		C4D8295D25B46FBF00697E52 /* HCMediaBrowserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8295C25B46FBF00697E52 /* HCMediaBrowserModel.swift */; };
+		C4D8296125B470F500697E52 /* HCBrowserBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8296025B470F500697E52 /* HCBrowserBaseCell.swift */; };
+		C4D8296425B4711D00697E52 /* HCBrowserPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8296325B4711D00697E52 /* HCBrowserPhotoCell.swift */; };
+		C4D8296C25B4738100697E52 /* HCLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8296B25B4738100697E52 /* HCLoadingView.swift */; };
+		C4D829C025B4781800697E52 /* HCBrowserImageScaleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D829BF25B4781800697E52 /* HCBrowserImageScaleHelper.swift */; };
+		C4D829C425B47D7100697E52 /* HCBrowserFlowlayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D829C325B47D7100697E52 /* HCBrowserFlowlayout.swift */; };
 		C4E254EA233E0793006922DB /* TYSlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E254E9233E0792006922DB /* TYSlideMenuController.swift */; };
 		C4E254EC233E0D4D006922DB /* TYSlideDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E254EB233E0D4D006922DB /* TYSlideDatasource.swift */; };
 		C4E254EF233E1C36006922DB /* HCClassRoomItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E254EE233E1C36006922DB /* HCClassRoomItemController.swift */; };
@@ -1687,6 +1701,20 @@
 		C4D3995425A71ABC007D72D5 /* HCAddTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAddTagController.swift; sourceTree = "<group>"; };
 		C4D3995725A71ADA007D72D5 /* HCAddTagContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAddTagContainer.swift; sourceTree = "<group>"; };
 		C4D8290725B45E6D00697E52 /* HCLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCLayout.swift; sourceTree = "<group>"; };
+		C4D8294025B46AE300697E52 /* HCBrowserTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserTransitioningDelegate.swift; sourceTree = "<group>"; };
+		C4D8294425B46B0400697E52 /* HCBrowserZoomDismissingAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserZoomDismissingAnimator.swift; sourceTree = "<group>"; };
+		C4D8294725B46B3A00697E52 /* HCBrowserZoomPresentingAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserZoomPresentingAnimator.swift; sourceTree = "<group>"; };
+		C4D8294A25B46B6500697E52 /* HCBrowserZoomAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserZoomAnimator.swift; sourceTree = "<group>"; };
+		C4D8294E25B46BBB00697E52 /* HCBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserViewController.swift; sourceTree = "<group>"; };
+		C4D8295225B46C1F00697E52 /* HCBrowserZoomTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserZoomTransitioning.swift; sourceTree = "<group>"; };
+		C4D8295525B46C7800697E52 /* HCBrowserTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserTransitioning.swift; sourceTree = "<group>"; };
+		C4D8295825B46CA600697E52 /* HCBrowserPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserPresentationController.swift; sourceTree = "<group>"; };
+		C4D8295C25B46FBF00697E52 /* HCMediaBrowserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMediaBrowserModel.swift; sourceTree = "<group>"; };
+		C4D8296025B470F500697E52 /* HCBrowserBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserBaseCell.swift; sourceTree = "<group>"; };
+		C4D8296325B4711D00697E52 /* HCBrowserPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserPhotoCell.swift; sourceTree = "<group>"; };
+		C4D8296B25B4738100697E52 /* HCLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCLoadingView.swift; sourceTree = "<group>"; };
+		C4D829BF25B4781800697E52 /* HCBrowserImageScaleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserImageScaleHelper.swift; sourceTree = "<group>"; };
+		C4D829C325B47D7100697E52 /* HCBrowserFlowlayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBrowserFlowlayout.swift; sourceTree = "<group>"; };
 		C4E254E4233E069C006922DB /* HCClassRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCClassRoomViewController.swift; sourceTree = "<group>"; };
 		C4E254E9233E0792006922DB /* TYSlideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSlideMenuController.swift; sourceTree = "<group>"; };
 		C4E254EB233E0D4D006922DB /* TYSlideDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSlideDatasource.swift; sourceTree = "<group>"; };
@@ -2485,6 +2513,7 @@
 		C421330622056B19006C10C4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C4D8293B25B469EB00697E52 /* HCMediaBrowser */,
 				C4D8290325B45DF300697E52 /* Layout */,
 				C42DA7CD25AC9C700094E4C8 /* HCSystemAudioPlay */,
 				B8CFBAC1258BB78600BD03A1 /* HCPresation */,
@@ -2926,6 +2955,7 @@
 			isa = PBXGroup;
 			children = (
 				B8F1587424E801400046B107 /* HCUser.swift */,
+				C4D829BF25B4781800697E52 /* HCBrowserImageScaleHelper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4091,6 +4121,82 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		C4D8293B25B469EB00697E52 /* HCMediaBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8295B25B46FB400697E52 /* Data */,
+				C4D8293D25B46AD500697E52 /* Animator */,
+				C4D8293F25B46AD500697E52 /* Protocol */,
+				C4D8293C25B46AD500697E52 /* Transitioning */,
+				C4D8293E25B46AD500697E52 /* UI */,
+			);
+			path = HCMediaBrowser;
+			sourceTree = "<group>";
+		};
+		C4D8293C25B46AD500697E52 /* Transitioning */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8295225B46C1F00697E52 /* HCBrowserZoomTransitioning.swift */,
+				C4D8295525B46C7800697E52 /* HCBrowserTransitioning.swift */,
+				C4D8295825B46CA600697E52 /* HCBrowserPresentationController.swift */,
+			);
+			path = Transitioning;
+			sourceTree = "<group>";
+		};
+		C4D8293D25B46AD500697E52 /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8294425B46B0400697E52 /* HCBrowserZoomDismissingAnimator.swift */,
+				C4D8294725B46B3A00697E52 /* HCBrowserZoomPresentingAnimator.swift */,
+				C4D8294A25B46B6500697E52 /* HCBrowserZoomAnimator.swift */,
+			);
+			path = Animator;
+			sourceTree = "<group>";
+		};
+		C4D8293E25B46AD500697E52 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8296625B472F500697E52 /* LoadImage */,
+				C4D8294D25B46BAE00697E52 /* View */,
+				C4D8294E25B46BBB00697E52 /* HCBrowserViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		C4D8293F25B46AD500697E52 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8294025B46AE300697E52 /* HCBrowserTransitioningDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		C4D8294D25B46BAE00697E52 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8296025B470F500697E52 /* HCBrowserBaseCell.swift */,
+				C4D8296325B4711D00697E52 /* HCBrowserPhotoCell.swift */,
+				C4D829C325B47D7100697E52 /* HCBrowserFlowlayout.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C4D8295B25B46FB400697E52 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8295C25B46FBF00697E52 /* HCMediaBrowserModel.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C4D8296625B472F500697E52 /* LoadImage */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8296B25B4738100697E52 /* HCLoadingView.swift */,
+			);
+			path = LoadImage;
+			sourceTree = "<group>";
+		};
 		C4E254E8233E0770006922DB /* SlideMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -4374,6 +4480,7 @@
 				C4D3930B25A5ABD8007D72D5 /* HCServerMsgContainer.swift in Sources */,
 				C494136524DE54A100045749 /* HCCustomButton.swift in Sources */,
 				C4D3990E25A5DFBE007D72D5 /* ZXRSSDataCharacter.m in Sources */,
+				C4D8294B25B46B6500697E52 /* HCBrowserZoomAnimator.swift in Sources */,
 				C4D398F125A5DFBE007D72D5 /* ZXITFWriter.m in Sources */,
 				B85BD06B255545730026A508 /* ChatToolBarAudioButton.m in Sources */,
 				C4D398C225A5DFBE007D72D5 /* ZXPDF417CodewordDecoder.m in Sources */,
@@ -4478,6 +4585,7 @@
 				C4D3991525A5DFBE007D72D5 /* ZXUPCAWriter.m in Sources */,
 				C4D3990325A5DFBE007D72D5 /* ZXRSSExpandedCurrentParsingState.m in Sources */,
 				C4D3995825A71ADA007D72D5 /* HCAddTagContainer.swift in Sources */,
+				C4D8296125B470F500697E52 /* HCBrowserBaseCell.swift in Sources */,
 				B842D1FE22258CC000A4F8DF /* HCAppDelegate+UM.swift in Sources */,
 				B8CFBA7E258B447100BD03A1 /* HCServer.swift in Sources */,
 				C497E95923444EF200328B47 /* HCHomeGoodNewsCell.swift in Sources */,
@@ -4525,6 +4633,7 @@
 				B80A3831253D5B2B00A74F14 /* PlaceholderTextView.swift in Sources */,
 				B8BE350F2214797200EF16F1 /* FileManager+Extension.swift in Sources */,
 				C4D398A625A5DFBE007D72D5 /* ZXByteArray.m in Sources */,
+				C4D8295925B46CA600697E52 /* HCBrowserPresentationController.swift in Sources */,
 				C4B185342345B03400F37197 /* HCSearch.swift in Sources */,
 				C4D3992825A5DFBE007D72D5 /* ZXVEventResultParser.m in Sources */,
 				C421332922056F24006C10C4 /* TYIndicatorBaseView.swift in Sources */,
@@ -4582,6 +4691,7 @@
 				C42133582205883D006C10C4 /* BaseViewModel.swift in Sources */,
 				B8CFBABE258BB24500BD03A1 /* HCQueryScheduleDaySettingCell.swift in Sources */,
 				C4D3992725A5DFBE007D72D5 /* ZXTelResultParser.m in Sources */,
+				C4D829C025B4781800697E52 /* HCBrowserImageScaleHelper.swift in Sources */,
 				C4D3933F25A5CAA1007D72D5 /* HCVerificationHeaderView.swift in Sources */,
 				C4D398E325A5DFBE007D72D5 /* ZXDataMatrixDecoder.m in Sources */,
 				B8CFBAD92598DF7E00BD03A1 /* HCEditFastReplyViewModel.swift in Sources */,
@@ -4622,6 +4732,7 @@
 				B8BE351922147B4000EF16F1 /* HCEditSynopsisViewController.swift in Sources */,
 				B8699401233794A700086A77 /* UIView+Layer.swift in Sources */,
 				B870E54B2390134B0085AFA3 /* TYListMenuData.swift in Sources */,
+				C4D8294125B46AE300697E52 /* HCBrowserTransitioningDelegate.swift in Sources */,
 				C4D398D525A5DFBE007D72D5 /* ZXDataMatrixEdifactEncoder.m in Sources */,
 				C421338C2205A544006C10C4 /* Home.swift in Sources */,
 				B818BB7B251492F2003842A3 /* HCMyPatientListCell.swift in Sources */,
@@ -4657,16 +4768,20 @@
 				C421339D2205B224006C10C4 /* ImageRx.swift in Sources */,
 				C421338822059B8C006C10C4 /* DB+Extension.swift in Sources */,
 				C42133952205B1E9006C10C4 /* CarouselDatasource.swift in Sources */,
+				C4D8295325B46C1F00697E52 /* HCBrowserZoomTransitioning.swift in Sources */,
 				B8BE350D2214794900EF16F1 /* Bundle+Extension.swift in Sources */,
 				C42AF1A724EA1D8F0034DBEF /* HCRealNameAuthorViewModel.swift in Sources */,
 				B8CD926523A2964800C9C061 /* HCRecordUserInfoReusableView.swift in Sources */,
 				C4D3988225A5DFBE007D72D5 /* ZXAztecHighLevelEncoder.m in Sources */,
 				B892FF9623AB530D00A137C0 /* HCArticleDetailViewModel.swift in Sources */,
+				C4D8295625B46C7800697E52 /* HCBrowserTransitioning.swift in Sources */,
 				C4D3994025A5DFBE007D72D5 /* ZXSMSTOMMSTOResultParser.m in Sources */,
+				C4D8296C25B4738100697E52 /* HCLoadingView.swift in Sources */,
 				C4D3987325A5DFBE007D72D5 /* ZXDimension.m in Sources */,
 				B80A380F253D574C00A74F14 /* AudioPlayHelper.swift in Sources */,
 				C4D3989425A5DFBE007D72D5 /* ZXQRCodeDecoder.m in Sources */,
 				C4D398B425A5DFBE007D72D5 /* ZXGenericGF.m in Sources */,
+				C4D8294825B46B3A00697E52 /* HCBrowserZoomPresentingAnimator.swift in Sources */,
 				B85BD070255545730026A508 /* DPAudioRecorder.m in Sources */,
 				C4F139B7235419EF00D777F6 /* Validate.swift in Sources */,
 				C421338222059B8C006C10C4 /* UserDefaults+Cache.swift in Sources */,
@@ -4707,6 +4822,7 @@
 				C4D398F525A5DFBE007D72D5 /* ZXEAN13Reader.m in Sources */,
 				C421333A220572F2006C10C4 /* HCTabBarViewController.swift in Sources */,
 				B819AF6824C6E3F900F88BA7 /* HCNavBarTitleView.swift in Sources */,
+				C4D8296425B4711D00697E52 /* HCBrowserPhotoCell.swift in Sources */,
 				C4D3988B25A5DFBE007D72D5 /* ZXQRCode.m in Sources */,
 				C421339C2205B224006C10C4 /* ImageCacheCenter.swift in Sources */,
 				B89C396A23A0C90100CAB651 /* TYCurveView.swift in Sources */,
@@ -4757,6 +4873,7 @@
 				B8BE34FB221470B800EF16F1 /* HCEditUserInfoViewController.swift in Sources */,
 				B8F1587524E801400046B107 /* HCUser.swift in Sources */,
 				C497E94F23444E4600328B47 /* HCHomeCollectionHeaderReusableView.swift in Sources */,
+				C4D8294525B46B0400697E52 /* HCBrowserZoomDismissingAnimator.swift in Sources */,
 				C40448A924EB6B1D00AD1610 /* HCMineInServerCell.swift in Sources */,
 				C4D3932F25A5C7E8007D72D5 /* HCVerificationViewModel.swift in Sources */,
 				C4D3989725A5DFBE007D72D5 /* ZXQRCodeDataBlock.m in Sources */,
@@ -4782,6 +4899,7 @@
 				C4D392FC25A5AB7D007D72D5 /* HCMessageViewController.swift in Sources */,
 				C40448AB24EB721E00AD1610 /* HCMineHealthArchivesCell.swift in Sources */,
 				B8891A4623038DAB00950D5C /* ConsultViewModel.swift in Sources */,
+				C4D8294F25B46BBB00697E52 /* HCBrowserViewController.swift in Sources */,
 				C4D398BE25A5DFBE007D72D5 /* ZXPDF417Dimensions.m in Sources */,
 				C4D3988825A5DFBE007D72D5 /* ZXAztecWriter.m in Sources */,
 				C4D398E525A5DFBE007D72D5 /* ZXDataMatrixDetector.m in Sources */,
@@ -4880,6 +4998,8 @@
 				C495756725A45AF8007ED5F6 /* HCBoxPhotoView.swift in Sources */,
 				C4D398F225A5DFBE007D72D5 /* ZXMultiFormatUPCEANReader.m in Sources */,
 				C4D398FB25A5DFBE007D72D5 /* ZXRSSExpandedDecodedChar.m in Sources */,
+				C4D829C425B47D7100697E52 /* HCBrowserFlowlayout.swift in Sources */,
+				C4D8295D25B46FBF00697E52 /* HCMediaBrowserModel.swift in Sources */,
 				B8CFBA6B258B3E9A00BD03A1 /* HCBaseListCell.swift in Sources */,
 				B8BE603323BB4C4D00EC0027 /* Dictionary+Extension.swift in Sources */,
 				C4D3933825A5C852007D72D5 /* HCVerificationContainer.swift in Sources */,
@@ -5055,7 +5175,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -5110,7 +5230,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -5132,7 +5252,7 @@
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5163,7 +5283,7 @@
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

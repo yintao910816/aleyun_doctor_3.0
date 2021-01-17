@@ -3,7 +3,9 @@ PODS:
   - Differentiator (3.1.0)
   - HandyJSON (5.0.0)
   - IQKeyboardManagerSwift (6.5.6)
-  - Kingfisher (4.6.4)
+  - Kingfisher (5.13.4):
+    - Kingfisher/Core (= 5.13.4)
+  - Kingfisher/Core (5.13.4)
   - MJRefresh (3.1.15.7)
   - Moya/Core (12.0.1):
     - Alamofire (~> 4.1)
@@ -52,7 +54,7 @@ PODS:
 DEPENDENCIES:
   - HandyJSON (~> 5.0.0-beta.1)
   - IQKeyboardManagerSwift (~> 6.5.6)
-  - Kingfisher (~> 4.6.1)
+  - Kingfisher (~> 5.13.2)
   - MJRefresh (~> 3.1.15.3)
   - Moya/RxSwift (~> 12.0.1)
   - RxCocoa (~> 4.4.0)
@@ -77,7 +79,6 @@ SPEC REPOS:
     - Alamofire
     - Differentiator
     - HandyJSON
-    - Kingfisher
     - MJRefresh
     - Moya
     - Result
@@ -94,6 +95,7 @@ SPEC REPOS:
     - WebViewJavascriptBridge
   trunk:
     - IQKeyboardManagerSwift
+    - Kingfisher
     - Toast-Swift
     - TXIMSDK_iOS
     - TXLiteAVSDK_Professional
@@ -105,7 +107,7 @@ SPEC CHECKSUMS:
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
-  Kingfisher: 68498a706e46c2a050b0c9572f100e5db407f6e0
+  Kingfisher: d2279a7abece3c7f25a80cd2b7f363ca5cf3f44c
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
@@ -126,6 +128,6 @@ SPEC CHECKSUMS:
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: a8da088740a122fcfef3dc707b8568b204ef1fc6
+PODFILE CHECKSUM: 62bc3ceb10c80279082316f8338c3354821272b7
 
 COCOAPODS: 1.8.3

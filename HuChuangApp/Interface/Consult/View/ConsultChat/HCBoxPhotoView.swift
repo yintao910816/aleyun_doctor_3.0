@@ -12,6 +12,8 @@ class HCBoxPhotoView: UIView {
 
     private var collectionView: UICollectionView!
     
+    public var imageClicked: (((UIImage?, String))->())?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -91,11 +93,18 @@ extension HCBoxPhotoView: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return HCBoxPhotoView.itemSize(with: filles.count)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        if let image = ImageCacheCenter.shared.image(forKey: filles[indexPath.row].imageURL ?? "") {
+            imageClicked?((image, filles[indexPath.row].imageURL ?? ""))
+        }
+    }
 }
 
 class HCPhotoCell: UICollectionViewCell {
     
-    private var imageView: UIImageView!
+    public var imageView: UIImageView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

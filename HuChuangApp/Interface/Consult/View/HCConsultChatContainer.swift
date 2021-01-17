@@ -34,6 +34,8 @@ class HCConsultChatContainer: UIView {
     /// 咨询退回
     public let cancelSignal = PublishSubject<Void>()
 
+    public var imageClicked: (((UIImage?, String))->())?
+
     private lazy var chatKeyboardView: TYChatKeyBoardView = {
         let view = TYChatKeyBoardView()
         
@@ -189,8 +191,11 @@ extension HCConsultChatContainer {
         let datasource = RxTableViewSectionedReloadDataSource<SectionModel<HCChatDataModel, HCChatListModel>>.init(configureCell: { _,tb,indexPath,model ->UITableViewCell in
             let cell = tb.dequeueReusableCell(withIdentifier: model.cellIdentifier) as! HCBaseConsultCell
             cell.model = model
-            cell.contentBgTagCallBack = { [weak self] in
+            cell.contentBgTagCallBack = {
                 AudioPlayHelper.share.prepare(with: $0.content)
+            }
+            if let photoCell = cell as? HCConsultDetailPhotoCell {
+                photoCell.imageClicked = { [unowned self] in imageClicked?($0) }
             }
             return cell
         })
@@ -214,6 +219,7 @@ extension HCConsultChatContainer: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HCConsultDetailSectionHeader_identifier) as! HCConsultDetailSectionHeader
         header.sectionModel = dataSignal.value[section].model.mainInfo
+        header.imageClicked = { [unowned self] in imageClicked?($0) }
         return header
     }
     

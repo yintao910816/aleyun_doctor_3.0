@@ -19,6 +19,8 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
     private var desPhotoTitleLabel: UILabel!
     private var boxPhotoView: HCBoxPhotoView!
     
+    public var imageClicked: (((UIImage?, String))->())?
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
@@ -34,6 +36,7 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
         contentBgView.layer.cornerRadius = 3
         contentBgView.clipsToBounds = true
         contentBgView.backgroundColor = .white
+        contentBgView.isUserInteractionEnabled = true
         
         desInfoTitleLabel = UILabel()
         desInfoTitleLabel.font = .font(fontSize: 14)
@@ -53,6 +56,7 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
         desPhotoTitleLabel.text = "报告病例："
 
         boxPhotoView = HCBoxPhotoView()
+        boxPhotoView.imageClicked = { [unowned self] in imageClicked?($0) }
         
         contentView.addSubview(timeLabel)
         contentView.addSubview(contentBgView)

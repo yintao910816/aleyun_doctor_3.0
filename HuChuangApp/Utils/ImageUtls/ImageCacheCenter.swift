@@ -71,10 +71,12 @@ extension KingfisherCacheFolder {
             switch self {
             case .canClear:
                 return ImageCache.init(name: "canClearKingImageCache")
-            case .tmp:
-                return ImageCache.init(name: "kingfisherTemCache", diskCachePathClosure: { (path, folder) -> String in
-                    return (NSTemporaryDirectory() as NSString).appendingPathComponent(folder)
-                })
+//            case .tmp:
+//                return ImageCache.init(name: "kingfisherTemCache", diskCachePathClosure: { (path, folder) -> String in
+//                    return (NSTemporaryDirectory() as NSString).appendingPathComponent(folder)
+//                })
+            default:
+                return ImageCache.init(name: "canClearKingImageCache")
             }
         }
     }

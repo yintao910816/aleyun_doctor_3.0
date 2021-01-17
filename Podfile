@@ -1,4 +1,4 @@
-platform :ios,'9.0'
+platform :ios,'10.0'
 use_frameworks!
 
 target 'HuChuangApp' do
@@ -14,7 +14,7 @@ pod 'SQLite.swift', '~> 0.11.5'
 
 pod 'SnapKit', '~> 4.0.0'
 pod 'MJRefresh', '~> 3.1.15.3'
-pod 'Kingfisher', '~> 4.6.1'
+pod 'Kingfisher', '~> 5.13.2'
 
 pod 'UMCCommon'
 pod 'UMCPush'

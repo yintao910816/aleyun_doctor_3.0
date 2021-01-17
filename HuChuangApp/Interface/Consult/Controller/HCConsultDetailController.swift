@@ -51,6 +51,8 @@ class HCConsultDetailController: BaseViewController {
         slideCtrl.menuCtrls = [consultChatCtrl,
                                healthArchivesCtrl,
                                manageCtrl]
+        
+        consultChatCtrl.imageClicked = { [unowned self] in presentBrowser(data: $0) }
     }
     
     override func rxBind() {
@@ -84,5 +86,35 @@ class HCConsultDetailController: BaseViewController {
     override func prepare(parameters: [String : Any]?) {
         memberId = (parameters!["memberId"] as! String)
         consultId = (parameters!["consultId"] as! String)
+    }
+}
+
+extension HCConsultDetailController {
+    
+    private func presentBrowser(data: (UIImage?, String)) {
+        let sectionData = HCMediaSectionModel()
+        let item = HCPhotoBrowserModel()
+        item.image = data.0
+        item.picPath = data.1
+        item.picwidth = data.0?.size.width ?? view.width
+        item.picHeight = data.0?.size.width ?? view.height
+        sectionData.items = [item]
+        
+        let browserTrans = HCBrowserZoomTransitioning.init {[weak self] (browser, mid, index, view) -> CGRect? in
+            return nil
+        }
+        
+        let mediaBrowser = HCBrowserViewController(nibName: nil, bundle: nil)
+        mediaBrowser.transDelegate = browserTrans
+
+        mediaBrowser.configData(datasource: [sectionData], pageIndexPath: IndexPath(row: 0, section: 0))
+
+        // 转场
+        mediaBrowser.zoomFileData = item
+
+        mediaBrowser.presentZoomRect = nil
+
+        present(mediaBrowser, animated: true, completion: nil)
+
     }
 }

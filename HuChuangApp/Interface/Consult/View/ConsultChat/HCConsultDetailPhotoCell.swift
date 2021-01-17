@@ -14,10 +14,14 @@ class HCConsultDetailPhotoCell: HCConsultDetailBaseCell {
 
     private var boxPhotoView: HCBoxPhotoView!
 
+    public var imageClicked: (((UIImage?, String))->())?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         boxPhotoView = HCBoxPhotoView()
+        boxPhotoView.imageClicked = { [unowned self] in imageClicked?($0) }
+        
         contentView.addSubview(boxPhotoView)
     }
 
