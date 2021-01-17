@@ -10,8 +10,7 @@ import UIKit
 
 public let HCFuncMenuCell_identifier: String = "HCFuncMenuCell"
 
-private let minimumInteritemSpacing: CGFloat = 24
-private let minimumLineSpacing: CGFloat = 35
+private let lineSpacing: CGFloat = 24
 private let inset: UIEdgeInsets = .init(top: 10, left: 25, bottom: 15, right: 25)
 private let itemHeight: CGFloat = 55
 private let iconSize: CGSize = .init(width: 28, height: 28)
@@ -22,12 +21,16 @@ class HCFuncMenuCell: UICollectionViewCell {
     
     private var funcCollectionView: UICollectionView!
 
+    private var itemSizeW: CGFloat = 0
+    private var minimumInteritemSpacing: CGFloat = 0
+    
     public var itemClicked: ((HCFunctionsMenuModel)->())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let layout = UICollectionViewFlowLayout()
+        let layout = HCHorizontalLayout()
+        layout.layoutDelegate = self
         layout.scrollDirection = .horizontal
         
         funcCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
@@ -48,6 +51,7 @@ class HCFuncMenuCell: UICollectionViewCell {
     
     public var funcMenuModels: [HCFunctionsMenuModel] = [] {
         didSet {
+            caculteItemData()
             funcCollectionView.reloadData()
         }
     }
@@ -63,9 +67,31 @@ class HCFuncMenuCell: UICollectionViewCell {
         let lines: Int = itemCount > 4 ? 2 : 1
         
         var height = CGFloat(lines) * itemHeight + inset.top + inset.bottom
-        height += lines == 2 ? minimumInteritemSpacing : 0
+        height += lines == 2 ? lineSpacing : 0
         return height
     }
+    
+    private func caculteItemData() {
+        var textMaxW: CGFloat = 0
+        
+        for item in funcMenuModels {
+            let w = item.name.ty_textSize(font: .font(fontSize: 14), width: CGFloat.greatestFiniteMagnitude, height:15).width
+            if w > textMaxW {
+                textMaxW = w
+            }
+        }
+        textMaxW = max(textMaxW, iconSize.width)
+        
+        let maxW: CGFloat = (width - inset.left - inset.right - 20 * 3) / 4.0
+        if maxW >= textMaxW {
+            itemSizeW = textMaxW
+            minimumInteritemSpacing = (width - 1 - inset.left - inset.right - itemSizeW * 4) / 3.0
+        }else {
+            itemSizeW = maxW
+            minimumInteritemSpacing = 20
+        }
+    }
+    
 }
 
 extension HCFuncMenuCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -77,33 +103,40 @@ extension HCFuncMenuCell: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let w: CGFloat = (width - inset.left - inset.right - 3 * minimumLineSpacing) / 4.0
-        return .init(width: w, height: itemHeight)
-    }
-    
+        
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCFuncMenuItemCell_identifer, for: indexPath) as! HCFuncMenuItemCell
         cell.funcModel = funcMenuModels[indexPath.row]
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return minimumLineSpacing
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return minimumInteritemSpacing
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return inset
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         itemClicked?(funcMenuModels[indexPath.row])
     }
+}
+
+extension HCFuncMenuCell: HCLayoutDelegate {
+    
+    func itemSize(for indexPath: IndexPath, layout: UICollectionViewFlowLayout) -> CGSize {
+        return .init(width: itemSizeW, height: itemHeight)
+    }
+    
+    func referenceSize(forHeader insSection: Int, layout: UICollectionViewFlowLayout) -> CGSize {
+        return .zero
+    }
+    
+    func minimumLineSpacing(in section: Int, layout: UICollectionViewFlowLayout) -> CGFloat {
+        return lineSpacing
+    }
+    
+    func minimumInterSpacing(in section: Int, layout: UICollectionViewFlowLayout) -> CGFloat {
+        return minimumInteritemSpacing
+    }
+    
+    func sectionInset(in section: Int, layout: UICollectionViewFlowLayout) -> UIEdgeInsets {
+        return inset
+    }
+    
 }
 
 public let HCFuncMenuItemCell_identifer = "HCFuncMenuItemCell"

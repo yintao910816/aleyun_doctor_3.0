@@ -693,6 +693,7 @@
 		C4D3995125A6E0F9007D72D5 /* HCVerificationQueryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3995025A6E0F9007D72D5 /* HCVerificationQueryContainer.swift */; };
 		C4D3995525A71ABC007D72D5 /* HCAddTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3995425A71ABC007D72D5 /* HCAddTagController.swift */; };
 		C4D3995825A71ADA007D72D5 /* HCAddTagContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3995725A71ADA007D72D5 /* HCAddTagContainer.swift */; };
+		C4D8290825B45E6D00697E52 /* HCLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8290725B45E6D00697E52 /* HCLayout.swift */; };
 		C4E254EA233E0793006922DB /* TYSlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E254E9233E0792006922DB /* TYSlideMenuController.swift */; };
 		C4E254EC233E0D4D006922DB /* TYSlideDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E254EB233E0D4D006922DB /* TYSlideDatasource.swift */; };
 		C4E254EF233E1C36006922DB /* HCClassRoomItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E254EE233E1C36006922DB /* HCClassRoomItemController.swift */; };
@@ -1685,6 +1686,7 @@
 		C4D3995025A6E0F9007D72D5 /* HCVerificationQueryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCVerificationQueryContainer.swift; sourceTree = "<group>"; };
 		C4D3995425A71ABC007D72D5 /* HCAddTagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAddTagController.swift; sourceTree = "<group>"; };
 		C4D3995725A71ADA007D72D5 /* HCAddTagContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAddTagContainer.swift; sourceTree = "<group>"; };
+		C4D8290725B45E6D00697E52 /* HCLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCLayout.swift; sourceTree = "<group>"; };
 		C4E254E4233E069C006922DB /* HCClassRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCClassRoomViewController.swift; sourceTree = "<group>"; };
 		C4E254E9233E0792006922DB /* TYSlideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSlideMenuController.swift; sourceTree = "<group>"; };
 		C4E254EB233E0D4D006922DB /* TYSlideDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSlideDatasource.swift; sourceTree = "<group>"; };
@@ -2483,6 +2485,7 @@
 		C421330622056B19006C10C4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C4D8290325B45DF300697E52 /* Layout */,
 				C42DA7CD25AC9C700094E4C8 /* HCSystemAudioPlay */,
 				B8CFBAC1258BB78600BD03A1 /* HCPresation */,
 				B8610C042553EBCD007D5D46 /* HCMediaPicker */,
@@ -4080,6 +4083,14 @@
 			path = result;
 			sourceTree = "<group>";
 		};
+		C4D8290325B45DF300697E52 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8290725B45E6D00697E52 /* HCLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		C4E254E8233E0770006922DB /* SlideMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -4349,6 +4360,7 @@
 				B85BD06D255545730026A508 /* DPAudioPlayer.m in Sources */,
 				C421338322059B8C006C10C4 /* CacheKey.swift in Sources */,
 				B8CFBABB258BA7F800BD03A1 /* HCConsultSettingBottomActionView.swift in Sources */,
+				C4D8290825B45E6D00697E52 /* HCLayout.swift in Sources */,
 				C4E254EF233E1C36006922DB /* HCClassRoomItemController.swift in Sources */,
 				B80A3830253D5B2B00A74F14 /* TYTextInputMediaView.swift in Sources */,
 				B818BB8F2514CD5D003842A3 /* HCPatientGroupHeaderView.swift in Sources */,
