@@ -30,9 +30,7 @@
 			<key>CFBundleURLName</key>
 			<string>wchat</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>wx870ac6243698c3f6</string>
-			</array>
+			<array/>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>

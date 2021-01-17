@@ -121,11 +121,11 @@ class HCLoginViewContainer: UIView {
         }
         
         remindLabel.frame = .init(x: titlelabel.frame.minX, y: getCodeButton.frame.maxY + 20, width: width - 80, height: 16)
-        agreeButton.frame = .init(x: titlelabel.frame.minX, y: remindLabel.frame.maxY + 12, width: 12, height: 12)
+        agreeButton.frame = .init(x: titlelabel.frame.minX - 10, y: remindLabel.frame.maxY, width: 32, height: 32)
         
         let agreeLabelW: CGFloat = width - agreeButton.frame.maxX - 5 - 40
         tempSize = agreeLabel.sizeThatFits(.init(width: agreeLabelW, height: CGFloat(MAXFLOAT)))
-        agreeLabel.frame = .init(x: agreeButton.frame.maxX + 5, y: agreeButton.frame.minY - 5, width: tempSize.width, height: tempSize.height)
+        agreeLabel.frame = .init(x: agreeButton.frame.maxX, y: agreeButton.frame.minY + 7, width: tempSize.width, height: tempSize.height)
         
         platformContainer.frame = .init(x: titlelabel.frame.minX, y: height - 85, width: width - 80, height: 40)
         
@@ -230,6 +230,7 @@ extension HCLoginViewContainer {
         agreeButton.setImage(UIImage(named: "login_unselected_agree"), for: .normal)
         agreeButton.setImage(UIImage(named: "login_selected_agree"), for: .selected)
         agreeButton.addTarget(self, action: #selector(agreeClicked), for: .touchUpInside)
+        agreeButton.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
         
         agreeLabel = YYLabel()
         agreeLabel.textColor = RGB(154, 154, 154)

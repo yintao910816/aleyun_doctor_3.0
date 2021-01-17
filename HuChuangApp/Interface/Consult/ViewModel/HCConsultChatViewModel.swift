@@ -61,9 +61,10 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
             guard let strongSelf = self else { return Observable.just(HCReplySuccessModel()) }
             return strongSelf.submitReply(content: "", filePath: file.filePath, bak: "")
         }
-        .subscribe(onNext: { [weak self] in
+        .subscribe(onNext: { [weak self] _ in
             PrintLog("图片回复成功")
-            self?.dealReplySuccess(model: $0, contentMode: .image)
+            self?.requestCurrentConsult()
+//            self?.dealReplySuccess(model: $0, contentMode: .image)
             self?.hud.noticeHidden()
         }, onError: { [weak self] in
             self?.hud.failureHidden(self?.errorMessage($0))
@@ -80,9 +81,10 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
                 guard let strongSelf = self else { return Observable.just(HCReplySuccessModel()) }
                 return strongSelf.submitReply(content: "", filePath: data.0.filePath, bak: "\(data.1)")
             }
-            .subscribe(onNext: { [weak self] in
+            .subscribe(onNext: { [weak self] _ in
                 PrintLog("语音回复成功")
-                self?.dealReplySuccess(model: $0, contentMode: .audio)
+                self?.requestCurrentConsult()
+//                self?.dealReplySuccess(model: $0, contentMode: .audio)
                 self?.hud.noticeHidden()
             }, onError: { [weak self] in
                 self?.hud.failureHidden(self?.errorMessage($0))
@@ -92,9 +94,10 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
         sendTextSubject
             ._doNext(forNotice: hud)
             .flatMap{ [unowned self] in self.submitReply(content: $0, filePath: "", bak: "") }
-            .subscribe(onNext: { [weak self] in
+            .subscribe(onNext: { [weak self] _ in
                 PrintLog("文字回复成功")
-                self?.dealReplySuccess(model: $0, contentMode: .text)
+                self?.requestCurrentConsult()
+//                self?.dealReplySuccess(model: $0, contentMode: .text)
                 self?.hud.noticeHidden()
             }, onError: { [weak self] in
                 self?.hud.failureHidden(self?.errorMessage($0))

@@ -20,12 +20,11 @@ class HCLoginViewModel: BaseViewModel, VMNavigation {
          tap:(codeTap: Driver<Void>, agreeTap: Driver<Bool>)) {
         super.init()
         
-        enableCode = Driver.combineLatest(input.phoneSignal, input.pwdSignal, tap.agreeTap, loginModeSignal.asDriver()){ ($0, $1, $2, $3) }
+        enableCode = Driver.combineLatest(input.phoneSignal, input.pwdSignal, loginModeSignal.asDriver()){ ($0, $1, $2) }
             .map({ ret -> Bool in
                 if !ValidateNum.phoneNum(ret.0).isRight { return false }
-                if !ret.2 { return false }
                 
-                if ret.3 == .pwd {
+                if ret.2 == .pwd {
                     if ret.1.count == 0 { return false }
                 }
 
@@ -33,9 +32,16 @@ class HCLoginViewModel: BaseViewModel, VMNavigation {
             })
             .asDriver()
                 
-        let combineSignal = Driver.combineLatest(input.phoneSignal, input.pwdSignal, loginModeSignal.asDriver()){ ($0, $1, $2) }
+        let combineSignal = Driver.combineLatest(input.phoneSignal, input.pwdSignal, loginModeSignal.asDriver(), tap.agreeTap){ ($0, $1, $2, $3) }
         
         tap.codeTap.withLatestFrom(combineSignal)
+            .filter({ data -> Bool in
+                if !data.3 {
+                    NoticesCenter.alert(message: "请阅读并勾选《用户协议》《隐私声明》")
+                    return false
+                }
+                return true
+            })
             ._doNext(forNotice: hud)
             .drive(onNext: { [weak self] in
                 if $0.2 == .phone {
