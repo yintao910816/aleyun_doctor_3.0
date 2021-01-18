@@ -8,9 +8,15 @@
 
 import UIKit
 
+import RxSwift
+
 class HCCustomTabBar: UITabBar {
 
+    private let disposeBag = DisposeBag()
+
     private var barButton: UIButton!
+    private var countLabel: UILabel!
+    
     public var clickedCustomBarItem:(()->())?
     
     override init(frame: CGRect) {
@@ -22,6 +28,23 @@ class HCCustomTabBar: UITabBar {
         barButton.addTarget(self, action: #selector(clickedCustomBar), for: .touchUpInside)
         addSubview(barButton)
         bringSubviewToFront(barButton)
+        
+        countLabel = UILabel()
+        countLabel.text = "0"
+        countLabel.font = .font(fontSize: 21, fontName: .PingFSemibold)
+        countLabel.textAlignment = .center
+        countLabel.backgroundColor = .clear
+        countLabel.textColor = .white
+        countLabel.adjustsFontSizeToFitWidth = true
+        barButton.addSubview(countLabel)
+        
+        NotificationCenter.default.rx.notification(NotificationName.Message.unreadMessageCount, object: nil)
+            .subscribe(onNext: { [weak self] in
+                if let count = $0.object as? Int {
+                    self?.countLabel.text = "\(count)"
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -56,6 +79,8 @@ class HCCustomTabBar: UITabBar {
 
             barButton.frame = .init(x: x, y: y, width: itemSize.width, height: itemSize.height)
         }
+        
+        countLabel.frame = .init(x: (barButton.width - 30) / 2, y: (barButton.height - 21) / 2, width: 30, height: 21)
     }
 }
 

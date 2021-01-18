@@ -72,7 +72,7 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
     
     public var sectionModel: HCChatMainInfoModel! {
         didSet {
-            timeLabel.text = sectionModel.createDate
+            timeLabel.text = sectionModel.createDate.stringTransform(mode: .yymmddhhmm1)
             contentLabel.text = sectionModel.content
             boxPhotoView.filles = sectionModel.fileListModel
             desPhotoTitleLabel.text = sectionModel.fileList.count > 0 ? "报告病例：" : ""

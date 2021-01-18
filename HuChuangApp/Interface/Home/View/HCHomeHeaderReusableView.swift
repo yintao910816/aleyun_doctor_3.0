@@ -69,6 +69,7 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
         didSet {
             briefLabel.text = userServerStatistics.briefText
             newOrderCountLabel.attributedText = userServerStatistics.unreplyNumText
+            newOrderRemindLabel.text = userServerStatistics.unreplyRemindText
         }
     }
     

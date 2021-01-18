@@ -94,7 +94,7 @@ extension HCVideoConsultSettingViewModel {
                 item.settingModel = m
             }
             
-            if idx == 0 {
+            if idx == 0, item.settingModel?.status != 1 {
                 item.isSelected = true
             }
             

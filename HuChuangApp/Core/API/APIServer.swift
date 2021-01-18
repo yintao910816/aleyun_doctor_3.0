@@ -62,6 +62,7 @@ public final class RequestLoadingPlugin: PluginType {
                 
                 PrintLog("返回json -- \(target) --\n \(rdic)")
 
+                PrintLog("是否重新显示登录界面：\(code) - \(HCHelper.share.isPresentLogin) - \(!HCHelper.share.isShowLanuch)")
                 if code == RequestCode.invalid.rawValue && HCHelper.share.isPresentLogin == false && !HCHelper.share.isShowLanuch {
                     HCHelper.presentLogin()
                 }

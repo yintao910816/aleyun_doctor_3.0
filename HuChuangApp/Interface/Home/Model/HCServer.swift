@@ -178,7 +178,7 @@ class HCQueryPreciseScheduleItemModel: HJModel {
     
     public var afternoonNumText: NSAttributedString {
         get {
-            let text = "上午 \(afternoonNum)-\(afternoonReservedNum)人"
+            let text = "下午 \(afternoonNum)-\(afternoonReservedNum)人"
             return text.attributed(.init(location: text.count - 2, length: "\(afternoonReservedNum)".count), HC_MAIN_COLOR, .font(fontSize: 14, fontName: .PingFSemibold))
         }
     }

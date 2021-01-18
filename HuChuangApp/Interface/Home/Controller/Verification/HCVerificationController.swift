@@ -38,6 +38,23 @@ class HCVerificationController: BaseViewController {
             .drive(container.datasource)
             .disposed(by: disposeBag)
         
+        viewModel.scanErrorSignal
+            .subscribe(onNext: { [weak self] in
+                if $0.0 {
+                    self?.navigationController?.popViewController(animated: false)
+                }
+
+                let ctrl = HCVerificationQueryController()
+                ctrl.prepare(parameters: ["error": $0.1])
+                self?.navigationController?.pushViewController(ctrl, animated: true)
+                
+                ctrl.scanCallBack = { [weak self] in
+                    self?.navigationController?.popViewController(animated: false)
+                    self?.pushScan()
+                }
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.scaanResultSignal
             .subscribe(onNext: { [weak self] in
                 if $0.0 {

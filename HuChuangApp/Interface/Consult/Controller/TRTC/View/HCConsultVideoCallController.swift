@@ -119,6 +119,20 @@ class HCConsultVideoCallController: UIViewController, CallingViewControllerRespo
         return user
     }()
     
+    lazy var timeRemindLabel: UILabel = {
+        let label = UILabel()
+        label.font = .font(fontSize: 14)
+        label.textColor = RGB(51, 51, 51)
+        label.backgroundColor = RGB(255, 255, 255, 0.7)
+        label.layer.cornerRadius = 15
+        label.clipsToBounds = true
+        label.isHidden = true
+        label.textAlignment = .center
+        label.frame = .init(x: (view.width - 160) / 2, y: callTimeLabel.frame.maxY + 10, width: 180, height: 30)
+        view.addSubview(label)
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
@@ -742,6 +756,20 @@ extension HCConsultVideoCallController {
             
             // UI 更新
             DispatchQueue.main.async {
+                if self.cutdownCallingTime == 60 {
+                    self.timeRemindLabel.isHidden = false
+                    self.timeRemindLabel.text = "还有60秒结束通话"
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                        self.timeRemindLabel.isHidden = true
+                    }
+                }else if self.cutdownCallingTime == 15 {
+                    self.timeRemindLabel.isHidden = false
+                    self.timeRemindLabel.text = "还有15秒结束通话"
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                        self.timeRemindLabel.isHidden = true
+                    }
+                }
+                
                 var mins: Int = 0
                 var seconds: Int = 0
 //                mins = self.callingTime / 60

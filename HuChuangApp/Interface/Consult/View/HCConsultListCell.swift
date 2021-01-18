@@ -44,7 +44,7 @@ class HCConsultListCell: UITableViewCell {
             avatarImgV.setImage(model.headPath, .userIconMen)
             nameLabel.text = model.userName
 //            ageLabel.text = "\(model.age)岁"
-            timeLabel.text = model.lastestConsultDate.getDayDiff(more: false, mode: .yymmddhhmmss)
+            timeLabel.text = model.lastestConsultDate.getDayDiff2(more: false, mode: .yymmddhhmmss)
             contentLabel.text = model.content
             markContentLabel.text = model.userName
             statusLabel.text = model.statusText

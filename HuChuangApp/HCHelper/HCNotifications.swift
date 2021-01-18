@@ -92,4 +92,8 @@ extension Notification.Name {
         static let statusChange = Notification.Name(rawValue: "org.UILogic.notification.name.Consult.statusChange")
     }
 
+    public struct Message {
+        /// 刷新未读数
+        static let unreadMessageCount = Notification.Name(rawValue: "org.UILogic.notification.name.message.unreadMessageCount")
+    }
 }

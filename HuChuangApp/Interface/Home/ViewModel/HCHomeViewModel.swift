@@ -81,6 +81,7 @@ extension HCHomeViewModel {
             .mapJSON()
             .map { res -> Int in
                 if let dic = res as? [String: Any], let num = dic["data"] as? Int {
+                    NotificationCenter.default.post(name: NotificationName.Message.unreadMessageCount, object: num)
                     return num
                 }
                 return 0

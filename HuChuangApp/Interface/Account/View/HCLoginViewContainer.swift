@@ -159,7 +159,7 @@ extension HCLoginViewContainer {
         loginModeBgView.backgroundColor = backgroundColor
         
         phoneLoginButton = UIButton(type: .custom)
-        phoneLoginButton.setTitle("手机登陆", for: .normal)
+        phoneLoginButton.setTitle("手机登录", for: .normal)
         phoneLoginButton.setTitleColor(HC_MAIN_COLOR, for: .selected)
         phoneLoginButton.setTitleColor(RGB(153, 153, 153), for: .normal)
         phoneLoginButton.titleLabel?.font = .font(fontSize: 16, fontName: .PingFSemibold)
@@ -170,7 +170,7 @@ extension HCLoginViewContainer {
         phoneLoginLine.backgroundColor = HC_MAIN_COLOR
         
         pwdLoginButton = UIButton(type: .custom)
-        pwdLoginButton.setTitle("密码登陆", for: .normal)
+        pwdLoginButton.setTitle("密码登录", for: .normal)
         pwdLoginButton.setTitleColor(HC_MAIN_COLOR, for: .selected)
         pwdLoginButton.setTitleColor(RGB(153, 153, 153), for: .normal)
         pwdLoginButton.titleLabel?.font = .font(fontSize: 16)
@@ -288,9 +288,9 @@ extension HCLoginViewContainer {
         
         #if DEBUG
 //        phoneTf.text = "13995631675"
-        phoneTf.text = "15172321017"
+//        phoneTf.text = "15172321017"
 //        phoneTf.text = "13244762499"
-//        phoneTf.text = "15717102067"
+        phoneTf.text = "15717102067"
 //        phoneTf.text = "18627844751"
         #else
         phoneTf.text = userDefault.loginPhone

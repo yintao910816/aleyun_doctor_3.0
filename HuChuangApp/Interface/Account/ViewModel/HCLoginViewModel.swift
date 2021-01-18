@@ -92,6 +92,7 @@ extension HCLoginViewModel {
                         self?.hud.noticeHidden()
                         self?.popSubject.onNext(Void())
                         HCHelper.saveLogin(user: user)
+                        HCHelper.share.isPresentLogin = false
                     }
                 }else {
                     self?.hud.failureHidden($0.message)

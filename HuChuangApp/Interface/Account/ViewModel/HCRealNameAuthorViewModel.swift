@@ -54,6 +54,7 @@ class HCRealNameAuthorViewModel: BaseViewModel {
             .subscribe(onSuccess: { [weak self] in
                 HCHelper.saveLogin(user: $0)
                 self?.popSubject.onNext(Void())
+                HCHelper.share.isPresentLogin = false
             }) { [weak self] in
                 self?.hud.failureHidden(self?.errorMessage($0))
         }

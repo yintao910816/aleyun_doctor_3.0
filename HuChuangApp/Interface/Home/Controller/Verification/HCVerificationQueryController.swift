@@ -10,8 +10,9 @@ import UIKit
 
 class HCVerificationQueryController: BaseViewController {
     
-    private var infoModel: HCVerificationItemModel!
-    
+    private var infoModel: HCVerificationItemModel?
+    private var errorText: String = ""
+
     private var container: HCVerificationQueryContainer!
     private var viewModel: HCVerificationQueryViewModel!
     
@@ -25,9 +26,9 @@ class HCVerificationQueryController: BaseViewController {
     }
     
     override func rxBind() {
-        container.infoModel = infoModel
+        container.infoModel = infoModel ?? HCVerificationItemModel()
         
-        viewModel = HCVerificationQueryViewModel(infoModel: infoModel,
+        viewModel = HCVerificationQueryViewModel(infoModel: infoModel ?? HCVerificationItemModel(),
                                                  queryTap: container.queryButton.rx.tap.asDriver())
 
         viewModel.verificationStatusSignal
@@ -43,9 +44,14 @@ class HCVerificationQueryController: BaseViewController {
                 self?.navigationController?.popToRootViewController(animated: true)
             })
             .disposed(by: disposeBag)
+        
+        if infoModel == nil {
+            container.verificationStatusSignal.onNext((false, errorText))
+        }
     }
     
     override func prepare(parameters: [String : Any]?) {
-        infoModel = (parameters!["model"] as! HCVerificationItemModel)
+        infoModel = (parameters?["model"] as? HCVerificationItemModel)
+        errorText = (parameters?["error"] as? String) ?? "核销失败"
     }
 }

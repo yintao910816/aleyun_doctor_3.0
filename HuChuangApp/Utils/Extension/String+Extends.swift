@@ -251,6 +251,62 @@ extension String {
         return "\(month!).\(day!) \(hh!):\(mm!)"
     }
     
+    public func getDayDiff2(more: Bool, mode: HCDateMode = .yymmddhhmm) -> String {
+     
+        guard let date = stringFormatDate(mode: mode)  else {
+            return self
+        }
+        
+        let today = Date()
+        // 计算时间差
+        let timeInterval = today.timeIntervalSince(date)
+        
+        let cal = Calendar.current
+        let todate = Date.init(timeIntervalSinceNow: timeInterval)
+        let components: Set = [
+                                Calendar.Component.year,
+                                Calendar.Component.month,
+                                Calendar.Component.day,
+                                Calendar.Component.hour,
+                                Calendar.Component.minute
+                              ]
+
+        let gap = cal.dateComponents(components, from: today, to: todate)
+        
+        let timeArr = self.components(separatedBy: " ")
+        let days = timeArr.first?.components(separatedBy: "-")
+        let times = timeArr.last?.components(separatedBy: ":")
+        
+        let year = days?[0]
+        let month = days?[1]
+        let day = days?[2]
+        let hh = times?[0]
+        let mm = times?[1]
+
+
+        if abs(gap.day!) > 0 {
+            if abs(gap.day!) == 1 {
+                return "昨天"
+            }else {
+                if abs(gap.year!) > 0 {
+                    if more {
+                        return self
+                    }
+                    return ("\(year!)-\(month!)-\(day!)")
+                }else {
+                    if more {
+                        return ("\(month!)-\(day!) \(hh!):\(mm!)")
+                    }
+                    return "\(month!)-\(day!)"
+                }
+
+            }
+        }else {
+            return ("\(hh!):\(mm!)")
+        }
+    }
+
+    
     //时间戳转成字符串 eg: yyyy-MM-dd HH:mm:ss
     public func timeSeprate3(dateFormat: String? = nil) -> String {
         let interval = TimeInterval.init((Double(self) ?? 0.00) / 1000)
@@ -315,6 +371,15 @@ extension String { /**时间与日期*/
         return format.date(from: transform(mode: mode))
     }
     
+    public func stringTransform(mode: HCDateMode) -> String {
+        let format = DateFormatter()
+        format.dateFormat = mode.rawValue
+        if let date = format.date(from: transform(mode: mode)) {
+            return date.formatDate(mode: mode)
+        }
+        return self
+    }
+    
     public func transform(mode: HCDateMode) -> String {
         var result: String = ""
         switch mode {
@@ -332,13 +397,13 @@ extension String { /**时间与日期*/
             }else {
                 result = self
             }
-        case .yymmddhhmm:
+        case .yymmddhhmm, .yymmddhhmm1:
             if components(separatedBy: " ").count == 1{
                 result = appending(" 00:00")
             }else {
                 result = self
             }
-        case .yymmddhhmmss:
+        case .yymmddhhmmss, .yymmddhhmmss1:
             if components(separatedBy: " ").count == 1{
                 result = appending(" 00:00:00")
             }else {

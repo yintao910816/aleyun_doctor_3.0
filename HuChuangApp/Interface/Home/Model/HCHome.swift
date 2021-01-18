@@ -138,4 +138,8 @@ class HCUserServerStatisticsModel: HJModel {
                                  .font(fontSize: 16),
                                  lineSpace: 5)
     }()
+    
+    public lazy var unreplyRemindText: String = {
+        return unreplyNum > 0 ? "您有新的待订单，请及时查看" : "当前无新订单"
+    }()
 }

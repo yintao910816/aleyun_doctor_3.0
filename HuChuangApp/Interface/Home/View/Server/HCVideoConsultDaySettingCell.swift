@@ -81,10 +81,25 @@ class HCVideoConsultDaySettingCell: UICollectionViewCell {
                 
                 timeLabel.text = m.showTimeText
                 peosLabel.text = "\(m.recevieNum)人"
+                
+                if m.status == 1 {
+                    // 已有人预约
+                    dateLabel.textColor = RGB(198, 198, 198)
+                    timeLabel.textColor = RGB(198, 198, 198)
+                    peosLabel.textColor = RGB(198, 198, 198)
+                }else {
+                    dateLabel.textColor = RGB(51, 51, 51)
+                    timeLabel.textColor = RGB(51, 51, 51)
+                    peosLabel.textColor = RGB(51, 51, 51)
+                }
             }else {
                 remindLabel.isHidden = false
                 timeLabel.isHidden = true
                 peosLabel.isHidden = true
+                
+                dateLabel.textColor = RGB(51, 51, 51)
+                timeLabel.textColor = RGB(51, 51, 51)
+                peosLabel.textColor = RGB(51, 51, 51)
             }
             
             if model.isSelected {

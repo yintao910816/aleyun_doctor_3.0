@@ -17,6 +17,10 @@ public enum HCDateMode: String {
     case newyymmdd = "yyyyMMdd"
     /// yyyy-MM-dd HH:mm
     case yymmddhhmm = "yyyy-MM-dd HH:mm"
+    /// yyyy/MM/dd HH:mm
+    case yymmddhhmm1 = "yyyy/MM/dd HH:mm"
+    /// yyyy/MM/dd HH:mm:ss
+    case yymmddhhmmss1 = "yyyy/MM/dd HH:mm:ss"
     /// yyyy-MM-dd HH:mm:ss
     case yymmddhhmmss = "yyyy-MM-dd HH:mm:ss"
 }

@@ -161,6 +161,11 @@ extension HCVideoConsultSettingContainer: UICollectionViewDataSource, UICollecti
         
         if let model = datasource[indexPath.section][indexPath.row] as? HCVideoDaySettingModel {
             
+            if let settingModel = model.settingModel, settingModel.status == 1 {
+                NoticesCenter.alert(message: "当前排班已存在预约，无法修改")
+                return
+            }
+            
             if let lastItem = datasource[lastSelected.section][lastSelected.row] as? HCVideoDaySettingModel {
                 lastItem.isSelected = false
             }

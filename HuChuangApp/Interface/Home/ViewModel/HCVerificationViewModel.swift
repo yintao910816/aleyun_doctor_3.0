@@ -15,6 +15,7 @@ class HCVerificationViewModel: RefreshVM<HCVerificationItemModel> {
     
     public let getVerificationByCodeSignal = PublishSubject<(Bool, String)>()
     public let scaanResultSignal = PublishSubject<(Bool, HCVerificationItemModel)>()
+    public let scanErrorSignal = PublishSubject<(Bool, String)>()
 
     override init() {
         super.init()
@@ -50,7 +51,9 @@ extension HCVerificationViewModel {
                 self?.hud.noticeHidden()
                 self?.scaanResultSignal.onNext((isPop, $0))
             } onError: { [weak self] in
-                self?.hud.failureHidden(self?.errorMessage($0))
+//                self?.hud.failureHidden(self?.errorMessage($0))
+                self?.hud.noticeHidden()
+                self?.scanErrorSignal.onNext((isPop, self?.errorMessage($0) ?? "无效码"))
             }
             .disposed(by: disposeBag)
     }
@@ -72,7 +75,9 @@ class HCVerificationQueryViewModel: BaseViewModel {
         
         queryTap
             .drive(onNext: { [unowned self] in
-                if isSuccessQuery == nil {
+                if infoModel.id.count == 0 {
+                    reScanSignal.onNext(Void())
+                }else if isSuccessQuery == nil {
                     requestConfirmVerification()
                 }else if isSuccessQuery == true {
                     popSubject.onNext(Void())
