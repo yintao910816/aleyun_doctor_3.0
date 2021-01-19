@@ -158,8 +158,8 @@ extension HCConsultListCell {
 
         markIconImgV = UIImageView()
         markIconImgV.contentMode = .scaleAspectFill
-        markIconImgV.backgroundColor = RGB(245, 245, 245)
-
+        markIconImgV.image = UIImage(named: "rzxx")
+        
         markContentLabel = UILabel()
         markContentLabel.font = .font(fontSize: 10)
         markContentLabel.textColor = RGB(255, 180, 4)

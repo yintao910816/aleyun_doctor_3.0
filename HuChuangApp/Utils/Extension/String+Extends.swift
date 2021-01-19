@@ -284,22 +284,16 @@ extension String {
         let mm = times?[1]
 
 
+        PrintLog("间隔天数；\(gap.day!)")
+        
         if abs(gap.day!) > 0 {
             if abs(gap.day!) == 1 {
                 return "昨天"
             }else {
-                if abs(gap.year!) > 0 {
-                    if more {
-                        return self
-                    }
-                    return ("\(year!)-\(month!)-\(day!)")
-                }else {
-                    if more {
-                        return ("\(month!)-\(day!) \(hh!):\(mm!)")
-                    }
-                    return "\(month!)-\(day!)"
+                if more {
+                    return ("\(year!)-\(month!)-\(day!) \(hh!):\(mm!)")
                 }
-
+                return "\(year!)-\(month!)-\(day!)"
             }
         }else {
             return ("\(hh!):\(mm!)")

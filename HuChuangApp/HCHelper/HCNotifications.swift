@@ -42,6 +42,8 @@ extension Notification.Name {
         static let gotoClassRoom = Notification.Name(rawValue: "org.UILogic.notification.name.gotoClassRoom")
         /// 首页顶部红色背景点击跳转记录界面
         static let gotoRecord = Notification.Name(rawValue: "org.UILogic.notification.name.gotoRecord")
+        /// 启动页已隐藏
+        static let lanuchHidden = Notification.Name(rawValue: "org.UILogic.notification.name.lanuchHidden")
     }
     
     public struct Pay {

@@ -143,8 +143,12 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
                                               consultType: HCConsultType.chatConsult.rawValue))
             .map(model: HCChatDataModel.self)
             .subscribe(onSuccess: { [weak self] in
-                self?.pageModel.currentPage += 1
-                self?.dealRequestData(refresh: false, data: $0)
+                if $0.memberInfo.memberId.count > 0 {
+                    self?.pageModel.currentPage += 1
+                    self?.dealRequestData(refresh: false, data: $0)
+                }else {
+                    self?.refreshStatus.value = .DropDownSuccess
+                }
             }) { [weak self] _ in
                 self?.refreshStatus.value = .DropDownSuccess
         }

@@ -17,17 +17,32 @@ extension HCAppDelegate: SKStoreProductViewControllerDelegate {
     public func setupAppLogic() {
         HCHelper.setupHelper()
         DbManager.dbSetup()
-                
-        if userDefault.lanuchStatue != vLaunch {
-            HCHelper.share.isShowLanuch = true
-            AppLaunchView(frame: .zero, complement: { [unowned self] in
-                HCHelper.share.isShowLanuch = false
-                self.prepareUserInfo()
-            }).show()
-        }else {
-            prepareUserInfo()
-        }
         
+        if userDefault.lanuchStatue != vLaunch {
+            let launch = AppLaunchView()
+            launch.show()
+            launch.hiddenCallBack = {
+                NotificationCenter.default.post(name: NotificationName.UILogic.lanuchHidden, object: nil)
+            }
+        }
+
+        if HCHelper.userIsLogin() {
+            if userDefault.loginInfoString.count == 0 {
+                HCProvider.request(.selectInfo)
+                    .map(model: HCUserModel.self)
+                    .subscribe(onSuccess: { user in
+                        HCHelper.saveLogin(user: user)
+                    }) { error in
+                        PrintLog(error)
+                    }
+                    .disposed(by: disposeBag)
+            }else {
+                if let user = JSONDeserializer<HCUserModel>.deserializeFrom(json: userDefault.loginInfoString) {
+                    HCHelper.saveLogin(user: user)
+                }
+            }
+        }
+                
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             self.checkVersion()
         }

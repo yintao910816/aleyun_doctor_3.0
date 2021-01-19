@@ -36,6 +36,10 @@ class HCConsultListViewModel: RefreshVM<HCConsultListItemModel> {
     override func requestData(_ refresh: Bool) {
         super.requestData(refresh)
         
+        if refresh {
+            HCHelper.requestUnreplyNum()
+        }
+        
         HCProvider.request(.getPatientConsultList(pageNum: pageModel.currentPage, pageSize: pageModel.pageSize, sort: sorted, replyStatus: ""))
             .map(model: HCConsultListModel.self)
             .subscribe { [weak self] in

@@ -41,6 +41,7 @@ class HCCustomTabBar: UITabBar {
         NotificationCenter.default.rx.notification(NotificationName.Message.unreadMessageCount, object: nil)
             .subscribe(onNext: { [weak self] in
                 if let count = $0.object as? Int {
+                    PrintLog("更新水滴数量：\(count)")
                     self?.countLabel.text = "\(count)"
                 }
             })
@@ -99,3 +100,8 @@ extension HCCustomTabBar {
         }
     }
 }
+
+
+/**
+ 切换APP会刷新，切换菜单刷新，主动下拉也可以刷新
+ */

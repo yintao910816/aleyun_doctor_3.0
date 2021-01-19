@@ -57,4 +57,9 @@ class HCAppDelegate: UIResponder, UIApplicationDelegate {
             return .portrait
         }
     }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        HCHelper.requestUnreplyNum()
+    }
+
 }

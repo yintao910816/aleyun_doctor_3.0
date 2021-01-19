@@ -36,6 +36,12 @@ class HCHomeViewModel: BaseViewModel {
             .subscribe(onNext: { [weak self] _ in self?.requestHeaderDatas() })
             .disposed(by: disposeBag)
         
+        NotificationCenter.default.rx.notification(NotificationName.UILogic.lanuchHidden, object: nil)
+            .subscribe(onNext: { [weak self] _ in
+                self?.requestHeaderDatas()
+            })
+            .disposed(by: disposeBag)
+        
         reloadSubject.subscribe(onNext: { [weak self] in self?.requestHeaderDatas() })
             .disposed(by: disposeBag)
         

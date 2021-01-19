@@ -18,6 +18,8 @@ class HCTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        delegate = self
+        
         setupTabBar()
         
         NotificationCenter.default.rx.notification(NotificationName.UILogic.gotoClassRoom)
@@ -71,28 +73,22 @@ class HCTabBarViewController: UITabBarController {
         let customBar = HCCustomTabBar()
         customBar.itemImage = UIImage(named: "message")
         setValue(customBar, forKey: "tabBar")
-        customBar.clickedCustomBarItem = { [weak self] in self?.selectedIndex = 1 }
+        customBar.clickedCustomBarItem = { [unowned self] in
+            if lastSelectedIndex != 1 {
+                selectedIndex = 1
+                lastSelectedIndex = 1
+                HCHelper.requestUnreplyNum()
+            }
+        }
     }
 }
 
 extension HCTabBarViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//        if selectedIndex == 1 {
-//            if lastSelectedIndex != 1
-//            {
-//                lastSelectedIndex = 1
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-//                    self.lastSelectedIndex = NSNotFound
-//                }
-//            }else if lastSelectedIndex == 1
-//            {
-//                NotificationCenter.default.post(name: NotificationName.UserInterface.tabBarSelectedTwice, object: true)
-//                lastSelectedIndex = NSNotFound
-//            }
-//        }else
-//        {
-//            lastSelectedIndex = selectedIndex
-//        }
+        if lastSelectedIndex != selectedIndex {
+            HCHelper.requestUnreplyNum()
+            lastSelectedIndex = selectedIndex
+        }
     }
 }

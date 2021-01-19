@@ -141,7 +141,9 @@ class HCQueryScheduleConsultSettingPicker: UIViewController {
                         }
                     })
                 case .hasReceive:
-                    NoticesCenter.alert(message: "已有\(morningReservedNum + afternoonReservedNum)人预约")
+//                    NoticesCenter.alert(message: "已有\(morningReservedNum + afternoonReservedNum)人预约")
+                    afternoonRemindLabel.isHidden = false
+                    afternoonRemindLabel.text = "当前已预约\(morningReservedNum + afternoonReservedNum)人，无法删除排班"
                 case .noSetting:
                     NoticesCenter.alert(message: "还未设置排班")
                 }
@@ -242,6 +244,7 @@ class HCQueryScheduleConsultSettingPicker: UIViewController {
             morningDecreaseButton.isSelected = true
         }else if button == afternoonDecreaseButton {
             if afternoonReservedNum > 0, afternoonCount <= afternoonReservedNum {
+                afternoonRemindLabel.text = "当前已预约\(afternoonReservedNum)人，接诊人数必须大于已预约人数"
                 afternoonRemindLabel.isHidden = false
                 afternoonDecreaseButton.isSelected = false
                 return
@@ -258,6 +261,7 @@ class HCQueryScheduleConsultSettingPicker: UIViewController {
             }
             
             if afternoonReservedNum > 0, afternoonCount <= afternoonReservedNum {
+                afternoonRemindLabel.text = "当前已预约\(afternoonReservedNum)人，接诊人数必须大于已预约人数"
                 afternoonRemindLabel.isHidden = false
                 afternoonDecreaseButton.isSelected = false
             }

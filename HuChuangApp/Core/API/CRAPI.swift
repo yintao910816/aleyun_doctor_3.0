@@ -578,7 +578,7 @@ extension API: TargetType{
             let formData = MultipartFormData(provider: .data(data), name: "file", fileName: dateStr, mimeType: "image/jpeg")
             return .uploadMultipart([formData])
         case .version:
-            return .requestParameters(parameters: ["type": "ios", "packageName": "com.huchuang.guangsanuser"],
+            return .requestParameters(parameters: ["type": "iosDoc", "packageName": Bundle.main.bundleIdentifier],
                                       encoding: URLEncoding.default)
         case .hieldMember(let pageNum, let pageSize):
             return .requestParameters(parameters: ["pageNum": pageNum, "pageSize": pageSize],
@@ -656,6 +656,9 @@ extension API {
         
         case .updateExtInfo(let aparams):
             params = aparams
+            
+        case .getUnreplyNum:
+            params["userId"] = HCHelper.share.userInfoModel?.uid ?? ""
 
         case .getConsultsPatientList(let pageNum, let pageSize, let searchName):
             params["pageNum"] = pageNum

@@ -10,16 +10,14 @@ import UIKit
 
 class AppLaunchView: UIView {
 
-    private var imageSource: [String]!
-        
-    private var complement: (()->())?
+    fileprivate var imageSource: [String]!
     
-    init(frame: CGRect, complement: (()->())? = nil) {
+    public var hiddenCallBack: (()->())?
+    
+    override init(frame: CGRect) {
         let aframe = UIScreen.main.bounds
         super.init(frame: aframe)
 
-        self.complement = complement
-        
 //        imageSource = UIDevice.current.isX == true ? ["guide_x_01", "guide_x_02", "guide_x_03", "guide_x_04", "guide_x_05"]
 //            : ["guide_01", "guide_02", "guide_03", "guide_04", "guide_05"]
         imageSource = ["launch_01", "launch_02", "launch_03"]
@@ -43,6 +41,8 @@ class AppLaunchView: UIView {
         awindow?.bringSubviewToFront(self)
         
         userDefault.lanuchStatue = vLaunch
+        
+        HCHelper.share.isShowLanuch = true
     }
     
     //MARK:
@@ -76,6 +76,8 @@ class AppLaunchView: UIView {
         animotion.fillMode = CAMediaTimingFillMode.forwards
         animotion.isRemovedOnCompletion = false
         layer.add(animotion, forKey: "GuideView")
+        
+        HCHelper.share.isShowLanuch = false
     }
     
     //MARK:
@@ -105,7 +107,7 @@ extension AppLaunchView: CAAnimationDelegate {
         removeFromSuperview()
         layer.removeAllAnimations()
         
-        complement?()
+        hiddenCallBack?()
     }
     
 }

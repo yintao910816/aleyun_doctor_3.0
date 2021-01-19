@@ -59,6 +59,21 @@ class HCHelper {
     }
 }
 
+//MARK: --- 获取咨询消息数量
+extension HCHelper {
+    
+    // 待接诊数量
+    public class func requestUnreplyNum() {
+        _ = HCProvider.request(.getUnreplyNum)
+            .mapJSON()
+            .subscribe(onSuccess: { res in
+                if let dic = res as? [String: Any], let num = dic["data"] as? Int {
+                    NotificationCenter.default.post(name: NotificationName.Message.unreadMessageCount, object: num)
+                }
+            })
+    }
+}
+
 //MARK: --- 视频通话相关接口
 extension HCHelper {
     
