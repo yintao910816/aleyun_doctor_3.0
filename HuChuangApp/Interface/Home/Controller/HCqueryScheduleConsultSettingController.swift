@@ -23,8 +23,10 @@ class HCqueryScheduleConsultSettingController: BaseViewController {
         container.dayItemSelectedCallBack = { [unowned self] in
             let picker = HCQueryScheduleConsultSettingPicker()
             if let m = $0.settingModel {
-                picker.afternoonCount = m.afternoonReservedNum > 0 ? m.afternoonReservedNum : m.afternoonNum
-                picker.morningCount = m.morningReservedNum > 0 ? m.morningReservedNum : m.morningNum
+//                picker.afternoonCount = m.afternoonReservedNum > 0 ? m.afternoonReservedNum : m.afternoonNum
+//                picker.morningCount = m.morningReservedNum > 0 ? m.morningReservedNum : m.morningNum
+                picker.afternoonCount = m.afternoonNum
+                picker.morningCount = m.morningNum
                 picker.morningReservedNum = m.morningReservedNum
                 picker.afternoonReservedNum = m.afternoonReservedNum
                 picker.mode = (m.morningReservedNum > 0 || m.afternoonReservedNum > 0) ? .hasReceive : .enable

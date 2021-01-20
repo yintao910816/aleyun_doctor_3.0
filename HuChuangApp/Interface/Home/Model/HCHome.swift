@@ -130,16 +130,20 @@ class HCUserServerStatisticsModel: HJModel {
 //        return string
     }()
 
-    public lazy var unreplyNumText: NSAttributedString = {
-        let string = "待接诊\n\(unreplyNum)"
-        return string.attributed(.init(location: 4,
-                                       length: "\(unreplyNum)".count),
-                                 .white,
-                                 .font(fontSize: 16),
-                                 lineSpace: 5)
-    }()
+    public var unreplyNumText: NSAttributedString {
+        get {
+            let string = "待接诊\n\(unreplyNum)"
+            return string.attributed(.init(location: 4,
+                                           length: "\(unreplyNum)".count),
+                                     .white,
+                                     .font(fontSize: 16),
+                                     lineSpace: 5)
+        }
+    }
     
-    public lazy var unreplyRemindText: String = {
-        return unreplyNum > 0 ? "您有新的待订单，请及时查看" : "当前无新订单"
-    }()
+    public var unreplyRemindText: String {
+        get {
+            return unreplyNum > 0 ? "您有新的待订单，请及时查看" : "当前无新订单"
+        }
+    }
 }

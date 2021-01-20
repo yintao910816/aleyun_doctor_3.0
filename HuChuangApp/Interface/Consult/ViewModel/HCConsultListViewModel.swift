@@ -31,6 +31,10 @@ class HCConsultListViewModel: RefreshVM<HCConsultListItemModel> {
                 self?.requestData(true)
             })
             .disposed(by: disposeBag)
+        
+        HCHelper.share.userInfoHasReload
+            .subscribe(onNext: { [weak self] _ in self?.requestData(true) })
+            .disposed(by: disposeBag)
     }
     
     override func requestData(_ refresh: Bool) {

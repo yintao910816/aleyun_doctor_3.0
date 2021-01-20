@@ -286,18 +286,44 @@ extension String {
 
         PrintLog("间隔天数；\(gap.day!)")
         
-        if abs(gap.day!) > 0 {
-            if abs(gap.day!) == 1 {
-                return "昨天"
-            }else {
-                if more {
-                    return ("\(year!)-\(month!)-\(day!) \(hh!):\(mm!)")
-                }
-                return "\(year!)-\(month!)-\(day!)"
-            }
-        }else {
+        let calender = NSCalendar.current
+        if calender.isDateInYesterday(date) {
+            return "昨天"
+        }else if calender.isDateInToday(date) {
             return ("\(hh!):\(mm!)")
+        }else {
+            if more {
+                return ("\(year!)-\(month!)-\(day!) \(hh!):\(mm!)")
+            }
+            return "\(year!)-\(month!)-\(day!)"
         }
+        
+//        if abs(gap.hour!) > 24 {
+//            if abs(gap.day!) == 1 {
+//                return "昨天"
+//            }else {
+//                if more {
+//                    return ("\(year!)-\(month!)-\(day!) \(hh!):\(mm!)")
+//                }
+//                return "\(year!)-\(month!)-\(day!)"
+//            }
+//        }else {
+//            return ("\(hh!):\(mm!)")
+//        }
+//
+//        
+//        if abs(gap.day!) > 0 {
+//            if abs(gap.day!) == 1 {
+//                return "昨天"
+//            }else {
+//                if more {
+//                    return ("\(year!)-\(month!)-\(day!) \(hh!):\(mm!)")
+//                }
+//                return "\(year!)-\(month!)-\(day!)"
+//            }
+//        }else {
+//            return ("\(hh!):\(mm!)")
+//        }
     }
 
     

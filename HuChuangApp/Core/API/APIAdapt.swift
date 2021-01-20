@@ -48,8 +48,16 @@ struct APIAssistance {
     public static let base    = "https://ileyun.ivfcn.com/hc-doctor/"
     public static let fileBase = "https://ileyun.ivfcn.com/hc-files/"
     public static let baseH5Host = "https://ileyun.ivfcn.com/consult/"
-    
-    public static let doctorCardLink = "https://ileyun.ivfcn.com/doctors/#/sharePage?isApp=true"
+        
+    public static var doctorCardLink: String {
+        get {
+            #if DEBUG
+            return "https://ileyun.ivfcn.com/doctors/#/sharePage?isApp=true"
+            #else
+            return "https://ileyun.ivfcn.com/doctor/#/sharePage?isApp=true"
+            #endif
+        }
+    }
     
     static public func baseURL(API: API) ->URL{
         switch API {

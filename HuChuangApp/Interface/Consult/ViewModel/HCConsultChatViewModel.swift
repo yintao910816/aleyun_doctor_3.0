@@ -140,7 +140,7 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
         HCProvider.request(.chatHistoryDetail(memberId: memberId,
                                               userId: HCHelper.share.userInfoModel?.uid ?? "",
                                               loadSize: pageModel.currentPage,
-                                              consultType: HCConsultType.chatConsult.rawValue))
+                                              consultType: consultMode.rawValue))
             .map(model: HCChatDataModel.self)
             .subscribe(onSuccess: { [weak self] in
                 if $0.memberInfo.memberId.count > 0 {

@@ -15,7 +15,7 @@ class HCHomeViewModel: BaseViewModel {
     private var allArticleDatas: [String: [HCCmsArticleModel]] = [:]
     private var pageIdxs: [String: Int] = [:]
     
-    public let functionsMenuSignal = PublishSubject<([HCFunctionsMenuModel], [HCCmsCmsChanelListModel], [HCBannerModel], Int, HCUserModel, HCUserServerStatisticsModel)>()
+    public let functionsMenuSignal = Variable(([HCFunctionsMenuModel](), [HCCmsCmsChanelListModel](), [HCBannerModel](), 0, HCUserModel(), HCUserServerStatisticsModel()))
     public let articleDataSignal = PublishSubject<([HCCmsArticleModel], Int)>()
     public let articleTypeChangeSignal = PublishSubject<HCMenuItemModel>()
     
@@ -42,6 +42,16 @@ class HCHomeViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+        NotificationCenter.default.rx.notification(NotificationName.Message.unreadMessageCount, object: nil)
+            .subscribe(onNext: { [unowned self] in
+                if let count = $0.object as? Int {
+                    let data = functionsMenuSignal.value
+                    data.5.unreplyNum = count
+                    functionsMenuSignal.value = data
+                }
+            })
+            .disposed(by: disposeBag)
+
         reloadSubject.subscribe(onNext: { [weak self] in self?.requestHeaderDatas() })
             .disposed(by: disposeBag)
         
@@ -71,7 +81,7 @@ extension HCHomeViewModel {
                 
                 data.3.unreplyNum = data.4
                 
-                self.functionsMenuSignal.onNext((data.0, tempArr, data.2, 0, HCHelper.share.userInfoModel ?? HCUserModel(), data.3))
+                self.functionsMenuSignal.value = (data.0, tempArr, data.2, 0, HCHelper.share.userInfoModel ?? HCUserModel(), data.3)
                 return self.requestRecomCms()
             })
             .subscribe(onNext: { [unowned self] data in

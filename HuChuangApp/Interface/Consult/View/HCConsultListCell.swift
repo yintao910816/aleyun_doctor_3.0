@@ -42,7 +42,7 @@ class HCConsultListCell: UITableViewCell {
         didSet {
             sexIconImgV.image = UIImage(named: HCGender(rawValue: model.sex) == .male ? "gender_boy" : "gender_girl")
             avatarImgV.setImage(model.headPath, .userIconMen)
-            nameLabel.text = model.userName
+            nameLabel.text = model.memberName
 //            ageLabel.text = "\(model.age)岁"
             timeLabel.text = model.lastestConsultDate.getDayDiff2(more: false, mode: .yymmddhhmmss)
             contentLabel.text = model.content
