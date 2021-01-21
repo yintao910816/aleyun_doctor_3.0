@@ -94,7 +94,7 @@ extension HCHelper {
     }
     
     /// 获取视频通话用户信息
-    public static func requestVideoCallUserInfo(memberId: String, consultId: String) ->Observable<CallingUserModel?> {
+    public static func requestVideoCallUserInfo(memberId: String, consultId: String) ->Observable<CallingUserModel> {
         if let user = HCHelper.share.getCallingUser(uid: memberId) {
             return Observable.just(user)
         }else {
@@ -108,7 +108,7 @@ extension HCHelper {
                     .asObservable()
             }else {
                 NoticesCenter.alert(message: "未登录")
-                return Observable.just(nil)
+                return Observable.error(MapperError.server(message: "未登录"))
             }
         }
     }
@@ -138,28 +138,13 @@ extension HCHelper {
         if let user = HCHelper.share.userInfoModel {
             return HCProvider.request(.consultReceivePhone(memberId: memberId, userId: user.uid, consultId: consultId))
                 .map(model: HCReceivePhoneModel.self)
-                .do(onSuccess: { model in
-                    if model.isCallEnd {
-                        NotificationCenter.default.post(name: NotificationName.ChatCall.finishAudio, object: model)
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                            NoticesCenter.alert(message: "视频通话时长已用尽")
-                        }
-                    }else {
-                        NotificationCenter.default.post(name: NotificationName.ChatCall.totleCallTime, object: model)
-                    }
-                }, onError: { error in
-                    NotificationCenter.default.post(name: NotificationName.ChatCall.finishAudio, object: nil)
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                        NoticesCenter.alert(message: "接听电话失败：\(BaseViewModel().errorMessage(error))")
-                    }
+                .do(onError: { error in
+                    NotificationCenter.default.post(name: NotificationName.ChatCall.error, object: BaseViewModel().errorMessage(error))
                 })
                 .asObservable()
         }else {
-            NotificationCenter.default.post(name: NotificationName.ChatCall.finishAudio, object: nil)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                NoticesCenter.alert(message: "未登录")
-            }
-            return Observable.just(HCReceivePhoneModel())
+            NotificationCenter.default.post(name: NotificationName.ChatCall.error, object: "未登录")
+            return Observable.error(MapperError.server(message: "未登录"))
         }
     }
 
@@ -208,21 +193,33 @@ extension HCHelper {
                             return true
                         }else {
                             if let message = dic["message"] as? String {
-                                NoticesCenter.alert(message: "结束通话失败：\(message)")
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+                                    NoticesCenter.alert(message: "结束通话失败：\(message)")
+                                }
                             }else {
-                                NoticesCenter.alert(message: "结束通话失败：未知错误")
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+                                    NoticesCenter.alert(message: "结束通话失败：未知错误")
+                                }
                             }
                             return false
                         }
                     }
-                    NoticesCenter.alert(message: "结束通话失败：未知返回结果")
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+                        NoticesCenter.alert(message: "结束通话失败：未知返回结果")
+                    }
                     return false
                 })
-                .do(onError: { NoticesCenter.alert(message: "结束通话失败：\(BaseViewModel().errorMessage($0))") })
+                .do(onError: { error in
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+                        NoticesCenter.alert(message: "结束通话失败：\(BaseViewModel().errorMessage(error))")
+                    }
+                })
                 .catchErrorJustReturn(false)
                 .asObservable()
         }else {
-            NoticesCenter.alert(message: "未登录")
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+                NoticesCenter.alert(message: "未登录")
+            }
             return Observable.just(false)
         }
     }

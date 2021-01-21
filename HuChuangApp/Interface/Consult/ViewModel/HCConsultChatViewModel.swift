@@ -159,17 +159,16 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
         hud.noticeLoading()
         
         HCHelper.requestStartPhone(memberId: memberId)
-            .flatMap { [weak self] res -> Observable<CallingUserModel?> in
-                guard let strongSelf = self else { return Observable.just(nil) }
+            .flatMap { [weak self] res -> Observable<CallingUserModel> in
+                guard let strongSelf = self else { return Observable.error(MapperError.server(message: "已释放")) }
                 if res {
                     return HCHelper.requestVideoCallUserInfo(memberId: strongSelf.memberId, consultId: strongSelf.consultId)
                 }
-                return Observable.just(nil)
+                strongSelf.hud.noticeHidden()
+                return Observable.error(MapperError.server(message: "拨打失败"))
             }
             .subscribe(onNext: { [weak self] user in
-                if let callingUser = user {
-                    self?.getUerInfoSubject.onNext(callingUser)
-                }
+                self?.getUerInfoSubject.onNext(user)
                 self?.hud.noticeHidden()
             })
             .disposed(by: disposeBag)

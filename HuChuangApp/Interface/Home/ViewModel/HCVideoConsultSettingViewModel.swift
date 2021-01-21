@@ -209,12 +209,13 @@ extension HCVideoConsultSettingViewModel {
         var dealPrice: Float = 0
         var dayKey: String = ""
 
-        if let days = datasource.value[2] as? [HCVideoDaySettingModel],
-           let selectedDay = days.first(where: { $0.isSelected == true }) {
-            
-            dayKey = selectedDay.date
-            
-            if var scheduleParams = params {
+        if let days = datasource.value[2] as? [HCVideoDaySettingModel] {
+                        
+            if var scheduleParams = params,
+               let selectedDay = days.first(where: { $0.isSelected == true }) {
+                
+                dayKey = selectedDay.date
+
                 scheduleParams["id"] = selectedDay.settingModel?.id ?? ""
                 scheduleParams["subjectsDate"] = selectedDay.date
 
