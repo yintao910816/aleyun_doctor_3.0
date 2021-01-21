@@ -294,7 +294,6 @@
 		C42133582205883D006C10C4 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42133552205883D006C10C4 /* BaseViewModel.swift */; };
 		C42133592205883D006C10C4 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42133562205883D006C10C4 /* PageModel.swift */; };
 		C421335A2205883D006C10C4 /* RefreshServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42133572205883D006C10C4 /* RefreshServer.swift */; };
-		C42133682205902A006C10C4 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42133672205902A006C10C4 /* AccountViewModel.swift */; };
 		C421336E2205961D006C10C4 /* UIView+_Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C421336A2205961D006C10C4 /* UIView+_Rx.swift */; };
 		C421336F2205961D006C10C4 /* ObservableType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C421336B2205961D006C10C4 /* ObservableType+Extension.swift */; };
 		C42133702205961D006C10C4 /* SharedSequenceConvertibleType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C421336C2205961D006C10C4 /* SharedSequenceConvertibleType+Extension.swift */; };
@@ -363,6 +362,7 @@
 		C47B259725025A4C000B931F /* HCMenuReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B259625025A4C000B931F /* HCMenuReusableView.swift */; };
 		C47B259A25025AC5000B931F /* HCAninotionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B259925025AC5000B931F /* HCAninotionMenuView.swift */; };
 		C47B259C25025AD4000B931F /* HCAninotionMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B259B25025AD4000B931F /* HCAninotionMenuModel.swift */; };
+		C480AF5625B7FE5F007EA84E /* HCBindPhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C480AF5525B7FE5F007EA84E /* HCBindPhoneViewModel.swift */; };
 		C48842B2233EF6A700C209B3 /* HCClassRoomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48842B0233EF6A700C209B3 /* HCClassRoomListCell.swift */; };
 		C494136524DE54A100045749 /* HCCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494136424DE54A100045749 /* HCCustomButton.swift */; };
 		C494137124DE9E3600045749 /* HCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494137024DE9E3600045749 /* HCHomeViewController.swift */; };
@@ -1119,6 +1119,7 @@
 		C47E067823588FCD003A3320 /* TYCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCalendarView.swift; sourceTree = "<group>"; };
 		C47E067A23589355003A3320 /* TYCalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCalendarDayCell.swift; sourceTree = "<group>"; };
 		C47E067D23589800003A3320 /* HCRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecorderView.swift; sourceTree = "<group>"; };
+		C480AF5525B7FE5F007EA84E /* HCBindPhoneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCBindPhoneViewModel.swift; sourceTree = "<group>"; };
 		C48842B0233EF6A700C209B3 /* HCClassRoomListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCClassRoomListCell.swift; sourceTree = "<group>"; };
 		C48842B4233EFD3500C209B3 /* HCClassRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCClassRoomViewModel.swift; sourceTree = "<group>"; };
 		C494136424DE54A100045749 /* HCCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCCustomButton.swift; sourceTree = "<group>"; };
@@ -2933,6 +2934,7 @@
 		C4783B2824DD39E800737479 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C480AF5525B7FE5F007EA84E /* HCBindPhoneViewModel.swift */,
 				C472524E24DD54B0006DEEC9 /* HCLoginViewModel.swift */,
 				B88497DB24E7F6FB00B91262 /* HCVerifyViewModel.swift */,
 				C42AF1A624EA1D8F0034DBEF /* HCRealNameAuthorViewModel.swift */,
@@ -4811,6 +4813,7 @@
 				C4D398D925A5DFBE007D72D5 /* ZXDataMatrixSymbolInfo144.m in Sources */,
 				B8BE351522147AFF00EF16F1 /* HCEditSexViewController.swift in Sources */,
 				C4D398AD25A5DFBE007D72D5 /* ZXMathUtils.m in Sources */,
+				C480AF5625B7FE5F007EA84E /* HCBindPhoneViewModel.swift in Sources */,
 				C495756225A45AF8007ED5F6 /* HCConsultDetailSectionHeader.swift in Sources */,
 				B8DE282A2396CC7700D5046D /* HCDoctorInfoHeaderView.swift in Sources */,
 				C4D398C125A5DFBE007D72D5 /* ZXPDF417.m in Sources */,
@@ -5027,7 +5030,6 @@
 				B8FE96BA238849090077B9BF /* HCArticleCell.swift in Sources */,
 				C47B259C25025AD4000B931F /* HCAninotionMenuModel.swift in Sources */,
 				C4D3992025A5DFBE007D72D5 /* ZXEAN13Writer.m in Sources */,
-				C42133682205902A006C10C4 /* AccountViewModel.swift in Sources */,
 				C4D3988725A5DFBE007D72D5 /* ZXAztecDetector.m in Sources */,
 				B892FF9A23AB69EC00A137C0 /* HCFiliter.swift in Sources */,
 				C4D398F725A5DFBE007D72D5 /* ZXAI01weightDecoder.m in Sources */,
@@ -5248,7 +5250,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.2;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
@@ -5279,7 +5281,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1.2;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;

@@ -112,7 +112,7 @@ class HCConsultChatController: HCSlideItemController {
     private func presentVideoCallCtrl(callUser: CallingUserModel) {
         HCSystemAudioPlay.share.videoCallPlay()
 
-        let callVC = HCConsultVideoCallController(sponsor: nil)
+        let callVC = HCConsultVideoCallController(callingUser: callUser)
         callVC.otherId = callUser.userId
 
         callVC.dismissBlock = { }

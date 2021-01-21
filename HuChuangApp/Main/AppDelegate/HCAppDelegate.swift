@@ -61,5 +61,25 @@ class HCAppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         HCHelper.requestUnreplyNum()
     }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        resetBageNumber()
+    }
+    
+    private func resetBageNumber() {
+        let ln = UILocalNotification()
+        ln.applicationIconBadgeNumber = -1
+        UIApplication.shared.presentLocalNotificationNow(ln)
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+
+//        let clearEpisodeNotification = UILocalNotification()
+//        clearEpisodeNotification.fireDate = Date.init(timeIntervalSinceNow: 1*1)
+//        clearEpisodeNotification.applicationIconBadgeNumber = -1;//这是最关键的代码，设置-1
+//
+//        UIApplication.shared.scheduleLocalNotification(clearEpisodeNotification)
+    }
+
+
 
 }

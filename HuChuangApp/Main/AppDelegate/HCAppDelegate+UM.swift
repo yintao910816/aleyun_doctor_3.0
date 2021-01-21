@@ -6,8 +6,11 @@
 //  Copyright © 2019 sw. All rights reserved.
 //
 
-private let AppKey = "5d5811164ca357b2690003a2"
+private let AppKey = "5939f6e4aed1797af30014b5"
 private let AppSecret = "wnk8jo4tswwlyy5tkgsalypydl1hk0xh"
+
+private let wChatAppid = "wx7f7b518ed2335fb5"
+private let wChatSecret = "e06b00ed30b61c2aba38a396318c8aa3"
 
 import Foundation
 
@@ -21,7 +24,7 @@ extension HCAppDelegate {
         UMConfigure.setLogEnabled(true)
         
         UMessage.setAutoAlert(false)
-        UMessage.setBadgeClear(true)
+        UMessage.setBadgeClear(false)
         
         if #available(iOS 10.0, *) {
             let entity = UMessageRegisterEntity()
@@ -116,7 +119,7 @@ extension HCAppDelegate : UNUserNotificationCenterDelegate{
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let information = notification.request.content.userInfo
-        if (notification.request.trigger?.isKind(of: UNPushNotificationTrigger.classForCoder()))! {
+        if (notification.request.trigger?.isKind(of: UNPushNotificationTrigger.classForCoder())) == true {
             UMessage.didReceiveRemoteNotification(information)
             self.receiveRemoteNotificationForbackground(userInfo: information)
         }else{
@@ -237,13 +240,13 @@ extension HCAppDelegate: WXApiDelegate {
     public func registerAuthor() {
         UMSocialManager.default()?.openLog(true)
         UMSocialManager.default()?.setPlaform(.wechatSession,
-                                              appKey: weixinAppid,
-                                              appSecret: weixinSecret,
+                                              appKey: wChatAppid,
+                                              appSecret: wChatSecret,
                                               redirectURL: "http://mobile.umeng.com/social")
         
         UMSocialManager.default()?.setPlaform(.wechatTimeLine,
-                                              appKey: weixinAppid,
-                                              appSecret: weixinSecret,
+                                              appKey: wChatAppid,
+                                              appSecret: wChatSecret,
                                               redirectURL: "http://mobile.umeng.com/social")
     }
     

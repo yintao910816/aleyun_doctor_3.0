@@ -11,7 +11,7 @@ import RxSwift
 
 class HCLoginViewController: BaseViewController {
     
-    private var containerView: HCLoginViewContainer!
+    public var containerView: HCLoginViewContainer!
     
     private var viewModel: HCLoginViewModel!
         
@@ -38,14 +38,20 @@ class HCLoginViewController: BaseViewController {
     override func rxBind() {
         HCHelper.share.enableWchatLoginSubjet
             .subscribe(onNext: { [weak self] in
+                #if DEBUG
+                PrintLog("测试不需要隐藏微信登录")
+                self?.containerView.platformContainer.isHidden = false
+                #else
                 self?.containerView.platformContainer.isHidden = !$0
+                #endif
             })
             .disposed(by: disposeBag)
 
         viewModel = HCLoginViewModel.init(input: (phoneSignal: containerView.phoneTf.rx.text.orEmpty.asDriver(),
                                                   pwdSignal: containerView.pwdTf.rx.text.orEmpty.asDriver()),
                                           tap: (codeTap: containerView.getCodeButton.rx.tap.asDriver(),
-                                                agreeTap: containerView.agreeSignal.asDriver()))
+                                                agreeTap: containerView.agreeSignal.asDriver(),
+                                                weChatTap: containerView.wchatLoginButton.rx.tap.asDriver()))
         
         containerView.loginModeSignal.asDriver()
             .drive(viewModel.loginModeSignal)

@@ -308,7 +308,7 @@ enum API{
     case UMAdd(deviceToken: String)
 
     /// 绑定微信
-    case bindAuthMember(userInfo: UMSocialUserInfoResponse, mobile: String, smsCode: String)
+    case bindAuthMember(openId: String, mobile: String, smsCode: String)
     /// 修改用户信息
     case updateInfo(param: [String: String])
     /// 首页功能列表
@@ -500,7 +500,7 @@ extension API: TargetType{
         case .UMAdd(_):
             return "api/umeng/add"
         case .bindAuthMember(_):
-            return "api/login/bindAuthMember"
+            return "api/login/bindMobile"
         case .updateInfo(_):
             return "api/member/updateInfo"
         case .functionList:
@@ -541,7 +541,7 @@ extension API: TargetType{
         case .getMenstruationBaseInfo:
             return "api/physiology/getMenstruationBaseInfo"
         case .getAuthMember(_):
-            return "api/login/getAuthMember"
+            return "api/login/getMemberInfo"
         case .search(_):
             return "api/search/search"
         case .storeAndStatus(_):
@@ -603,23 +603,35 @@ extension API: TargetType{
     
     var headers: [String : String]? {
         var contentType: String = "application/json; charset=utf-8"
+        var openId: String = ""
         switch self {
         case .uploadFile(_, let fileType):
             contentType = fileType.rawValue
         case .uploadIcon(_):
             contentType = "image/jpeg"
+        case .bindAuthMember(let opid, _, _):
+            openId = opid
         default:
             break
         }
         
         let userAgent: String = "\(Bundle.main.bundleIdentifier),\(Bundle.main.version),\(UIDevice.iosVersion),\(UIDevice.modelName)"
         
-        
-        let customHeaders: [String: String] = ["token": userDefault.token,
-                                               "User-Agent": userAgent,
-                                               "unitId": userDefault.unitId,
-                                               "Content-Type": contentType,
-                                               "Accept": "application/json"]
+        var customHeaders: [String: String]!
+        if openId.count > 0 {
+            customHeaders = ["token": userDefault.token,
+                             "User-Agent": userAgent,
+                             "unitId": userDefault.unitId,
+                             "Content-Type": contentType,
+                             "openId": openId,
+                             "Accept": "application/json"]
+        }else {
+            customHeaders = ["token": userDefault.token,
+                             "User-Agent": userAgent,
+                             "unitId": userDefault.unitId,
+                             "Content-Type": contentType,
+                             "Accept": "application/json"]
+        }
         PrintLog("request headers -- \(customHeaders)")
         return customHeaders
     }
@@ -778,9 +790,8 @@ extension API {
             params["deviceToken"] = deviceToken
             params["appPackage"] = Bundle.main.bundleIdentifier
             params["appType"] = "ios"
-        case .bindAuthMember(let userInfo, let mobile, let smsCode):
-            params["openId"] = userInfo.openid
-            params["accessToken"] = userInfo.accessToken
+        case .bindAuthMember(_, let mobile, let smsCode):
+//            params["openid"] = openId
             params["appType"] = "IOS"
             params["oauthType"] = "weixin"
             params["mobile"] = mobile

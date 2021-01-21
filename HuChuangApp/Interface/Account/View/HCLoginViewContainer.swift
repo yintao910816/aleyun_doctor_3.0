@@ -24,8 +24,8 @@ class HCLoginViewContainer: UIView {
     private var loginModeBgView: UIView!
     private var phoneLoginButton: UIButton!
     private var phoneLoginLine: UIView!
-    private var pwdLoginButton: UIButton!
-    private var pwdLoginLine: UIView!
+    public var pwdLoginButton: UIButton!
+    public var pwdLoginLine: UIView!
 
     private var areaCodeLabel: UILabel!
     private var vLine: UIView!
