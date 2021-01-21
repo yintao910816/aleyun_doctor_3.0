@@ -717,9 +717,12 @@ class HCChatMainInfoModel: HJModel {
     var date: String = ""
     var week: String = ""
     var apm: String = ""
+    var appointTimeDesc: String = ""
     
     private var timeFrame: CGRect?
     private var contentBgFrame: CGRect?
+    private var yuyueTimeTitleFrame: CGRect?
+    private var yuyueTimeTextFrame: CGRect?
     private var desInfoTitleFrame: CGRect?
     private var contentTextFrame: CGRect?
     private var desPhotoTitleFrame: CGRect?
@@ -741,10 +744,46 @@ class HCChatMainInfoModel: HJModel {
         }
     }
 
+    public var getYuyueTimeTitleFrame: CGRect {
+        get {
+            if yuyueTimeTitleFrame == nil {
+                if HCConsultType(rawValue: consultType) == .videoConsult {
+                    yuyueTimeTitleFrame = .init(x: 12, y: 14, width: 70, height: 20)
+                }else {
+                    yuyueTimeTitleFrame = .zero
+                }
+            }
+            return yuyueTimeTitleFrame!
+        }
+    }
+
+    public var getYuyueTimeTextFrame: CGRect {
+        get {
+            if yuyueTimeTextFrame == nil {
+                if HCConsultType(rawValue: consultType) == .videoConsult {
+                    let contentTextSize = appointTimeDesc.ty_textSize(font: .font(fontSize: 14),
+                                                                      width: PPScreenW - 112 - 25,
+                                                                      height: CGFloat(MAXFLOAT))
+                    yuyueTimeTextFrame = .init(x: getYuyueTimeTitleFrame.maxX + 15,
+                                               y: getYuyueTimeTitleFrame.minY,
+                                               width: contentTextSize.width,
+                                               height: contentTextSize.height)
+                }else {
+                    yuyueTimeTextFrame = .zero
+                }
+            }
+            return yuyueTimeTextFrame!
+        }
+    }
+
     public var getDesInfoTitleFrame: CGRect {
         get {
             if desInfoTitleFrame == nil {
-                desInfoTitleFrame = .init(x: 12, y: 14, width: 70, height: 20)
+                if HCConsultType(rawValue: consultType) == .videoConsult {
+                    desInfoTitleFrame = .init(x: 12, y: getYuyueTimeTitleFrame.maxY + 15, width: 70, height: 20)
+                }else {
+                    desInfoTitleFrame = .init(x: 12, y: 14, width: 70, height: 20)
+                }
             }
             return desInfoTitleFrame!
         }
@@ -798,6 +837,12 @@ class HCChatMainInfoModel: HJModel {
         get {
             if contentBgFrame == nil {
                 var height: CGFloat = 0
+                
+                if HCConsultType(rawValue: consultType) == .videoConsult {
+                    height += max(20, getYuyueTimeTextFrame.height)
+                    height += 15
+                }
+                
                 height += max(20, getContentTextFrame.height)
                 if fileList.count > 0 {
                     height += (15 + getBoxPhotoFrame.height)

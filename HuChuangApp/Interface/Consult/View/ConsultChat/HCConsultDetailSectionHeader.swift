@@ -14,6 +14,8 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
     
     private var timeLabel: UILabel!
     private var contentBgView: UIImageView!
+    private var yuyueTimeTitleLabel: UILabel!
+    private var yuyueTimeLabel: UILabel!
     private var desInfoTitleLabel: UILabel!
     private var contentLabel: UILabel!
     private var desPhotoTitleLabel: UILabel!
@@ -38,6 +40,17 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
         contentBgView.backgroundColor = .white
         contentBgView.isUserInteractionEnabled = true
         
+        yuyueTimeTitleLabel = UILabel()
+        yuyueTimeTitleLabel.font = .font(fontSize: 14)
+        yuyueTimeTitleLabel.textColor = RGB(153, 153, 153)
+        yuyueTimeTitleLabel.backgroundColor = contentBgView.backgroundColor
+        yuyueTimeTitleLabel.text = "预约时间："
+        
+        yuyueTimeLabel = UILabel()
+        yuyueTimeLabel.numberOfLines = 0
+        yuyueTimeLabel.font = .font(fontSize: 13, fontName: .PingFRegular)
+        yuyueTimeLabel.textColor = RGB(53, 53, 53)
+
         desInfoTitleLabel = UILabel()
         desInfoTitleLabel.font = .font(fontSize: 14)
         desInfoTitleLabel.textColor = RGB(153, 153, 153)
@@ -60,6 +73,8 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
         
         contentView.addSubview(timeLabel)
         contentView.addSubview(contentBgView)
+        contentBgView.addSubview(yuyueTimeTitleLabel)
+        contentBgView.addSubview(yuyueTimeLabel)
         contentBgView.addSubview(desInfoTitleLabel)
         contentBgView.addSubview(contentLabel)
         contentBgView.addSubview(desPhotoTitleLabel)
@@ -76,6 +91,11 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
             contentLabel.text = sectionModel.content
             boxPhotoView.filles = sectionModel.fileListModel
             desPhotoTitleLabel.text = sectionModel.fileList.count > 0 ? "报告病例：" : ""
+            if HCConsultType(rawValue: sectionModel.consultType) == .videoConsult {
+                yuyueTimeLabel.text = sectionModel.appointTimeDesc
+            }else {
+                yuyueTimeLabel.text = nil
+            }
         }
     }
     
@@ -83,6 +103,8 @@ class HCConsultDetailSectionHeader: UITableViewHeaderFooterView {
         super.layoutSubviews()
         timeLabel.frame = sectionModel.getTimeFrame
         contentBgView.frame = sectionModel.getContentBgFrame
+        yuyueTimeTitleLabel.frame = sectionModel.getYuyueTimeTitleFrame
+        yuyueTimeLabel.frame = sectionModel.getYuyueTimeTextFrame
         desInfoTitleLabel.frame = sectionModel.getDesInfoTitleFrame
         contentLabel.frame = sectionModel.getContentTextFrame
         desPhotoTitleLabel.frame = sectionModel.getDesPhotoTitleFrame
