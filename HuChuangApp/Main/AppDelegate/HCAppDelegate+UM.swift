@@ -19,52 +19,23 @@ extension HCAppDelegate {
     func setupUM(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         registerAuthor()
         
-        UMConfigure.initWithAppkey(AppKey, channel: "App Store")
         MobClick.setScenarioType(.E_UM_NORMAL)
+
         UMConfigure.setLogEnabled(true)
+
+        UMConfigure.initWithAppkey(AppKey, channel: "App Store")
+
+        let entity = UMessageRegisterEntity()
+        entity.types = Int(UMessageAuthorizationOptions.badge.rawValue) | Int(UMessageAuthorizationOptions.alert.rawValue) | Int(UMessageAuthorizationOptions.sound.rawValue)
         
-        UMessage.setAutoAlert(false)
-        UMessage.setBadgeClear(false)
-        
-        if #available(iOS 10.0, *) {
-            let entity = UMessageRegisterEntity()
-            entity.types = Int(UMessageAuthorizationOptions.badge.rawValue) | Int(UMessageAuthorizationOptions.alert.rawValue)
-            //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
-     
-            // 使用 UNUserNotificationCenter 来管理通知
-            let center = UNUserNotificationCenter.current()
-            //监听回调事件
-            center.delegate = self
-            
-            UMessage.registerForRemoteNotifications(launchOptions: launchOptions, entity: entity) { (flag, error) in
-                if flag == true {
-                    PrintLog("UM注册成功")
-                }else {
-                    PrintLog("UM注册失败")
-                }
+        UNUserNotificationCenter.current().delegate = self
+
+        UMessage.registerForRemoteNotifications(launchOptions: launchOptions, entity: entity) { (granted, error) in
+            if granted {
+                PrintLog("UM注册成功")
+            }else {
+                PrintLog("UM注册失败")
             }
-            
-            //iOS 10 使用以下方法注册，才能得到授权
-            center.requestAuthorization(options: [UNAuthorizationOptions.alert,UNAuthorizationOptions.badge,UNAuthorizationOptions.sound], completionHandler: { (granted:Bool, error:Error?) -> Void in
-                if (granted) {
-                    //点击允许
-//                    PrintLog("注册通知成功")
-//                    UserDefaults.standard.set(true, forKey: kReceiveRemoteNote)
-                    //获取当前的通知设置，UNNotificationSettings 是只读对象，不能直接修改，只能通过以下方法获取
-                    center.getNotificationSettings(completionHandler:{(settings:UNNotificationSettings) in
-                        PrintLog( "UNNotificationSettings")
-                    })
-                } else {
-                    //点击不允许
-//                    UserDefaults.standard.set(false, forKey: kReceiveRemoteNote)
-//                    PrintLog("注册通知失败")
-                }
-            })
-        } else {
-            // Fallback on earlier versions
-            let type = UIUserNotificationType.alert.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.sound.rawValue
-            let set = UIUserNotificationSettings.init(types: UIUserNotificationType(rawValue: type), categories: nil)
-            UIApplication.shared.registerUserNotificationSettings(set)
         }
         
         _ = NotificationCenter.default.rx.notification(NotificationName.User.LoginSuccess, object: nil)
@@ -75,11 +46,6 @@ extension HCAppDelegate {
 }
 
 extension HCAppDelegate : UNUserNotificationCenterDelegate{
-    
-    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-        PrintLog("didRegister notificationSetting")
-    }
-    
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
@@ -105,8 +71,8 @@ extension HCAppDelegate : UNUserNotificationCenterDelegate{
     }
     
     
-    @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
         let information = response.notification.request.content.userInfo
         if (response.notification.request.trigger?.isKind(of: UNPushNotificationTrigger.classForCoder()))! {
             UMessage.didReceiveRemoteNotification(information)
@@ -116,8 +82,8 @@ extension HCAppDelegate : UNUserNotificationCenterDelegate{
         }
     }
     
-    @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
         let information = notification.request.content.userInfo
         if (notification.request.trigger?.isKind(of: UNPushNotificationTrigger.classForCoder())) == true {
             UMessage.didReceiveRemoteNotification(information)
@@ -129,13 +95,16 @@ extension HCAppDelegate : UNUserNotificationCenterDelegate{
         completionHandler(UNNotificationPresentationOptions.badge)
     }
     
+}
+
+extension HCAppDelegate {
     
-    func receiveRemoteNotificationForbackground(userInfo : [AnyHashable : Any]){
+    private func receiveRemoteNotificationForbackground(userInfo : [AnyHashable : Any]){
         PrintLog(userInfo)
         
-        DispatchQueue.main.async {
-            HCHelper.pushLocalH5(type: .noticeAndMessage)
-        }
+//        DispatchQueue.main.async {
+//            HCHelper.pushLocalH5(type: .noticeAndMessage)
+//        }
 
 //        let message = userInfo["alert"] as? String ?? "alert"
         
@@ -173,51 +142,23 @@ extension HCAppDelegate : UNUserNotificationCenterDelegate{
         
 //        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
-    
-}
 
-extension HCAppDelegate {
-    
     public func uploadUMToken() {
         guard deviceToken.count > 0 else { return }
 
-        if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().getNotificationSettings { [weak self] (set) in
-                guard let strongSelf = self else { return }
-                if set.authorizationStatus == UNAuthorizationStatus.notDetermined{
-                    PrintLog("推送不允许")
-                    strongSelf.isAuthorizedPush = false
-                }else if set.authorizationStatus == UNAuthorizationStatus.denied{
-                    PrintLog("推送不允许")
-                    strongSelf.isAuthorizedPush = false
-                }else if set.authorizationStatus == UNAuthorizationStatus.authorized
-                {
-                    PrintLog("推送允许")
-                    strongSelf.isAuthorizedPush = true
-                    _ = HCProvider.request(.UMAdd(deviceToken: strongSelf.deviceToken))
-                        .mapResponse()
-                        .subscribe(onSuccess: { res in
-                            if RequestCode(rawValue: res.code) == RequestCode.success {
-                                PrintLog("友盟token上传成功")
-                            }else {
-                                PrintLog(res.message)
-                            }
-                        }) { error in
-                            PrintLog("友盟token上传失败：\(error)")
-                    }
-                }
-            }
-            
-        } else {
-            
-            guard let ty = UIApplication.shared.currentUserNotificationSettings?.types else { return }
-            if Int(ty.rawValue) == 0{
-                PrintLog("用户不允许推送")
-                isAuthorizedPush = false
-            }else{
-                PrintLog("用户允许推送")
-                isAuthorizedPush = true
-                _ = HCProvider.request(.UMAdd(deviceToken: deviceToken))
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] (set) in
+            guard let strongSelf = self else { return }
+            if set.authorizationStatus == UNAuthorizationStatus.notDetermined{
+                PrintLog("推送不允许")
+                strongSelf.isAuthorizedPush = false
+            }else if set.authorizationStatus == UNAuthorizationStatus.denied{
+                PrintLog("推送不允许")
+                strongSelf.isAuthorizedPush = false
+            }else if set.authorizationStatus == UNAuthorizationStatus.authorized
+            {
+                PrintLog("推送允许")
+                strongSelf.isAuthorizedPush = true
+                _ = HCProvider.request(.UMAdd(deviceToken: strongSelf.deviceToken))
                     .mapResponse()
                     .subscribe(onSuccess: { res in
                         if RequestCode(rawValue: res.code) == RequestCode.success {
@@ -229,9 +170,7 @@ extension HCAppDelegate {
                         PrintLog("友盟token上传失败：\(error)")
                 }
             }
-            
         }
-        
     }
 }
 

@@ -27,11 +27,7 @@ class HCAppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        TRTCCalling.shareInstance().addDelegate(self)
-        #if DEBUG
-        TRTCCloud.setConsoleEnabled(true)
-        #endif
-
+        setupTRTC()
         setupUM(launchOptions: launchOptions)
         
         window = UIWindow.init(frame: UIScreen.main.bounds)
@@ -62,24 +58,8 @@ class HCAppDelegate: UIResponder, UIApplicationDelegate {
         HCHelper.requestUnreplyNum()
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        resetBageNumber()
-    }
-    
-    private func resetBageNumber() {
-        let ln = UILocalNotification()
-        ln.applicationIconBadgeNumber = -1
-        UIApplication.shared.presentLocalNotificationNow(ln)
-        
+    func applicationDidEnterBackground(_ application: UIApplication) {
         UIApplication.shared.applicationIconBadgeNumber = 0
-
-//        let clearEpisodeNotification = UILocalNotification()
-//        clearEpisodeNotification.fireDate = Date.init(timeIntervalSinceNow: 1*1)
-//        clearEpisodeNotification.applicationIconBadgeNumber = -1;//这是最关键的代码，设置-1
-//
-//        UIApplication.shared.scheduleLocalNotification(clearEpisodeNotification)
     }
-
-
 
 }
