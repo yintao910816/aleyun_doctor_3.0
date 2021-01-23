@@ -689,11 +689,12 @@ extension HCConsultVideoCallController {
                 HCSystemAudioPlay.share.videoCallStop()
                 
                 guard let self = self else {return}
-
-                let watchTime = TRTCCalling.shareInstance().curRoomList.count > 0 ? "1" : "0"
+                
+                // 后台计算的通话时间，没截通给0，接通了给个大于0的值或者不传这个参数都可以
+                let watchTime = self.curState == .calling ? "1" : "0"
                 _ = HCHelper.requestEndPhone(memberId: self.otherId, watchTime: watchTime)
                     .subscribe(onNext:{ _ in })
-                
+
                  TRTCCalling.shareInstance().hangup()
                 self.disMiss()
                 })

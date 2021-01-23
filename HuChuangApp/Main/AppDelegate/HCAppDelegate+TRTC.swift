@@ -57,10 +57,6 @@ extension HCAppDelegate: TRTCCallingDelegate {
             PrintLog(text)
         }
         NotificationCenter.default.post(name: NotificationName.ChatCall.otherLeave, object: text)
-        
-        // 后台计算的通话时间，没截通给0，接通了给个大于0的值或者不传这个参数都可以
-        _ = HCHelper.requestEndPhone(memberId: uid, watchTime: "1")
-            .subscribe(onNext:{ _ in })
     }
     
     // 拒绝通话回调-仅邀请者受到通知,其他用户应使用
