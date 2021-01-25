@@ -363,6 +363,8 @@
 		C47B259A25025AC5000B931F /* HCAninotionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B259925025AC5000B931F /* HCAninotionMenuView.swift */; };
 		C47B259C25025AD4000B931F /* HCAninotionMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47B259B25025AD4000B931F /* HCAninotionMenuModel.swift */; };
 		C480AF5625B7FE5F007EA84E /* HCBindPhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C480AF5525B7FE5F007EA84E /* HCBindPhoneViewModel.swift */; };
+		C480AFE025BEF55D007EA84E /* HCAppDelegate+UniLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C480AFDF25BEF55D007EA84E /* HCAppDelegate+UniLogin.swift */; };
+		C480AFE325BEF5AC007EA84E /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C480AFE225BEF5AB007EA84E /* UIImage+Color.swift */; };
 		C48842B2233EF6A700C209B3 /* HCClassRoomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48842B0233EF6A700C209B3 /* HCClassRoomListCell.swift */; };
 		C494136524DE54A100045749 /* HCCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494136424DE54A100045749 /* HCCustomButton.swift */; };
 		C494137124DE9E3600045749 /* HCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C494137024DE9E3600045749 /* HCHomeViewController.swift */; };
@@ -1120,6 +1122,8 @@
 		C47E067A23589355003A3320 /* TYCalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYCalendarDayCell.swift; sourceTree = "<group>"; };
 		C47E067D23589800003A3320 /* HCRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRecorderView.swift; sourceTree = "<group>"; };
 		C480AF5525B7FE5F007EA84E /* HCBindPhoneViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCBindPhoneViewModel.swift; sourceTree = "<group>"; };
+		C480AFDF25BEF55D007EA84E /* HCAppDelegate+UniLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HCAppDelegate+UniLogin.swift"; sourceTree = "<group>"; };
+		C480AFE225BEF5AB007EA84E /* UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		C48842B0233EF6A700C209B3 /* HCClassRoomListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCClassRoomListCell.swift; sourceTree = "<group>"; };
 		C48842B4233EFD3500C209B3 /* HCClassRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCClassRoomViewModel.swift; sourceTree = "<group>"; };
 		C494136424DE54A100045749 /* HCCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCCustomButton.swift; sourceTree = "<group>"; };
@@ -2562,6 +2566,7 @@
 			isa = PBXGroup;
 			children = (
 				C421330A22056B59006C10C4 /* HCAppDelegate.swift */,
+				C480AFDF25BEF55D007EA84E /* HCAppDelegate+UniLogin.swift */,
 				B842D1FD22258CC000A4F8DF /* HCAppDelegate+UM.swift */,
 				B87CCB0B25556FFB00792F76 /* HCAppDelegate+TRTC.swift */,
 				B8CFBAD2258E226100BD03A1 /* HCAppDelegate+Logic.swift */,
@@ -2647,6 +2652,7 @@
 		C421333022056F96006C10C4 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C480AFE225BEF5AB007EA84E /* UIImage+Color.swift */,
 				B89C397023A141B200CAB651 /* TYMarkString.swift */,
 				B8699400233794A700086A77 /* UIView+Layer.swift */,
 				C41A12C022BCF49100214216 /* String+Operation.swift */,
@@ -4482,6 +4488,7 @@
 				C4D3930B25A5ABD8007D72D5 /* HCServerMsgContainer.swift in Sources */,
 				C494136524DE54A100045749 /* HCCustomButton.swift in Sources */,
 				C4D3990E25A5DFBE007D72D5 /* ZXRSSDataCharacter.m in Sources */,
+				C480AFE025BEF55D007EA84E /* HCAppDelegate+UniLogin.swift in Sources */,
 				C4D8294B25B46B6500697E52 /* HCBrowserZoomAnimator.swift in Sources */,
 				C4D398F125A5DFBE007D72D5 /* ZXITFWriter.m in Sources */,
 				B85BD06B255545730026A508 /* ChatToolBarAudioButton.m in Sources */,
@@ -4618,6 +4625,7 @@
 				C4D3991125A5DFBE007D72D5 /* ZXAbstractRSSReader.m in Sources */,
 				C4D3992925A5DFBE007D72D5 /* ZXProductResultParser.m in Sources */,
 				C4D398B825A5DFBE007D72D5 /* ZXIntArray.m in Sources */,
+				C480AFE325BEF5AC007EA84E /* UIImage+Color.swift in Sources */,
 				C4CED9B42501121B00E3DEE6 /* HCBannerItemCell.swift in Sources */,
 				C4D3992D25A5DFBE007D72D5 /* ZXWifiResultParser.m in Sources */,
 				C4D3991D25A5DFBE007D72D5 /* ZXUPCEANExtension2Support.m in Sources */,
@@ -5250,7 +5258,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.4;
+				CURRENT_PROJECT_VERSION = 1.7;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
@@ -5263,7 +5271,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HuChuangApp/Utils/TYChatKeyBoardView/Record&Player/AudioButton",
 				);
-				MARKETING_VERSION = 3.01.001;
+				MARKETING_VERSION = 2.0.001;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jclick.doctor;
 				PRODUCT_NAME = "爱乐孕医生";
 				PROVISIONING_PROFILE_SPECIFIER = aleyun_doctor_dev_pro;
@@ -5281,7 +5289,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.4;
+				CURRENT_PROJECT_VERSION = 1.7;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
@@ -5294,7 +5302,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HuChuangApp/Utils/TYChatKeyBoardView/Record&Player/AudioButton",
 				);
-				MARKETING_VERSION = 3.01.001;
+				MARKETING_VERSION = 2.0.001;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jclick.doctor;
 				PRODUCT_NAME = "爱乐孕医生";
 				PROVISIONING_PROFILE_SPECIFIER = aleyun_doctor_hoc_pro;

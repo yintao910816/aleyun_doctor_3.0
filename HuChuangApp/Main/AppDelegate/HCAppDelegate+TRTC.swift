@@ -27,7 +27,7 @@ extension HCAppDelegate: TRTCCallingDelegate {
         _ = HCHelper.requestVideoCallUserInfo(memberId: sponsor, consultId: "\(TRTCCalling.shareInstance().curRoomID)")
             .subscribe(onNext: {
                 let callVC = HCConsultVideoCallController(sponsor: $0)
-                
+                callVC.otherId = sponsor
                 callVC.dismissBlock = { }
                 
                 callVC.modalPresentationStyle = .fullScreen

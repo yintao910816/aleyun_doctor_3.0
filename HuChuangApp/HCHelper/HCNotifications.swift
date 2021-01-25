@@ -94,6 +94,8 @@ extension Notification.Name {
     public struct Consult {
         /// 咨询状态发生改变
         static let statusChange = Notification.Name(rawValue: "org.UILogic.notification.name.Consult.statusChange")
+        /// 视频通话界面消失
+        static let dismissCall = Notification.Name(rawValue: "org.UILogic.notification.name.Consult.dismissCall")
     }
 
     public struct Message {

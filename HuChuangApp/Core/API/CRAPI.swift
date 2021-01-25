@@ -192,6 +192,8 @@ enum API{
     case pwdLogin(account: String, psd: String)
     /// 登录
     case loginTel(mobile: String, smsCode: String)
+    /// 一键登录
+    case tokenLogin(token: String)
     /// 获取用户信息
     case selectInfo
     /// 修改用户信息
@@ -389,6 +391,8 @@ extension API: TargetType{
             return "api/login/validateCode"
         case .loginTel(_, _):
             return "api/login/login"
+        case .tokenLogin(_):
+            return "api/login/jgLogin"
         case .pwdLogin(_, _):
             return "api/login/loginTwo"
         case .selectInfo:
@@ -580,6 +584,9 @@ extension API: TargetType{
         case .version:
             return .requestParameters(parameters: ["type": "iosDoc", "packageName": Bundle.main.bundleIdentifier],
                                       encoding: URLEncoding.default)
+        case .tokenLogin(let token):
+            return .requestParameters(parameters: ["token": token],
+                                      encoding: URLEncoding.default)
         case .hieldMember(let pageNum, let pageSize):
             return .requestParameters(parameters: ["pageNum": pageNum, "pageSize": pageSize],
                                       encoding: URLEncoding.default)
@@ -662,6 +669,8 @@ extension API {
         case .loginTel(let mobile, let smsCode):
             params["mobile"] = mobile
             params["smsCode"] = smsCode
+//        case .tokenLogin(let token):
+//            params["token"] = token
         case .pwdLogin(let account, let psd):
             params["account"] = account
             params["psd"] = psd

@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "组 1.png",
+      "filename" : "phone_login.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "phone_login@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "phone_login@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

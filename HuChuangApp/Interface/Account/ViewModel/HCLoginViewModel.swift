@@ -20,7 +20,9 @@ class HCLoginViewModel: BaseViewModel, VMNavigation {
                  pwdSignal: Driver<String>),
          tap:(codeTap: Driver<Void>,
               agreeTap: Driver<Bool>,
-              weChatTap: Driver<Void>)) {
+              weChatTap: Driver<Void>,
+              fastLoginTap: Driver<Void>),
+         controller: UIViewController) {
         super.init()
         
         enableCode = Driver.combineLatest(input.phoneSignal, input.pwdSignal, loginModeSignal.asDriver()){ ($0, $1, $2) }
@@ -56,16 +58,62 @@ class HCLoginViewModel: BaseViewModel, VMNavigation {
             .disposed(by: disposeBag)
         
         tap.weChatTap.asObservable()
+            .subscribe(onNext: { [unowned self] in wchatLogin() })
+            .disposed(by: disposeBag)
+
+        weak var weakController = controller
+        tap.fastLoginTap
             ._doNext(forNotice: hud)
-            .flatMap{ HCAccountManager.WeChatLogin() }
+            .drive(onNext: { [weak self] in
+                guard let sc = weakController else { return }
+                (UIApplication.shared.delegate as? HCAppDelegate)?.startUniLogin(viewController: sc, otherLoginCallBack: { [weak self] in
+                    if $0.0 == .watchLogin {
+                        self?.wchatLogin()
+                    }else if $0.0 == .tokenLogin {
+                        self?.requestTokenLogin(token: $0.1)
+                    }
+                }, presentCallBack: { [weak self] in
+                    self?.hud.noticeHidden()
+                })
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+extension HCLoginViewModel {
+    
+    private func requestTokenLogin(token: String) {
+        hud.noticeLoading()
+        
+        HCProvider.request(.tokenLogin(token: token))
+            .map(result: HCUserModel.self)
+            .subscribe { [weak self] in
+                if let user = $0.data{
+                    self?.hud.noticeHidden()
+                    HCHelper.saveLogin(user: user)
+                    self?.popSubject.onNext(Void())
+                }else {
+                    self?.hud.failureHidden($0.message)
+                }
+            } onError: { [weak self] in
+                self?.hud.failureHidden(self?.errorMessage($0))
+            }
+            .disposed(by: disposeBag)
+        
+    }
+
+    private func wchatLogin() {
+        hud.noticeLoading()
+        
+        HCAccountManager.WeChatLogin()
             .do(onNext: { [weak self] UserInfoRes in
                 if let _ = UserInfoRes {
                     self?.hud.noticeHidden()
                 }else {
                     self?.hud.failureHidden("未获取到授权信息")
                 }
-                }, onError: { [weak self] error in
-                    self?.hud.failureHidden(self?.errorMessage(error))
+            }, onError: { [weak self] error in
+                self?.hud.failureHidden(self?.errorMessage(error))
             })
             .filter{ $0 != nil }
             .map { $0! }
@@ -85,16 +133,12 @@ class HCLoginViewModel: BaseViewModel, VMNavigation {
                 }else {
                     self?.hud.failureHidden("未获取到用户信息")
                 }
-                }, onError: { [weak self] error in
-                    self?.hud.failureHidden(self?.errorMessage(error))
+            }, onError: { [weak self] error in
+                self?.hud.failureHidden(self?.errorMessage(error))
             })
             .disposed(by: disposeBag)
-
     }
-}
 
-extension HCLoginViewModel {
-    
     private func requestCode(mobile: String) {
         #if DEBUG
         hud.noticeHidden()

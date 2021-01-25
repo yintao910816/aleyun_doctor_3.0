@@ -32,4 +32,7 @@ pod 'TXIMSDK_iOS'
 
 pod 'IQKeyboardManagerSwift', '~> 6.5.6'
 
+#激光一键登录
+pod 'JVerification'
+
 end

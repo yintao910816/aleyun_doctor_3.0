@@ -44,11 +44,13 @@ class HCLoginViewContainer: UIView {
     public var platformContainer: UIView!
     private var platformRemindLabel: UILabel!
     public var wchatLoginButton: UIButton!
-    
+    // 一键登录
+    public var fastLoginButton: UIButton!
+
     public let loginModeSignal = Variable(HCLoginMode.phone)
     public let agreeSignal = Variable(false)
-    public var agreementTap: (()->())?
-    
+    public var agreementTap: (((String, String))->())?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -131,6 +133,9 @@ class HCLoginViewContainer: UIView {
         
         platformRemindLabel.frame = .init(x: 0, y: 10, width: 70, height: 20)
         wchatLoginButton.frame = .init(x: platformContainer.width - 40, y: 0, width: 40, height: 40)
+        
+        fastLoginButton.frame = .init(x: wchatLoginButton.x - 20 - 40, y: wchatLoginButton.y, width: 40, height: 40)
+        fastLoginButton.viewWithTag(100)?.frame = .init(x: 0, y: 0, width: fastLoginButton.width, height: fastLoginButton.height)
     }
 }
 
@@ -236,16 +241,16 @@ extension HCLoginViewContainer {
         agreeLabel.textColor = RGB(154, 154, 154)
         agreeLabel.font = .font(fontSize: 12)
         agreeLabel.numberOfLines = 0
-        let string = NSMutableAttributedString.init(string: "阅读并勾选以下协议《爱乐孕用户服务协议》《法律声明》《隐私政策》")
+        let string = NSMutableAttributedString.init(string: "阅读并勾选以下协议《爱乐孕用户服务协议》《隐私政策》")
         string.yy_setTextHighlight(.init(location: 9, length: 11), color: RGB(57, 129, 247), backgroundColor: .clear) { [weak self] (_, _, _, _) in
-            self?.agreementTap?()
+            self?.agreementTap?(("爱乐孕用户服务协议", "https://ileyun.ivfcn.com/cms/alyyhxy.html"))
         }
         string.yy_setTextHighlight(.init(location: 20, length: 6), color: RGB(57, 129, 247), backgroundColor: .clear) { [weak self] (_, _, _, _) in
-            self?.agreementTap?()
+            self?.agreementTap?(("隐私政策", "https://ileyun.ivfcn.com/cms/0-1073.html"))
         }
-        string.yy_setTextHighlight(.init(location: 26, length: 6), color: RGB(57, 129, 247), backgroundColor: .clear) { [weak self] (_, _, _, _) in
-            self?.agreementTap?()
-        }
+//        string.yy_setTextHighlight(.init(location: 26, length: 6), color: RGB(57, 129, 247), backgroundColor: .clear) { [weak self] (_, _, _, _) in
+//            self?.agreementTap?()
+//        }
         agreeLabel.attributedText = string
         
         platformContainer = UIView()
@@ -259,6 +264,19 @@ extension HCLoginViewContainer {
         wchatLoginButton = UIButton()
         wchatLoginButton.setImage(UIImage(named: "wchat_login"), for: .normal)
         
+        fastLoginButton = UIButton()
+        fastLoginButton.backgroundColor = RGB(125, 189, 245)
+        fastLoginButton.layer.cornerRadius = 20
+        fastLoginButton.clipsToBounds = true
+        
+        let label = UILabel()
+        label.textColor = .white
+        label.text = "一键\n登录"
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        label.font = .font(fontSize: 11)
+        label.tag = 100
+
         addSubview(colorLine)
         addSubview(titlelabel)
         addSubview(subTitleLabel)
@@ -285,6 +303,8 @@ extension HCLoginViewContainer {
         addSubview(platformContainer)
         platformContainer.addSubview(platformRemindLabel)
         platformContainer.addSubview(wchatLoginButton)
+        platformContainer.addSubview(fastLoginButton)
+        fastLoginButton.addSubview(label)
         
         #if DEBUG
 //        phoneTf.text = "13995631675"

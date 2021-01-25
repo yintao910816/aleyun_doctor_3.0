@@ -27,9 +27,8 @@ class HCLoginViewController: BaseViewController {
         view.addSubview(containerView)
 
         containerView.agreementTap = { [weak self] in
-            let webVC = BaseWebViewController()
-            webVC.url = "https://ileyun.ivfcn.com/cms/alyyhxy.html"
-            self?.navigationController?.pushViewController(webVC, animated: true)
+            self?.navigationController?.pushViewController(BaseWebViewController.createWeb(url: $0.1, title: $0.0),
+                                                           animated: true)
         }
         
         containerView.platformContainer.isHidden = !HCHelper.share.enableWchatLogin
@@ -51,7 +50,9 @@ class HCLoginViewController: BaseViewController {
                                                   pwdSignal: containerView.pwdTf.rx.text.orEmpty.asDriver()),
                                           tap: (codeTap: containerView.getCodeButton.rx.tap.asDriver(),
                                                 agreeTap: containerView.agreeSignal.asDriver(),
-                                                weChatTap: containerView.wchatLoginButton.rx.tap.asDriver()))
+                                                weChatTap: containerView.wchatLoginButton.rx.tap.asDriver(),
+                                                fastLoginTap: containerView.fastLoginButton.rx.tap.asDriver()),
+                                          controller: self)
         
         containerView.loginModeSignal.asDriver()
             .drive(viewModel.loginModeSignal)

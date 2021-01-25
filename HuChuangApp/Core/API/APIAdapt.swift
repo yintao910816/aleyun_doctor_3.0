@@ -45,9 +45,9 @@ import Moya
 
 struct APIAssistance {
         
-    public static let base    = "https://ileyun.ivfcn.com/hc-doctor/"
+    public static let base    = "https://ileyun.ivfcn.com/hc-doctors/"
     public static let fileBase = "https://ileyun.ivfcn.com/hc-files/"
-    public static let baseH5Host = "https://ileyun.ivfcn.com/consult/"
+    public static let baseH5Host = "https://ileyun.ivfcn.com/consults/"
         
     public static var doctorCardLink: String {
         get {
@@ -77,7 +77,8 @@ struct APIAssistance {
              .getUserInfo(_),
              .queryPreciseSchedule,
              .getConsultTemplates,
-             .selectInfo:
+             .selectInfo,
+             .tokenLogin(_):
             return .get
         default:
             return .post

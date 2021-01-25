@@ -36,4 +36,7 @@
 //#import "TRTCCalling.h"
 #import "TRTCCalling+Signal.h"
 
+//一键登录
+#import "JVERIFICATIONService.h"
+
 #endif /* HcChuangApp_Bridge_Header_h */

@@ -14,6 +14,14 @@ class HCConsultListController: BaseViewController, VMNavigation {
     
     private var viewModel: HCConsultListViewModel!
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if viewModel != nil {
+            viewModel.reloadSubject.onNext(Void())
+        }
+    }
+    
     override func setupUI() {
         navigationItem.title = "消息"
         
@@ -33,7 +41,7 @@ class HCConsultListController: BaseViewController, VMNavigation {
             .disposed(by: disposeBag)
         
         container.tableView.prepare(viewModel)
-        container.tableView.headerRefreshing()
+//        container.tableView.headerRefreshing()
         
         container.tableView.rx.modelSelected(HCConsultListItemModel.self)
             .asDriver()

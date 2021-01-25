@@ -123,6 +123,12 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
         reloadSubject
             .subscribe(onNext: { [weak self] in self?.requestCurrentConsult() })
             .disposed(by: disposeBag)
+        
+        NotificationCenter.default.rx.notification(NotificationName.Consult.dismissCall, object: nil)
+            .subscribe(onNext: { [weak self] _ in
+                self?.requestCurrentConsult()
+            })
+            .disposed(by: disposeBag)
     }
     
     public var consultMode: HCConsultType {

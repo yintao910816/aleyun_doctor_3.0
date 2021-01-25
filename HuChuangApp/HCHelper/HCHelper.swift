@@ -161,7 +161,7 @@ extension HCHelper {
                             return true
                         }else {
                             if let message = dic["message"] as? String {
-                                NoticesCenter.alert(message: "拨打电话失败：\(message)")
+                                NoticesCenter.alert(message: "\(message)")
                             }else {
                                 NoticesCenter.alert(message: "拨打电话失败：未知错误")
                             }
@@ -171,7 +171,7 @@ extension HCHelper {
                     NoticesCenter.alert(message: "拨打电话失败：未知返回结果")
                     return false
                 })
-                .do(onError: { NoticesCenter.alert(message: "拨打电话失败：\(BaseViewModel().errorMessage($0))") })
+                .do(onError: { NoticesCenter.alert(message: "\(BaseViewModel().errorMessage($0))") })
                 .catchErrorJustReturn(false)
                 .asObservable()
         }else {
@@ -190,6 +190,7 @@ extension HCHelper {
                        let code = dic["code"] as? Int,
                        let status = RequestCode(rawValue: code) {
                         if status == .success {
+                            NotificationCenter.default.post(name: NotificationName.Consult.dismissCall, object: nil)
                             return true
                         }else {
                             if let message = dic["message"] as? String {

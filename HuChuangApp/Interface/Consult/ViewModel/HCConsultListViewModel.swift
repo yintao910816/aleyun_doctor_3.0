@@ -32,8 +32,18 @@ class HCConsultListViewModel: RefreshVM<HCConsultListItemModel> {
             })
             .disposed(by: disposeBag)
         
+        NotificationCenter.default.rx.notification(NotificationName.Consult.dismissCall, object: nil)
+            .subscribe(onNext: { [weak self] _ in
+                self?.requestData(true)
+            })
+            .disposed(by: disposeBag)
+
         HCHelper.share.userInfoHasReload
             .subscribe(onNext: { [weak self] _ in self?.requestData(true) })
+            .disposed(by: disposeBag)
+        
+        reloadSubject
+            .subscribe(onNext: { [weak self] in self?.requestData(true) })
             .disposed(by: disposeBag)
     }
     
