@@ -66,17 +66,25 @@ class HCLoginViewModel: BaseViewModel, VMNavigation {
             ._doNext(forNotice: hud)
             .drive(onNext: { [weak self] in
                 guard let sc = weakController else { return }
-                (UIApplication.shared.delegate as? HCAppDelegate)?.startUniLogin(viewController: sc, otherLoginCallBack: { [weak self] in
-                    if $0.0 == .watchLogin {
-                        self?.wchatLogin()
-                    }else if $0.0 == .tokenLogin {
-                        self?.requestTokenLogin(token: $0.1)
-                    }
-                }, presentCallBack: { [weak self] in
-                    self?.hud.noticeHidden()
-                })
+                self?.presentFastLogin(vc: sc, needRemind: true)
             })
             .disposed(by: disposeBag)
+    }
+    
+    public func presentFastLogin(vc: UIViewController, needRemind: Bool) {
+        (UIApplication.shared.delegate as? HCAppDelegate)?.startUniLogin(viewController: vc, needRemind: needRemind, otherLoginCallBack: { [weak self] in
+            if $0.0 == .watchLogin {
+                self?.wchatLogin()
+            }else if $0.0 == .tokenLogin {
+                self?.requestTokenLogin(token: $0.1)
+            }
+        }, presentCallBack: { [weak self] in
+            self?.hud.noticeHidden()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2, execute: {
+                vc.navigationController?.view.isHidden = false
+                vc.view.isHidden = false
+            })
+        })
     }
 }
 

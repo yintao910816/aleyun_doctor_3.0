@@ -236,9 +236,13 @@ extension HCHelper {
     class func presentLogin(presentVC: UIViewController? = nil, isPopToRoot: Bool = false, _ completion: (() ->())? = nil) {
         HCHelper.share.isPresentLogin = true
         HCHelper.share.clearUser()
+        
+        let loginVC = HCLoginViewController()
+        loginVC.view.isHidden = true
 
-        let loginControl = MainNavigationController.init(rootViewController: HCLoginViewController())
-        loginControl.modalPresentationStyle = .fullScreen
+        let loginControl = MainNavigationController.init(rootViewController: loginVC)
+        loginControl.view.isHidden = true
+        loginControl.modalPresentationStyle = .overFullScreen
         
         let newPresentV = presentVC == nil ? NSObject().visibleViewController : presentVC
         newPresentV?.present(loginControl, animated: true, completion: {
@@ -247,6 +251,9 @@ extension HCHelper {
             }
             completion?()
         })
+        
+        loginVC.viewModel.hud.noticeLoading(nil, UIApplication.shared.keyWindow!)
+        loginVC.viewModel.presentFastLogin(vc: loginVC, needRemind: false)
     }
     
     func clearUser() {
