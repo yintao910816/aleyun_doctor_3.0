@@ -41,7 +41,13 @@ class HCHomeViewController: BaseViewController, VMNavigation {
                     navigationController?.pushViewController(HCVerificationController(), animated: true)
                 }
             }else {
-                HCHomeViewController.push(BaseWebViewController.self, ["url": $0.functionUrl, "title": $0.name])
+                var url = $0.functionUrl
+                var title = $0.name
+                if $0.name == "返回旧版" {
+                    url = "\($0.functionUrl)?doctorId=\(HCHelper.share.userInfoModel?.uid ?? "")"
+                    title = "旧版咨询"
+                }
+                HCHomeViewController.push(BaseWebViewController.self, ["url": url, "title": title])
             }
         }
         

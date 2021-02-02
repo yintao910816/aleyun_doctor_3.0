@@ -5258,7 +5258,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.7;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
@@ -5271,7 +5271,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HuChuangApp/Utils/TYChatKeyBoardView/Record&Player/AudioButton",
 				);
-				MARKETING_VERSION = 2.0.001;
+				MARKETING_VERSION = 3.01.001;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jclick.doctor;
 				PRODUCT_NAME = "爱乐孕医生";
 				PROVISIONING_PROFILE_SPECIFIER = aleyun_doctor_dev_pro;
@@ -5289,7 +5289,7 @@
 				CODE_SIGN_ENTITLEMENTS = HuChuangApp/HuChuangApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.7;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEVELOPMENT_TEAM = GMPPSEQW73;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HuChuangApp/Info.plist;
@@ -5302,7 +5302,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HuChuangApp/Utils/TYChatKeyBoardView/Record&Player/AudioButton",
 				);
-				MARKETING_VERSION = 2.0.001;
+				MARKETING_VERSION = 3.01.001;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jclick.doctor;
 				PRODUCT_NAME = "爱乐孕医生";
 				PROVISIONING_PROFILE_SPECIFIER = aleyun_doctor_hoc_pro;
