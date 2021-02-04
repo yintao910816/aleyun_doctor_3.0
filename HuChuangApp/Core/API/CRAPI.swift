@@ -287,6 +287,18 @@ enum API{
     /// 修改精准预约排班
     case updatePreciseSchedule(params: [String: Any])
     
+    //MARK: 医生团队
+    /// 医生团队查询
+    case selectUserGroupPage(pageNum: Int, pageSize: Int)
+    /// 团队搜索组员
+    case selectUserGroupByParam(searchWord: String, pageNum: Int, pageSize: Int)
+    /// 添加医生组员
+    case addUserGroup(ids: [String])
+    /// 删除组员
+    case delUserGroup(userId: String)
+    /// 我所在的团队
+    case myInGroupPage(pageNum: Int, pageSize: Int)
+    
     // --------------- 3.0接口
     /// 实名认证
     case realNameAuth(realName: String, sex: String, birthDay: String, certificateType: String, certificateNo: String)
@@ -483,6 +495,17 @@ extension API: TargetType{
             return "api/preciseSchedule/delPreciseSchedule"
         case .updatePreciseSchedule(_):
             return "api/preciseSchedule/updatePreciseSchedule"
+        
+        case .selectUserGroupPage(_, _):
+            return "api/user/selectUserGroupPage"
+        case .selectUserGroupByParam(_, _, _):
+            return "api/user/selectUserGroupByParam"
+        case .addUserGroup(_):
+            return "api/user/addUserGroup"
+        case .delUserGroup(_):
+            return "api/user/delUserGroup"
+        case .myInGroupPage(_, _):
+            return "api/user/myInGroupPage"
             
         case .realNameAuth(_, _, _, _, _):
             return "api/consumer/realNameAuth"
@@ -587,9 +610,16 @@ extension API: TargetType{
         case .tokenLogin(let token):
             return .requestParameters(parameters: ["token": token],
                                       encoding: URLEncoding.default)
+        case .delUserGroup(let userId):
+            return .requestParameters(parameters: ["userId": userId],
+                                      encoding: URLEncoding.default)
+
         case .hieldMember(let pageNum, let pageSize):
             return .requestParameters(parameters: ["pageNum": pageNum, "pageSize": pageSize],
                                       encoding: URLEncoding.default)
+        case .addUserGroup(let ids):
+            // 处理不支持body放数组
+            return .requestParameters(parameters: ["jsonArray": ids], encoding: JSONArrayEncoding.default)
         default:
             if let _parameters = parameters {
                 guard let jsonData = try? JSONSerialization.data(withJSONObject: _parameters, options: []) else {
@@ -780,6 +810,17 @@ extension API {
             params["scheduleId"] = scheduleId
         case .updatePreciseSchedule(let p):
             params = p
+            
+        case .selectUserGroupPage(let pageNum, let pageSize):
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
+        case .selectUserGroupByParam(let searchWord, let pageNum, let pageSize):
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
+            params["searchWord"] = searchWord
+        case .myInGroupPage(let pageNum, let pageSize):
+            params["pageNum"] = pageNum
+            params["pageSize"] = pageSize
 
         case .realNameAuth(let realName, let sex, let birthDay, let certificateType, let certificateNo):
             params["realName"] = realName

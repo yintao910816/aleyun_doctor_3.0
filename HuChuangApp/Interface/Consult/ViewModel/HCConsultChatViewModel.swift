@@ -166,12 +166,12 @@ class HCConsultChatViewModel: RefreshVM<SectionModel<HCChatDataModel, HCChatList
         
         HCHelper.requestStartPhone(memberId: memberId)
             .flatMap { [weak self] res -> Observable<CallingUserModel> in
-                guard let strongSelf = self else { return Observable.error(MapperError.server(message: "已释放")) }
+                guard let strongSelf = self else { return Observable.error(MapperError.server(message: "已释放", code: 0)) }
                 if res {
                     return HCHelper.requestVideoCallUserInfo(memberId: strongSelf.memberId, consultId: strongSelf.consultId)
                 }
                 strongSelf.hud.noticeHidden()
-                return Observable.error(MapperError.server(message: "拨打失败"))
+                return Observable.error(MapperError.server(message: "拨打失败", code: 0))
             }
             .subscribe(onNext: { [weak self] user in
                 self?.getUerInfoSubject.onNext(user)

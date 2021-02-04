@@ -444,6 +444,17 @@
 		C4C8EB3F235175660054A295 /* HCHomePreparePregnantInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8EB3D235175660054A295 /* HCHomePreparePregnantInfoCell.swift */; };
 		C4C8EB40235175660054A295 /* HCHomePreparePregnantInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4C8EB3E235175660054A295 /* HCHomePreparePregnantInfoCell.xib */; };
 		C4CED9B42501121B00E3DEE6 /* HCBannerItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CED9B32501121B00E3DEE6 /* HCBannerItemCell.swift */; };
+		C4D2159E25CBAAC9006EA646 /* HCTeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2159D25CBAAC9006EA646 /* HCTeamViewModel.swift */; };
+		C4D215A125CBABAE006EA646 /* HCTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215A025CBABAE006EA646 /* HCTeamViewController.swift */; };
+		C4D215A425CBABCB006EA646 /* HCMyTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215A325CBABCB006EA646 /* HCMyTeamViewController.swift */; };
+		C4D215A725CBABDC006EA646 /* HCTeamContainMeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215A625CBABDC006EA646 /* HCTeamContainMeController.swift */; };
+		C4D215AB25CBAFD7006EA646 /* HCMyTeamContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215AA25CBAFD7006EA646 /* HCMyTeamContainer.swift */; };
+		C4D215AF25CBAFEA006EA646 /* HCTeamContainMeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215AE25CBAFEA006EA646 /* HCTeamContainMeContainer.swift */; };
+		C4D215B225CBB571006EA646 /* HCTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215B125CBB571006EA646 /* HCTeam.swift */; };
+		C4D215B525CBBB84006EA646 /* HCTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215B425CBBB84006EA646 /* HCTeamCell.swift */; };
+		C4D215B825CBD490006EA646 /* HCAddTeamMemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215B725CBD490006EA646 /* HCAddTeamMemberController.swift */; };
+		C4D215BB25CBD54E006EA646 /* HCAddTeamMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215BA25CBD54E006EA646 /* HCAddTeamMemberViewModel.swift */; };
+		C4D215BF25CBD817006EA646 /* HCAddTeamMemberContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D215BE25CBD817006EA646 /* HCAddTeamMemberContainer.swift */; };
 		C4D392FB25A5AB7D007D72D5 /* HCServerMsgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D392F925A5AB7D007D72D5 /* HCServerMsgController.swift */; };
 		C4D392FC25A5AB7D007D72D5 /* HCMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D392FA25A5AB7D007D72D5 /* HCMessageViewController.swift */; };
 		C4D3930025A5AB9A007D72D5 /* HCMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D392FE25A5AB9A007D72D5 /* HCMessageViewModel.swift */; };
@@ -1207,6 +1218,17 @@
 		C4C8EB3D235175660054A295 /* HCHomePreparePregnantInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCHomePreparePregnantInfoCell.swift; sourceTree = "<group>"; };
 		C4C8EB3E235175660054A295 /* HCHomePreparePregnantInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCHomePreparePregnantInfoCell.xib; sourceTree = "<group>"; };
 		C4CED9B32501121B00E3DEE6 /* HCBannerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBannerItemCell.swift; sourceTree = "<group>"; };
+		C4D2159D25CBAAC9006EA646 /* HCTeamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCTeamViewModel.swift; sourceTree = "<group>"; };
+		C4D215A025CBABAE006EA646 /* HCTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCTeamViewController.swift; sourceTree = "<group>"; };
+		C4D215A325CBABCB006EA646 /* HCMyTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMyTeamViewController.swift; sourceTree = "<group>"; };
+		C4D215A625CBABDC006EA646 /* HCTeamContainMeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCTeamContainMeController.swift; sourceTree = "<group>"; };
+		C4D215AA25CBAFD7006EA646 /* HCMyTeamContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCMyTeamContainer.swift; sourceTree = "<group>"; };
+		C4D215AE25CBAFEA006EA646 /* HCTeamContainMeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCTeamContainMeContainer.swift; sourceTree = "<group>"; };
+		C4D215B125CBB571006EA646 /* HCTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCTeam.swift; sourceTree = "<group>"; };
+		C4D215B425CBBB84006EA646 /* HCTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCTeamCell.swift; sourceTree = "<group>"; };
+		C4D215B725CBD490006EA646 /* HCAddTeamMemberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAddTeamMemberController.swift; sourceTree = "<group>"; };
+		C4D215BA25CBD54E006EA646 /* HCAddTeamMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAddTeamMemberViewModel.swift; sourceTree = "<group>"; };
+		C4D215BE25CBD817006EA646 /* HCAddTeamMemberContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCAddTeamMemberContainer.swift; sourceTree = "<group>"; };
 		C4D392F925A5AB7D007D72D5 /* HCServerMsgController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCServerMsgController.swift; sourceTree = "<group>"; };
 		C4D392FA25A5AB7D007D72D5 /* HCMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCMessageViewController.swift; sourceTree = "<group>"; };
 		C4D392FE25A5AB9A007D72D5 /* HCMessageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCMessageViewModel.swift; sourceTree = "<group>"; };
@@ -3089,6 +3111,8 @@
 		C494136C24DE9E2400045749 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C4D2159D25CBAAC9006EA646 /* HCTeamViewModel.swift */,
+				C4D215BA25CBD54E006EA646 /* HCAddTeamMemberViewModel.swift */,
 				C4D392FE25A5AB9A007D72D5 /* HCMessageViewModel.swift */,
 				C4D392FF25A5AB9A007D72D5 /* HCServerMsgViewModel.swift */,
 				C494137424DE9EFC00045749 /* HCHomeViewModel.swift */,
@@ -3104,6 +3128,7 @@
 		C494136D24DE9E2400045749 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C4D2159925CBAA79006EA646 /* Team */,
 				C4D3933125A5C80E007D72D5 /* Verification */,
 				C4D392F825A5AB7D007D72D5 /* Message */,
 				C494137024DE9E3600045749 /* HCHomeViewController.swift */,
@@ -3122,6 +3147,7 @@
 				C40448B024EB7E0100AD1610 /* HCHome.swift */,
 				B8CFBA7D258B447100BD03A1 /* HCServer.swift */,
 				C4D3933B25A5C85D007D72D5 /* HCVerification.swift */,
+				C4D215B125CBB571006EA646 /* HCTeam.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3129,6 +3155,7 @@
 		C494136F24DE9E2400045749 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C4D215A925CBAFBA006EA646 /* Team */,
 				C4D3933625A5C845007D72D5 /* Verification */,
 				C4D3930625A5ABD8007D72D5 /* Message */,
 				B8CFBA53258B3D9300BD03A1 /* Server */,
@@ -3305,6 +3332,28 @@
 				B8BE1AEC23A7E92F00DF472A /* HCSearchHeaderView.swift */,
 			);
 			path = HCSearch;
+			sourceTree = "<group>";
+		};
+		C4D2159925CBAA79006EA646 /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				C4D215A025CBABAE006EA646 /* HCTeamViewController.swift */,
+				C4D215A325CBABCB006EA646 /* HCMyTeamViewController.swift */,
+				C4D215A625CBABDC006EA646 /* HCTeamContainMeController.swift */,
+				C4D215B725CBD490006EA646 /* HCAddTeamMemberController.swift */,
+			);
+			path = Team;
+			sourceTree = "<group>";
+		};
+		C4D215A925CBAFBA006EA646 /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				C4D215AA25CBAFD7006EA646 /* HCMyTeamContainer.swift */,
+				C4D215AE25CBAFEA006EA646 /* HCTeamContainMeContainer.swift */,
+				C4D215BE25CBD817006EA646 /* HCAddTeamMemberContainer.swift */,
+				C4D215B425CBBB84006EA646 /* HCTeamCell.swift */,
+			);
+			path = Team;
 			sourceTree = "<group>";
 		};
 		C4D392F825A5AB7D007D72D5 /* Message */ = {
@@ -4458,6 +4507,7 @@
 				C495755D25A45AF8007ED5F6 /* HCPatientHealthArchivesHeaderView.swift in Sources */,
 				C42B219124ECCB4B00B2A665 /* HCSettingContainer.swift in Sources */,
 				C4D398C725A5DFBE007D72D5 /* ZXPDF417BoundingBox.m in Sources */,
+				C4D215A125CBABAE006EA646 /* HCTeamViewController.swift in Sources */,
 				B892FF9823AB556D00A137C0 /* HCArticle.swift in Sources */,
 				C4D398FA25A5DFBE007D72D5 /* ZXAI013x0x1xDecoder.m in Sources */,
 				C49574C025A45A99007ED5F6 /* HCPatientSearchController.swift in Sources */,
@@ -4498,6 +4548,7 @@
 				C497E93523443DB100328B47 /* FindDoctorHeaderView.swift in Sources */,
 				B8F8FBA823572B5700784442 /* TYData.swift in Sources */,
 				C4F3E87622201D1B008B143C /* H5.swift in Sources */,
+				C4D215AB25CBAFD7006EA646 /* HCMyTeamContainer.swift in Sources */,
 				B8CFBAA9258B713000BD03A1 /* HCPicConsultSettingContainer.swift in Sources */,
 				C4D398C825A5DFBE007D72D5 /* ZXPDF417BarcodeMetadata.m in Sources */,
 				C4D398CF25A5DFBE007D72D5 /* ZXPDF417DetectorResult.m in Sources */,
@@ -4513,6 +4564,7 @@
 				C495756825A45AF8007ED5F6 /* HCConsultDetailPhotoCell.swift in Sources */,
 				C4D3993F25A5DFBE007D72D5 /* ZXGeoParsedResult.m in Sources */,
 				B870E52F238A7CAD0085AFA3 /* HCAskViewController.swift in Sources */,
+				C4D215BF25CBD817006EA646 /* HCAddTeamMemberContainer.swift in Sources */,
 				B8CFBA65258B3E9A00BD03A1 /* HCListDetailIconCell.swift in Sources */,
 				C494137724DEA12B00045749 /* HCHomeHeaderReusableView.swift in Sources */,
 				B8CFBA68258B3E9A00BD03A1 /* HCListSwitchCell.swift in Sources */,
@@ -4581,6 +4633,7 @@
 				B89C2F732515CA29004B5C71 /* HCEditTagContainer.swift in Sources */,
 				C421339B2205B224006C10C4 /* DiskImage.swift in Sources */,
 				C4382BF524E560C2000C00CE /* HCMineViewContainer.swift in Sources */,
+				C4D215AF25CBAFEA006EA646 /* HCTeamContainMeContainer.swift in Sources */,
 				C4D398B625A5DFBE007D72D5 /* ZXReedSolomonEncoder.m in Sources */,
 				C4D3990725A5DFBE007D72D5 /* ZXRSSExpandedDecodedNumeric.m in Sources */,
 				B870E532238A7E1C0085AFA3 /* HCAskCollectionReusableView.swift in Sources */,
@@ -4654,6 +4707,7 @@
 				C4D3930425A5ABBB007D72D5 /* HCMessage.swift in Sources */,
 				C4D3995125A6E0F9007D72D5 /* HCVerificationQueryContainer.swift in Sources */,
 				C421331222056BD1006C10C4 /* BaseNavigationController.swift in Sources */,
+				C4D215B225CBB571006EA646 /* HCTeam.swift in Sources */,
 				C40448A724EAAFB500AD1610 /* HCPersonalCenter.swift in Sources */,
 				C4D3988F25A5DFBE007D72D5 /* ZXMultiFinderPatternFinder.m in Sources */,
 				C4D3989F25A5DFBE007D72D5 /* ZXQRCodeAlignmentPatternFinder.m in Sources */,
@@ -4740,6 +4794,7 @@
 				C4F3B8EE235B355800A6539A /* HCRecordViewModel.swift in Sources */,
 				C4D3933325A5C81F007D72D5 /* HCVerificationController.swift in Sources */,
 				B8BE351922147B4000EF16F1 /* HCEditSynopsisViewController.swift in Sources */,
+				C4D2159E25CBAAC9006EA646 /* HCTeamViewModel.swift in Sources */,
 				B8699401233794A700086A77 /* UIView+Layer.swift in Sources */,
 				B870E54B2390134B0085AFA3 /* TYListMenuData.swift in Sources */,
 				C4D8294125B46AE300697E52 /* HCBrowserTransitioningDelegate.swift in Sources */,
@@ -4865,6 +4920,7 @@
 				C4D398F925A5DFBE007D72D5 /* ZXRSSExpandedBlockParsedResult.m in Sources */,
 				B88497DC24E7F6FB00B91262 /* HCVerifyViewModel.swift in Sources */,
 				B8454ED823A5294C00E88BAD /* HCExchangeReusableView.swift in Sources */,
+				C4D215B525CBBB84006EA646 /* HCTeamCell.swift in Sources */,
 				C4D398B725A5DFBE007D72D5 /* ZXGenericGFPoly.m in Sources */,
 				B86993D32337395800086A77 /* TYButton.swift in Sources */,
 				B870E53D238C27F40085AFA3 /* PatientInfo.swift in Sources */,
@@ -4922,6 +4978,7 @@
 				C4D398C925A5DFBE007D72D5 /* ZXPDF417ScanningDecoder.m in Sources */,
 				C4AB271C24E52AD50095F693 /* HCToolViewModel.swift in Sources */,
 				B8BE35092214738000EF16F1 /* EditUserInfoModel.swift in Sources */,
+				C4D215A425CBABCB006EA646 /* HCMyTeamViewController.swift in Sources */,
 				C4D3986825A5DFBD007D72D5 /* LBXScanVideoZoomView.m in Sources */,
 				C495756125A45AF8007ED5F6 /* HCConsultDetailTextPhotoCell.swift in Sources */,
 				C43F09BE22143B5200910437 /* BaseWebViewController.swift in Sources */,
@@ -5047,6 +5104,7 @@
 				C4D3993825A5DFBE007D72D5 /* ZXAddressBookAUResultParser.m in Sources */,
 				B8DE28282396CB1000D5046D /* HCDoctorInfoViewController.swift in Sources */,
 				B818BB8125149C5A003842A3 /* HCPatientManageContainer.swift in Sources */,
+				C4D215A725CBABDC006EA646 /* HCTeamContainMeController.swift in Sources */,
 				B853CF0A2565746100A3A90D /* HCEditPatientGroupController.swift in Sources */,
 				C494137324DE9EF000045749 /* HCHomeViewContainer.swift in Sources */,
 				C4D3989E25A5DFBE007D72D5 /* ZXQRCodeFinderPattern.m in Sources */,
@@ -5061,6 +5119,7 @@
 				C43F09C3221448B000910437 /* HCNotifications.swift in Sources */,
 				C47B259A25025AC5000B931F /* HCAninotionMenuView.swift in Sources */,
 				B88497E224E7F8E500B91262 /* CRAPI.swift in Sources */,
+				C4D215BB25CBD54E006EA646 /* HCAddTeamMemberViewModel.swift in Sources */,
 				C4382BF624E560C2000C00CE /* HCMineHeaderView.swift in Sources */,
 				C4D3987625A5DFBE007D72D5 /* ZXLuminanceSource.m in Sources */,
 				B80A3877253D67EF00A74F14 /* HCPatientHealthArchivesController.swift in Sources */,
@@ -5103,6 +5162,7 @@
 				B870E543238C38EF0085AFA3 /* HCMenstruationHistoryViewModel.swift in Sources */,
 				C4D3989525A5DFBE007D72D5 /* ZXQRCodeVersion.m in Sources */,
 				C4D3994325A5DFBE007D72D5 /* ZXCalendarParsedResult.m in Sources */,
+				C4D215B825CBD490006EA646 /* HCAddTeamMemberController.swift in Sources */,
 				C4D398DA25A5DFBE007D72D5 /* ZXDataMatrixASCIIEncoder.m in Sources */,
 				C495757925A45B17007ED5F6 /* HCPatientDetailViewModel.swift in Sources */,
 				C495756025A45AF8007ED5F6 /* HCBaseConsultCell.swift in Sources */,

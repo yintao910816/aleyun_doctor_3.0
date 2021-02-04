@@ -108,7 +108,7 @@ extension HCHelper {
                     .asObservable()
             }else {
                 NoticesCenter.alert(message: "未登录")
-                return Observable.error(MapperError.server(message: "未登录"))
+                return Observable.error(MapperError.server(message: "未登录", code: 0))
             }
         }
     }
@@ -144,7 +144,7 @@ extension HCHelper {
                 .asObservable()
         }else {
             NotificationCenter.default.post(name: NotificationName.ChatCall.error, object: "未登录")
-            return Observable.error(MapperError.server(message: "未登录"))
+            return Observable.error(MapperError.server(message: "未登录", code: 0))
         }
     }
 

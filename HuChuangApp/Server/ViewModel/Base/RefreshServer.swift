@@ -264,8 +264,6 @@ class HCListEmptyView: UIView {
     private var remindImgV: UIImageView!
     private var remindLabel: UILabel!
 
-    private var remindText: String = "暂无数据"
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -278,12 +276,20 @@ class HCListEmptyView: UIView {
         remindLabel = UILabel()
         remindLabel.textColor = RGB(154, 159, 180)
         remindLabel.font = .font(fontSize: 14)
-        remindLabel.text = remindText
+        remindLabel.text = "暂无数据"
         remindLabel.textAlignment = .center
         
         addSubview(contentView)
         contentView.addSubview(remindImgV)
         contentView.addSubview(remindLabel)
+    }
+    
+    public func config(image: UIImage?, remindText: String) {
+        remindImgV.image = image
+        remindLabel.text = remindText
+        
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {

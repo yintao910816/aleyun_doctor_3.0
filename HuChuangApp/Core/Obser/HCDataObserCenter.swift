@@ -20,6 +20,8 @@ class HCDataObserCenter {
     /// 分组删除
     public let tagRemoveSuccessSignal = PublishSubject<String>()
 
+    public let addTeamMemberSuccessSignal = PublishSubject<Void>()
+
     init() {
         
     }

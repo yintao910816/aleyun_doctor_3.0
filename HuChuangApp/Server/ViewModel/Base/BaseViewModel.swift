@@ -48,6 +48,24 @@ class BaseViewModel: NSObject {
         
     }
 
+    public func errorInfo(_ error: Swift.Error) ->(Int, String) {
+        
+        if let _error = error as? MapperError {
+            return (_error.code, _error.message)
+        }
+        
+        guard let _error = error as? MoyaError else {
+            return (0, "操作失败")
+        }
+        
+        if let response = _error.response {
+            return (response.statusCode, "\(response.statusCode): \(response.debugDescription)")
+        }else {
+            return (0, _error.errorDescription ?? "请检查网络是否正常")
+        }
+        
+    }
+
     deinit {
         PrintLog("释放了 \(self)")
     }

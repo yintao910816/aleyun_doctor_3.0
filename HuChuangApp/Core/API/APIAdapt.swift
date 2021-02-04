@@ -78,7 +78,8 @@ struct APIAssistance {
              .queryPreciseSchedule,
              .getConsultTemplates,
              .selectInfo,
-             .tokenLogin(_):
+             .tokenLogin(_),
+             .delUserGroup(_):
             return .get
         default:
             return .post

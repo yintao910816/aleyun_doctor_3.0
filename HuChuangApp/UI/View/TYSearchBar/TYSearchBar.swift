@@ -392,4 +392,9 @@ struct TYSearchBarConfig {
         return TYSearchBarConfig.init(isInNav: false, searchPlaceholder: "请输入核销码", tfBackGroundColor: RGB(247, 247, 247), returnKeyType: .done)
     }
 
+    /// 添加组员
+    static public func createAddMemberList() ->TYSearchBarConfig {
+        return TYSearchBarConfig.init(isInNav: false, searchPlaceholder: "请输入姓名", inset: UIEdgeInsets.init(top: 10, left: 15, bottom: 10, right: 15), tfBackGroundColor: RGB(243, 243, 243), tfSearchIcon: UIImage(named: "nav_search_gray"))
+    }
+
 }
