@@ -37,12 +37,7 @@ class HCLoginViewController: BaseViewController {
     override func rxBind() {
         HCHelper.share.enableWchatLoginSubjet
             .subscribe(onNext: { [weak self] in
-                #if DEBUG
-                PrintLog("测试不需要隐藏微信登录")
-                self?.containerView.platformContainer.isHidden = false
-                #else
                 self?.containerView.platformContainer.isHidden = !$0
-                #endif
             })
             .disposed(by: disposeBag)
 

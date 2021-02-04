@@ -11,7 +11,7 @@ import RxSwift
 
 class HCTabBarViewController: UITabBarController {
 
-    private var lastSelectedIndex: Int = NSNotFound
+    private var lastSelectedIndex: Int = 0
     
     private let disposeBag = DisposeBag()
         
@@ -45,6 +45,9 @@ class HCTabBarViewController: UITabBarController {
                 self?.selectedIndex = 1
             })
             .disposed(by: disposeBag)
+        
+        selectedIndex = 2
+        selectedIndex = 0
     }
 
     private func setupTabBar() {
@@ -53,7 +56,7 @@ class HCTabBarViewController: UITabBarController {
         homeNav.tabBarItem.title = "首页"
         homeNav.tabBarItem.image = UIImage(named: "tabBar_home_unselected")
         homeNav.tabBarItem.selectedImage = UIImage(named: "tabBar_home_selected")
-        homeNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
+        homeNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(153, 153, 153)], for: .normal)
         homeNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 
         let consultCtrl = HCConsultListController()
@@ -65,7 +68,7 @@ class HCTabBarViewController: UITabBarController {
         patientNav.tabBarItem.title = "患者"
         patientNav.tabBarItem.image = UIImage(named: "patient_unselected")
         patientNav.tabBarItem.selectedImage = UIImage(named: "patient_selected")
-        patientNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .normal)
+        patientNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(153, 153, 153)], for: .normal)
         patientNav.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : RGB(51, 51, 51)], for: .selected)
 
         viewControllers = [homeNav, consultNav, patientNav]

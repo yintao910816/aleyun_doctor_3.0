@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "形状 7.png",
+      "filename" : "gzt.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "形状 7@2x.png",
+      "filename" : "gzt@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "形状 7@3x.png",
+      "filename" : "gzt@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
