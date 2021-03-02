@@ -74,8 +74,13 @@ class HCDetailTextFiledCollectionCell: HCCollectionCell {
 
 extension HCDetailTextFiledCollectionCell: UITextFieldDelegate {
         
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        responderChangeCallBack?(textField)
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         model.detailTitle = textField.text ?? ""
+        responderChangeCallBack?(nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

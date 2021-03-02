@@ -40,7 +40,7 @@ class HCHomeViewController: BaseViewController, VMNavigation {
                 }else if $0.name == "扫码核销" {
                     navigationController?.pushViewController(HCVerificationController(), animated: true)
                 }else if $0.name == "我的团队" {
-                    navigationController?.pushViewController(HCTeamViewController(), animated: true)
+//                    navigationController?.pushViewController(HCTeamViewController(), animated: true)
                 }
             }else {
                 var url = $0.functionUrl

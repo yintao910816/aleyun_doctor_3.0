@@ -15,7 +15,7 @@ extension UIView {
             return frame.origin.x
         }
         set {
-            frame.origin = .init(x: x, y: frame.origin.y)
+            frame.origin = .init(x: newValue, y: frame.origin.y)
         }
     }
     
@@ -24,7 +24,7 @@ extension UIView {
             return frame.origin.y
         }
         set {
-            frame.origin = .init(x: frame.origin.x, y: y)
+            frame.origin = .init(x: frame.origin.x, y: newValue)
         }
     }
     
@@ -33,7 +33,7 @@ extension UIView {
             return frame.size
         }
         set {
-            frame.size = size
+            frame.size = newValue
         }
     }
     
@@ -42,7 +42,7 @@ extension UIView {
             return frame.origin
         }
         set {
-            frame.origin = origin
+            frame.origin = newValue
         }
     }
     
@@ -51,7 +51,7 @@ extension UIView {
             return frame.size.width
         }
         set {
-            frame.size = CGSize(width: width, height: frame.height)
+            frame.size = CGSize(width: newValue, height: frame.height)
         }
     }
     
@@ -60,7 +60,7 @@ extension UIView {
             return frame.size.height
         }
         set {
-            frame.size = CGSize(width: frame.width, height: height)
+            frame.size = CGSize(width: frame.width, height: newValue)
         }
     }
 }

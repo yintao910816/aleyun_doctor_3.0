@@ -22,6 +22,9 @@ class HCCollectionCell: UICollectionViewCell {
     public var textChangeCallBack: ((String)->())?
     public var didEndEditWithModel:((HCListCellItem)->())?
         
+    public var responderChangeCallBack: ((UIResponder?)->())?
+
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

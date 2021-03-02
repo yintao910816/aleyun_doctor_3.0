@@ -78,8 +78,18 @@ extension HCPicConsultSettingViewModel {
         }
         timeModel.cellIdentifier = HCDetailCollectionCell_identifier
 
+        let unitModel = HCListCellItem()
+        unitModel.title = "咨询回合数"
+        unitModel.shwoArrow = false
+        unitModel.inputSize = .init(width: 190, height: 30)
+        unitModel.cellIdentifier = HCDetailTextFiledCollectionCell_identifier
+        unitModel.detailInputTextAlignment = .right
+        unitModel.keyboardType = .numberPad
+        unitModel.placeholder = "请输入"
+        unitModel.detailTitle = "\(model.unit)"
+
         
-        datasource.value = [switchModel, smsSwitchModel, priceModel, timeModel]
+        datasource.value = [switchModel, smsSwitchModel, priceModel, timeModel, unitModel]
     }
 }
 
@@ -108,7 +118,11 @@ extension HCPicConsultSettingViewModel {
 
         tempParams["price"] = floatPrice
         tempParams["type"] = 1
-        tempParams["unit"] = model.unit
+        if let unit = Int(datasource.value.last?.detailTitle ?? model.unit) {
+            tempParams["unit"] = unit
+        }else {
+            tempParams["unit"] = model.unit
+        }
 
         hud.noticeLoading()
         let postParams = ["ltzx": tempParams]

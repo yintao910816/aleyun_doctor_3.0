@@ -18,6 +18,8 @@ class HCPicConsultSettingContainer: UIView {
     public var cellDidSelected: ((IndexPath)->())?
     public var closeCallBack: (()->())?
     public let updateConsultUserStatusSubject = PublishSubject<Void>()
+    
+    private var currentResponder: UIResponder?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,6 +36,7 @@ class HCPicConsultSettingContainer: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.keyboardDismissMode = .onDrag
         
         actionView = HCConsultSettingBottomActionView(frame: .init(x: 0, y: height - 50, width: width, height: 50))
         actionView.actionCallBack = { [unowned self] in
@@ -53,6 +56,17 @@ class HCPicConsultSettingContainer: UIView {
                                 forCellWithReuseIdentifier: HCDetailTextFiledCollectionCell_identifier)
         collectionView.register(HCDetailCollectionCell.self,
                                 forCellWithReuseIdentifier: HCDetailCollectionCell_identifier)
+        collectionView.register(HCPicConsultSettingUnitFooterView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                withReuseIdentifier: "footer")
+        
+        let tapGes = UITapGestureRecognizer(target: self, action: #selector(tapAction(tapGes:)))
+        tapGes.delegate = self
+        collectionView.addGestureRecognizer(tapGes)
+    }
+    
+    @objc private func tapAction(tapGes: UITapGestureRecognizer) {
+        currentResponder?.resignFirstResponder()
     }
     
     required init?(coder: NSCoder) {
@@ -73,6 +87,13 @@ class HCPicConsultSettingContainer: UIView {
     }
 }
 
+extension HCPicConsultSettingContainer: UIGestureRecognizerDelegate {
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return self.currentResponder != nil
+    }
+}
+
 extension HCPicConsultSettingContainer: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -83,10 +104,50 @@ extension HCPicConsultSettingContainer: UICollectionViewDataSource, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: datasource[indexPath.row].cellIdentifier,
                                                       for: indexPath) as! HCCollectionCell
         cell.model = datasource[indexPath.row]
+        cell.responderChangeCallBack = { [weak self] in self?.currentResponder = $0 }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         cellDidSelected?(indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionFooter {
+            return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
+                                                                   withReuseIdentifier: "footer",
+                                                                   for: indexPath)
+        }
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return .init(width: collectionView.width, height: 30)
+    }
+}
+
+class HCPicConsultSettingUnitFooterView: UICollectionReusableView {
+    
+    private var remindLabel: UILabel!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        remindLabel = UILabel()
+        remindLabel.textAlignment = .right
+        remindLabel.font = .font(fontSize: 12, fontName: .PingFRegular)
+        remindLabel.textColor = RGB(40, 151, 248)
+        remindLabel.text = "建议3回合"
+        addSubview(remindLabel)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        remindLabel.frame = .init(x: width - 15 - 60, y: (height - 14) / 2, width: 60, height: 14)
     }
 }
