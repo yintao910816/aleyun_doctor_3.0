@@ -63,6 +63,8 @@ class HCHomeViewController: BaseViewController, VMNavigation {
                 navigationController?.pushViewController(HCAccountSettingViewController(), animated: true)
             case .newOrder:
                 NotificationCenter.default.post(name: NotificationName.UserInterface.consultList, object: nil)
+            case .systemSetting:
+                navigationController?.pushViewController(HCSettingViewController(), animated: true)
             }
         }
 

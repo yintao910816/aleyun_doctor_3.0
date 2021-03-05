@@ -81,7 +81,8 @@ extension HCHomeViewModel {
                 
                 data.3.unreplyNum = data.4
                 
-                self.functionsMenuSignal.value = (data.0, tempArr, data.2, 0, HCHelper.share.userInfoModel ?? HCUserModel(), data.3)
+                let menuDatas = data.0.filter({ $0.name != "设置" })
+                self.functionsMenuSignal.value = (menuDatas, tempArr, data.2, 0, HCHelper.share.userInfoModel ?? HCUserModel(), data.3)
                 return self.requestRecomCms()
             })
             .subscribe(onNext: { [unowned self] data in

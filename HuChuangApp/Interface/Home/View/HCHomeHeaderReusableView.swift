@@ -13,10 +13,11 @@ enum HCHomeHeaderClickedMode: Int {
     case message   = 101
     case setting   = 102
     case newOrder  = 103
+    case systemSetting = 104
 }
 
 public let HCHomeHeaderReusableView_identifier = "HCHomeHeaderReusableView"
-public let HCHomeHeaderReusableView_height: CGFloat = 310
+public let HCHomeHeaderReusableView_height: CGFloat = 330
 
 class HCHomeHeaderReusableView: UICollectionReusableView {
    
@@ -30,7 +31,8 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
     private var userCardButton: UIButton!
     // 消息
     private var messageButton: UIButton!
-    
+    private var settingButton: UIButton!
+
     // 工作台
     private var jobCornerBgView: UIView!
     private var jobShadowBgView: UIView!
@@ -78,7 +80,22 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
     
         colorBgView.frame = bounds
         
-        avatarBgView.frame = .init(x: 25, y: 80, width: 68, height: 68)
+        var top: CGFloat = 30
+        if #available(iOS 11.0, *) {
+            top = safeAreaInsets.top
+        }
+        
+        messageButton.frame = .init(x: width - 5 - 39,
+                                    y: top,
+                                    width: 39,
+                                    height: 41)
+
+        settingButton.frame = .init(x: messageButton.x - 5 - 40,
+                                    y: messageButton.y + 1.5,
+                                    width: 40,
+                                    height: 38)
+
+        avatarBgView.frame = .init(x: 25, y: messageButton.frame.maxY + 20, width: 68, height: 68)
         avatar.frame = .init(x: 4, y: 4, width: 60, height: 60)
 
         let maxNameWidth: CGFloat = width - avatarBgView.frame.maxX - 12 - 15
@@ -90,12 +107,7 @@ class HCHomeHeaderReusableView: UICollectionReusableView {
                                      y: briefLabel.frame.maxY + 5,
                                      width: 55,
                                      height: 24)
-        
-        messageButton.frame = .init(x: userCardButton.frame.maxX + 5,
-                                    y: userCardButton.y,
-                                    width: 55,
-                                    height: 24)
-        
+                
         jobShadowBgView.frame = .init(x: 15,
                                       y: userCardButton.frame.maxY + 20,
                                       width: width - 30,
@@ -187,16 +199,16 @@ extension HCHomeHeaderReusableView {
         userCardButton.tag = HCHomeHeaderClickedMode.qrCode.rawValue
         
         messageButton = UIButton(type: .custom)
-        messageButton.setImage(UIImage(named: "home_message"), for: .normal)
-        messageButton.setTitle("消息", for: .normal)
-        messageButton.titleLabel?.font = .font(fontSize: 10, fontName: .PingFSemibold)
-        messageButton.setTitleColor(RGB(79, 130, 247), for: .normal)
-        messageButton.layer.cornerRadius = 12
-        messageButton.clipsToBounds = true
-        messageButton.layer.borderWidth = 0.5
-        messageButton.layer.borderColor = RGB(79, 130, 247).cgColor
+        messageButton.setImage(UIImage(named: "home_message_gray"), for: .normal)
         messageButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
         messageButton.tag = HCHomeHeaderClickedMode.message.rawValue
+        messageButton.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+
+        settingButton = UIButton(type: .custom)
+        settingButton.setImage(UIImage(named: "home_setting"), for: .normal)
+        settingButton.addTarget(self, action: #selector(buttonAction(button:)), for: .touchUpInside)
+        settingButton.tag = HCHomeHeaderClickedMode.systemSetting.rawValue
+        settingButton.contentEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
 
         jobShadowBgView = UIView()
         jobShadowBgView.backgroundColor = .clear
@@ -239,6 +251,7 @@ extension HCHomeHeaderReusableView {
         colorBgView.addSubview(briefLabel)
         colorBgView.addSubview(userCardButton)
         colorBgView.addSubview(messageButton)
+        colorBgView.addSubview(settingButton)
 
         colorBgView.addSubview(jobShadowBgView)
         colorBgView.addSubview(jobCornerBgView)
