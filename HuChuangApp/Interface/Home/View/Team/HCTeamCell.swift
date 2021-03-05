@@ -29,6 +29,7 @@ class HCTeamCell: UITableViewCell {
     public var mode: HCTeamCellMode = .myTeam {
         didSet {
             if mode == .myTeam {
+                detailIcon.isHidden = true
                 detailIcon.setImage(UIImage(named: "cell_right_arrow"), for: .normal)
             }else if mode == .teamContainMe {
                 markLabel.isHidden = false

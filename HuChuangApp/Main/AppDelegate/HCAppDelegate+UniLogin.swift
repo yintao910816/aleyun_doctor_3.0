@@ -195,11 +195,7 @@ extension HCAppDelegate {
                 
                 let icon = UIImageView(frame: .init(x: subTitleLabel.frame.maxX + 5, y: subTitleLabel.y, width: 18, height: 15))
                 icon.image = UIImage(named: "login_title_icon")
-                      
-                if !HCHelper.share.enableWchatLogin {
-                    return
-                }
-                
+                                      
                 let platformContainer = UIView()
                 platformContainer.backgroundColor = .white
                 
@@ -223,13 +219,16 @@ extension HCAppDelegate {
                 customView.addSubview(titleLabel)
                 customView.addSubview(subTitleLabel)
                 customView.addSubview(icon)
-                customView.addSubview(platformContainer)
-                platformContainer.addSubview(leftLine)
-                platformContainer.addSubview(platformRemindLabel)
-                platformContainer.addSubview(rightLine)
-                platformContainer.addSubview(wchatLoginButton)
-                platformContainer.addSubview(phoneLoginButton)
 
+                if HCHelper.share.enableWchatLogin {
+                    customView.addSubview(platformContainer)
+                    platformContainer.addSubview(leftLine)
+                    platformContainer.addSubview(platformRemindLabel)
+                    platformContainer.addSubview(rightLine)
+                    platformContainer.addSubview(wchatLoginButton)
+                    platformContainer.addSubview(phoneLoginButton)
+                }
+                
                 platformContainer.frame = .init(x: 40, y: customView.height - 85 - 50, width: customView.width - 80, height: 85)
 
                 let tempSize = platformRemindLabel.sizeThatFits(.init(width: CGFloat(MAXFLOAT), height: 20))
