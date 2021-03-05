@@ -195,7 +195,11 @@ extension HCAppDelegate {
                 
                 let icon = UIImageView(frame: .init(x: subTitleLabel.frame.maxX + 5, y: subTitleLabel.y, width: 18, height: 15))
                 icon.image = UIImage(named: "login_title_icon")
-                                
+                      
+                if !HCHelper.share.enableWchatLogin {
+                    return
+                }
+                
                 let platformContainer = UIView()
                 platformContainer.backgroundColor = .white
                 
